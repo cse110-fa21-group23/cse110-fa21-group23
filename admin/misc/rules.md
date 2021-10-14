@@ -1,4 +1,5 @@
 # Go-Gitters Team Contract
+![Team name picture](Team_name.png)
 ## Team Go-Gitters!
 - Amitesh Sharma
 - Christopher Kroon
@@ -10,6 +11,7 @@
 - Suditi Bhatt
 - Them Dang
 - Tiancheng(Felix) Ma
+
 
 ## Weekly Meetings
 - Mondays 12pm to 1 pm (Zoom with Hema)
@@ -68,3 +70,6 @@ Signature
 Date: 
 
 <br/>
+<br/>
+
+![Team logo](Logo.png)
