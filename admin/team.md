@@ -15,7 +15,7 @@
     * Github Page:https://github.com/humanmanwhoisnotdead/CSE-110-Repository
 * David Suzuki
     * Hello there, I am David Suzuki a 4th year as well studying computer engineering. In my free time I like playing volleyball, reading, playing video games, and eating good food.
-    * Github Page:https://github.com/Dsuzuki126/GitHubPagesProject/tree/favorite-language-branch
+    * Github Page:https://github.com/Dsuzuki126/GitHubPagesProject.git
 * Flynn Sui
     * Hi I'm Flynn Sui, a 3rd year computer science major. I love sports both basketball and soccer and my favorite teams are Warriors and Barcelona. I also love to eat delicious food and playing video games lol! Hope to have a fun quarter with you all!
     * Github Page:https://github.com/ZiyanSui/CSE110-Lab1
