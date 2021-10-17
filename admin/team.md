@@ -18,7 +18,7 @@
     * Github Page:https://github.com/Dsuzuki126
 * Flynn Sui
     * Hi I'm Flynn Sui, a 3rd year computer science major. I love sports both basketball and soccer and my favorite teams are Warriors and Barcelona. I also love to eat delicious food and playing video games lol! Hope to have a fun quarter with you all!
-    * Github Page:https://github.com/ZiyanSui
+    * Github Page:https://github.com/ZiyanSui/CSE110-Lab1
 * Karina Sanchez
     * Github Page:https://github.com/karinasanchez04
     * Hiii! Im Karina and im a 4th year CS major. In my free time, I like to play volleyball, paint and watch the Dodgers!
