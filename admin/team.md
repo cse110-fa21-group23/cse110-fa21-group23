@@ -30,7 +30,7 @@
     * Github Page:https://github.com/nhilikeknee/cse110-lab01/tree/markdown
 * Suditi Bhatt
     * Hi, I'm Suditi Bhatt and I'm a third year computer engineering major! I like to dance and play the piano!
-    * Github Page:https://tritonengineer.github.io/Github-Pages-Project/
+    * Github Page:https://github.com/tritonengineer/Github-Pages-Project
 * Them Dang
     * Hi, I am Them Dang and I am a 4th year cs major. I like video games, especially Starcraft 2, archery, hiking, and watching movies/anime.
     * Github Page:https://github.com/dnthem/myPage
