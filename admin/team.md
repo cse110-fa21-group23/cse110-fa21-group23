@@ -24,7 +24,7 @@
     * Hiii! Im Karina and im a 4th year CS major. In my free time, I like to play volleyball, paint and watch the Dodgers!
 * Kevin Lee
     * Hey everyone! My name is Kevin Lee, a 4th year computer science major. I aspire to be a video game designer because I love to play games and I have always wanted to be on the side of developing them as well.
-    * Github Page:https://github.com/kjl001/Lab-1/tree/user-page
+    * Github Page:https://kjl001.github.io/Lab-1/
 * Nhi Nguyen
     * Hi everyone! I’m Nhi (like “knee”) and I’m currently a 3rd year CS major. I like to draw, jump rope, and nap whenever I get the chance. I also really enjoying front-end work but hope to eventually become a full-stack developer in the future :)
     * Github Page:https://github.com/nhilikeknee/cse110-lab01/tree/markdown
