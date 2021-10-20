@@ -1,0 +1,104 @@
+﻿Date: October 18, 2021
+
+Group 23 Mentor Meeting
+
+Attendance: Them, Kevin, David, Amitesh, Flynn, Tiancheng, Karina, Nhi
+
+Location: Zoom/CSE Room 3217
+
+Meeting Time: 12PM-1PM
+
+- Group assignments
+  - Brainstorming
+    - Brainstorm for 2 hours, give a lot of ideas
+    - Do it soon
+  - Starting pitch
+- Create a Slack bot that can collect all the updates of the project
+- Project timelines
+  - Week 4 and half of week 5 will be the design phase, Phase 1
+    - Where we will define our project
+  - Next phase, create a minimum viable product
+    - Week 6, week 7
+  - Create extensions and features to the product, enhancements, testing, documentation
+    - Week 8, 9, 10
+  - Final week, present work to rest of class
+  - Just an overall timeline
+- Grading
+  - Not only based on the software product, but also based on communication and group work
+    - How fast we communicate
+  - Quality of notes and repo
+  - Quality of the project
+    - For a good grade, make something that stands out, a selling point
+- Create unique ideas for your recipe project
+  - Don’t focus only on the cooking aspect, add other unique aspects as well
+- Discussions
+  - Two types, one over zoom
+    - Hema will be holding the discussion zoom meeting with all her groups
+  - Other type will be in-person
+    - We will be notified in advance
+    - Will be giving out quizzes in discussion
+- Project pitch
+  - Discuss with Hema
+  - Come prepared with a pitch document
+    - 16 slides
+  - Come prepared with ideas next week(5)
+  - Tell purpose of product
+    - Who is it defined for
+    - System diagrams
+    - Wireframe diagrams
+    - Assignment has details
+  - We are trying to pitch our product to Hema
+- Brainstorming
+  - Who are we making the product for?
+  - What are we trying to solve?
+  - Do we want to make this for a specific set of people or are we creating for the general people?
+- Questions to ask ourselves about the product
+  - Who is it for?
+  - What are they using it for
+  - When will they use it?
+    - Cook immediately and eat immediately?
+    - Store it and use it later?
+  - Where
+  - How
+  - Why?
+- Make the product user friendly
+- Classify each feature in different buckets
+  - Must to put in in MVP
+  - Extension, good to have
+  - Nice to have, but will take a lot of time
+- What are we looking for when searching recipes?
+  - Is it a seasonal food?
+  - How easy is it?
+  - How much time will it take to make?
+  - Cost?
+  - What ingredients does it use?
+  - What dietary restrictions does it have?
+  - What is our target?
+- Start thinking about where we will be getting our recipes from
+  - There are recipes on the net, where will be requiring from
+  - Or will we be creating the recipes ourselves
+- API for recipes
+  - <https://developer.edamam.com/?gclid=Cj0KCQjwtrSLBhCLARIsACh6Rmiel2G4TitNj3iRH820rH-L2_y3UQc8MMu0FfY20auQV5QmnuToP3MaArXSEALw_wcB>
+- It will be a CRUD app
+  - Create, read, update, delete
+- Is it fine to take recipes from the internet
+  - Yes, it is fine, we don’t need to create recipes from scratch
+  - Are we going to pre-load the site with recipes or will we be having a search bars for users to search in other places
+- Brainstorm ideas
+  - For next meeting, we will be talking about our ideas
+- Why do users need to use our application? Instead of just Googling it?
+  - Ease of access, google gives too much info
+    - Too much information is overwhelming
+  - A website can have tags so the user can search for specific recipes
+    - Advanced filtering
+    - Will we pre-define tags or will users create these tags?
+- Editing recipes and create a profile
+- Favorite recipes and save them for later
+- Deletion: we can remove some recipes from our search
+- Miro
+  - A brainstorming app, putting ideas together
+  - https://miro.com/welcome/dWR5cllQWUx3SjF1akxoQUZLbkRmWHo3N2EzSWVkUjM4YjcyVExqeE45VmxtMGdSU2VyVUdoVVJkSTR4NUlZYnwzMDc0NDU3MzY1OTM0NTk5NDg5?invite\_link\_id=947118318046
+- Figma
+  - Wireframe app
+- Brainstorm format
+  - Have a problem, who is our user
