@@ -1,5 +1,5 @@
-Date: November 01, 2021
-Group 23 Mentor Meeting
+Date: November 01, 2021 <br/>
+Group 23 Mentor Meeting <br/>
 Attendance:
 - Christopher
 - Nhi
@@ -10,8 +10,8 @@ Attendance:
 - Amitesh
 - Them
 - Karin - RVSPed that she wouldn't be able to make it
-
-Location: Zoom/CSE Room 3217
+<br/>
+Location: Zoom/CSE Room 3217 <br/>
 Meeting Time: 12PM-1PM
 
 ## Todos 
