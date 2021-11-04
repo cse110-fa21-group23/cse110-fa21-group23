@@ -1,13 +1,20 @@
-
+  :root {
+    --primary: #FF7A00; /* primary color, used for most text */
+    --background-color: #FFF8F1;
+    --orange1: #FFECDB;
+    --dark-grey: #2E2E2E;
+  }
+    
+  
   * {
     font-family: 'Poppins', sans-serif;
-    color: #FF7A00; /*dark orange*/
+    color: var(--primary);
     margin: 0;
     padding: 0;
   }
 
   body {
-    background-color: #FFF8F1; /*background color*/
+    background-color: var(--background-color);
   }
 
   .center-hori {
@@ -18,12 +25,11 @@
     width: 100%;
     position: relative;
     display: flex;
-
   }
   
   .searchQuery {
     width: 100%;
-    border: 2px solid #FF7A00; /*dark orange*/
+    border: 2px solid var(--primary);
     padding: 10px;
     height: 20px;
     border-radius: 25px;
@@ -31,7 +37,7 @@
   }
   
   .searchQuery:focus{
-    color: #FF7A00; /*dark orange*/
+    color: var(--primary);
   }
   
   .searchButton {
@@ -43,7 +49,7 @@
     border: 0px transparent;
     background: transparent;
     text-align: center;
-    color: #FFF8F1; /*background color*/
+    color: var(--background-color); /*background color*/
     border-radius: 25px;
     cursor: pointer;
     font-size: 20px;
