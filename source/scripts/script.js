@@ -40,6 +40,7 @@ function showSettings() {
     hideHome();
     hideCookbooks();
     const settings = document.getElementById("settings-container");
+    settings.style.transform = "translate(100%)";
     // Get the list of restrictions from local storage
     const getDietaryRestrictions = JSON.parse(localStorage.getItem("dietaryRestrictions"));
     const dietaryContainerElements = document.getElementById('dietary-container').elements;
@@ -51,7 +52,6 @@ function showSettings() {
             dietaryRestriction.checked = true;
         }
     }
-    settings.style.transform = "translate(100%)";
 }
 
 function hideSettings() {
