@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <html lang="en">
 
 <head>
@@ -25,14 +26,16 @@
         <div class="middle">
             <div class="search">
                 <input id="searchQuery" class="searchQuery" type="text" name="search" placeholder="ex: lasagna">
-                <button type="submit" class="searchButton" onclick="search()">
+                <button type="submit" class="searchButton" onclick="search()" id="search-button">
                     <img src="./img/icons/search.svg" alt="search icon" width="25" height="25">
                 </button>
             </div>
         </div>
         <!--this should be the area for the recipe cards  -->
+        <script src="myscript.js"> </script>
+        <a href="" id="sourceLink"></a>
         <div id="recipe-cards" >
-
+            
 
         </div>
     </main>

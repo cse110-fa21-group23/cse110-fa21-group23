@@ -18,35 +18,33 @@ const recipes = [];
 const recipeData = {};
 
 async function init() {
-    // fetch the recipes and wait for them to load
-    let fetchSuccessful = await fetchRecipes();
-    // console.log(fetchSuccessful)
-    // if they didn't successfully load, quit the function
-    if (!fetchSuccessful) {
-      console.log('Recipe fetch unsuccessful');
-      return;
-    };
     
+    getrecipes("chicken");
     // Add the first three recipe cards to the page
-    createRecipeCards();
+    // createRecipeCards();
     // // Make the "Show more" button functional
     // bindShowMore();
 }
-async function fetchRecipes() {
-    return new Promise((resolve, reject) => {
 
-      
-    //   for (let i = 0; i < recipes.length; i++) {
-        
-    //     fetch(recipes[i])
-    //     .then(response => response.json())
-    //     .then(data => { recipeData["recipe" + i] = data; if (Object.keys(recipeData).length == recipes.length) {
-    //       resolve(true); }  })
-    //     .catch( error => reject(false));
-    //   }
-            
-    });
+function getsource(id) {
+    $.ajax({url: "https://api.spoonacular.com/recipes/" + id + "/information?apiKey=4aeba8c5a7a8438990fc4902505558f8", success:function(res) {
+        document.getElementById("sourceLink").innerHTML=res.sourceUrl;
+        document.getElementById("sourceLink").href=res.sourceUrl;
+     }})
 }
+
+// document.getElementById("search-button").addEventListener("onclick", getrecipes);
+function getrecipes(q) {
+    $.ajax({
+        url: "https://api.spoonacular.com/recipes/search?apiKey=4aeba8c5a7a8438990fc4902505558f8&number=1&query=" + q, success: function(res) {
+            document.getElementById("recipe-cards").innerHTML="<h1>" + res.results[0].title + "</h1><br><img src=" + res.baseUri+res.results[0].image +"/>"
+        }
+    })
+}
+
+
+
+
 function createRecipeCards() {
     let recipeCard1 = document.createElement("recipe-card");
     recipeCard1.data = recipeData["recipe"+1];
