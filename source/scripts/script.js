@@ -22,10 +22,15 @@ function search() {
         console.log(data);
         let id = data.results[0].id;
 
-        fetch(`https://api.spoonacular.com/recipes/${id}/ingredientWidget.json?apiKey=${API_KEY}`).then(res => res.json())
-        .then(data => {
-            console.log(data);
-        })
+        // convert data into simplified object containing the following keys: title, diets, and image
+        // add the simplified object to recipe-card-results
+
+        // fetch(`https://api.spoonacular.com/recipes/${id}/ingredientWidget.json?apiKey=${API_KEY}`).then(res => res.json())
+        // .then(data => {
+        //     console.log(data);
+        // })
+    }).catch((err) =>{ 
+        console.log(err);
     })
 
 }
