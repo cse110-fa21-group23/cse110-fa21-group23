@@ -62,3 +62,88 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
+
+   /* tap mode button */
+   .center-hori > button{
+    border: 3px solid var(--primary);
+    padding: 10px;
+    background-color: inherit;
+    font-weight: bold;
+  }
+  .center-hori > button:hover{
+    border-color: white;
+    cursor: pointer;
+  }
+
+
+  /* checkbox style */
+
+  input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    position: relative;
+    -moz-appearance:100;
+    -webkit-appearance:100;
+    -o-appearance:100;
+    outline: 3px solid var(--primary);
+  }
+
+  input[type="checkbox"]:hover{
+    cursor: pointer;
+  }
+
+  /*-----------------------------------*/
+
+  /*-- custom checkbox style --*/
+
+  input[class="ingredients-custom-checkbox"] + label,
+  input[class="ingredients-custom-checkbox"] + label::before
+  {
+      display: inline-block;
+      vertical-align: middle;
+      
+  }
+  input[class="ingredients-custom-checkbox"]
+  {
+      opacity: 0;
+      position: absolute;
+  }
+    
+  input[class="ingredients-custom-checkbox"] + label::before
+  {
+      content: "";
+      width: 15px;
+      height: 15px;
+      margin: 0 4px 0 0;
+      line-height: 14px;
+      text-align: center;
+      border: solid 3px var(--primary);
+  }
+  
+    input[class="ingredients-custom-checkbox"]:checked + label::before
+  {
+      content: "\2714"; /* tick sign */
+      font-size: 14px;
+  }
+
+  label{
+    color: black;
+  }
+  /*-----------------------------------*/
+  
+  
+  
+  #instructions > ol > li{
+    color: black;
+  }
+
+  #ingredients-list > div > button{
+    border: none;
+    background-color: inherit;
+    font: inherit;
+  }
+  #ingredients-list > div > button:hover{
+    cursor: pointer;
+    background: #eee;
+  }
