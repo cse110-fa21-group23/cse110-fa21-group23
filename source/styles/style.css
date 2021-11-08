@@ -161,6 +161,7 @@
 
   }
 
+<<<<<<< HEAD
   .menuItem:active {
     color: var(--orange2);
   }
@@ -198,6 +199,9 @@
     font-size: 1.5rem;
     font-weight: 300;
     padding: 5px;
+=======
+  /*-- custom checkbox style --*/
+>>>>>>> 3a24581 (update checkbox, css, and recipe page js)
 
   }
   #update-button {
