@@ -76,25 +76,6 @@
     cursor: pointer;
   }
 
-
-  /* checkbox style */
-
-  input[type="checkbox"] {
-    width: 15px;
-    height: 15px;
-    position: relative;
-    -moz-appearance:100;
-    -webkit-appearance:100;
-    -o-appearance:100;
-    outline: 3px solid var(--primary);
-  }
-
-  input[type="checkbox"]:hover{
-    cursor: pointer;
-  }
-
-  /*-----------------------------------*/
-
   /*-- custom checkbox style --*/
 
   input[class="ingredients-custom-checkbox"] + label,
