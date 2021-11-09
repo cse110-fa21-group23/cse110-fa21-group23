@@ -17,25 +17,25 @@
     <script src="./scripts/script.js"></script>
     <!-- Category Card Custom Element -->
     <script src="./scripts/CategoryCard.js" type="module"></script>
+    
+    <script src="./scripts/RecipeCard.js" type="module"></script>
 </head>
 
 <body>
     <h1 class="center-hori">Team 23 Project </h1>
     <main>
+        <div class="container">
         <!-- Search Here -->
-        <div class="middle">
-            <div class="search">
-                <input id="searchQuery" class="searchQuery" type="text" name="search" placeholder="ex: lasagna">
-                <button type="submit" class="searchButton" onclick="search()" id="search-button">
-                    <img src="./img/icons/search.svg" alt="search icon" width="25" height="25">
-                </button>
+            <div class="middle">
+                <div class="search">
+                    <input id="searchQuery" class="searchQuery" type="text" name="search" placeholder="ex: lasagna">
+                    <button type="submit" class="searchButton" onclick="search()" id="search-button">
+                        <img src="./img/icons/search.svg" alt="search icon" width="25" height="25">
+                    </button>
+                </div>
             </div>
-        </div>
         <!--this should be the area for the recipe cards  -->
-        <script src="myscript.js"> </script>
-        <a href="" id="sourceLink"></a>
-        <div id="recipe-cards" >
-            
+            <div id="recipe-cards" ></div>
 
         </div>
     </main>

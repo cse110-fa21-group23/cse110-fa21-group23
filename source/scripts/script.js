@@ -1,53 +1,66 @@
 //on enter for search, call search function
-document.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-        search();
-    }
-});
+const API_KEY = '4d936c811cda46879d4749def6bb36a1';
+const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&instructionsRequired=true`;
+const recipes = [];
+var recipeData = {};
+
+window.addEventListener('DOMContentLoaded', init);
+
+
+async function init() {
+    document.addEventListener('keydown', async function (event) {
+        if (event.key === 'Enter') {
+            let searchSuccessful = await search();
+            createRecipeCards();
+        }
+    });
+   
+    // // Make the "Show more" button functional
+    // bindShowMore();
+    
+}
 
 
 function search() {
     //TODO: remove this alert, implement real search
-    let searchQuery = document.getElementById('searchQuery').value;
-    alert(searchQuery);
+    return new Promise((resolve, reject) => {
+        let searchQuery = document.getElementById('searchQuery').value;
+        alert(searchQuery);
 
+        fetch(`${url}&query=${searchQuery}`).then(res => res.json()).then(data => {
+            console.log(data);
+            recipeData = data.results;
+            console.log(recipeData);
+            // let id = data.results[0].id;
+
+            // convert data into simplified object containing the following keys: title, diets, and image
+            // add the simplified object to recipe-card-results
+
+            // fetch(`https://api.spoonacular.com/recipes/${id}/ingredientWidget.json?apiKey=${API_KEY}`).then(res => res.json())
+            // .then(data => {
+            //     console.log(data);
+            // })
+            resolve(true);
+        }).catch((err) =>{ 
+            console.log(err);
+            reject(false);
+        })
+    });
 }
-
-window.addEventListener('DOMContentLoaded', init);
-const recipes = [];
-const recipeData = {};
-
-async function init() {
-    
-    getrecipes("chicken");
-    // Add the first three recipe cards to the page
-    // createRecipeCards();
-    // // Make the "Show more" button functional
-    // bindShowMore();
-}
-
-function getsource(id) {
-    $.ajax({url: "https://api.spoonacular.com/recipes/" + id + "/information?apiKey=4aeba8c5a7a8438990fc4902505558f8", success:function(res) {
-        document.getElementById("sourceLink").innerHTML=res.sourceUrl;
-        document.getElementById("sourceLink").href=res.sourceUrl;
-     }})
-}
-
-// document.getElementById("search-button").addEventListener("onclick", getrecipes);
-function getrecipes(q) {
-    $.ajax({
-        url: "https://api.spoonacular.com/recipes/search?apiKey=4aeba8c5a7a8438990fc4902505558f8&number=1&query=" + q, success: function(res) {
-            document.getElementById("recipe-cards").innerHTML="<h1>" + res.results[0].title + "</h1><br><img src=" + res.baseUri+res.results[0].image +"/>"
-        }
-    })
-}
-
-
 
 
 function createRecipeCards() {
     let recipeCard1 = document.createElement("recipe-card");
-    recipeCard1.data = recipeData["recipe"+1];
-    
+    recipeCard1.data = recipeData[0];
+    console.log(recipeData[0]);
+    // console.log(recipeCard1.data["title"]);
     document.getElementById("recipe-cards").appendChild(recipeCard1);
-} 
+}
+
+
+
+
+
+
+
+

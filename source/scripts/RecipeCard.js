@@ -5,7 +5,7 @@ class RecipeCard extends HTMLElement {
     }
     set data(data) {
         const styleElement = document.createElement("style");
-        const styles = `{
+        const styles = `
             * {
                 font-family: 'Poppins', sans-serif;
                 color: var(--primary);
@@ -14,6 +14,7 @@ class RecipeCard extends HTMLElement {
             }
 
             article {
+                
                 align-items: center;
                 border: 1px;
                 border-radius: 8px;
@@ -44,25 +45,32 @@ class RecipeCard extends HTMLElement {
                 padding-top: 4px;
             }
 
-        }`; 
+        `; 
         styleElement.innerHTML = styles;
         const card = document.createElement('article');
         
-        this.shadowRoot.appendChild(card);
-        this.shadowRoot.appendChild(styleElem);
-
+ 
         let recipeImage = document.createElement("img");
         //need to use the api to get the recipe's image src
-        this.card.appendChild(recipeImage);
+        let image = data["image"];
+        
+        recipeImage.setAttribute("src", image);
+
+        card.appendChild(recipeImage);
 
         let titleElement = document.createElement("p");
         //need to use the api to get the actual title for the recipe
-        let titleText = "testTitle";
+        let titleText = data["title"];
         titleElement.innerHTML = titleText;
-        this.card.appendChild(titleElement);
+        card.appendChild(titleElement);
 
         let tagsDiv = document.createElement("div");
         //need to use the api to get a list of the tags of the dish
         
+        this.shadowRoot.appendChild(card);
+        this.shadowRoot.appendChild(styleElement);
+
     }
 }
+
+customElements.define("recipe-card", RecipeCard);
