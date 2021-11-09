@@ -2,7 +2,6 @@
     --primary: #FF7A00; /* primary color, used for most text */
     --background-color: #FFF8F1;
     --orange1: #FFECDB;
-    --orange2: #FF9534;
     --dark-grey: #2E2E2E;
   }
     
@@ -18,62 +17,17 @@
     background-color: var(--background-color);
   }
 
-  .center { /*use as container */
-    justify-content: center;
-    display: flex; 
-  }
-
   .center-hori {
     text-align: center;
   }
-    
-  .middle{
-    width: 40%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
 
-  .heading {
-   text-align: center;
-   margin-top: 70px;
-   font-weight: 300;
-   margin-bottom: 2rem;
-  }
-
-
-  h1 {
-    font-size: 2.5rem;
-  }
-
-  h2 {
-    font-size: 2rem;
-    font-weight: 200;
-  }
-
-  #app-name {
-    cursor: pointer;
-    padding-top: 15px;
-    z-index: 100;
-    position: absolute;
-    /* centers absolute div */
-    left: 0; 
-    right: 0; 
-    margin-left: auto; 
-    margin-right: auto; 
-    width: max-content; /* Need a specific value to work */
-    font-size: 2rem;
-  }
-
-  /* SEARCH ===========================================================  */
   .search {
     width: 100%;
     position: relative;
     display: flex;
   }
   
-  .search-query {
+  .searchQuery {
     width: 100%;
     border: 2px solid var(--primary);
     padding: 10px;
@@ -82,7 +36,7 @@
     outline: none;
   }
   
-  .search-query:focus{
+  .searchQuery:focus{
     color: var(--primary);
   }
   
@@ -100,143 +54,11 @@
     cursor: pointer;
     font-size: 20px;
   }
-  /* end of SEARCH ======================================================*/
   
-  /* MENU ===============================================================*/
-  #menu-container {
-    width: 50%;
-    max-width: 300px; /* limit size for desktops */
-    position:absolute; /* need this for z-index to work */
-    z-index: 100; /* puts menu on top of everything */
-  }
-  /* for hamburger menu animation */
-  #menu-icon {
-    left: 15px;
-    top: 15px;
-    display: inline-block;
-    cursor: pointer;
-    z-index: 200;
+  .middle{
+    width: 40%;
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
-  
-  .bar1, .bar2, .bar3 {
-    width: 35px;
-    height: 5px;
-    background-color: var(--primary);
-    margin: 6px 0;
-    transition: 0.4s;
-  }
-  
-  /* Rotate first bar */
-  .change .bar1 {
-    -webkit-transform: rotate(-45deg) translate(-9px, 6px) ;
-    transform: rotate(-45deg) translate(-9px, 6px) ;
-    background-color: var(--orange1);
-  }
-  
-  /* Fade out the second bar */
-  .change .bar2 {
-    opacity: 0;
-  }
-  
-  /* Rotate last bar */
-  .change .bar3 {
-    -webkit-transform: rotate(45deg) translate(-8px, -8px) ;
-    transform: rotate(45deg) translate(-8px, -8px) ;
-    background-color: var(--orange1);
-  }
-  .menu-item-container {
-    position: absolute;
-    top: 80px;
-    left: 15px;
-    display: flex;
-    flex-direction: column;
-  }
-  .menuItem {
-    padding-top: .5rem;
-    color: var(--orange1);
-    font-size: 1.5rem;
-    text-decoration: none;
-    cursor: pointer;
-
-  }
-
-<<<<<<< HEAD
-  .menuItem:active {
-    color: var(--orange2);
-  }
-
-
-  #slide-over-menu {
-    background-color: var(--primary);
-    overflow: hidden;
-    width: 100%;
-    height: 100vh; /* full height of app */
-    position: absolute;
-    top: 0;
-    left: -100%;
-    z-index: 0;
-    transition: all 0.3s ease-out;
-  }
-  /* end of MENU ============================================================= */
-  
-  /* SETTINGS ================================================================ */
-  #settings-container {
-    width: 100%;
-    position:absolute; /* need this for z-index to work */
-    z-index: 99; /* puts menu on top of everything */
-    overflow: hidden;
-    top: 0;
-    left: -100%;
-    text-align: center;
-  }
-
-  #dietary-container {
-    text-align: left;
-  }
-
-  label {
-    font-size: 1.5rem;
-    font-weight: 300;
-    padding: 5px;
-=======
-  /*-- custom checkbox style --*/
->>>>>>> 3a24581 (update checkbox, css, and recipe page js)
-
-  }
-  #update-button {
-    margin-top: 40px;
-    border-width: 5px;
-    border-color: var(--primary);
-    background-color: var(--primary);
-    color: var(--primary);
-    padding: 10px 25px; /* top&bottom, left&right */
-    border-style: solid;
-    font-weight: 600;
-    cursor: pointer;
-    background-color: transparent;
-    margin-top: 1.5rem;
-    padding: 0.5rem;
-  }
-
-  #update-button:hover {
-    background-color: var(--primary);
-    color: var(--background-color);
-    transition: .2s ease-in-out;
-  }
-
-  /* TODO: style checkboxes */
-  /* end of SETTINGS ========================================================= */
-
-  /* COOKBOOKS/LISTS ================================================================ */
-  #settings-container {
-    width: 100%;
-    position:absolute; /* need this for z-index to work */
-    z-index: 99; /* puts menu on top of everything */
-    overflow: hidden;
-    top: 0;
-    left: -100%;
-    text-align: center;
-  }
-    /* end of COOKBOOKS/LISTS ========================================================= */
-  
