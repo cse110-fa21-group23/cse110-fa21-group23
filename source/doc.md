@@ -2,10 +2,12 @@ This file includes changes make from one another
 
 # Recipe Page
 
-Date: Tuesday, 11/9/2021
+Date: Tuesday, 11/9/2021 - updated at 11:11 am
    
     Name: Them Dang
     - File edited: index.html, recipe-template.html, style.css, recipe-template.css, and RecipePage.js
+
+    - Notes: need to look at the style for the ingredient list
     
     index.html:
         - moved tap mode out of <main> and added hidden class.
@@ -24,4 +26,13 @@ Date: Tuesday, 11/9/2021
         - edited bookmark:
              padding-left: 50px; -> margin-left : 50px;
              Padding extends the bookmar, margin doesn't
+        - edit ingredients-list
     
+    recipe-template.html:
+        - removed extra <div> inside ingredients list
+        - removed extra <div class="middle">
+
+    RecipePage.js:
+        - added basic structure.
+    
+

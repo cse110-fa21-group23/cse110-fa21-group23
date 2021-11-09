@@ -158,7 +158,6 @@
   label{
     color: black;
   }
-
   /*-----------------------------------*/
   
   #instructions > ol > li{
@@ -166,12 +165,13 @@
   }
 
   #ingredients-list{
-      text-align: center;
+      /* text-align: center; */
       font-style: normal;
       font-weight: normal;
+
   }
 
-  #ingredients-list > div > button{
+  #ingredients-list > button{
     border: none;
     background-color: inherit;
     font: inherit;
@@ -181,7 +181,7 @@
       padding: 20px;
   }
 
-  #ingredients-list > div > button:hover{
+  #ingredients-list> button:hover{
     cursor: pointer;
     background: #eee;
   }
