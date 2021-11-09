@@ -18,18 +18,70 @@
     <script src="./scripts/CategoryCard.js" type="module"></script>
 </head>
 
-<body>
-    <h1 class="center-hori">Team 23 Project </h1>
+<body onload="init()">
+
+
+    <h1 id="app-name" onclick="showHome()">Team 23 Project </h1>
     <main>
-        <!-- Search Here -->
+        <!-- Hamburger Menu -->
+        <div id="menu-container">
+            <div id="menu-icon" onclick="toggleMenu()">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+            <div id="slide-over-menu" class="slide-over-menu">
+                <div class="menu-item-container">
+                    <a class="menuItem" onclick="showCookbooks(),toggleMenu()">Cookbooks</a>
+                    <a class="menuItem" onclick="showSettings(), toggleMenu()">Settings</a>
+                    <a class=" menuItem" onclick="showHome(), toggleMenu()">Home</a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Search -->
+        <!-- Add Category Cards under -->
         <div class="middle">
-            <div class="search">
-                <input id="searchQuery" class="searchQuery" type="text" name="search" placeholder="ex: lasagna">
+            <div id="search" class="search">
+                <input id="search-query" class="search-query" type="text" name="search" placeholder="ex: lasagna">
                 <button type="submit" class="searchButton" onclick="search()">
                     <img src="./img/icons/search.svg" alt="search icon" width="25" height="25">
                 </button>
             </div>
         </div>
+
+        <!-- Settings -->
+        <div class="center">
+            <div id="settings-container">
+                <h1 class="heading">Settings <h1>
+                        <h2 class="subheading">Dietary</h2>
+                        <div class="center">
+                            <form id="dietary-container">
+                                <input type="checkbox" id="vegan" name="vegan" value="vegan">
+                                <label for="vegan"> Vegan</label><br>
+                                <input type="checkbox" id="vegetarian" name="vegetarian" value="vegetarian">
+                                <label for="vegetarian"> Vegetarian</label><br>
+                                <input type="checkbox" id="halal" name="halal" value="halal">
+                                <label for="halal"> Halal</label><br>
+                                <input type="checkbox" id="gluten-free" name="gluten-free" value="gluten-free">
+                                <label for="gluten-free"> Gluten-free</label><br>
+                                <input type="checkbox" id="kosher" name="kosher" value="kosher">
+                                <label for="kosher"> Kosher</label><br>
+                                <input type="checkbox" id="fish-allergy" name="fish-allergy" value="fish-allergy">
+                                <label for="fish-allergy"> Fish allergy</label><br>
+                            </form>
+                        </div>
+                        <button id="update-button" onclick="updateSettings()"> Update</button>
+
+            </div>
+        </div>
+        <!-- Cookbooks (Lists) -->
+        <div id="cookbook-container">
+            <h1 class="heading">Saved Cookbooks</h1>
+        </div>
+
+
     </main>
 </body>
 
