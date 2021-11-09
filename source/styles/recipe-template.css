@@ -85,6 +85,10 @@
     cursor: pointer;
   }
 
+  .hidden {
+    display : none;
+  }
+
   .header{
       text-align: center;
   }
@@ -101,7 +105,8 @@
 
   .header #bookmark{
     text-align: center;
-    padding-left: 50px;
+    /* padding-left: 50px; */
+    margin-left : 50px;
     /*float: right;*/
   }
 
@@ -119,14 +124,22 @@
       vertical-align: middle;
       
   }
+
   input[class="ingredients-custom-checkbox"]
   {
-      opacity: 0;
+      opacity: 0; /*hide the actual checkbox*/
       position: absolute;
+      transform: scale(2);
+  }
+
+  input[class="ingredients-custom-checkbox"]:hover
+  {
+    cursor: pointer;
   }
     
   input[class="ingredients-custom-checkbox"] + label::before
   {
+    /*custom new checkbox*/
       content: "";
       width: 15px;
       height: 15px;
@@ -139,15 +152,14 @@
     input[class="ingredients-custom-checkbox"]:checked + label::before
   {
       content: "\2714"; /* tick sign */
-      font-size: 14px;
+      font-size: 15px;
   }
 
   label{
     color: black;
   }
+
   /*-----------------------------------*/
-  
-  
   
   #instructions > ol > li{
     color: black;

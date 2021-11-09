@@ -76,55 +76,7 @@
     cursor: pointer;
   }
 
-  /*-- custom checkbox style --*/
-
-  input[class="ingredients-custom-checkbox"] + label,
-  input[class="ingredients-custom-checkbox"] + label::before
-  {
-      display: inline-block;
-      vertical-align: middle;
-      
+  .hidden {
+    display : none;
   }
-  input[class="ingredients-custom-checkbox"]
-  {
-      opacity: 0;
-      position: absolute;
-  }
-    
-  input[class="ingredients-custom-checkbox"] + label::before
-  {
-      content: "";
-      width: 15px;
-      height: 15px;
-      margin: 0 4px 0 0;
-      line-height: 14px;
-      text-align: center;
-      border: solid 3px var(--primary);
-  }
-  
-    input[class="ingredients-custom-checkbox"]:checked + label::before
-  {
-      content: "\2714"; /* tick sign */
-      font-size: 14px;
-  }
-
-  label{
-    color: black;
-  }
-  /*-----------------------------------*/
-  
-  
-  
-  #instructions > ol > li{
-    color: black;
-  }
-
-  #ingredients-list > div > button{
-    border: none;
-    background-color: inherit;
-    font: inherit;
-  }
-  #ingredients-list > div > button:hover{
-    cursor: pointer;
-    background: #eee;
-  }
+ 
