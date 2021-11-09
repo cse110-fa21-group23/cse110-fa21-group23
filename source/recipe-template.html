@@ -12,7 +12,7 @@
         rel="stylesheet">
 
     <!-- Main Stylesheets & Scripts -->
-    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/recipe-template.css" />
 
     <script src="./scripts/script.js"></script>
     <!-- Category Card Custom Element -->
@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <h1 class="center-hori">Team 23 Project</h1>
+    <h1 class="app-name">Team 23 Project</h1>
     <main>
         <!-- Search Here -->
         <!-- <div class="middle" >
@@ -36,12 +36,11 @@
             <button id="tap-mode">Tap Mode Off</button>
         </div>
         <!-- Recipe Page -->
+        <header class="header">
+            <h1>Cheesesteak Sliders</h1>
+            <input id="bookmark" type="image" src="img/icons/bookmark-empty.svg" name="bookmark" width="56" height="56">
+        </header>
         <div class="middle">
-            <header>
-                <h1>Cheesesteak Sliders</h1>
-                <input id="bookmark" type="image" src="img/icons/bookmark-empty.svg" name="bookmark" width="25" height="25">
-
-            </header>
             <main>
                 <div id="ingredients-list">
                     <h3>INGREDIENTS</h3>
@@ -59,7 +58,7 @@
                         <label>1/2 green peppers, sliced</label> <br>
                         <input type="checkbox" class="ingredients-custom-checkbox"/>
                         <label>1/2 green peppers, sliced</label> <br>
-                        <button>CLEAR CHECKBOXES</button>
+                        <button class="clear-checkboxes">CLEAR CHECKBOXES</button>
                     </div>
                 </div>
 
