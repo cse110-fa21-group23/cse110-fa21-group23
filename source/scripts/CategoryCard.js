@@ -2,14 +2,14 @@ class CategoryCard extends HTMLElement {
 
     constructor() {
         super();
-        this.attachShadow({ mode: 'open' });
+        this.attachShadow({ mode: "open" });
         
     }
 
     //getting the data to set the image and the name of the category card.
     set data(data){
   
-        const styleElem = document.createElement('style');
+        const styleElem = document.createElement("style");
         const styles = `
         * {
          font-family: 'Poppins', sans-serif;
@@ -20,7 +20,7 @@ class CategoryCard extends HTMLElement {
 
         article:hover {
          transform: translateY(-10px);
-         box-shadow: 5px 10px #888888;
+         box-shadow: 5px 5px 10px #888888;
 
         }
 
@@ -33,6 +33,7 @@ class CategoryCard extends HTMLElement {
          width: 180px;
          margin: 10px;
          cursor: pointer;
+         background-color: var(--orange1);
         }
 
         article > img {
@@ -88,19 +89,19 @@ class CategoryCard extends HTMLElement {
 
     styleElem.innerHTML = styles;
 
-    const card = document.createElement('article');
+    const card = document.createElement("article");
 
     var pic = data[1]; //allows us to get the picture from the data array passed in
 
     //creating the image element for the card
-    var img = document.createElement('img');
-    img.setAttribute('src', pic);
+    var img = document.createElement("img");
+    img.setAttribute("src", pic);
 
     var name = data[0]; //allows us to get the name from the data array passed in
     const titleText = name;
 
     //creating the title element for the card
-    const title = document.createElement('p');
+    const title = document.createElement("p");
     title.innerHTML = titleText;
 
     //appending the image and the title to the card element
@@ -113,4 +114,4 @@ class CategoryCard extends HTMLElement {
 }
 
 //defining the custom element category-card using the Category Card class 
-customElements.define('category-card', CategoryCard);
+customElements.define("category-card", CategoryCard);

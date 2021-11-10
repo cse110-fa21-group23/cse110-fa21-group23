@@ -6,7 +6,7 @@ const images = ["./img/foodPics/indian.jpeg", "./img/foodPics/vegan.jpeg", "./im
 "./img/foodPics/gluten-free.jpeg", "./img/foodPics/italian.jpeg", "./img/foodPics/japanese.jpeg", "./img/foodPics/american.jpeg", "./img/foodPics/vegetarian.jpeg", 
 "./img/foodPics/thai.jpeg", "./img/foodPics/chinese.jpeg", "./img/foodPics/korean.jpeg", "./img/foodPics/vietnamese.jpeg", "./img/foodPics/african.jpeg", "./img/foodPics/middleEastern.jpeg"]
 
-window.addEventListener('DOMContentLoaded', init);
+window.addEventListener("DOMContentLoaded", init);
 
 //displays category cards when page is loaded
 async function init() {
@@ -47,12 +47,12 @@ function createCategoryCards(){
     //creating 6 category cards from the random values in the randNums array
     for(let i = 0; i<randNums.length; i++){
 
-        const categoryCard = document.createElement('category-card'); // creating category card
+        const categoryCard = document.createElement("category-card"); // creating category card
         let arr = [categories[randNums[i]], images[randNums[i]]]; // array holding the category and corresponding image
         categoryCard.data = arr; //key: name of category, value: picture of category
 
         
-        document.querySelector('.category-cards--wrapper').appendChild(categoryCard);    
+        document.querySelector(".category-cards--wrapper").appendChild(categoryCard);    
         
         bindCategoryCards(categoryCard, categories[randNums[i]]);
     }
@@ -62,9 +62,9 @@ function createCategoryCards(){
 
 //function to bind the click event to the category card to initiate the search
 function bindCategoryCards(categoryCard, categoryName) {
-    categoryCard.addEventListener("click", e =>{
+    categoryCard.addEventListener("click", (e) =>{
         let searchQuery = categoryName;
-        document.getElementById('searchQuery').value = searchQuery;
+        document.getElementById("searchQuery").value = searchQuery;
         search();
 
     })
