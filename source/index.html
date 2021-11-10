@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <html lang="en">
 
 <head>
@@ -16,15 +17,16 @@
     <script src="./scripts/script.js"></script>
     <!-- Category Card Custom Element -->
     <script src="./scripts/CategoryCard.js" type="module"></script>
+    <!-- Recipe Card Custom Element -->
+    <script src="./scripts/RecipeCard.js" type="module"></script>
 </head>
 
 <body onload="init()">
 
-
     <h1 id="app-name" onclick="showHome()">Team 23 Project </h1>
     <main>
-        <!-- Hamburger Menu -->
-        <div id="menu-container">
+        <!-- Hamburger Menu Section-->
+        <section id="menu-container">
             <div id="menu-icon" onclick="toggleMenu()">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
@@ -34,26 +36,37 @@
                 <div class="menu-item-container">
                     <a class="menuItem" onclick="showCookbooks(),toggleMenu()">Cookbooks</a>
                     <a class="menuItem" onclick="showSettings(), toggleMenu()">Settings</a>
-                    <a class=" menuItem" onclick="showHome(), toggleMenu()">Home</a>
+                    <a class="menuItem" onclick="showHome(), toggleMenu()">Home</a>
                 </div>
+            </div>
+        </section>
 
+        <!-- Search Section -->
+        <div class="box">
+            <div>
+                <div id="search-container">
+                    <div id="search" class="search">
+                        <input id="search-query" class="search-query" type="text" name="search"
+                            placeholder="ex: lasagna">
+                        <button type="submit" class="searchButton" onclick="search()">
+                            <img src="./img/icons/search.svg" alt="search icon" width="25" height="25">
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <section id="category-card-container">
+                    <!--populate this section with the category cards using createCategoryCards()  -->
+                </section>
+                <section id="recipe-card-container">
+                    <!--populate this section with the recipe cards using createRecipeCards()  -->
+                </section>
             </div>
         </div>
 
-        <!-- Search -->
-        <!-- Add Category Cards under -->
-        <div class="middle">
-            <div id="search" class="search">
-                <input id="search-query" class="search-query" type="text" name="search" placeholder="ex: lasagna">
-                <button type="submit" class="searchButton" onclick="search()">
-                    <img src="./img/icons/search.svg" alt="search icon" width="25" height="25">
-                </button>
-            </div>
-        </div>
-
-        <!-- Settings -->
+        <!-- Settings Section-->
         <div class="center">
-            <div id="settings-container">
+            <section id="settings-container">
                 <h1 class="heading">Settings <h1>
                         <h2 class="subheading">Dietary</h2>
                         <div class="center">
@@ -73,16 +86,16 @@
                             </form>
                         </div>
                         <button id="update-button" onclick="updateSettings()"> Update</button>
-
-            </div>
+            </section>
         </div>
-        <!-- Cookbooks (Lists) -->
-        <div id="cookbook-container">
+        <!-- Cookbooks (Lists) Section -->
+        <section id="cookbook-container">
             <h1 class="heading">Saved Cookbooks</h1>
-        </div>
-
-
+            <!--populate this section with the cookbooks-->
+            <!-- within each cookbook will be a list of recipes -->
+        </section>
     </main>
+    <footer></footer>
 </body>
 
 </html>
