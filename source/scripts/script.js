@@ -23,6 +23,7 @@ document.addEventListener('keydown', function (event) {
 
 function search() {
     //TODO: remove this alert, implement real search
+    hideCategoryCards();
     let searchQuery = document.getElementById('searchQuery').value;
     alert(searchQuery);
 
@@ -64,9 +65,14 @@ function bindCategoryCards(categoryCard, categoryName) {
     categoryCard.addEventListener("click", e =>{
         let searchQuery = categoryName;
         document.getElementById('searchQuery').value = searchQuery;
-        alert('searching for ' + searchQuery + ' dishes')
-        //search();
+        search();
 
     })
+}
+
+//hides category cards when they are not needed on the screen
+function hideCategoryCards(){
+    const categoryCards = document.getElementById("category-wrapper");
+    categoryCards.style.visibility = "hidden";
 }
 
