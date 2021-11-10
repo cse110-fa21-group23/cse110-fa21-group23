@@ -153,8 +153,8 @@ class RecipePage extends HTMLElement{
         // });
 
         const clearButton = document.createElement("button");
-        clearButton.classList.add("clear-checkboxex");
         clearButton.textContent = "CLEAR CHECKBOXES";
+        clearButton.onclick = "clearCheckBoxes()";
         ingredientsListDiv.appendChild(clearButton);
 
 

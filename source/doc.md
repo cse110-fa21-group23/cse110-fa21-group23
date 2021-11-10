@@ -35,4 +35,12 @@ Date: Tuesday, 11/9/2021 - updated at 11:11 am
     RecipePage.js:
         - added basic structure.
     
+Date: Wenesday, 11/10/2021 - updated at 12:12pm
+
+    Name: Them Dang;
+    - File edited: recipe-template.html, and RecipePage.js, scripts.js
+    - Notes: 
+      - Added function for clear checkboxes button and updated it on RecipePage.
+      - Removed id for clear-checkboxes button - don't think it is necsessary.
+  
 

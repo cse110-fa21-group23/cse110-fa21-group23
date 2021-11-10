@@ -13,3 +13,8 @@ function search() {
 
 }
 
+
+function clearCheckBoxes(){
+    document.querySelectorAll("input[type='checkbox']")
+        .forEach(e => e.checked = false);
+}
