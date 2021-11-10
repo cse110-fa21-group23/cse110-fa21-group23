@@ -1,15 +1,10 @@
 
-//object of general categories for category cards in the form of key, value pairs
-//key: name of category, value: picture for that category
- const categories = {
-    "Indian": "./img/foodPics/indian.jpeg",
-    "Vegan": "./img/foodPics/vegan.jpeg",
-    "Mexican": "./img/foodPics/mexican.jpeg",
-    "Gluten-Free": "./img/foodPics/gluten-free.jpeg",
-    "Italian" :"./img/foodPics/italian.jpeg",
-    "Meditteranean": "./img/foodPics/mediterranean.jpeg"
-} 
-
+//arrays holding category names and images
+const categories = ["Indian", "Vegan", "Mexican", "Gluten-Free", "Italian", "Japanese", "American", "Vegetarian", "Thai", "Chinese", "Korean",
+"Vietnamese", "African", "Middle Eastern"];
+const images = ["./img/foodPics/indian.jpeg", "./img/foodPics/vegan.jpeg", "./img/foodPics/mexican.jpeg",
+"./img/foodPics/gluten-free.jpeg", "./img/foodPics/italian.jpeg", "./img/foodPics/japanese.jpeg", "./img/foodPics/american.jpeg", "./img/foodPics/vegetarian.jpeg", 
+"./img/foodPics/thai.jpeg", "./img/foodPics/chinese.jpeg", "./img/foodPics/korean.jpeg", "./img/foodPics/vietnamese.jpeg", "./img/foodPics/african.jpeg", "./img/foodPics/middleEastern.jpeg"]
 
 window.addEventListener('DOMContentLoaded', init);
 
@@ -33,26 +28,38 @@ function search() {
 
 }
 
-//this function creates the category cards from the categories object above
+//this function creates 6 category cards from the categories and images arrays above using random 
+//values so everytime the user refreshes, there will be a new set of categories
 function createCategoryCards(){
 
-    //iterating through each category from categories object
-     for (let [key, value] of Object.entries(categories)){
-        
+    /* creating an array of length 6 to hold random non-repeating values that are in
+        range of all categories in the categories array */
+    const randNums = []; // array to hold the random non repeating values 
+    for (let i = 0; i < 6; i++){
+        let rand = Math.floor(Math.random() * categories.length);
+        while(randNums.indexOf(rand) !== -1){
+            rand = Math.floor(Math.random() * categories.length);
+        }
+        randNums.push(rand);
+    }
+
+    //creating 6 category cards from the random values in the randNums array
+    for(let i = 0; i<randNums.length; i++){
+
         const categoryCard = document.createElement('category-card'); // creating category card
-        categoryCard.data = [key,value]; //key: name of category, value: picture of category
+        let arr = [categories[randNums[i]], images[randNums[i]]]; // array holding the category and corresponding image
+        categoryCard.data = arr; //key: name of category, value: picture of category
 
         
         document.querySelector('.category-cards--wrapper').appendChild(categoryCard);    
         
-        bindCategoryCards(categoryCard, key);
-    } 
-    
+        bindCategoryCards(categoryCard, categories[randNums[i]]);
+    }
 
 
 }
 
-
+//function to bind the click event to the category card to initiate the search
 function bindCategoryCards(categoryCard, categoryName) {
     categoryCard.addEventListener("click", e =>{
         let searchQuery = categoryName;
