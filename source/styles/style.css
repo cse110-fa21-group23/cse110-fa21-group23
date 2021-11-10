@@ -190,9 +190,23 @@
     text-align: center;
   }
 
-  #dietary-container {
-    text-align: left;
+  .intolerances-subheading, .diet-subheading {
+    margin-bottom: 50px;
   }
+
+  .intolerances-subheading {
+    margin-top: 50px;
+  }
+
+  #intolerances-container li, #dietary-container li {
+    display: block;
+    width: 33.3%;
+    float: left;
+  }
+
+  /* #dietary-container {
+    text-align: left;
+  } */
 
   label {
     font-size: 1.5rem;
@@ -200,6 +214,7 @@
     padding: 5px;
 
   }
+
   #update-button {
     margin-top: 40px;
     border-width: 5px;
@@ -213,6 +228,7 @@
     background-color: transparent;
     margin-top: 1.5rem;
     padding: 0.5rem;
+    margin-top: 50px;
   }
 
   #update-button:hover {

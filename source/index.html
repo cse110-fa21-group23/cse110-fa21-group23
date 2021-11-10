@@ -32,9 +32,9 @@
             </div>
             <div id="slide-over-menu" class="slide-over-menu">
                 <div class="menu-item-container">
+                    <a class=" menuItem" onclick="showHome(), toggleMenu()">Home</a>
                     <a class="menuItem" onclick="showCookbooks(),toggleMenu()">Cookbooks</a>
                     <a class="menuItem" onclick="showSettings(), toggleMenu()">Settings</a>
-                    <a class=" menuItem" onclick="showHome(), toggleMenu()">Home</a>
                 </div>
 
             </div>
@@ -55,25 +55,60 @@
         <div class="center">
             <div id="settings-container">
                 <h1 class="heading">Settings <h1>
-                        <h2 class="subheading">Dietary</h2>
+                        <h2 class="diet-subheading">Dietary</h2>
                         <div class="center">
                             <form id="dietary-container">
-                                <input type="checkbox" id="vegan" name="vegan" value="vegan">
-                                <label for="vegan"> Vegan</label><br>
-                                <input type="checkbox" id="vegetarian" name="vegetarian" value="vegetarian">
-                                <label for="vegetarian"> Vegetarian</label><br>
-                                <input type="checkbox" id="halal" name="halal" value="halal">
-                                <label for="halal"> Halal</label><br>
-                                <input type="checkbox" id="gluten-free" name="gluten-free" value="gluten-free">
-                                <label for="gluten-free"> Gluten-free</label><br>
-                                <input type="checkbox" id="kosher" name="kosher" value="kosher">
-                                <label for="kosher"> Kosher</label><br>
-                                <input type="checkbox" id="fish-allergy" name="fish-allergy" value="fish-allergy">
-                                <label for="fish-allergy"> Fish allergy</label><br>
+                                <li><input type="radio" id="vegan" name="dietary-restriction" value="vegan">
+                                <label for="vegan"> Vegan</label></li>
+                                <li><input type="radio" id="vegetarian" name="dietary-restriction" value="vegetarian">
+                                <label for="vegetarian"> Vegetarian</label></li>
+                                <li><input type="radio" id="ketogenic" name="dietary-restriction" value="ketogenic">
+                                <label for="ketogenic"> Ketogenic</label></li>
+                                <li><input type="radio" id="gluten-free" name="dietary-restriction" value="gluten free">
+                                <label for="gluten-free"> Gluten-free</label></li>
+                                <li><input type="radio" id="lacto-vegetarian" name="dietary-restriction" value="lacto vegetarian">
+                                <label for="lacto-vegetarian"> Lacto-Vegetarian</label></li>
+                                <li><input type="radio" id="ovo-vegetarian" name="dietary-restriction" value="ovo vegetarian">
+                                <label for="ovo-vegetarian">Ovo-Vegetarian</label></li>
+                                <li><input type="radio" id="pescetarian" name="dietary-restriction" value="pescetarian">
+                                <label for="pescetarian">Pescetarian</label></li>
+                                <li><input type="radio" id="paleo" name="dietary-restriction" value="paleo">
+                                <label for="paleo">Paleo</label></li>
+                                <li><input type="radio" id="primal" name="dietary-restriction" value="primal">
+                                <label for="primal">Primal</label></li>
+                            </form>
+                        </div>
+
+                        <h2 class="intolerances-subheading">Intolerances</h2>
+                        <div class="center">
+                            <form id="intolerances-container">
+                                <li><input type="checkbox" id="diary" name="diary" value="diary">
+                                <label for="diary"> Diary</label></li>
+                                <li><input type="checkbox" id="egg" name="egg" value="egg">
+                                <label for="egg"> Egg</label></li>
+                                <li><input type="checkbox" id="gluten" name="gluten" value="glutent">
+                                <label for="gluten"> Gluten</label></li>
+                                <li><input type="checkbox" id="grian" name="grain" value="grain">
+                                <label for="grain"> Grain</label></li>
+                                <li><input type="checkbox" id="peanut" name="peanut" value="peanut">
+                                <label for="peanut"> Peanut</label></li>
+                                <li><input type="checkbox" id="seafood" name="seafood" value="seafood">
+                                <label for="seafood">Seafood</label></li>
+                                <li><input type="checkbox" id="sesame" name="sesame" value="sesame">
+                                <label for="sesame">Sesame</label></li>
+                                <li><input type="checkbox" id="shellfish" name="shellfish" value="shellfish">
+                                <label for="shellfish">Shellfish</label></li>
+                                <li><input type="checkbox" id="soy" name="soy" value="soy">
+                                <label for="soy">Soy</label></li>
+                                <li><input type="checkbox" id="sulfite" name="sulfite" value="sulfite">
+                                <label for="sulfite">Sulfite</label></li>
+                                <li><input type="checkbox" id="tree-nut" name="tree-nut" value="tree nut">
+                                <label for="tree-nut">Tree nut</label></li>
+                                <li><input type="checkbox" id="wheat" name="wheat" value="wheat">
+                                <label for="wheat">Wheat</label></li>
                             </form>
                         </div>
                         <button id="update-button" onclick="updateSettings()"> Update</button>
-
             </div>
         </div>
         <!-- Cookbooks (Lists) -->
