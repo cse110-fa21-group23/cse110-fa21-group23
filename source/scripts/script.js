@@ -4,17 +4,18 @@ const API_KEY = 'c8f83bb3a9af4355b12de10250b24c88';
 // API_KEY1: 4d936c811cda46879d4749def6bb36a1
 const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&instructionsRequired=true`;
 const recipes = [];
-var recipeData = {};
+let recipeData = {};
 
 window.addEventListener('DOMContentLoaded', init);
-
 
 async function init() {
     showHome();
     document.addEventListener('keydown', async function (event) {
         if (event.key === 'Enter') {
             let searchSuccessful = await search();
-            createRecipeCards();
+            if(searchSuccessful) {
+                createRecipeCards();
+            }
         }
     });
 
@@ -29,9 +30,12 @@ function search() {
     // console.log(searchQuery);
     // console.log(localStorage.getItem("dietaryRestrictions"));
     //hideCategoryCards();
+    const recipeCardContainer = document.getElementById('recipe-card-container');
+    recipeCardContainer.innerHTML = '';
     showRecipeCards();
     return new Promise((resolve, reject) => {
         let searchQuery = document.getElementById('search-query').value;
+        recipeData = {};
         //alert(searchQuery);
         fetch(`${url}&query=${searchQuery}`).then(res => res.json()).then(data => {
             console.log(data);
@@ -178,6 +182,7 @@ function createRecipeCards() {
 
     const recipeCardContainer = document.getElementById('recipe-card-container');
     for (let i = 0; i < recipeData.length; i++) {
+        console.log(recipeData[i]);
         var element = document.createElement('recipe-card');
         element.data = recipeData[i];
         recipeCardContainer.appendChild(element);
