@@ -2,6 +2,10 @@ This file includes changes make from one another
 
 # Recipe Page
 
+Date: Monday, 11/8/2021
+    Name: Suditi Bhatt
+    -Filed edited: recipe-template.css
+
 Date: Tuesday, 11/9/2021 - updated at 11:11 am
    
     Name: Them Dang
@@ -43,5 +47,11 @@ Date: Wenesday, 11/10/2021 - updated at 4:20pm
       - Added function for clear checkboxes button and updated it on RecipePage.
       - Removed id for clear-checkboxes button - don't think it is necsessary.
       - Updated functions for tap mode and bookmark.
+
+    Name: Suditi Bhatt
+    -File edited: recipte-template.html, recipe-template.css
+    -Notes:
+        - Fixing clear checkboxes button.
+        - Added the id for clear-checkboxes back for now to recenter it.
   
 
