@@ -43,5 +43,7 @@ Date: Wenesday, 11/10/2021 - updated at 4:20pm
       - Added function for clear checkboxes button and updated it on RecipePage.
       - Removed id for clear-checkboxes button - don't think it is necsessary.
       - Updated functions for tap mode and bookmark.
+
+      - Renamed the variable main to container in RecipePage.js to avoid confusion with mainDiv.
   
 

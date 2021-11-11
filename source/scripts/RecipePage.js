@@ -15,7 +15,7 @@ class RecipePage extends HTMLElement{
             return;
         }
         const style = document.createElement("style");
-        const main = document.createElement("main");
+        const container = document.createElement("main");
 
         style.innerHTML = `
         .header #bookmark{
@@ -160,10 +160,10 @@ class RecipePage extends HTMLElement{
         // instructionDiv.appendChild(list);
         mainDiv.appendChild(ingredientsListDiv);
         mainDiv.appendChild(instructionDiv);
-        main.appendChild(header);
-        main.appendChild(mainDiv);
+        container.appendChild(header);
+        container.appendChild(mainDiv);
 
-        this.shadowRoot.append(style, main);
+        this.shadowRoot.append(style, container);
     }
 }
 
