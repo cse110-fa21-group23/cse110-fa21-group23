@@ -1,10 +1,7 @@
 //How to use:
 //After DATA is initialized automatically:
 //inside init() function, under "await fetchRecipes();":
-//call getId(DATA) to get recipe id
-//call getTitle(DATA) to get recipe title
-//call getImage(DATA) to get recipe image url
-//call getTag(DATA[0]['results'][0]) to get first recipe's diets/tags
+//call getRecipeCardInfo() to get recipe id,diets,image and title of all fetched recipes
 
 //NOTE 1:I store fetched data in DATA. To access DATA, access inside init() function or there will be nothing.
 //NOTE 2:DATA[0]['results'][0] returns first recipe; DATA[0]['results'][1] returns second one; aka DATA[0]['results'] = recipeData in lab 6
@@ -28,10 +25,7 @@ init();
 async function init() {
     await fetchRecipes();
     //TODO:You may call functions to get information needed
-    //console.log(getId(DATA)); //returns all ids
-    //console.log(getTitle(DATA)); //returns all titles
-    //console.log(getImage(DATA)); //returns all images
-    //console.log(getTag(DATA[0]['results'][0])); //returns diets of one recipe
+    console.log(getRecipeCardInfo()); //returns all ids
 }
 async function fetchRecipes() {
     return new Promise((resolve, reject) => {
@@ -52,58 +46,20 @@ async function fetchRecipes() {
 
 //HELPER FUNCTIONS
 /**
- * Extract id array of all recipes fetched
- * For example, if fetch 9 recipes, and call getId(DATA), this will give array of length 9
- * @param {Object} data Raw recipe JSONs to find the id of
- * @returns {String} If found, returns id, otherwise null
+ * Extract needed info of all recipes fetched as an array 
+ * @returns {{diets1,id1,image1,title1},{diets2,id2,image2,title2},...}
  */
-function getId(data) {
-    const id = {};
-    for (let i = 0; i < data[0]['results'].length; i++) {
-        id[i] = data[0]['results'][i]['id'];
+function getRecipeCardInfo() {
+    const answer = {};
+    for (let i = 0; i < DATA[0]['results'].length; i++) {
+        const result = {};
+        result['id'] = DATA[0]['results'][i]['id'];
+        result['title'] = DATA[0]['results'][i]['title'];
+        result['image'] = DATA[0]['results'][i]['image'];
+        result['diets'] = DATA[0]['results'][i]['diets'];
+        answer[i] = result;
     }
-    return id;
-}
-
-
-/**
- * Extract title array of all recipes fetched
- * For example, if fetch 9 recipes, and call getTitle(DATA), this will give array of length 9
- * @param {Object} data Raw recipe JSONs to find the title of
- * @returns {String} If found, returns Title, otherwise null
- */
-function getTitle(data) {
-    const Title = {};
-    for (let i = 0; i < data[0]['results'].length; i++) {
-        Title[i] = data[0]['results'][i]['title'];
-    }
-    return Title;
-}
-
-
-/**
- * Extract img array of all recipes fetched
- * For example, if fetch 9 recipes, and call getImage(DATA), this will give array of length 9
- * @param {Object} data Raw recipe JSONs to find the img of
- * @returns {String} If found, returns img, otherwise null
- */
-function getImage(data) {
-    const img = {};
-    for (let i = 0; i < data[0]['results'].length; i++) {
-        img[i] = data[0]['results'][i]['image'];
-    }
-    return img;
-}
-
-
-/**
- * Extract tag array of one recipe fetched
- * For example, if call getTag(DATA[0]['results'][0]), this will give diets of first recipe as an array. Further, getTag(DATA[0]['results'][1]) will give diets of second recipe as an array
- * @param {Object} data specific element from DATA
- * @returns {String} If found, returns diets, otherwise null
- */
-function getTag(data) {
-    return data.diets;
+    return answer;
 }
 
 
