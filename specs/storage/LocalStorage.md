@@ -38,6 +38,10 @@
 # Current keys inside LocalStorage
 
  - dietaryRestrictions
-   - This will contain the user prefered diets to filter the searches by
+   - This will contain the user prefered diet to filter the searches by
    - Value will be an array
-   - ie) ['vegetarian', 'vegan']
+   - ie) ['vegetarian']
+ - intolerancesRestrictions
+   - This will contain the user preferred intolerances to filter the searches by
+   - Value will be an array 
+   - ie) ['soy', 'diary', 'gluten']

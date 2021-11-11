@@ -33,6 +33,7 @@ async function init() {
     //console.log(getImage(DATA)); //returns all images
     //console.log(getTag(DATA[0]['results'][0])); //returns diets of one recipe
 }
+
 async function fetchRecipes() {
     return new Promise((resolve, reject) => {
         fetch(API_URL)
