@@ -48,10 +48,6 @@ Date: Wenesday, 11/10/2021 - updated at 4:20pm
       - Removed id for clear-checkboxes button - don't think it is necsessary.
       - Updated functions for tap mode and bookmark.
 
-    Name: Suditi Bhatt
-    -File edited: recipte-template.html, recipe-template.css
-    -Notes:
-        - Fixing clear checkboxes button.
-        - Added the id for clear-checkboxes back for now to recenter it.
+      - Renamed the variable main to container in RecipePage.js to avoid confusion with mainDiv.
   
 
