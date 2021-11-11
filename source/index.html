@@ -71,18 +71,46 @@
                         <h2 class="subheading">Dietary</h2>
                         <div class="center">
                             <form id="dietary-container">
-                                <input type="checkbox" id="vegan" name="vegan" value="vegan">
-                                <label for="vegan"> Vegan</label><br>
-                                <input type="checkbox" id="vegetarian" name="vegetarian" value="vegetarian">
-                                <label for="vegetarian"> Vegetarian</label><br>
-                                <input type="checkbox" id="halal" name="halal" value="halal">
-                                <label for="halal"> Halal</label><br>
-                                <input type="checkbox" id="gluten-free" name="gluten-free" value="gluten-free">
-                                <label for="gluten-free"> Gluten-free</label><br>
-                                <input type="checkbox" id="kosher" name="kosher" value="kosher">
-                                <label for="kosher"> Kosher</label><br>
-                                <input type="checkbox" id="fish-allergy" name="fish-allergy" value="fish-allergy">
-                                <label for="fish-allergy"> Fish allergy</label><br>
+                                <label class="checkbox" for="vegan">
+                                    <input class="checkbox__input" type="checkbox" id="vegan" name="vegan"
+                                        value="vegan">
+                                    <div class="checkbox__box"></div>
+                                    Vegan
+                                </label><br>
+
+                                <label class="checkbox" for="vegetarian">
+                                    <input class="checkbox__input" type="checkbox" id="vegetarian" name="vegetarian"
+                                        value="vegetarian">
+                                    <div class="checkbox__box"></div>
+                                    Vegetarian
+                                </label><br>
+
+                                <label class="checkbox" for="halal">
+                                    <input class="checkbox__input" type="checkbox" id="halal" name="halal"
+                                        value="halal">
+                                    <div class="checkbox__box"></div>
+                                    Halal
+                                </label><br>
+
+                                <label class="checkbox" for="gluten-free">
+                                    <input class="checkbox__input" type="checkbox" id="gluten-free" name="gluten-free"
+                                        value="gluten-free">
+                                    <div class="checkbox__box"></div>
+                                    Gluten-free
+                                </label><br>
+                                <label class="checkbox" for="kosher">
+                                    <input class="checkbox__input" type="checkbox" id="kosher" name="kosher"
+                                        value="kosher">
+                                    <div class="checkbox__box"></div>
+                                    Kosher
+                                </label><br>
+
+                                <label class="checkbox" for="fish-allergy">
+                                    <input class="checkbox__input" type="checkbox" id="fish-allergy" name="fish-allergy"
+                                        value="fish-allergy">
+                                    <div class="checkbox__box"></div>
+                                    Fish allergy
+                                </label><br>
                             </form>
                         </div>
                         <button id="update-button" onclick="updateSettings()"> Update</button>

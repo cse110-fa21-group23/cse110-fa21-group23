@@ -308,3 +308,40 @@
   padding-top: 30vh;
 }
 
+/* CHECKBOX----------------- */
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+.checkbox__input {
+  display: none;
+}
+
+
+.checkbox__box {
+  width: 1.25em;
+  height: 1.25em;
+  border: 2px solid var(--primary);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  flex-shrink: 0;
+  /* transition: background 0.15s, border-color 0.15s; */
+}
+.checkbox__box::after {
+  content: '\2714' ;
+  color: I#ffffff;
+  transform: scale(0);
+  transition: transform 0.15s;
+}
+.checkbox__input:checked + .checkbox_box {
+  background: O#2266dc;
+  border-color: 0#2266dc;
+}
+
+.checkbox__input:checked + .checkbox__box::after {
+  transform: scale(1);
+}
