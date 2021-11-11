@@ -3,7 +3,9 @@
     --background-color: #FFF8F1;
     --orange1: #FFECDB;
     --orange2: #FF9534;
+    --orange3: #FF9E44; /* use for hover */
     --dark-grey: #2E2E2E;
+    --light-grey: #C1BCB6;
   }
     
   
@@ -12,11 +14,24 @@
     color: var(--primary);
     margin: 0;
     padding: 0;
+
   }
 
   body {
     background-color: var(--background-color);
+    /* width: 100vw;
+    height: 100vh; */
   }
+
+  /* main {
+    width: inherit;
+    height: inherit;
+  } */
+
+  .hidden {
+    display: none;
+  }
+
 
   .center { /*use as container */
     justify-content: center;
@@ -33,6 +48,14 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  #search-container {
+    position: absolute;
+    width: 40vw;
+    top: 20vh;
+    left: 30vw;
+    justify-content: center;
   }
 
   .heading {
@@ -66,12 +89,22 @@
     font-size: 2rem;
   }
 
+  #app-name:hover {
+    color: var(--orange3);
+    transition: .2s ease-in-out;
+  }
+
   /* SEARCH ===========================================================  */
   .search {
     width: 100%;
     position: relative;
     display: flex;
   }
+
+  .search:hover > .search-query {
+    transform: scale(1.01,1.01);
+  }
+
   
   .search-query {
     width: 100%;
@@ -100,6 +133,13 @@
     cursor: pointer;
     font-size: 20px;
   }
+
+  .searchButton:hover {
+    width: 42px;
+    height: 42px;
+    transition: .2s ease-in-out;
+    transform: translateX(1px) translateY(-4px);
+  }
   /* end of SEARCH ======================================================*/
   
   /* MENU ===============================================================*/
@@ -109,6 +149,15 @@
     position:absolute; /* need this for z-index to work */
     z-index: 100; /* puts menu on top of everything */
   }
+
+  /* ----------- Mobile Screen ----------- */
+
+@media only screen and (max-width: 600px) {
+  #menu-container {
+    width: 600px;
+  }
+
+}
   /* for hamburger menu animation */
   #menu-icon {
     left: 15px;
@@ -125,6 +174,12 @@
     background-color: var(--primary);
     margin: 6px 0;
     transition: 0.4s;
+  }
+
+#menu-icon:hover > .bar1, #menu-icon:hover > .bar2, #menu-icon:hover > .bar3 {
+    background-color:var(--orange3);
+    transition: .2s ease-in-out;
+
   }
   
   /* Rotate first bar */
@@ -158,7 +213,10 @@
     font-size: 1.5rem;
     text-decoration: none;
     cursor: pointer;
+  }
 
+  .menuItem:hover {
+    color: var(--orange3);
   }
 
   .menuItem:active {
@@ -186,7 +244,7 @@
     z-index: 99; /* puts menu on top of everything */
     overflow: hidden;
     top: 0;
-    left: -100%;
+    /* left: -100%; */
     text-align: center;
   }
 
@@ -241,14 +299,65 @@
   /* end of SETTINGS ========================================================= */
 
   /* COOKBOOKS/LISTS ================================================================ */
-  #settings-container {
-    width: 100%;
-    position:absolute; /* need this for z-index to work */
-    z-index: 99; /* puts menu on top of everything */
-    overflow: hidden;
-    top: 0;
-    left: -100%;
-    text-align: center;
-  }
+
     /* end of COOKBOOKS/LISTS ========================================================= */
   
+#recipe-card-container {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 900px;
+  justify-content: center;
+  align-items: flex-start;
+  width: 70vw;
+  /* centers an absolute div */
+  left: 50%;
+  transform: translate(-50%, 0);
+  /* centers an absolute div */
+}
+
+
+
+.box {
+  justify-content: center;
+  display: flex;  
+  padding-top: 30vh;
+}
+
+/* CHECKBOX----------------- */
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+.checkbox__input {
+  display: none;
+}
+
+
+.checkbox__box {
+  width: 1.25em;
+  height: 1.25em;
+  border: 2px solid var(--primary);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  flex-shrink: 0;
+  /* transition: background 0.15s, border-color 0.15s; */
+}
+.checkbox__box::after {
+  content: '\2714' ;
+  color: I#ffffff;
+  transform: scale(0);
+  transition: transform 0.15s;
+}
+.checkbox__input:checked + .checkbox_box {
+  background: O#2266dc;
+  border-color: 0#2266dc;
+}
+
+.checkbox__input:checked + .checkbox__box::after {
+  transform: scale(1);
+}

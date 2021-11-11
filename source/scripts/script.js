@@ -1,22 +1,43 @@
-// const APP_KEY = '49f00a06d9919e4a6b1c9326710e854f';
-// const APP_ID = '216d6176';
-const API_KEY = '4d936c811cda46879d4749def6bb36a1';
-const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&instructionsRequired=true`;
-function init() {
+import { fetchRecipes } from '/source/scripts/api_script.js';
+let recipeData = {};
+
+window.addEventListener('DOMContentLoaded', init);
+
+async function init() {
     showHome();
+    // Add event listener for pressing enter
+    document.addEventListener('keydown', async (event) => {
+        if (event.key === 'Enter') {
+            let searchSuccessful = await search();
+            if(searchSuccessful) {
+                createRecipeCards();
+            }
+        }
+    });
+
+    // Add click event listener for search button
+    const searchButton = document.getElementById('search-button');
+    searchButton.addEventListener('click', async () => {
+        let searchSuccessful = await search();
+        if(searchSuccessful) {
+            createRecipeCards();
+        }
+    });
+
+    // // Make the "Show more" button functional
+    // bindShowMore();
 }
 
-//on enter for search, call search function
-document.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-        search();
-    }
-});
-
-
+// The search function, calls API function to fetch all recipes
+// Generates recipe cards by passing in values into RecipeData
 function search() {
     // get the search query
     const searchQuery = document.getElementById('search-query').value;
+    const recipeCardContainer = document.getElementById('recipe-card-container');
+
+    // Reset the recipe-card-container
+    recipeCardContainer.innerHTML = '';
+    showRecipeCards();
     
     // check for user dietary restriction
     const getDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
@@ -28,35 +49,22 @@ function search() {
     // check for user intolerances
     const getIntolerancesRestrictions = JSON.parse(localStorage.getItem("intolerancesRestrictions"));
     let queryStrIntolerances = "";
-    console.log(getIntolerancesRestrictions);
     if(getIntolerancesRestrictions) {
         queryStrIntolerances = `&intolerances=${getIntolerancesRestrictions}`
     }
 
+    // If it is empty, alert the user it is empty
     if(!searchQuery) {
         alert("Please input a search or click a filter below");
         return;
     }
 
-    console.log(`${url}&query=${searchQuery}${queryStrDiet}${queryStrIntolerances}`)
-    fetch(`${url}&query=${searchQuery}&${queryStrDiet}&${queryStrIntolerances}`).then(res => res.json()).then(data => {
-        console.log(data);
-        let id = data.results[0].id;
-
-        // convert data into simplified object containing the following keys: title, diets, and image
-        // add the simplified object to recipe-card-results
-
-        // fetch(`https://api.spoonacular.com/recipes/${id}/ingredientWidget.json?apiKey=${API_KEY}`).then(res => res.json())
-        // .then(data => {
-        //     console.log(data);
-        // })
-    }).catch((err) =>{ 
-        console.log(err);
+    // Fetch the Recipes with the specified queries
+    const queries = `&query=${searchQuery}&${queryStrDiet}&${queryStrIntolerances}`;
+    return fetchRecipes(queries, (data) => {
+        recipeData = data;
     })
-
 }
-
-
 
 var $SOMenuVisibility = "hidden";
 function toggleMenu() {
@@ -78,19 +86,20 @@ function toggleMenu() {
 function showSettings() {
     hideHome();
     hideCookbooks();
+    hideRecipeCards();
     const settings = document.getElementById("settings-container");
-    settings.style.transform = "translate(100%)";
+    settings.style.visibility = "visible";
+    //settings.style.transform = "translate(100%)";
     // Get the list of restrictions from local storage
     const getDietaryRestrictions = JSON.parse(localStorage.getItem("dietaryRestrictions"));
     const getIntolerancesRestrictions = JSON.parse(localStorage.getItem("intolerancesRestrictions"));
     const dietaryContainerElements = document.getElementById('dietary-container').elements;
     const intolerancesContainerElements = document.getElementById('intolerances-container').elements;
 
-    
-    for(let i = 0; i < dietaryContainerElements.length; i++) {
+    for (let i = 0; i < dietaryContainerElements.length; i++) {
         const dietaryRestriction = dietaryContainerElements[i];
         // If our restriction is in the list, then check it on the page
-        if(getDietaryRestrictions && getDietaryRestrictions.includes(dietaryRestriction.value)) {
+        if (getDietaryRestrictions.includes(dietaryRestriction.value)) {
             dietaryRestriction.checked = true;
         }
     }
@@ -106,12 +115,17 @@ function showSettings() {
 
 function hideSettings() {
     const settings = document.getElementById("settings-container");
-    settings.style.transform = "translate(-100%)";
+    settings.style.visibility = "hidden";
+    // settings.style.transform = "translate(-100%)";
 }
 
 function showHome() {
     hideSettings();
     hideCookbooks();
+    hideSettings();
+    hideRecipeCards();
+    showCategoryCards();
+    document.getElementById('search-query').value = ''; //clears search result
     const search = document.getElementById("search");
     search.style.visibility = "visible";
 }
@@ -124,6 +138,7 @@ function hideHome() {
 function showCookbooks() {
     hideSettings();
     hideHome();
+    hideRecipeCards();
     const cookbook = document.getElementById("cookbook-container");
     cookbook.style.visibility = "visible";
 }
@@ -133,14 +148,33 @@ function hideCookbooks() {
     cookbook.style.visibility = "hidden";
 }
 
+function showRecipeCards() {
+    const recipeCards = document.getElementById("recipe-card-container");
+    recipeCards.style.visibility = "visible";
+}
+function hideRecipeCards() {
+    const recipeCards = document.getElementById("recipe-card-container");
+    recipeCards.style.visibility = "hidden";
+}
+
+function showCategoryCards() {
+    const categoryCards = document.getElementById("category-card-container");
+    categoryCards.style.visibility = "visible";
+}
+
+function hideCategoryCards() {
+    const categoryCards = document.getElementById("category-card-container");
+    categoryCards.style.visibility = "hidden";
+}
+
 function updateSettings() {
     const dietaryRestrictionList = [];
     // Get all the inputs under the div
     const dietaryContainerElements = document.getElementById('dietary-container').elements;
-    for(let i = 0; i < dietaryContainerElements.length; i++) {
+    for (let i = 0; i < dietaryContainerElements.length; i++) {
         // If a checkbox is checked, then add it to our list
         const inputElement = dietaryContainerElements[i];
-        if(inputElement.checked) {
+        if (inputElement.checked) {
             dietaryRestrictionList.push(inputElement.value);
         }
     }
@@ -158,4 +192,28 @@ function updateSettings() {
     // Add lists to local storage
     localStorage.setItem("dietaryRestrictions", JSON.stringify(dietaryRestrictionList));
     localStorage.setItem("intolerancesRestrictions", JSON.stringify(intolerancesRestrictionsList));
+    // TODO: add confirmation message in HTML (alert is temporary)
+    alert("your preferences have been updated");
 }
+
+function createRecipeCards() {
+    const recipeCardContainer = document.getElementById('recipe-card-container');
+    for (let i = 0; i < recipeData.length; i++) {
+        var element = document.createElement('recipe-card');
+        element.data = recipeData[i];
+        recipeCardContainer.appendChild(element);
+    }
+}
+
+window.init = init;
+window.toggleMenu = toggleMenu;
+window.updateSettings = updateSettings;
+window.showHome = showHome;
+window.showCookbooks = showCookbooks;
+window.showSettings = showSettings;
+
+
+
+
+
+

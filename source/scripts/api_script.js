@@ -11,38 +11,32 @@
 
 //Set API_URL
 const MAIN_API_URL = "https://api.spoonacular.com/recipes";
-//TODO:change CHANGE_SEARCH_WAY to set search way
-const CHANGE_SEARCH_WAY = "complexSearch?cuisine=Mexican&addRecipeInformation=true"
-//TODO:change FIND_BY number 
-const FIND_BY = "/" + CHANGE_SEARCH_WAY + "&number=9";
-const API_KEY = "&apiKey=dd38d96d1f5d410f9bf7bfcef6cede83&?";
-const API_URL = MAIN_API_URL + FIND_BY + API_KEY;
+const API_KEY = "&apiKey=dd38d96d1f5d410f9bf7bfcef6cede83&";
 
+// const API_KEY = 'c8f83bb3a9af4355b12de10250b24c88';
+// API_KEY3 (Nhi): c8f83bb3a9af4355b12de10250b24c88
+// API_KEY2 (Nhi): fafd5e810c304ed3b4f9984672cb21ee
+// API_KEY1: 4d936c811cda46879d4749def6bb36a1
 
-console.log("search from " + API_URL);
-const DATA = {};
-init();
-async function init() {
-    await fetchRecipes();
-    //TODO:You may call functions to get information needed
-    console.log(getRecipeCardInfo()); //returns all ids
-}
-
-async function fetchRecipes() {
+// Fetch the recipes for the search page
+// callbackFn assigned the value from the fetch to the global variable
+async function fetchRecipes(queries, callbackFn) {
+    const complexSearch = "/complexSearch";
+    const url = `${MAIN_API_URL}${complexSearch}?${queries}${API_KEY}`;
+    console.log(url);
     return new Promise((resolve, reject) => {
-        fetch(API_URL)
-            .then(response => response.json())
-            .then(data => {
-                DATA[0] = data;
-                if (Object.keys(DATA).length == 1) {
-                    resolve();
-                }
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+                const recipes = getRecipeCardInfo(data.results);
+                callbackFn(recipes);
+                resolve(true);
             })
-            .catch(err => {
+        .catch(err => {
                 console.log(`Error loading the recipe`);
                 reject(err);
-            });
-    });
+        });
+    })
 }
 
 //HELPER FUNCTIONS
@@ -50,17 +44,19 @@ async function fetchRecipes() {
  * Extract needed info of all recipes fetched as an array 
  * @returns {{diets1,id1,image1,title1},{diets2,id2,image2,title2},...}
  */
-function getRecipeCardInfo() {
-    const answer = {};
-    for (let i = 0; i < DATA[0]['results'].length; i++) {
+function getRecipeCardInfo(data) {
+    const recipes = [];
+    for (let i = 0; i < data.length; i++) {
         const result = {};
-        result['id'] = DATA[0]['results'][i]['id'];
-        result['title'] = DATA[0]['results'][i]['title'];
-        result['image'] = DATA[0]['results'][i]['image'];
-        result['diets'] = DATA[0]['results'][i]['diets'];
-        answer[i] = result;
+        result['id'] = data[i]['id'];
+        result['title'] = data[i]['title'];
+        result['image'] = data[i]['image'];
+        result['diets'] = data[i]['diets'];
+        recipes[i] = result;
     }
-    return answer;
+    return recipes;
 }
+
+export { fetchRecipes }
 
 
