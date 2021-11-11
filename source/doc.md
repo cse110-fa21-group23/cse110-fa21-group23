@@ -49,5 +49,10 @@ Date: Wenesday, 11/10/2021 - updated at 4:20pm
       - Updated functions for tap mode and bookmark.
 
       - Renamed the variable main to container in RecipePage.js to avoid confusion with mainDiv.
+
+    Name: Suditi Bhatt
+    - Filed edited: recipe-template.html, recipe-page.css
+    - Notes:
+      - Added the id for the clear-checkboxes again for now to recenter it.
   
 
