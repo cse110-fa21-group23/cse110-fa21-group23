@@ -22,7 +22,7 @@
 <body>
     <h1 class="app-name">Team 23 Project</h1>
     <div class="center-hori">
-        <button id="tap-mode">Tap Mode Off</button>
+        <button id="tap-mode" onclick="tapMode()">Tap Mode Off</button>
     </div>
     <main>
         <!-- Search Here -->
@@ -39,7 +39,7 @@
         <!-- Recipe Page -->
         <header class="header">
             <h1>Cheesesteak Sliders</h1>
-            <input id="bookmark" type="image" src="img/icons/bookmark-empty.svg" name="bookmark" width="56" height="56">
+            <input id="bookmark" onclick="setBookMark()" type="image" src="img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
         </header>
 
         <main class="middle">
@@ -49,7 +49,11 @@
                 <input type="checkbox" checked="checked" class="ingredients-custom-checkbox"/>
                 <label>1/2 green peppers, sliced</label> <br>
                 <input type="checkbox" class="ingredients-custom-checkbox"/>
-                <label>1/2 abcs asldj alksjdlasjd aj laj alkslk jla slkj </label> <br>
+                <label>1/2 yellow onion, sliced semi circles</label> <br>
+                <input type="checkbox" class="ingredients-custom-checkbox"/>
+                <label>3 teaspoons canola oil</label> <br>
+                <input type="checkbox" class="ingredients-custom-checkbox"/>
+                <label>1/2 lb pre-cooked chilled steak, sliced very thinly</label> <br>
                 
                 <button onclick="clearCheckBoxes()">CLEAR CHECKBOXES</button>
 
@@ -60,6 +64,8 @@
                 
                 <ol>
                     <li>Preheat large skillet medium/high heat, add teaspoon oil, green peppers and onions, cook 5 minutes until softened</li>
+                    <li>In separate skillet, add teaspoon oil, cook mushrooms 2 minutes</li>
+                    <li>Add in cooked onions, peppers and soy, cook 1 minute</li>
                 </ol>
             </div>
         </main>

@@ -81,8 +81,9 @@
     font-weight: bold;
   }
   .center-hori > button:hover{
-    border-color: white;
+    /* border-color: white; */
     cursor: pointer;
+    background-color: #eee;
   }
 
   .hidden {
@@ -172,13 +173,11 @@
   }
 
   #ingredients-list > button{
-    border: none;
+    border: 0;
     background-color: inherit;
     font: inherit;
-  }
-
-  .clear-checkboxes{
-      padding: 20px;
+    text-align: center;
+    padding: 20px;
   }
 
   #ingredients-list> button:hover{

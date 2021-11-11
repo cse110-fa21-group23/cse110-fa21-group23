@@ -18,20 +18,6 @@ class RecipePage extends HTMLElement{
         const main = document.createElement("main");
 
         style.innerHTML = `
-        .header{
-            text-align: center;
-        }
-        
-        .header h1{
-            position: relative;
-            display: inline;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 64px;
-            line-height: 96px;
-            text-align: center;
-        }
-      
         .header #bookmark{
           text-align: center;
           /* padding-left: 50px; */
@@ -87,7 +73,6 @@ class RecipePage extends HTMLElement{
         label{
           color: black;
         }
-      
         /*-----------------------------------*/
         
         #instructions > ol > li{
@@ -95,22 +80,21 @@ class RecipePage extends HTMLElement{
         }
       
         #ingredients-list{
-            text-align: center;
+            /* text-align: center; */
             font-style: normal;
             font-weight: normal;
+      
         }
       
-        #ingredients-list > div > button{
-          border: none;
+        #ingredients-list > button{
+          border: 0;
           background-color: inherit;
           font: inherit;
+          text-align: center;
+          padding: 20px;
         }
       
-        .clear-checkboxes{
-            padding: 20px;
-        }
-      
-        #ingredients-list > div > button:hover{
+        #ingredients-list> button:hover{
           cursor: pointer;
           background: #eee;
         }
@@ -124,6 +108,8 @@ class RecipePage extends HTMLElement{
         const bookMark = document.createElement("input");
         bookMark.id = "bookmark";
         bookMark.type = "image";
+        bookMark.onclick = "setBookMark()";
+        bookMark.name = "bookmark-empty";
         bookMark.src = "./img/icons/bookmark-empty.svg";
         bookMark.width = "56";
         bookMark.height = "56";
