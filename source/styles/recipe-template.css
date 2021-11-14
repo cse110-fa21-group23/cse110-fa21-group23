@@ -73,17 +73,31 @@
 
 
    /* tap mode button */
-   .center-hori > button{
+   .tap-mode-off{
     border: 3px solid var(--primary);
     padding: 10px;
     margin-top: 20px;
     background-color: inherit;
     font-weight: bold;
   }
-  .center-hori > button:hover{
-    /* border-color: white; */
+  .tap-mode-off:hover{
     cursor: pointer;
-    background-color: #eee;
+    background-color: var(--primary);
+    color: white;
+  }
+
+  .tap-mode-on{
+    border: 3px solid var(--primary);
+    padding: 10px;
+    margin-top: 20px;
+    background-color: var(--primary);
+    font-weight: bold;
+    color: white;
+  }
+  .tap-mode-on:hover{
+    cursor: pointer;
+    background-color: inherit;
+    color: var(--primary);
   }
 
   .hidden {

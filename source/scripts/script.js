@@ -20,16 +20,20 @@ function clearCheckBoxes(){
 }
 
 function tapMode(){
-    let button = document.querySelector("#tap-mode");
+    let button = document.querySelector(".center-hori > button");
     if (button.textContent == "Tap Mode Off")
     {
         // do something
         button.textContent = "Tap Mode On";
+        button.classList.remove("tap-mode-off");
+        button.classList.add("tap-mode-on");
     }
     else
     {
         // do something
         button.textContent = "Tap Mode Off";
+        button.classList.remove("tap-mode-on");
+        button.classList.add("tap-mode-off")
     }
 }
 
