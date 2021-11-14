@@ -1,6 +1,9 @@
 This file includes changes make from one another
 
 # Recipe Page
+Date: Sunday, 11/14/2021
+    Name: Them
+    - Resolved conflicts after merging with main.
 
 Date: Monday, 11/8/2021
     Name: Suditi Bhatt
