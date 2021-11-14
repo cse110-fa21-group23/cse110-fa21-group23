@@ -161,7 +161,7 @@ function showCategoryCards() {
 }
 
 function hideCategoryCards() {
-    const categoryCards = document.getElementById("category-card-container");
+    const categoryCards = document.getElementById("category-wrapper");
     categoryCards.style.visibility = "hidden";
 }
 
@@ -245,9 +245,4 @@ function bindCategoryCards(categoryCard, categoryName) {
     })
 }
 
-//hides category cards when they are not needed on the screen
-function hideCategoryCards(){
-    const categoryCards = document.getElementById("category-wrapper");
-    categoryCards.style.visibility = "hidden";
-}
 
