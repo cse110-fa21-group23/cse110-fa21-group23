@@ -1,3 +1,5 @@
+import { Router } from './Router.js';
+
 const API_KEY = 'c8f83bb3a9af4355b12de10250b24c88';
 // API_KEY3 (Nhi): c8f83bb3a9af4355b12de10250b24c88
 // API_KEY2 (Nhi): fafd5e810c304ed3b4f9984672cb21ee
@@ -40,6 +42,10 @@ async function init() {
 
 }
 
+const router = new Router(function () {
+     showHome();
+     
+  });
 
 function search() {
     // let searchQuery = document.getElementById('search-query').value;
@@ -199,15 +205,29 @@ function createRecipeCards() {
         var element = document.createElement('recipe-card');
         element.data = recipeData[i];
         recipeCardContainer.appendChild(element);
+
+        const page = recipeData[recipes[i]]['page-name'];
+        router.addPage(page, function() {
+         hideRecipeCards();
+         //document.querySelector('.section--recipe-expand').classList.add('shown');
+         //document.querySelector('recipe-expand').data = recipeData[recipes[i]];
+        
+      });
+      bindRecipeCard(element, page);
     }
 }
 
-
+function bindRecipeCard(recipeCard, pageName) {
+    recipeCard.addEventListener('click', e => {
+      if (e.path[0].nodeName == 'A') return;
+      router.navigate(pageName, false);
+    });
+  }
 
 //this function creates 6 category cards from the categories and images arrays above using random 
 //values so everytime the user refreshes, there will be a new set of categories
 function createCategoryCards(){
-    console.log('creating category cards')
+
     /* creating an array of length 6 to hold random non-repeating values that are in
         range of all categories in the categories array */
     const randNums = []; // array to hold the random non repeating values 
@@ -227,8 +247,15 @@ function createCategoryCards(){
         categoryCard.data = arr; //key: name of category, value: picture of category
 
         
-        document.querySelector(".category-cards--wrapper").appendChild(categoryCard);    
-        
+        document.querySelector(".category-cards--wrapper").appendChild(categoryCard); 
+        const page = categories[randNums[i]];   
+        console.log(page)
+        router.addPage(page, function() {
+            hideCategoryCards();
+            console.log("hiding category cards")
+            showRecipeCards();
+           
+         });
         bindCategoryCards(categoryCard, categories[randNums[i]]);
     }
 
@@ -238,10 +265,12 @@ function createCategoryCards(){
 //function to bind the click event to the category card to initiate the search
 function bindCategoryCards(categoryCard, categoryName) {
     categoryCard.addEventListener("click", (e) =>{
+        if (e.path[0].nodeName == 'A') return;
+        
         let searchQuery = categoryName;
         document.getElementById("search-query").value = searchQuery;
         search();
-
+        router.navigate(categoryName, false);
     })
 }
 
