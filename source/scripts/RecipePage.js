@@ -104,6 +104,7 @@ class RecipePage extends HTMLElement{
         const header = document.createElement("header");
         header.classList.add("header");
         const title = document.createElement("h1");
+        // TODO: get title
         // title.innerText = get Title using API;
         const bookMark = document.createElement("input");
         bookMark.id = "bookmark";
@@ -119,14 +120,13 @@ class RecipePage extends HTMLElement{
                         // middle
         const mainDiv = document.createElement("div");
         // <-- ingredient list -->
-
         const ingredientsListDiv = document.createElement("div");
         ingredientsListDiv.classList.add("ingredients-list");
         ingredientsListDiv.innerHTML = `
         <h3> INGREDIENTS </h3>
         <!-- custom checkbox -->
         `;
-        // get ingredient list
+        // TODO: get ingredient list
         // const ingredients = getIngredients(data); // use API
         // ingredients.forEach(ingredient =>{
         //     const checkbox = document.createElement("input");
@@ -150,7 +150,7 @@ class RecipePage extends HTMLElement{
         instructionDiv.innerHTML = `<h3> INSTRUCTIONS </h3>`;
         const list = document.createElement("ol");
 
-        // get instructions
+        // TODO: get instructions
         // const instrucstions = getInstructions(data); // use API
         // instrucstions.forEach(element => {
         //     const li = document.createElement("li");
