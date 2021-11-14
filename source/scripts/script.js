@@ -1,3 +1,4 @@
+// Import API from file
 import { fetchRecipes } from '/source/scripts/api_script.js';
 let recipeData = {};
 
@@ -35,7 +36,7 @@ function search() {
     const searchQuery = document.getElementById('search-query').value;
     const recipeCardContainer = document.getElementById('recipe-card-container');
 
-    // Reset the recipe-card-container
+    // Reset the recipe-card-container to be empty for every search
     recipeCardContainer.innerHTML = '';
     showRecipeCards();
     
@@ -60,18 +61,18 @@ function search() {
     }
 
     // Fetch the Recipes with the specified queries
-    const queries = `&query=${searchQuery}&${queryStrDiet}&${queryStrIntolerances}`;
+    const queries = `&query=${searchQuery}${queryStrDiet}${queryStrIntolerances}`;
     return fetchRecipes(queries, (data) => {
         recipeData = data;
     })
 }
 
-var $SOMenuVisibility = "hidden";
+let $SOMenuVisibility = "hidden";
 function toggleMenu() {
-    var menuIcon = document.getElementById("menu-icon");
+    const menuIcon = document.getElementById("menu-icon");
     menuIcon.classList.toggle("change");
 
-    var slideOverMenu = document.getElementById("slide-over-menu");
+    const slideOverMenu = document.getElementById("slide-over-menu");
 
     if ($SOMenuVisibility == "hidden") {
         slideOverMenu.style.transform = "translate(100%)";
@@ -90,6 +91,7 @@ function showSettings() {
     const settings = document.getElementById("settings-container");
     settings.style.visibility = "visible";
     //settings.style.transform = "translate(100%)";
+
     // Get the list of restrictions from local storage
     const getDietaryRestrictions = JSON.parse(localStorage.getItem("dietaryRestrictions"));
     const getIntolerancesRestrictions = JSON.parse(localStorage.getItem("intolerancesRestrictions"));
@@ -192,6 +194,7 @@ function updateSettings() {
     // Add lists to local storage
     localStorage.setItem("dietaryRestrictions", JSON.stringify(dietaryRestrictionList));
     localStorage.setItem("intolerancesRestrictions", JSON.stringify(intolerancesRestrictionsList));
+    
     // TODO: add confirmation message in HTML (alert is temporary)
     alert("your preferences have been updated");
 }
@@ -199,7 +202,7 @@ function updateSettings() {
 function createRecipeCards() {
     const recipeCardContainer = document.getElementById('recipe-card-container');
     for (let i = 0; i < recipeData.length; i++) {
-        var element = document.createElement('recipe-card');
+        const element = document.createElement('recipe-card');
         element.data = recipeData[i];
         recipeCardContainer.appendChild(element);
     }

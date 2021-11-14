@@ -1,13 +1,14 @@
-//How to use:
-//After DATA is initialized automatically:
-//inside init() function, under "await fetchRecipes();":
-//call getRecipeCardInfo() to get recipe id,diets,image and title of all fetched recipes
+/**
+ * How to use:
+    After DATA is initialized automatically:
+    inside init() function, under "await fetchRecipes();":
+    call getRecipeCardInfo() to get recipe id,diets,image and title of all fetched recipes
 
-//NOTE 1:I store fetched data in DATA. To access DATA, access inside init() function or there will be nothing.
-//NOTE 2:DATA[0]['results'][0] returns first recipe; DATA[0]['results'][1] returns second one; aka DATA[0]['results'] = recipeData in lab 6
-//NOTE 3:main link https://spoonacular.com/food-api/docs#Search-Recipes-Complex
+    NOTE 1:I store fetched data in DATA. To access DATA, access inside init() function or there will be nothing.
+    NOTE 2:DATA[0]['results'][0] returns first recipe; DATA[0]['results'][1] returns second one; aka DATA[0]['results'] = recipeData in lab 6
+    NOTE 3:main link https://spoonacular.com/food-api/docs#Search-Recipes-Complex
+ */
 
-//--------------------------------------------------------------------------------
 
 //Set API_URL
 const MAIN_API_URL = "https://api.spoonacular.com/recipes";
@@ -19,7 +20,8 @@ const API_KEY = "&apiKey=dd38d96d1f5d410f9bf7bfcef6cede83&";
 // API_KEY1: 4d936c811cda46879d4749def6bb36a1
 
 // Fetch the recipes for the search page
-// callbackFn assigned the value from the fetch to the global variable
+// queries - string that contains all query parameters for API call
+// callbackFn assigns the value from the fetch to the global variable
 async function fetchRecipes(queries, callbackFn) {
     const complexSearch = "/complexSearch";
     const url = `${MAIN_API_URL}${complexSearch}?${queries}${API_KEY}`;
