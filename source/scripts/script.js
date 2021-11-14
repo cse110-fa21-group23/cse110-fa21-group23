@@ -240,7 +240,7 @@ function bindCategoryCards(categoryCard, categoryName) {
     categoryCard.addEventListener("click", (e) =>{
         let searchQuery = categoryName;
         document.getElementById("search-query").value = searchQuery;
-        searchB();
+        search();
 
     })
 }
