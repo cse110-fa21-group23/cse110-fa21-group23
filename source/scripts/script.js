@@ -101,7 +101,7 @@ function showSettings() {
     for (let i = 0; i < dietaryContainerElements.length; i++) {
         const dietaryRestriction = dietaryContainerElements[i];
         // If our restriction is in the list, then check it on the page
-        if (getDietaryRestrictions.includes(dietaryRestriction.value)) {
+        if (getDietaryRestrictions && getDietaryRestrictions.includes(dietaryRestriction.value)) {
             dietaryRestriction.checked = true;
         }
     }
