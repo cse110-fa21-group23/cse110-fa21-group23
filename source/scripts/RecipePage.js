@@ -15,7 +15,7 @@ class RecipePage extends HTMLElement{
             return;
         }
         const style = document.createElement("style");
-        const container = document.createElement("main");
+        const container = document.createElement("article");
 
         style.innerHTML = `
         .header #bookmark{

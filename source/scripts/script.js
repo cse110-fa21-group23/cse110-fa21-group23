@@ -121,6 +121,7 @@ function showSettings() {
     hideHome();
     hideCookbooks();
     hideRecipeCards();
+    hideRecipePage();
     const settings = document.getElementById("settings-container");
     settings.style.visibility = "visible";
     //settings.style.transform = "translate(100%)";
@@ -135,6 +136,11 @@ function showSettings() {
             dietaryRestriction.checked = true;
         }
     }
+}
+
+function hideRecipePage(){
+    const recipePage = document.getElementById("recipe-page");
+    recipePage.classList.add("hidden");
 }
 
 function hideSettings() {
