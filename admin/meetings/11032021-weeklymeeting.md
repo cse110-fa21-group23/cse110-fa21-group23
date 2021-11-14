@@ -60,8 +60,8 @@
 
 ### Amitesh & Felix: The search/loading results from API
 ### Kevin & David: Recipe Cards (HTML & JS)
-### Them & Suditi: Individual recipe page (HTML layout)
+### Them & Suditi: Individual recipe page (HTML & JS)
 ### Chris & Flynn: Recipe list for individual recipes (HTML & JS)
-### Karina: Category cards (Both JS & HTML)
+### Karina: Category cards (HTML & JS)
 ### Nhi: Setting/Sidebar, CSS styling and focus for mobile rendering
 	
