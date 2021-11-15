@@ -26,3 +26,4 @@ Chosen option: SonarQube, because there exists a permanent free option, and a ch
 ## Links
 
 * https://www.sonarqube.org/downloads/
+* How to set up: https://docs.sonarqube.org/latest/setup/get-started-2-minutes/
