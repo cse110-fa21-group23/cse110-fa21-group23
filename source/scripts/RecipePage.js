@@ -163,7 +163,7 @@ class RecipePage extends HTMLElement {
 
     //get ingredient list
     const ingredients = getIngredients(data);
-    ingredients.forEach(ingredient => {
+    ingredients.forEach((ingredient) => {
       const checkbox = document.createElement("input");
       const label = document.createElement("label");
       const ol = document.createElement("ol");
@@ -198,7 +198,7 @@ function getIngredients(data) {
   let index = 0;
   steps.forEach((step) => {
     let ingredients = step["ingredients"];
-    console.log('ingredients', ingredients);
+    console.log("ingredients", ingredients);
     for (let i = 0; i < ingredients.length; i++) {
       list[index++] = ingredients[i]["name"];
     }
