@@ -201,10 +201,10 @@ function toggleBookMark(bookmarkIcon) {
     var url = new URL(bookmarkIcon.src);
     console.log(url.pathname);
     if (url.pathname == "/source/img/icons/bookmark-empty.svg") {
-        bookmarkIcon.src = "/source/img/icons/bookmark-filled.svg";
+        bookmarkIcon.src = "./img/icons/bookmark-filled.svg";
     }
     else {
-        bookmarkIcon.src = "/source/img/icons/bookmark-empty.svg";
+        bookmarkIcon.src = "./img/icons/bookmark-empty.svg";
     }
 }
 

@@ -140,7 +140,7 @@ class RecipePage extends HTMLElement {
       <section class="middle">
         <header class="header">
           <h1></h1>
-            <img id="bookmark-icon" onclick="toggleBookMark(this)" src="/source/img/icons/bookmark-empty.svg"" width="56" height="56">
+            <img id="bookmark-icon" onclick="toggleBookMark(this)" src="./img/icons/bookmark-empty.svg"" width="56" height="56">
          </header>
           <h1></h1>
           <div id="ingredients-list">
