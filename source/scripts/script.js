@@ -226,11 +226,15 @@ function createRecipeCards() {
     // document.getElementById("recipe-cards").appendChild(recipeCard1);
 
     const recipeCardContainer = document.getElementById('recipe-card-container');
+    const recipePageContainer = document.getElementById('recipe-page-container');
     for (let i = 0; i < recipeData.length; i++) {
         console.log(recipeData[i]);
         var element = document.createElement('recipe-card');
+        var recipePage = document.createElement('recipe-page');
         element.data = recipeData[i];
+        recipePage.data = recipeData[i];
         recipeCardContainer.appendChild(element);
+        recipePageContainer.appendChild(recipePage);
     }
 }
 
