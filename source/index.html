@@ -19,6 +19,8 @@
     <script src="./scripts/CategoryCard.js" type="module"></script>
     <!-- Recipe Card Custom Element -->
     <script src="./scripts/RecipeCard.js" type="module"></script>
+    <!-- Recipe Page Custom Element -->
+    <script src="./scripts/RecipePage.js" type="module"></script>
 </head>
 
 <body onload="init()">
@@ -61,10 +63,7 @@
                 <section id="recipe-card-container">
                     <!--populate this section with the recipe cards using createRecipeCards()  -->
                 </section>
-                <!-- Recipe Page -->
-                <section id="recipe-page-container" class="hidden">
-                    <!-- add Recipe-page here-->
-                </section>
+                
             </div>
         </div>
 
@@ -127,7 +126,11 @@
             <!-- within each cookbook will be a list of recipes -->
         </section>
 
-        
+        <!-- Recipe Page -->
+        <section id="recipe-page-container" class="hidden">
+            <!-- add Recipe-page here-->
+            <recipe-page></recipe-page>
+        </section>
     </main>
     <footer></footer>
 </body>

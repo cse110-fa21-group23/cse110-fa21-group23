@@ -453,7 +453,7 @@ transform: scale(1);
       font-size: 15px;
   }
 
-  #ingredients-list > label{
+  #ingredients-list > ul > ol > label{
     color: black;
   }
   /*-----------------------------------*/

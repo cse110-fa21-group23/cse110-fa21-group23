@@ -1,4 +1,4 @@
-const API_KEY = 'c8f83bb3a9af4355b12de10250b24c88';
+const API_KEY = 'fafd5e810c304ed3b4f9984672cb21ee';
 // API_KEY3 (Nhi): c8f83bb3a9af4355b12de10250b24c88
 // API_KEY2 (Nhi): fafd5e810c304ed3b4f9984672cb21ee
 // API_KEY1: 4d936c811cda46879d4749def6bb36a1
@@ -60,8 +60,9 @@ function search() {
 
 
 function clearCheckBoxes(){
-    document.querySelectorAll("input[type='checkbox']")
-        .forEach(e => e.checked = false);
+    let checkboxes = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelectorAll("#ingredients-list > ul > ol > input");
+    console.log(checkboxes);
+    checkboxes.forEach(e => e.checked = false);
 }
 
 function tapMode(){
@@ -84,7 +85,7 @@ function tapMode(){
 
 function setBookMark(){
     
-    let bookMark = document.querySelector("#bookmark");
+    let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
     if (bookMark.getAttribute("name") == "bookmark-empty")
     {
         // do something
@@ -139,7 +140,7 @@ function showSettings() {
 }
 
 function hideRecipePage(){
-    const recipePage = document.getElementById("recipe-page");
+    const recipePage = document.getElementById("recipe-page-container");
     recipePage.classList.add("hidden");
 }
 
@@ -217,25 +218,34 @@ function updateSettings() {
 }
 
 
-
 function createRecipeCards() {
-    // let recipeCard1 = document.createElement("recipe-card");
-    // recipeCard1.data = recipeData[0];
-    // console.log(recipeData[0]);
+    // let recipeCard = document.createElement("recipe-card");
+    // recipeCard.data = recipeData[0];
     // // console.log(recipeCard1.data["title"]);
-    // document.getElementById("recipe-cards").appendChild(recipeCard1);
+    // document.getElementById("recipe-card-container").appendChild(recipeCard);
+    // document.querySelector("recipe-page").data = recipeData[0];
+    // bindRecipeCard(recipeCard);
 
     const recipeCardContainer = document.getElementById('recipe-card-container');
-    const recipePageContainer = document.getElementById('recipe-page-container');
     for (let i = 0; i < recipeData.length; i++) {
         console.log(recipeData[i]);
         var element = document.createElement('recipe-card');
-        var recipePage = document.createElement('recipe-page');
         element.data = recipeData[i];
-        recipePage.data = recipeData[i];
+        document.querySelector("recipe-page").data = recipeData[i];
         recipeCardContainer.appendChild(element);
-        recipePageContainer.appendChild(recipePage);
+        bindRecipeCard(element);
     }
+}
+
+function bindRecipeCard(recipeCard)
+{
+    recipeCard.addEventListener('click', event => {
+        console.log("Recipe card has been clicked");
+        const recipePageContainer = document.querySelector("#recipe-page-container");
+        hideHome();
+        hideRecipeCards();
+        recipePageContainer.classList.remove("hidden");
+    });
 }
 
 
