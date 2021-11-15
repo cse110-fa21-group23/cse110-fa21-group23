@@ -6,7 +6,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="./img/favicon-16x16.png">
     <title>Team 23 Project</title>
 
     <link
@@ -14,17 +13,15 @@
         rel="stylesheet">
 
     <!-- Main Stylesheets & Scripts -->
-    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/recipe-template.css" />
     <script src="./scripts/script.js"></script>
     <!-- Category Card Custom Element -->
     <script src="./scripts/CategoryCard.js" type="module"></script>
     <!-- Recipe Card Custom Element -->
     <script src="./scripts/RecipeCard.js" type="module"></script>
-    <!-- Recipe Page Custom Element -->
-    <script src="./scripts/RecipePage.js" type="module"></script>
 </head>
 
-<body>
+<body onload="init()">
 
     <h1 id="app-name" onclick="showHome()">Team 23 Project </h1>
     <main>
@@ -45,7 +42,7 @@
         </section>
 
         <!-- Search Section -->
-        <div class="box">
+        <div class="box hidden">
             <div>
                 <div id="search-container">
                     <div id="search" class="search">
@@ -64,16 +61,7 @@
                 <section id="recipe-card-container">
                     <!--populate this section with the recipe cards using createRecipeCards()  -->
                 </section>
-
             </div>
-        </div>
-
-        <section class="section--category-cards">
-            <div id="category-wrapper" class="category-cards--wrapper">
-                <!-- Category Cards Added Here-->
-            </div>
-        </section>
-
         </div>
 
         <!-- Settings Section-->
@@ -136,9 +124,46 @@
         </section>
 
         <!-- Recipe Page -->
-        <section id="recipe-page-container" class="hidden">
+        <section id="recipe-page-container hidden">
             <!-- add Recipe-page here-->
-            <recipe-page></recipe-page>
+            <article>
+                <header class="header">
+                    <h1>Cheesesteak Sliders</h1>
+                    <input id="bookmark" onclick="setBookMark()" type="image" src="img/icons/bookmark-empty.svg"
+                        name="bookmark-empty" width="56" height="56">
+                </header>
+
+                <main class="middle">
+                    <div id="ingredients-list">
+                        <h3>INGREDIENTS</h3>
+                        <!-- custom checkbox -->
+                        <ul style="list-style-type: none;">
+                            <ol>
+                                <input type="checkbox" class="ingredients-custom-checkbox" />
+                                <label>1/2 green peppers, sliced</label>
+                            </ol>
+                            <ol>
+                                <input type="checkbox" class="ingredients-custom-checkbox" />
+                                <label>1/2 green peppers, sliced</label>
+                            </ol>
+                        </ul>
+
+                        <button id="clear-checkboxes" onclick="clearCheckBoxes()">CLEAR CHECKBOXES</button>
+
+                    </div>
+
+                    <div id="instructions">
+                        <h3>INSTRUCTIONS</h3>
+
+                        <ol>
+                            <li>Preheat large skillet medium/high heat, add teaspoon oil, green peppers and onions, cook
+                                5 minutes until softened</li>
+                            <li>In separate skillet, add teaspoon oil, cook mushrooms 2 minutes</li>
+                            <li>Add in cooked onions, peppers and soy, cook 1 minute</li>
+                        </ol>
+                    </div>
+                </main>
+            </article>
         </section>
     </main>
     <footer></footer>
