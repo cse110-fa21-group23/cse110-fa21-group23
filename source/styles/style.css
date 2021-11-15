@@ -345,3 +345,55 @@ border-color: 0#2266dc;
 .checkbox__input:checked + .checkbox__box::after {
 transform: scale(1);
 }
+/* Category Cards style ============================================================*/
+.category-cards--wrapper{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 10px;
+  justify-content: center;
+  justify-items: center;
+  align-content: space-evenly;
+  align-items: center;
+  margin-left: 300px;
+  margin-right: 300px;
+  margin-bottom: 50px;
+  margin-top: 50px;
+} 
+/* End of Category Cards style ============================================================*/
+
+
+/* Category cards style for different Screen sizes ========================================*/
+@media screen and (max-width: 700px) {
+.category-cards--wrapper{
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+}
+
+
+@media screen and (max-width: 500px) {
+.category-cards--wrapper{
+  grid-template-columns: repeat(2, 150px);
+  grid-template-rows: repeat(2, 1fr);
+}
+}
+
+@media screen and (min-height: 1000px) {
+.category-cards--wrapper{
+  margin-top: 50%;
+}
+}
+
+@media screen and (max-height: 450px) {
+.category-cards--wrapper{
+    gap: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 75px;
+}
+}
+/* End of Category cards style for different Screen sizes ==================================*/
