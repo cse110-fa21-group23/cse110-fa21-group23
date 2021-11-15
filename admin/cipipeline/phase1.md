@@ -13,5 +13,4 @@
 ## Planned
 1) Find a way to create JSDoc documentation files
 
-
-![phase1](https://user-images.githubusercontent.com/47440034/141734072-2e38fcd2-5522-4761-b16c-5726efea1b8b.png)
+![phase1](https://user-images.githubusercontent.com/47440034/141734189-ae05b9de-cd6c-4e19-9a77-ef61336bfc9d.png)
