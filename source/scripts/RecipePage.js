@@ -163,7 +163,7 @@ class RecipePage extends HTMLElement {
 
     //get ingredient list
     const ingredients = getIngredients(data);
-    ingredients.forEach(ingredient => {
+    ingredients.forEach((ingredient) => {
       const checkbox = document.createElement("input");
       const label = document.createElement("label");
       const ol = document.createElement("ol");
