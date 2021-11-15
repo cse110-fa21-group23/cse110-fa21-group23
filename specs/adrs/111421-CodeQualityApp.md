@@ -21,9 +21,8 @@ Which code quality application should we use?
 
 ## Decision Outcome
 
-Chosen option: SonarQube, because there exists a permanent free option, and a choice to upgrade with a 2 week free trial.
+Chosen option: Codacy, because it is easy to setup.
 
 ## Links
 
-* https://www.sonarqube.org/downloads/
-* How to set up: https://docs.sonarqube.org/latest/setup/get-started-2-minutes/
+* https://app.codacy.com/gh/cse110-fa21-group23/cse110-fa21-group23/dashboard?branch=main
