@@ -240,9 +240,45 @@ function bindCategoryCards(categoryCard, categoryName) {
     categoryCard.addEventListener("click", (e) =>{
         let searchQuery = categoryName;
         document.getElementById("search-query").value = searchQuery;
-        search();
-
+        searchByCategory();
     })
 }
 
+//function to search when a category card is clicked
+function searchByCategory() {
+    hideCategoryCards();
+    const recipeCardContainer = document.getElementById('recipe-card-container');
+    recipeCardContainer.innerHTML = '';
+    showRecipeCards();
+    return new Promise((resolve, reject) => {
+        let searchQuery = document.getElementById('search-query').value;
+        recipeData = {};
 
+        //if user clicked a diet category, sends search query to diet endpoint
+        if(searchQuery == "Vegetarian" || searchQuery == "Vegan" || searchQuery == "Gluten-Free"){
+            fetch(`${url}&diet=${searchQuery}`).then(res => res.json()).then(data => {
+                console.log(data);
+                recipeData = data.results;
+                console.log(recipeData);
+                createRecipeCards();
+                resolve(true);
+            }).catch((err) => {
+                console.log(err);
+                reject(false);
+            })
+        }
+        //if user clicked a cuisine category, sends search query to cuisine endpoint
+        else{
+            fetch(`${url}&cuisine=${searchQuery}`).then(res => res.json()).then(data => {
+                console.log(data);
+                recipeData = data.results;
+                console.log(recipeData);
+                createRecipeCards();
+                 resolve(true);
+             }).catch((err) => {
+                 console.log(err);
+                 reject(false);
+             })
+        }
+    });
+}
