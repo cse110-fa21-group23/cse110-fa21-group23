@@ -18,87 +18,110 @@ class RecipePage extends HTMLElement{
         const container = document.createElement("article");
 
         style.innerHTML = `
-        .header #bookmark{
+        .header{
           text-align: center;
-          /* padding-left: 50px; */
-          margin-left : 50px;
-          /*float: right;*/
-        }
+      }
       
-        h3{
-            text-align: center;
-            font-weight: bold;
-        }
+      .header h1{
+          position: relative;
+          display: inline;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 64px;
+          line-height: 96px;
+          text-align: center;
+      }
+    
+      .header #bookmark{
+        text-align: center;
+        /* padding-left: 50px; */
+        margin-left : 50px;
+        /*float: right;*/
+      }
+    
+      .middle > div > h3{
+          text-align: center;
+          font-weight: bold;
+          margin-top: 80px;
+      }
+    
+      #clear-checkboxes{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin-top: 40px;
+      }
+    
+      /*-- custom checkbox style --*/
       
-        /*-- custom checkbox style --*/
-        
-        input[class="ingredients-custom-checkbox"] + label,
-        input[class="ingredients-custom-checkbox"] + label::before
-        {
-            display: inline-block;
-            vertical-align: middle;
-            
-        }
-      
-        input[class="ingredients-custom-checkbox"]
-        {
-            opacity: 0; /*hide the actual checkbox*/
-            position: absolute;
-            transform: scale(2);
-        }
-      
-        input[class="ingredients-custom-checkbox"]:hover
-        {
-          cursor: pointer;
-        }
+      input[class="ingredients-custom-checkbox"] + label,
+      input[class="ingredients-custom-checkbox"] + label::before
+      {
+          display: inline-block;
+          vertical-align: middle;
           
-        input[class="ingredients-custom-checkbox"] + label::before
-        {
-          /*custom new checkbox*/
-            content: "";
-            width: 15px;
-            height: 15px;
-            margin: 0 4px 0 0;
-            line-height: 14px;
-            text-align: center;
-            border: solid 3px var(--primary);
-        }
+      }
+    
+      input[class="ingredients-custom-checkbox"]
+      {
+          opacity: 0; /*hide the actual checkbox*/
+          position: absolute;
+          transform: scale(2);
+      }
+    
+      input[class="ingredients-custom-checkbox"]:hover
+      {
+        cursor: pointer;
+      }
         
-          input[class="ingredients-custom-checkbox"]:checked + label::before
-        {
-            content: "\\2714"; /* tick sign */
-            font-size: 15px;
-        }
-      
-        label{
-          color: black;
-        }
-        /*-----------------------------------*/
-        
-        #instructions > ol > li{
-          color: black;
-        }
-      
-        #ingredients-list{
-            /* text-align: center; */
-            font-style: normal;
-            font-weight: normal;
-      
-        }
-      
-        #ingredients-list > button{
-          border: 0;
-          background-color: inherit;
-          font: inherit;
+      input[class="ingredients-custom-checkbox"] + label::before
+      {
+        /*custom new checkbox*/
+          content: "";
+          width: 15px;
+          height: 15px;
+          margin: 0 4px 0 0;
+          line-height: 14px;
           text-align: center;
-          padding: 20px;
-        }
+          border: solid 3px var(--primary);
+      }
       
-        #ingredients-list> button:hover{
-          cursor: pointer;
-          background: #eee;
-        }
-        `;
+        input[class="ingredients-custom-checkbox"]:checked + label::before
+      {
+          content: "\\2714"; /* tick sign */
+          font-size: 15px;
+      }
+    
+      #ingredients-list > label{
+        color: black;
+      }
+      /*-----------------------------------*/
+      
+      #instructions > ol > li{
+        color: black;
+      }
+    
+      #ingredients-list{
+          /* text-align: center; */
+          font-style: normal;
+          font-weight: normal;
+    
+      }
+    
+      #ingredients-list > button{
+        border: 0;
+        background-color: inherit;
+        font: inherit;
+        text-align: center;
+        padding: 20px;
+      }
+    
+      #ingredients-list> button:hover{
+        cursor: pointer;
+        background: #eee;
+      }
+      `;
 
         // Header - title
         const header = document.createElement("header");
