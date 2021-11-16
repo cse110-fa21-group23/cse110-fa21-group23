@@ -75,6 +75,7 @@ function showCookbooks() {
     hideSettings();
     hideHome();
     hideRecipeCards();
+    hideRecipePage();
     const cookbook = document.getElementById("cookbook-container");
     cookbook.style.visibility = "visible";
 }
