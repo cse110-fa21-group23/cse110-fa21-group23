@@ -33,8 +33,8 @@ async function init() {
     });
 
     // Add click event listener for search button
-    const searchButton = document.getElementById('search-button');
-    searchButton.addEventListener('click', async () => {
+    const searchButton = document.getElementById("search-button");
+    searchButton.addEventListener("click", async () => {
         let searchSuccessful = await search();
         if(searchSuccessful) {
             createRecipeCards();

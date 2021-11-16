@@ -29,7 +29,7 @@ async function fetchRecipes(queries, callbackFn) {
     console.log(url);
     return new Promise((resolve, reject) => {
         fetch(url)
-        .then(response => response.json())
+        .then((response) => response.json())
         .then(data => {
                 const recipes = getRecipeCardInfo(data.results);
                 callbackFn(data.results);
@@ -51,10 +51,10 @@ function getRecipeCardInfo(data) {
     const recipes = [];
     for (let i = 0; i < data.length; i++) {
         const result = {};
-        result['id'] = data[i]['id'];
-        result['title'] = data[i]['title'];
-        result['image'] = data[i]['image'];
-        result['diets'] = data[i]['diets'];
+        result["id"] = data[i]['id'];
+        result["title"] = data[i]['title'];
+        result["image"] = data[i]['image'];
+        result["diets"] = data[i]['diets'];
         recipes[i] = result;
     }
     return recipes;
