@@ -12,21 +12,26 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
+
+    <script src="./scripts/Router.js" type="module"></script>
     <!-- Main Stylesheets & Scripts -->
     <link rel="stylesheet" href="./styles/style.css" />
-    <script src="./scripts/script.js"></script>
+    <script src="./scripts/script.js" type="module"></script>
+    <script src="./scripts/main.js"></script>
     <!-- Category Card Custom Element -->
     <script src="./scripts/CategoryCard.js" type="module"></script>
     <!-- Recipe Card Custom Element -->
     <script src="./scripts/RecipeCard.js" type="module"></script>
     <!-- Recipe Page Custom Element -->
     <script src="./scripts/RecipePage.js" type="module"></script>
+    
 </head>
 
 <body>
 
     <h1 id="app-name" onclick="showHome()">Team 23 Project </h1>
     <main>
+         
         <!-- Hamburger Menu Section-->
         <section id="menu-container">
             <div id="menu-icon" onclick="toggleMenu()">
@@ -63,7 +68,12 @@
                 <section id="recipe-card-container">
                     <!--populate this section with the recipe cards using createRecipeCards()  -->
                 </section>
-                
+                        <!-- Recipe Page -->
+                <section id="recipe-page-container" class="hidden">
+                    <!-- add Recipe-page here-->
+                    <recipe-page></recipe-page>
+                </section>
+                        
             </div>
         </div>    
 
@@ -134,11 +144,7 @@
             <!-- within each cookbook will be a list of recipes -->
         </section>
 
-        <!-- Recipe Page -->
-        <section id="recipe-page-container" class="hidden">
-            <!-- add Recipe-page here-->
-            <recipe-page></recipe-page>
-        </section>
+       
     </main>
     <footer></footer>
 </body>

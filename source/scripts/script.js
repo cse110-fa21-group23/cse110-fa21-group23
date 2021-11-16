@@ -1,3 +1,7 @@
+import { Router } from './Router.js';
+const router = new Router(function() {
+    showHome();
+});
 const API_KEY = '43d05cc71ec2491aa7e76580fce53779';
 // API_KEY3 (Nhi): c8f83bb3a9af4355b12de10250b24c88
 // API_KEY2 (Nhi): fafd5e810c304ed3b4f9984672cb21ee
@@ -5,6 +9,8 @@ const API_KEY = '43d05cc71ec2491aa7e76580fce53779';
 const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&instructionsRequired=true`;
 const recipes = [];
 let recipeData = {};
+
+
 
 //arrays holding category names and images for category cards
 const categories = ["Indian", "Vegan", "Mexican", "Gluten-Free", "Italian", "Japanese", "American", "Vegetarian", "Thai", "Chinese", "Korean",
@@ -74,129 +80,7 @@ function search() {
     });
 }
 
-var $SOMenuVisibility = "hidden";
-function toggleMenu() {
-    var menuIcon = document.getElementById("menu-icon");
-    menuIcon.classList.toggle("change");
-
-    var slideOverMenu = document.getElementById("slide-over-menu");
-
-    if ($SOMenuVisibility == "hidden") {
-        slideOverMenu.style.transform = "translate(100%)";
-        $SOMenuVisibility = "visible";
-    }
-    else {
-        slideOverMenu.style.transform = "translate(-100%)";
-        $SOMenuVisibility = "hidden";
-    }
-}
-
-function showSettings() {
-    hideHome();
-    hideCookbooks();
-    hideRecipeCards();
-    hideRecipePage();
-    const settings = document.getElementById("settings-container");
-    settings.style.visibility = "visible";
-    //settings.style.transform = "translate(100%)";
-    // Get the list of restrictions from local storage
-    const getDietaryRestrictions = JSON.parse(localStorage.getItem("dietaryRestrictions"));
-    const dietaryContainerElements = document.getElementById('dietary-container').elements;
-
-    for (let i = 0; i < dietaryContainerElements.length; i++) {
-        const dietaryRestriction = dietaryContainerElements[i];
-        // If our restriction is in the list, then check it on the page
-        if (getDietaryRestrictions.includes(dietaryRestriction.value)) {
-            dietaryRestriction.checked = true;
-        }
-    }
-}
-
-function clearCheckBoxes(){
-    let checkboxes = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelectorAll("#ingredients-list > ul > ol > input");
-    console.log(checkboxes);
-    checkboxes.forEach(e => e.checked = false);
-}
-
-function hideRecipePage(){
-    const recipePage = document.getElementById("recipe-page-container");
-    recipePage.classList.add("hidden");
-}
-
-function hideSettings() {
-    const settings = document.getElementById("settings-container");
-    settings.style.visibility = "hidden";
-    // settings.style.transform = "translate(-100%)";
-}
-
-function showHome() {
-    hideSettings();
-    hideCookbooks();
-    hideSettings();
-    hideRecipeCards();
-    showCategoryCards();
-    document.getElementById('search-query').value = ''; //clears search result
-    const search = document.getElementById("search");
-    search.style.visibility = "visible";
-}
-
-function hideHome() {
-    hideCategoryCards();
-    const search = document.getElementById("search");
-    search.style.visibility = "hidden";
-}
-
-function showCookbooks() {
-    hideSettings();
-    hideHome();
-    hideRecipeCards();
-    const cookbook = document.getElementById("cookbook-container");
-    cookbook.style.visibility = "visible";
-}
-
-function hideCookbooks() {
-    const cookbook = document.getElementById("cookbook-container");
-    cookbook.style.visibility = "hidden";
-}
-
-function showRecipeCards() {
-    const recipeCards = document.getElementById("recipe-card-container");
-    recipeCards.style.visibility = "visible";
-}
-function hideRecipeCards() {
-    const recipeCards = document.getElementById("recipe-card-container");
-    recipeCards.style.visibility = "hidden";
-}
-
-function showCategoryCards() {
-    const categoryCards = document.getElementById("category-wrapper");
-    categoryCards.style.visibility = "visible";
-}
-
-function hideCategoryCards() {
-    const categoryCards = document.getElementById("category-wrapper");
-    categoryCards.style.visibility = "hidden";
-}
-
-function updateSettings() {
-    const dietaryRestrictionList = [];
-    // Get all the inputs under the div
-    const dietaryContainerElements = document.getElementById('dietary-container').elements;
-    for (let i = 0; i < dietaryContainerElements.length; i++) {
-        // If a checkbox is checked, then add it to our list
-        const inputElement = dietaryContainerElements[i];
-        if (inputElement.checked) {
-            dietaryRestrictionList.push(inputElement.value);
-        }
-    }
-
-    // Add list to local storage
-    localStorage.setItem("dietaryRestrictions", JSON.stringify(dietaryRestrictionList));
-
-    // TODO: add confirmation message in HTML (alert is temporary)
-    alert("your preferences have been updated");
-}
-
+// main.js
 
 function createRecipeCards() {
     // let recipeCard = document.createElement("recipe-card");
@@ -212,21 +96,28 @@ function createRecipeCards() {
         var element = document.createElement('recipe-card');
         element.data = recipeData[i];
         document.querySelector("recipe-page").data = recipeData[i];
+
+        const page = recipeData[i]["title"];
+
+        router.addPage(page, function() {
+            hideHome();
+            hideRecipeCards();
+            showRecipePage();
+            document.querySelector("recipe-page").data = recipeData[i];
+            checkBookMark(recipeData[i]);
+        });
+
         recipeCardContainer.appendChild(element);
-        bindRecipeCard(element);
+        bindRecipeCard(element, page);
     }
 }
 
-function bindRecipeCard(recipeCard)
-{
-    recipeCard.addEventListener('click', event => {
-        console.log("Recipe card has been clicked");
-        const recipePageContainer = document.querySelector("#recipe-page-container");
-        hideHome();
-        hideRecipeCards();
-        recipePageContainer.classList.remove("hidden");
+function bindRecipeCard(recipeCard, pageName) {
+    recipeCard.addEventListener('click', e => {
+      if (e.path[0].nodeName == 'A') return;
+      router.navigate(pageName);
     });
-}
+  }
 
 
 
