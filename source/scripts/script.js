@@ -18,10 +18,10 @@ async function init() {
     const clearBtn = document.getElementById("clear-btn");
     clearBtn.addEventListener('click', () => {
         const ele = document.getElementsByName("dietary-radio");
-        for(var i=0;i<ele.length;i++)
-           ele[i].checked = false;    
+        for (var i = 0; i < ele.length; i++)
+            ele[i].checked = false;
     })
-    
+
     //on enter for search, call search function
     document.addEventListener('keydown', async function (event) {
         if (event.key === 'Enter') {
@@ -36,7 +36,7 @@ async function init() {
     const searchButton = document.getElementById("search-button");
     searchButton.addEventListener("click", async () => {
         let searchSuccessful = await search();
-        if(searchSuccessful) {
+        if (searchSuccessful) {
             createRecipeCards();
         }
     });
@@ -59,23 +59,23 @@ function search() {
     // Reset the recipe-card-container to be empty for every search
     recipeCardContainer.innerHTML = '';
     showRecipeCards();
-    
+
     // check for user dietary restriction
     const getDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
     let queryStrDiet = "";
-    if(getDietaryRestrictions.length !== 0) {
+    if (getDietaryRestrictions.length !== 0) {
         queryStrDiet = `&diet=${getDietaryRestrictions}`;
     }
 
     // check for user intolerances
     const getIntolerancesRestrictions = JSON.parse(localStorage.getItem("intolerancesRestrictions"));
     let queryStrIntolerances = "";
-    if(getIntolerancesRestrictions.length !== 0) {
+    if (getIntolerancesRestrictions.length !== 0) {
         queryStrIntolerances = `&intolerances=${getIntolerancesRestrictions}`
     }
 
     // If it is empty, alert the user it is empty
-    if(!searchQuery) {
+    if (!searchQuery) {
         alert("Please input a search or click a filter below");
         return;
     }
@@ -127,10 +127,10 @@ function showSettings() {
         }
     }
 
-    for(let i = 0; i < intolerancesContainerElements.length; i++) {
+    for (let i = 0; i < intolerancesContainerElements.length; i++) {
         const intoleranceRestriction = intolerancesContainerElements[i];
         // If our restriction is in the list, then check it on the page
-        if(getIntolerancesRestrictions && getIntolerancesRestrictions.includes(intoleranceRestriction.value)) {
+        if (getIntolerancesRestrictions && getIntolerancesRestrictions.includes(intoleranceRestriction.value)) {
             intoleranceRestriction.checked = true;
         }
     }
@@ -237,10 +237,10 @@ function updateSettings() {
 
     const intolerancesRestrictionsList = [];
     const intolerancesContainerElements = document.getElementById("intolerances-container");
-    for(let i = 0; i < intolerancesContainerElements.length; i++) {
+    for (let i = 0; i < intolerancesContainerElements.length; i++) {
         // If a checkbox is checked, then add it to our list
         const inputElement = intolerancesContainerElements[i];
-        if(inputElement.checked) {
+        if (inputElement.checked) {
             intolerancesRestrictionsList.push(inputElement.value);
         }
     }
@@ -248,7 +248,7 @@ function updateSettings() {
     // Add lists to local storage
     localStorage.setItem("dietaryRestrictions", JSON.stringify(dietaryRestrictionList));
     localStorage.setItem("intolerancesRestrictions", JSON.stringify(intolerancesRestrictionsList));
-    
+
     // TODO: add confirmation message in HTML (alert is temporary)
     alert("your preferences have been updated");
 }
@@ -334,14 +334,14 @@ async function searchByCategory() {
     // check for user dietary restriction
     const getDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
     let queryStrDiet = "";
-    if(getDietaryRestrictions.length !== 0) {
+    if (getDietaryRestrictions.length !== 0) {
         queryStrDiet = `&diet=${getDietaryRestrictions}`;
     }
 
     // check for user intolerances
     const getIntolerancesRestrictions = JSON.parse(localStorage.getItem("intolerancesRestrictions"));
     let queryStrIntolerances = "";
-    if(getIntolerancesRestrictions.length !== 0) {
+    if (getIntolerancesRestrictions.length !== 0) {
         queryStrIntolerances = `&intolerances=${getIntolerancesRestrictions}`
     }
 
