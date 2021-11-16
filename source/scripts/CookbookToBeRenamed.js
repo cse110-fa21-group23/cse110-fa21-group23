@@ -1,7 +1,6 @@
 //This whole thing should be cleaned up and under scripts.js
 var lists = [];//Should be a 2d array/set/whatever of the saved lists
-var listsDisplay = [];//Should be a 2d array/set/whatever used 
-var listsEmpty = true;
+var listsDisplay = [];//Should be a 2d array/set/whatever used
 
 /* Adds and sets up the save recipe button to the display recipe page
 */
