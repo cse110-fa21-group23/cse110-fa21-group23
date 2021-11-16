@@ -34,13 +34,19 @@ class RecipePage extends HTMLElement{
       .middle > div > h3{
           text-align: center;
           font-weight: bold;
-          margin-top: 80px;
+          margin-top: 10px;
       }
     
       #clear-checkboxes{
         position: absolute;
         left: 50%;
         transform: translate(-50%, -50%);
+        margin-top: 20px;
+        color: var(--primary);
+      }
+
+      #instructions{
+        margin-top: 80px;
       }
     
       /*-- custom checkbox style --*/

@@ -2,15 +2,14 @@ import { Router } from './Router.js';
 const router = new Router(function() {
     showHome();
 });
-const API_KEY = '43d05cc71ec2491aa7e76580fce53779';
+const API_KEY = '4d936c811cda46879d4749def6bb36a1';
 // API_KEY3 (Nhi): c8f83bb3a9af4355b12de10250b24c88
 // API_KEY2 (Nhi): fafd5e810c304ed3b4f9984672cb21ee
 // API_KEY1: 4d936c811cda46879d4749def6bb36a1
+// 43d05cc71ec2491aa7e76580fce53779
 const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&fillIngredients=true&addRecipeInformation=true&instructionsRequired=true`;
 const recipes = [];
 let recipeData = {};
-
-
 
 //arrays holding category names and images for category cards
 const categories = ["Indian", "Vegan", "Mexican", "Gluten-Free", "Italian", "Japanese", "American", "Vegetarian", "Thai", "Chinese", "Korean",

@@ -43,11 +43,6 @@ function clearCheckBoxes(){
     checkboxes.forEach(e => e.checked = false);
 }
 
-function hideRecipePage(){
-    const recipePage = document.getElementById("recipe-page-container");
-    recipePage.classList.add("hidden");
-}
-
 function hideSettings() {
     const settings = document.getElementById("settings-container");
     settings.style.visibility = "hidden";
@@ -87,7 +82,12 @@ function hideCookbooks() {
 
 function showRecipePage(){
     const recipePage = document.getElementById("recipe-page-container");
-    recipePage.classList.remove("hidden");
+    recipePage.style.visibility = "visible";
+}
+
+function hideRecipePage(){
+    const recipePage = document.getElementById("recipe-page-container");
+    recipePage.style.visibility = "hidden";
 }
 
 function showRecipeCards() {
@@ -102,7 +102,6 @@ function hideRecipeCards() {
 function showCategoryCards() {
     const categoryCards = document.getElementById("category-wrapper");
     categoryCards.style.visibility = "visible";
-    categoryCards.classList.remove("hidden");
 }
 
 function hideCategoryCards() {
@@ -129,6 +128,11 @@ function updateSettings() {
     alert("your preferences have been updated");
 }
 
+/**
+ * This function checks localStorage for saved recipes, and then display bookmark-filled for the ones that already saved
+ * @param {Object} data 
+ * @returns None
+ */
 function checkBookMark(data){
     let bookmarkList = JSON.parse(localStorage.getItem("bookmark"));
     const title = data["title"];
@@ -142,6 +146,11 @@ function checkBookMark(data){
     }
 }
 
+/**
+ * When user clicks on bookMark icon, it saves recipe's title and ID to localStorage
+ * If the recipe already saved, clicking it again will remove it from localStorage.
+ * The data being stored in 'bookmark'
+ */
 function setBookMark(){
     // check local storage for bookmark
     let bookmarkList = JSON.parse(localStorage.getItem("bookmark"));
