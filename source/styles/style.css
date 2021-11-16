@@ -182,6 +182,30 @@ h2 {
 
 }
 
+#clear-btn {
+  margin-top: 30px;
+  border: none;
+  background-color: var(--background-color)
+}
+
+#clear-btn:hover {
+  cursor: pointer
+}
+
+.intolerances-subheading, .diet-subheading {
+  margin-bottom: 50px;
+}
+
+.intolerances-subheading {
+  margin-top: 50px;
+}
+
+#intolerances-container li, #dietary-container li {
+  display: block;
+  width: 33.3%;
+  float: left;
+}
+
 /* Rotate first bar */
 .change .bar1 {
   -webkit-transform: rotate(-45deg) translate(-9px, 6px) ;

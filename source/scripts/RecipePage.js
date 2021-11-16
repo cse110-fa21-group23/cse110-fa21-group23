@@ -198,7 +198,6 @@ function getIngredients(data) {
   let index = 0;
   steps.forEach((step) => {
     let ingredients = step["ingredients"];
-    console.log("ingredients", ingredients);
     for (let i = 0; i < ingredients.length; i++) {
       list[index++] = ingredients[i]["name"];
     }
