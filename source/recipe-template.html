@@ -14,11 +14,12 @@
 
     <!-- Main Stylesheets & Scripts -->
     <link rel="stylesheet" href="./styles/recipe-template.css" />
-    <script src="./scripts/script.js"></script>
+    <!-- <script src="./scripts/script.js"></script> -->
+    <script src="./scripts/recipe.js"></script>
     <!-- Category Card Custom Element -->
     <script src="./scripts/CategoryCard.js" type="module"></script>
     <!-- Recipe Card Custom Element -->
-    <script src="./scripts/RecipeCard.js" type="module"></script>
+    <script src="./scripts/RecipePage.js" type="module"></script>
 </head>
 
 <body onload="init()">
@@ -40,29 +41,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- Search Section -->
-        <div class="box hidden">
-            <div>
-                <div id="search-container">
-                    <div id="search" class="search">
-                        <input id="search-query" class="search-query" type="text" name="search"
-                            placeholder="ex: lasagna">
-                        <button type="submit" class="searchButton" onclick="search()">
-                            <img src="./img/icons/search.svg" alt="search icon" width="25" height="25">
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <section id="category-card-container">
-                    <!--populate this section with the category cards using createCategoryCards()  -->
-                </section>
-                <section id="recipe-card-container">
-                    <!--populate this section with the recipe cards using createRecipeCards()  -->
-                </section>
-            </div>
-        </div>
 
         <!-- Settings Section-->
         <div class="center">
@@ -124,44 +102,10 @@
         </section>
 
         <!-- Recipe Page -->
-        <section id="recipe-page-container hidden">
+        <section id="recipe-page-container" class="hidden">
             <!-- add Recipe-page here-->
-            <article>
-                <header class="header">
-                    <h1>Cheesesteak Sliders</h1>
-                    <input id="bookmark" onclick="setBookMark()" type="image" src="img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
-                </header>
-        
-                <main class="middle">
-                    <div id="ingredients-list">
-                        <h3>INGREDIENTS</h3>
-                        <!-- custom checkbox -->
-                        <ul style="list-style-type: none;">
-                            <ol>
-                                <input type="checkbox" class="ingredients-custom-checkbox"/>
-                                <label>1/2 green peppers, sliced</label>
-                            </ol>
-                            <ol>
-                                <input type="checkbox" class="ingredients-custom-checkbox"/>
-                                <label>1/2 green peppers, sliced</label> 
-                            </ol>
-                        </ul>
-                        
-                        <button id="clear-checkboxes" onclick="clearCheckBoxes()">CLEAR CHECKBOXES</button>
-        
-                    </div>
-        
-                    <div id="instructions">
-                        <h3>INSTRUCTIONS</h3>
-                        
-                        <ol>
-                            <li>Preheat large skillet medium/high heat, add teaspoon oil, green peppers and onions, cook 5 minutes until softened</li>
-                            <li>In separate skillet, add teaspoon oil, cook mushrooms 2 minutes</li>
-                            <li>Add in cooked onions, peppers and soy, cook 1 minute</li>
-                        </ol>
-                    </div>
-                </main>
-            </article>
+            <recipe-page></recipe-page>
+            
         </section>
     </main>
     <footer></footer>

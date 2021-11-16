@@ -1,7 +1,9 @@
-const API_KEY = 'fafd5e810c304ed3b4f9984672cb21ee';
+const API_KEY = '43d05cc71ec2491aa7e76580fce53779';
 // API_KEY3 (Nhi): c8f83bb3a9af4355b12de10250b24c88
 // API_KEY2 (Nhi): fafd5e810c304ed3b4f9984672cb21ee
 // API_KEY1: 4d936c811cda46879d4749def6bb36a1
+// API_KEY: 94de49097b8a4673b563741f9515a04c
+// API_KEY: 43d05cc71ec2491aa7e76580fce53779
 const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&instructionsRequired=true`;
 const recipes = [];
 let recipeData = {};
@@ -112,12 +114,6 @@ function showSettings() {
     }
 }
 
-function clearCheckBoxes(){
-    let checkboxes = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelectorAll("#ingredients-list > ul > ol > input");
-    console.log(checkboxes);
-    checkboxes.forEach(e => e.checked = false);
-}
-
 function hideRecipePage(){
     const recipePage = document.getElementById("recipe-page-container");
     recipePage.classList.add("hidden");
@@ -152,6 +148,27 @@ function showCookbooks() {
     hideRecipeCards();
     const cookbook = document.getElementById("cookbook-container");
     cookbook.style.visibility = "visible";
+    cookbook.classList.remove("hidden");
+
+    let bookmarkList = JSON.parse(localStorage.getItem("bookmark"));
+    if (bookmarkList == null) // fix this
+    {
+        let empty = document.createElement("p").ineer = "EMPTY";
+        cookbook.appendChild(empty);
+    }
+    else
+    {
+        for (const el in bookmarkList) {
+            const link = document.createElement("a");
+            link.href=`./recipe-template.html?&id=${bookmarkList[el]}`;
+            link.innerHTML = el;
+            link.style="style='display: block; margin-left: auto; margin-right: auto; width: 50%;'";
+            
+            cookbook.appendChild(link);
+            let br = document.createElement("br");
+            cookbook.appendChild(br);
+        }
+    }
 }
 
 function hideCookbooks() {
@@ -213,20 +230,18 @@ function createRecipeCards() {
         element.data = recipeData[i];
         document.querySelector("recipe-page").data = recipeData[i];
         recipeCardContainer.appendChild(element);
-        bindRecipeCard(element);
+        bindRecipeCard(element,recipeData[i]);
     }
 }
 
-function bindRecipeCard(recipeCard)
+function bindRecipeCard(recipeCard, data)
 {
     recipeCard.addEventListener('click', event => {
         console.log("Recipe card has been clicked");
-        const recipePageContainer = document.querySelector("#recipe-page-container");
-        hideHome();
-        hideRecipeCards();
-        recipePageContainer.classList.remove("hidden");
+        window.location.href = `./recipe-template.html?&id=${data["id"]}`;
     });
 }
+
 
 
 

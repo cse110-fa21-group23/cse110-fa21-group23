@@ -6,3 +6,40 @@
     </div>
 
 </article>
+
+<article>
+    <header class="header">
+        <h1>Cheesesteak Sliders</h1>
+        <input id="bookmark" onclick="setBookMark()" type="image" src="img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
+    </header>
+
+    <main class="middle">
+        <div id="ingredients-list">
+            <h3>INGREDIENTS</h3>
+            <!-- custom checkbox -->
+            <ul style="list-style-type: none;">
+                <ol>
+                    <input type="checkbox" class="ingredients-custom-checkbox"/>
+                    <label>1/2 green peppers, sliced</label>
+                </ol>
+                <ol>
+                    <input type="checkbox" class="ingredients-custom-checkbox"/>
+                    <label>1/2 green peppers, sliced</label> 
+                </ol>
+            </ul>
+            
+            <button id="clear-checkboxes" onclick="clearCheckBoxes()">CLEAR CHECKBOXES</button>
+
+        </div>
+
+        <div id="instructions">
+            <h3>INSTRUCTIONS</h3>
+            
+            <ol>
+                <li>Preheat large skillet medium/high heat, add teaspoon oil, green peppers and onions, cook 5 minutes until softened</li>
+                <li>In separate skillet, add teaspoon oil, cook mushrooms 2 minutes</li>
+                <li>Add in cooked onions, peppers and soy, cook 1 minute</li>
+            </ol>
+        </div>
+    </main>
+</article>
