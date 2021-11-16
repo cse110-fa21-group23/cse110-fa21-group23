@@ -1,5 +1,5 @@
 // Import API from file
-import { fetchRecipes } from '/source/scripts/api_script.js';
+import { fetchRecipes } from "/source/scripts/api_script.js";
 let recipeData = {};
 
 //arrays holding category names and images for category cards
