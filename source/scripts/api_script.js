@@ -24,14 +24,15 @@ const API_KEY = "&apiKey=dd38d96d1f5d410f9bf7bfcef6cede83&";
 // callbackFn assigns the value from the fetch to the global variable
 async function fetchRecipes(queries, callbackFn) {
     const complexSearch = "/complexSearch";
-    const url = `${MAIN_API_URL}${complexSearch}?${queries}${API_KEY}`;
+    const count = "&addRecipeInformation=true&number=30"
+    const url = `${MAIN_API_URL}${complexSearch}?${queries}${API_KEY}${count}`;
     console.log(url);
     return new Promise((resolve, reject) => {
         fetch(url)
         .then(response => response.json())
         .then(data => {
                 const recipes = getRecipeCardInfo(data.results);
-                callbackFn(recipes);
+                callbackFn(data.results);
                 resolve(true);
             })
         .catch(err => {
