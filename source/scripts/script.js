@@ -1,4 +1,4 @@
-const API_KEY = 'fafd5e810c304ed3b4f9984672cb21ee';
+const API_KEY = '43d05cc71ec2491aa7e76580fce53779';
 // API_KEY3 (Nhi): c8f83bb3a9af4355b12de10250b24c88
 // API_KEY2 (Nhi): fafd5e810c304ed3b4f9984672cb21ee
 // API_KEY1: 4d936c811cda46879d4749def6bb36a1
