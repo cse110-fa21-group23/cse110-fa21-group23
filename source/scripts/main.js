@@ -38,8 +38,8 @@ function showSettings() {
 }
 
 function clearCheckBoxes(){
-    let checkboxes = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelectorAll("#ingredients-list > ul > ol > input");
-    console.log(checkboxes);
+    let checkboxes = document.querySelector("#recipe-page-container > recipe-page")
+        .shadowRoot.querySelectorAll("#ingredients-list > ul > ol > input");
     checkboxes.forEach(e => e.checked = false);
 }
 
