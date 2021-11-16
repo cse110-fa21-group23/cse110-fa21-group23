@@ -43,7 +43,7 @@ async function init() {
 
     // // Make the "Show more" button functional
     // bindShowMore();
-
+    bindPopstate();
 }
 
 
@@ -117,8 +117,16 @@ function bindRecipeCard(recipeCard, pageName) {
       if (e.path[0].nodeName == 'A') return;
       router.navigate(pageName);
     });
-  }
+}
 
+function bindPopstate() {
+    window.addEventListener("popstate", (event) =>{
+      if (event.state != null)
+        router.navigate(event.state, true);
+      else
+        router.navigate("home", true);
+    });
+  }
 
 
 //this function creates 6 category cards from the categories and images arrays above using random 
