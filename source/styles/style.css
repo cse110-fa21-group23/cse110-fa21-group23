@@ -283,7 +283,18 @@ label {
 /* end of SETTINGS ========================================================= */
 
 /* COOKBOOKS/LISTS ================================================================ */
-
+.bookmark {
+  float: left;
+}
+.list-name {
+  color: var(--primary);
+}
+#list-name-header {
+  color: var(--primary);
+}
+#add-empty-cookbook {
+  color: var(--primary);
+}
   /* end of COOKBOOKS/LISTS ========================================================= */
 
 #recipe-card-container {
