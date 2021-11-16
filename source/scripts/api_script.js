@@ -36,7 +36,7 @@ async function fetchRecipes(queries, callbackFn) {
                 resolve(true);
             })
         .catch(err => {
-                console.log(`Error loading the recipe`);
+                console.log("Error loading the recipe");
                 reject(err);
         });
     })
@@ -51,10 +51,10 @@ function getRecipeCardInfo(data) {
     const recipes = [];
     for (let i = 0; i < data.length; i++) {
         const result = {};
-        result["id"] = data[i]['id'];
-        result["title"] = data[i]['title'];
-        result["image"] = data[i]['image'];
-        result["diets"] = data[i]['diets'];
+        result["id"] = data[i]["id"];
+        result["title"] = data[i]["title"];
+        result["image"] = data[i]["image"];
+        result["diets"] = data[i]["diets"];
         recipes[i] = result;
     }
     return recipes;

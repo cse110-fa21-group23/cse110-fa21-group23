@@ -15,7 +15,7 @@ async function init() {
     showHome();
     createCategoryCards();
     showRecipePage();
-    const clearBtn = document.getElementById('clear-btn');
+    const clearBtn = document.getElementById("clear-btn");
     clearBtn.addEventListener('click', () => {
         const ele = document.getElementsByName("dietary-radio");
         for(var i=0;i<ele.length;i++)
@@ -49,7 +49,7 @@ async function init() {
 // Generates recipe cards by passing in values into RecipeData
 function search() {
     // get the search query
-    const searchQuery = document.getElementById('search-query').value;
+    const searchQuery = document.getElementById("search-query").value;
     // let searchQuery = document.getElementById('search-query').value;
     // console.log(searchQuery);
     // console.log(localStorage.getItem("dietaryRestrictions"));
@@ -116,8 +116,8 @@ function showSettings() {
     // Get the list of restrictions from local storage
     const getDietaryRestrictions = JSON.parse(localStorage.getItem("dietaryRestrictions"));
     const getIntolerancesRestrictions = JSON.parse(localStorage.getItem("intolerancesRestrictions"));
-    const dietaryContainerElements = document.getElementById('dietary-container').elements;
-    const intolerancesContainerElements = document.getElementById('intolerances-container').elements;
+    const dietaryContainerElements = document.getElementById("dietary-container").elements;
+    const intolerancesContainerElements = document.getElementById("intolerances-container").elements;
 
     for (let i = 0; i < dietaryContainerElements.length; i++) {
         const dietaryRestriction = dietaryContainerElements[i];
