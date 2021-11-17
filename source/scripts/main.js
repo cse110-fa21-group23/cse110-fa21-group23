@@ -176,7 +176,7 @@ function setBookMark() {
     // check local storage for bookmark
     let bookmarkList = JSON.parse(localStorage.getItem("bookmark"));
     if (bookmarkList == null)
-        bookmarkList = {};
+        {bookmarkList = {};}
 
     let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
     const name = bookMark.getAttribute("name");
