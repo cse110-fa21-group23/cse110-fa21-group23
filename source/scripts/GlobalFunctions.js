@@ -59,28 +59,36 @@ function showHome() {
 }
 
 function hideHome() {
-    hideCategoryCards();
-    const search = document.getElementById("search");
-    search.style.visibility = "hidden";
+    try {
+        hideCategoryCards();
+        const search = document.getElementById("search");
+        search.style.visibility = "hidden";
+    } catch (err) { }
 }
 
 function showCookbooks() {
-    hideSettings();
-    hideHome();
-    hideRecipeCards();
-    hideRecipePage();
-    const cookbook = document.getElementById("cookbook-container");
-    cookbook.style.visibility = "visible";
+    try {
+        hideSettings();
+        hideHome();
+        hideRecipeCards();
+        hideRecipePage();
+        const cookbook = document.getElementById("cookbook-container");
+        cookbook.style.visibility = "visible";
+    } catch (err) { }
 }
 
 function hideCookbooks() {
-    const cookbook = document.getElementById("cookbook-container");
-    cookbook.style.visibility = "hidden";
+    try {
+        const cookbook = document.getElementById("cookbook-container");
+        cookbook.style.visibility = "hidden";
+    } catch (err) { }
 }
 
 function showRecipePage() {
-    const recipePage = document.getElementById("recipe-page-container");
-    recipePage.style.visibility = "visible";
+    try {
+        const recipePage = document.getElementById("recipe-page-container");
+        recipePage.style.visibility = "visible";
+    } catch (err) { }
 }
 
 function hideRecipePage() {
@@ -91,22 +99,30 @@ function hideRecipePage() {
 }
 
 function showRecipeCards() {
-    const recipeCards = document.getElementById("recipe-card-container");
-    recipeCards.style.visibility = "visible";
+    try {
+        const recipeCards = document.getElementById("recipe-card-container");
+        recipeCards.style.visibility = "visible";
+    } catch (err) { }
 }
 function hideRecipeCards() {
-    const recipeCards = document.getElementById("recipe-card-container");
-    recipeCards.style.visibility = "hidden";
+    try {
+        const recipeCards = document.getElementById("recipe-card-container");
+        recipeCards.style.visibility = "hidden";
+    } catch (err) { }
 }
 
 function showCategoryCards() {
-    const categoryCards = document.getElementById("category-wrapper");
-    categoryCards.style.visibility = "visible";
+    try {
+        const categoryCards = document.getElementById("category-wrapper");
+        categoryCards.style.visibility = "visible";
+    } catch (err) { }
 }
 
 function hideCategoryCards() {
-    const categoryCards = document.getElementById("category-wrapper");
-    categoryCards.style.visibility = "hidden";
+    try {
+        const categoryCards = document.getElementById("category-wrapper");
+        categoryCards.style.visibility = "hidden";
+    } catch (err) { }
 }
 
 function updateSettings() {
