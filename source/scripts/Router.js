@@ -2,23 +2,23 @@
 export class Router {
     static routes = {};
   
-    constructor(homeFunc) {
-      this['home'] = homeFunc;
+    constructor(homeFunction) {
+      this['home'] = homeFunction;
     }
   
-    addPage(page, pageFunc) {
-      this[page] = pageFunc;
+    addPage(page, pageFunction) {
+      this[page] = pageFunction;
     }
   
     navigate(page, statePopped) {
-      console.log(`navigate() function called, requested page: ${page}`);
+      console.log(`navigating to: ${page}`);
   
       if(!this[page]){
         console.log('Error: function does not exist');
         return;
       }
   
-      var hash;
+      let hash;
   
       if(page == 'home'){
           console.log('home')

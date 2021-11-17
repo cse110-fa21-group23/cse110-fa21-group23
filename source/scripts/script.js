@@ -28,7 +28,7 @@ window.addEventListener('DOMContentLoaded', init);
 async function init() {
     showHome();
     createCategoryCards();
-    bindPopState();
+    bindAll();
     document.addEventListener('keydown', async function (event) {
         if (event.key === 'Enter') {
             let searchSuccessful = await search();
@@ -323,13 +323,78 @@ function searchByCategory() {
 }
 
 function bindPopState() {
-        window.addEventListener('popstate', e => {
+        window.addEventListener("popstate", e => {
           if(e.state){
             router.navigate(e.state, true);
           }
           else{
-            router.navigate('home', true);
+            router.navigate("home", true);
           }
         }) 
 }
 
+//function to toggle the menu
+function bindToggle(){
+    let menuIcon = document.getElementById("menu-icon");
+    menuIcon.addEventListener("click", (e) => {
+        toggleMenu();
+    })
+}
+
+//function to return to home when app name is clicked
+function bindAppNameClick(){
+    let appName = document.getElementById("app-name");
+    appName.addEventListener("click", (e) => {
+        showHome();
+    })
+}
+
+//function to update settings when update button is clicked
+function bindUpdateButton(){
+    let updateButton = document.getElementById("update-button");
+    updateButton.addEventListener("click", (e) => {
+        updateSettings();
+    })
+}
+
+function bindSearchButton(){
+    let searchButton = document.getElementById("search-button");
+    searchButton.addEventListener("click", (e) => {
+        search();
+    })
+}
+
+function bindCookbookPage(){
+    let cookbook = document.getElementById("cookbook-page");
+    cookbook.addEventListener("click", (e) => {
+        showCookbooks();
+        toggleMenu();
+    })
+}
+
+function bindSettingsPage(){
+    let settings = document.getElementById("settings-page");
+    settings.addEventListener("click", (e) => {
+        showSettings();
+        toggleMenu();
+    })
+}
+
+function bindHomePage(){
+    let home = document.getElementById("home-page");
+    home.addEventListener("click", (e) => {
+        showHome();
+        toggleMenu();
+    })
+}
+
+function bindAll() {
+    bindPopState();
+    bindToggle();
+    bindAppNameClick();
+    bindUpdateButton();
+    bindSearchButton();
+    bindSettingsPage();
+    bindCookbookPage();
+    bindHomePage();
+}
