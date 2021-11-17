@@ -1,0 +1,23 @@
+{
+  "name": "cse110-fa21-group23",
+  "version": "1.0.0",
+  "description": "Create a recipe management site to provide ease of access to quality recipes at home.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cse110-fa21-group23/cse110-fa21-group23.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cse110-fa21-group23/cse110-fa21-group23/issues"
+  },
+  "homepage": "https://github.com/cse110-fa21-group23/cse110-fa21-group23#readme",
+  "dependencies": {
+    "jest": "^27.3.1",
+    "puppeteer": "^11.0.0"
+  }
+}
