@@ -37,7 +37,7 @@ function showSettings() {
     }
 }
 
-function clearCheckBoxes(){
+function clearCheckBoxes() {
     let checkboxes = document.querySelector("#recipe-page-container > recipe-page")
         .shadowRoot.querySelectorAll("#ingredients-list > ul > ol > input");
     checkboxes.forEach(e => e.checked = false);
@@ -80,12 +80,12 @@ function hideCookbooks() {
     cookbook.style.visibility = "hidden";
 }
 
-function showRecipePage(){
+function showRecipePage() {
     const recipePage = document.getElementById("recipe-page-container");
     recipePage.style.visibility = "visible";
 }
 
-function hideRecipePage(){
+function hideRecipePage() {
     const recipePage = document.getElementById("recipe-page-container");
     recipePage.style.visibility = "hidden";
 }
@@ -121,8 +121,19 @@ function updateSettings() {
         }
     }
 
-    // Add list to local storage
+    const intolerancesRestrictionsList = [];
+    const intolerancesContainerElements = document.getElementById("intolerances-container");
+    for (let i = 0; i < intolerancesContainerElements.length; i++) {
+        // If a checkbox is checked, then add it to our list
+        const inputElement = intolerancesContainerElements[i];
+        if (inputElement.checked) {
+            intolerancesRestrictionsList.push(inputElement.value);
+        }
+    }
+
+    // Add lists to local storage
     localStorage.setItem("dietaryRestrictions", JSON.stringify(dietaryRestrictionList));
+    localStorage.setItem("intolerancesRestrictions", JSON.stringify(intolerancesRestrictionsList));
 
     // TODO: add confirmation message in HTML (alert is temporary)
     alert("your preferences have been updated");
@@ -133,13 +144,12 @@ function updateSettings() {
  * @param {Object} data 
  * @returns None
  */
-function checkBookMark(data){
+function checkBookMark(data) {
     let bookmarkList = JSON.parse(localStorage.getItem("bookmark"));
     const title = data["title"];
     if (bookmarkList == null)
         return;
-    if (bookmarkList[title] != null)
-    {
+    if (bookmarkList[title] != null) {
         let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
         bookMark.src = "./img/icons/bookmark-filled.svg";
         bookMark.setAttribute("name", "bookmark-filled");
@@ -151,7 +161,7 @@ function checkBookMark(data){
  * If the recipe already saved, clicking it again will remove it from localStorage.
  * The data being stored in 'bookmark'
  */
-function setBookMark(){
+function setBookMark() {
     // check local storage for bookmark
     let bookmarkList = JSON.parse(localStorage.getItem("bookmark"));
     if (bookmarkList == null)
@@ -161,14 +171,12 @@ function setBookMark(){
     const name = bookMark.getAttribute("name");
     const ID = document.querySelector("recipe-page").data["id"];
     const title = document.querySelector("recipe-page").data["title"];
-    if (name == "bookmark-empty")
-    {
+    if (name == "bookmark-empty") {
         bookmarkList[title] = ID;
         bookMark.src = "./img/icons/bookmark-filled.svg";
         bookMark.setAttribute("name", "bookmark-filled");
     }
-    else
-    {
+    else {
         delete bookmarkList[title];
         bookMark.src = "./img/icons/bookmark-empty.svg";
         bookMark.setAttribute("name", "bookmark-empty");

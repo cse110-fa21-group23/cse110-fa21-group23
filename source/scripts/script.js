@@ -27,7 +27,6 @@ window.addEventListener('DOMContentLoaded', init);
 async function init() {
     showHome();
     createCategoryCards();
-    showRecipePage();
     const clearBtn = document.getElementById("clear-btn");
     clearBtn.addEventListener('click', () => {
         const ele = document.getElementsByName("dietary-radio");
