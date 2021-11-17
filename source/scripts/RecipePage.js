@@ -11,52 +11,54 @@ class RecipePage extends HTMLElement {
     style.innerHTML = `
       .header{
         text-align: center;
+      }
+      
+      .header h1{
         position: relative;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center; /*centers horizontally*/
-    }
+        display: inline;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 64px;
+        line-height: 96px;
+        text-align: center;
+        padding: 10px; 
+      }
     
-    .header h1{
-      position: relative;
-      display: inline;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 4vw;
-      font-style: italic;
-      text-align: center;
-      width: max-content;
-      padding: 10px; 
-    }
-  
-    .header #bookmark-icon{
-      text-align: center;
-      width: 4vw;
-    }
+      .header #bookmark{
+        cursor: pointer;
+        text-align: center;
+        /* padding-left: 50px; */
+        margin-left : 50px;
+        /*float: right;*/
+      }
 
-    .middle {
-      width: 80%;
-      position: absolute;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-  
-    .middle > div > h3{
+      .middle > div > h3{
         text-align: center;
         font-weight: bold;
+        margin-top: 10px;
+    }
+  
+      #clear-checkboxes{
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin-top: 20px;
+        color: var(--primary);
+      }
+    
+      #instructions{
         margin-top: 80px;
-    }
-  
-    #clear-checkboxes{
-      position: relative;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      margin-top: 40px;
-    }
-  
-    /*-- custom checkbox style --*/
+      }
+    
+      /*-- custom checkbox style --*/
+      
+      input[class="ingredients-custom-checkbox"] + label,
+      input[class="ingredients-custom-checkbox"] + label::before
+      {
+          display: inline-block;
+          vertical-align: middle;
+          
+      }
     
       input[class="ingredients-custom-checkbox"]
       {
@@ -92,7 +94,7 @@ class RecipePage extends HTMLElement {
         color: black;
       }
       /*-----------------------------------*/
-      
+        
       #instructions > ol > li{
         color: black;
       }
@@ -118,23 +120,13 @@ class RecipePage extends HTMLElement {
       }
       `;
 
-
-    this.shadowRoot.append(style, container);
-  }
-
-  set data(data) {
-    if (data == null) {
-      console.log("Error: no data exists");
-      return;
-    }
-
-    this.shadowRoot.querySelector("article").innerHTML = `
-      <section class="middle">
-        <header class="header">
-          <h1></h1>
-            <img id="bookmark-icon" onclick="toggleBookMark(this)" src="./img/icons/bookmark-empty.svg"" width="56" height="56">
-         </header>
-          <h1></h1>
+    container.innerHTML = `
+      <header class="header">
+        <h1></h1>
+        <img id="bookmark" onclick="setBookMark()" src="img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
+      </header>
+      <main class="middle">
+        <img style="display: block; margin-left: auto; margin-right: auto;">
           <div id="ingredients-list">
               <h3>INGREDIENTS</h3>
               <ul style="list-style-type: none;">
@@ -146,16 +138,48 @@ class RecipePage extends HTMLElement {
               <ol>
               </ol>
           </div>
-      </section>
+      </main>
       `;
 
-    // Header - title
 
+    this.shadowRoot.append(style, container);
+  }
+
+  set data(data) {
+    if (data == null) {
+      console.log("Error: no data exists");
+      return;
+    }
+    this.json = data;
+
+    this.shadowRoot.querySelector("article").innerHTML = `
+      <header class="header">
+        <h1></h1>
+        <img id="bookmark" onclick="setBookMark()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
+      </header>
+      <main class="middle">
+        <img style="display: block; margin-left: auto; margin-right: auto;" >
+        <div id="ingredients-list">
+          <h3>INGREDIENTS</h3>
+          <ul style="list-style-type: none;">
+          </ul>
+          <button id="clear-checkboxes" onclick="clearCheckBoxes()">CLEAR CHECKBOXES</button>
+        </div>
+        <div id="instructions">
+          <h3>INSTRUCTIONS</h3>   
+          <ol>
+          </ol>
+        </div>
+      </main>
+    `;
+
+    // Header - title
+    this.shadowRoot.querySelector(".middle > img").src = data["image"];
     this.shadowRoot.querySelector(".header > h1").innerHTML = data["title"];
 
     //get ingredient list
     const ingredients = getIngredients(data);
-    ingredients.forEach((ingredient) => {
+    ingredients.forEach(ingredient => {
       const checkbox = document.createElement("input");
       const label = document.createElement("label");
       const ol = document.createElement("ol");
@@ -174,6 +198,9 @@ class RecipePage extends HTMLElement {
       li.innerHTML = element;
       this.shadowRoot.querySelector("#instructions > ol").appendChild(li);
     });
+  }
+  get data() {
+    return this.json;
   }
 }
 
