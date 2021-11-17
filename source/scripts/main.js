@@ -20,19 +20,30 @@ function showSettings() {
     hideHome();
     hideCookbooks();
     hideRecipeCards();
-    hideRecipePage();
+    // hideRecipePage();
     const settings = document.getElementById("settings-container");
     settings.style.visibility = "visible";
     //settings.style.transform = "translate(100%)";
+
     // Get the list of restrictions from local storage
     const getDietaryRestrictions = JSON.parse(localStorage.getItem("dietaryRestrictions"));
-    const dietaryContainerElements = document.getElementById('dietary-container').elements;
+    const getIntolerancesRestrictions = JSON.parse(localStorage.getItem("intolerancesRestrictions"));
+    const dietaryContainerElements = document.getElementById("dietary-container").elements;
+    const intolerancesContainerElements = document.getElementById("intolerances-container").elements;
 
     for (let i = 0; i < dietaryContainerElements.length; i++) {
         const dietaryRestriction = dietaryContainerElements[i];
         // If our restriction is in the list, then check it on the page
-        if (getDietaryRestrictions.includes(dietaryRestriction.value)) {
+        if (getDietaryRestrictions && getDietaryRestrictions.includes(dietaryRestriction.value)) {
             dietaryRestriction.checked = true;
+        }
+    }
+
+    for (let i = 0; i < intolerancesContainerElements.length; i++) {
+        const intoleranceRestriction = intolerancesContainerElements[i];
+        // If our restriction is in the list, then check it on the page
+        if (getIntolerancesRestrictions && getIntolerancesRestrictions.includes(intoleranceRestriction.value)) {
+            intoleranceRestriction.checked = true;
         }
     }
 }
