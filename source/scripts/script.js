@@ -33,6 +33,7 @@ async function init() {
         if (event.key === 'Enter') {
             let searchSuccessful = await search();
             if (searchSuccessful) {
+                router.navigate(document.getElementById('search-query').value, false);
                 createRecipeCards();
             }
         }
@@ -75,6 +76,14 @@ function search() {
             // .then(data => {
             //     console.log(data);
             // })
+            const page = searchQuery;
+            router.addPage(page, function() {
+                hideCategoryCards();
+                console.log("hiding category cards")
+                showRecipeCards();
+               
+             });
+            
             resolve(true);
         }).catch((err) => {
             console.log(err);
@@ -323,7 +332,7 @@ function searchByCategory() {
 }
 
 function bindPopState() {
-        window.addEventListener("popstate", e => {
+        window.addEventListener("popstate", (e) => {
           if(e.state){
             router.navigate(e.state, true);
           }
@@ -357,6 +366,7 @@ function bindUpdateButton(){
     })
 }
 
+//function to search when search button is clicked
 function bindSearchButton(){
     let searchButton = document.getElementById("search-button");
     searchButton.addEventListener("click", (e) => {
@@ -364,6 +374,7 @@ function bindSearchButton(){
     })
 }
 
+//function to update settings when update button is clicked
 function bindCookbookPage(){
     let cookbook = document.getElementById("cookbook-page");
     cookbook.addEventListener("click", (e) => {
@@ -372,6 +383,7 @@ function bindCookbookPage(){
     })
 }
 
+//function to go to settings page when settings is clicked
 function bindSettingsPage(){
     let settings = document.getElementById("settings-page");
     settings.addEventListener("click", (e) => {
@@ -380,6 +392,7 @@ function bindSettingsPage(){
     })
 }
 
+//function to go to home page when home is clicked
 function bindHomePage(){
     let home = document.getElementById("home-page");
     home.addEventListener("click", (e) => {
@@ -388,6 +401,7 @@ function bindHomePage(){
     })
 }
 
+//funtion to call all of these bind functions in one place
 function bindAll() {
     bindPopState();
     bindToggle();
