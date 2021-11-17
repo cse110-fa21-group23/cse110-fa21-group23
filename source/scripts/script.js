@@ -4,8 +4,11 @@ const API_KEY = '8aaa6b0816db4a99b92e7852d125a9aa';
 // API_KEY2 (Nhi): fafd5e810c304ed3b4f9984672cb21ee
 // API_KEY1: 4d936c811cda46879d4749def6bb36a1
 const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&instructionsRequired=true`;
+const urlByID= `https://api.spoonacular.com/recipes//information?apiKey=${API_KEY}`;
+const IDLocation = 36;
 const recipes = [];
 let recipeData = {};
+var lists = {};
 
 //arrays holding category names and images for category cards
 const categories = ["Indian", "Vegan", "Mexican", "Gluten-Free", "Italian", "Japanese", "American", "Vegetarian", "Thai", "Chinese", "Korean",
@@ -41,7 +44,6 @@ async function init() {
     // bindShowMore();
 
 }
-
 
 function search() {
     // let searchQuery = document.getElementById('search-query').value;
@@ -336,4 +338,113 @@ function searchByCategory() {
             })
         }
     });
+}
+
+// loads stored values from memory to initialize lists
+// listsOfCookbooks will be an array
+// there will be an array for each cookbook accessible by that cookbook's name
+function initializeLists() {
+    var listOfCookbooks = JSON.parse(localStorage.getItem("listsOfCookbooks"));
+    for (let i = 0; i < listOfCookbooks.length; i++) {
+        let currentCookbook = JSON.parse(localStorage.getItem(listOfCookbooks[i]));
+        lists[listOfCookbooks[i]] = [];
+        for (let j = 0; currentCookbook.length; j++) {
+            list[listOfCookbooks[i]].push(currentCookbook[j]);
+        }
+    }
+}
+
+// sets up the list of cookbooks and displays them under cookbooks-list
+function initializeCookbook() {
+    let cookbooksList = document.querySelector("#cookbooks-list");
+    for (const list in lists) {
+        let bookMark = document.createElement("img");
+        bookMark.classList.add("bookmark");
+        bookMark.src = "./img/icons/bookmark-filled.svg";
+        bookMark.src = "./img/icons/bookmark-empty.svg";
+        let bookMark = document.createElement("img");
+        bookMark.classList.add("bookMark");
+        bookMark.src = "./img/icons/bookmark-filled.svg";
+        if (lists[i].length != 0) {
+            bookMark.src = "./img/icons/bookmark-filled.svg";
+        } else {
+            bookMark.src = "./img/icons/bookmark-empty.svg";
+        }
+        cookbooksList.appendChild(bookMark);
+        let listLink = document.createElement('p');
+        listLink.classList.add('list_name');
+        listLink.innerText(list);
+        listLink.onclick(showThisList(list));
+        cookbooksList.appendChild(listLink);
+    }
+}
+
+/* Shows the content of the inputted list
+@param the index of the list to add 
+*/
+function showThisList(index) {
+    hideCookbookDisplay();
+    showListContents();
+    document.getElementById('list-name-header').innerText(index);
+    const recipeCards = document.getElementById('cookbook-contents');
+    let childrenToRemove = recipeCards.getElementsByClassName('recipe-card');
+    for (let i = 0; i < childrenToRemove.length; i++) {
+        recipeCards.remove(childrenToRemove[i]);
+    }
+    for (let i = 0; i < lists[index].length; i++) {
+        var recipeCard = lists[index][i];
+        recipeCards.appendChild(recipeCard);
+        bindRecipeCard(element); // need this to link recipe card to recipe page
+    }
+}
+
+function addToThisCookbook(cookbook, recipe) {
+    lists[cookbook].push(recipe);
+
+}
+
+function removeFromThisCookbook(cookbook, recipe) {
+}
+
+function addCookbook(cookbookName, recipe) {
+    if (JSON.parse(localStorage.getItem("listsOfCookbooks"))) {
+
+    }
+    delete lists.cookbookName;
+    let cookbookArr = JSON.parse(localStorage.getItem(cookbookName));
+    localStorage.removeItem(cookbookName);
+    let cookbooksArr = JSON.parse(localStorage.getItem("listsOfCookbooks"));
+    let ind = cookbooksArr.indexOf(cookbookName);
+    delete cookbooksArr[ind];
+    localStorage.setItem("listOfCookbooks", JSON.stringify(cookbooksArr));
+}
+
+function removeCookbook(cookbookName) {
+    delete lists.cookbookName;
+    let cookbookArr = JSON.parse(localStorage.getItem(cookbookName));
+    localStorage.removeItem(cookbookName);
+    let cookbooksArr = JSON.parse(localStorage.getItem("listsOfCookbooks"));
+    let ind = cookbooksArr.indexOf(cookbookName);
+    delete cookbooksArr[ind];
+    localStorage.setItem("listOfCookbooks", JSON.stringify(cookbooksArr));
+}
+
+function hideListsDisplay() {
+    const listDisplay = document.getElementById('cookbook-contents');
+    listDisplay.style.visibility = "hidden";
+}
+
+function showListsDisplay() {
+    const listDisplay = document.getElementById('cookbook-contents');
+    listDisplay.style.visibility = "visible";
+}
+
+function hideCookbookDisplay() {
+    const listDisplay = document.getElementById('cookbooks');
+    listDisplay.style.visibility = "hidden";
+}
+
+function showCookbookDisplay() {
+    const listDisplay = document.getElementById('cookbooks');
+    listDisplay.style.visibility = "visible";
 }
