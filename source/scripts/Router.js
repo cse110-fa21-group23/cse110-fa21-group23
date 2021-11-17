@@ -3,7 +3,7 @@ export class Router {
     static routes = {};
   
     constructor(homeFunc) {
-      this['home'] = homeFunc;
+      this["home"] = homeFunc;
     }
   
     addPage(page, pageFunc) {
