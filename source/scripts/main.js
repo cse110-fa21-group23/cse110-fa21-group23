@@ -123,7 +123,7 @@ function hideCategoryCards() {
 function updateSettings() {
     const dietaryRestrictionList = [];
     // Get all the inputs under the div
-    const dietaryContainerElements = document.getElementById('dietary-container').elements;
+    const dietaryContainerElements = document.getElementById("dietary-container").elements;
     for (let i = 0; i < dietaryContainerElements.length; i++) {
         // If a checkbox is checked, then add it to our list
         const inputElement = dietaryContainerElements[i];
