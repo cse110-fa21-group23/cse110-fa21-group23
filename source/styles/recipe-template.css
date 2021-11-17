@@ -1,0 +1,483 @@
+:root {
+  --primary: #FF7A00; /* primary color, used for most text */
+  --background-color: #FFF8F1;
+  --orange1: #FFECDB;
+  --orange2: #FF9534;
+  --orange3: #FF9E44; /* use for hover */
+  --dark-grey: #2E2E2E;
+  --light-grey: #C1BCB6;
+}
+  
+
+* {
+  font-family: 'Poppins', sans-serif;
+  color: var(--primary);
+  margin: 0;
+  padding: 0;
+
+}
+
+body {
+  background-color: var(--background-color);
+  /* width: 100vw;
+  height: 100vh; */
+}
+
+/* main {
+  width: inherit;
+  height: inherit;
+} */
+
+.hidden {
+  display: none;
+}
+
+
+.center { /*use as container */
+  justify-content: center;
+  display: flex; 
+}
+
+.center-hori {
+  text-align: center;
+}
+  
+.middle{
+  width: 40%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#search-container {
+  position: absolute;
+  width: 40vw;
+  top: 20vh;
+  left: 30vw;
+  justify-content: center;
+}
+
+.heading {
+ text-align: center;
+ margin-top: 70px;
+ font-weight: 300;
+ margin-bottom: 2rem;
+}
+
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 200;
+}
+
+#app-name {
+  cursor: pointer;
+  padding-top: 15px;
+  z-index: 100;
+  position: absolute;
+  /* centers absolute div */
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto; 
+  width: max-content; /* Need a specific value to work */
+  font-size: 2rem;
+}
+
+#app-name:hover {
+  color: var(--orange3);
+  transition: .2s ease-in-out;
+}
+
+/* SEARCH ===========================================================  */
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.search:hover > .search-query {
+  transform: scale(1.01,1.01);
+}
+
+
+.search-query {
+  width: 100%;
+  border: 2px solid var(--primary);
+  padding: 10px;
+  height: 20px;
+  border-radius: 25px;
+  outline: none;
+}
+
+.search-query:focus{
+  color: var(--primary);
+}
+
+.searchButton {
+  position: absolute;
+  top: 20%;
+  right: 3%;
+  width: 40px;
+  height: 36px;
+  border: 0px transparent;
+  background: transparent;
+  text-align: center;
+  color: var(--background-color); /*background color*/
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.searchButton:hover {
+  width: 42px;
+  height: 42px;
+  transition: .2s ease-in-out;
+  transform: translateX(1px) translateY(-4px);
+}
+/* end of SEARCH ======================================================*/
+
+/* MENU ===============================================================*/
+#menu-container {
+  width: 50%;
+  max-width: 300px; /* limit size for desktops */
+  position:absolute; /* need this for z-index to work */
+  z-index: 100; /* puts menu on top of everything */
+}
+
+/* ----------- Mobile Screen ----------- */
+
+@media only screen and (max-width: 600px) {
+#menu-container {
+  width: 600px;
+}
+
+}
+/* for hamburger menu animation */
+#menu-icon {
+  left: 15px;
+  top: 15px;
+  display: inline-block;
+  cursor: pointer;
+  z-index: 200;
+  position: absolute;
+}
+
+.bar1, .bar2, .bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: var(--primary);
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+#menu-icon:hover > .bar1, #menu-icon:hover > .bar2, #menu-icon:hover > .bar3 {
+  background-color:var(--orange3);
+  transition: .2s ease-in-out;
+
+}
+
+/* Rotate first bar */
+.change .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 6px) ;
+  transform: rotate(-45deg) translate(-9px, 6px) ;
+  background-color: var(--orange1);
+}
+
+/* Fade out the second bar */
+.change .bar2 {
+  opacity: 0;
+}
+
+/* Rotate last bar */
+.change .bar3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px) ;
+  transform: rotate(45deg) translate(-8px, -8px) ;
+  background-color: var(--orange1);
+}
+.menu-item-container {
+  position: absolute;
+  top: 80px;
+  left: 15px;
+  display: flex;
+  flex-direction: column;
+}
+.menuItem {
+  padding-top: .5rem;
+  color: var(--orange1);
+  font-size: 1.5rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.menuItem:hover {
+  color: var(--orange3);
+}
+
+.menuItem:active {
+  color: var(--orange2);
+}
+
+
+#slide-over-menu {
+  background-color: var(--primary);
+  overflow: hidden;
+  width: 100%;
+  height: 100vh; /* full height of app */
+  position: absolute;
+  top: 0;
+  left: -100%;
+  z-index: 0;
+  transition: all 0.3s ease-out;
+}
+/* end of MENU ============================================================= */
+
+/* SETTINGS ================================================================ */
+#settings-container {
+  width: 100%;
+  position:absolute; /* need this for z-index to work */
+  z-index: 99; /* puts menu on top of everything */
+  overflow: hidden;
+  top: 0;
+  /* left: -100%; */
+  text-align: center;
+}
+
+#dietary-container {
+  text-align: left;
+}
+
+#dietary-container > label {
+  font-size: 1.5rem;
+  font-weight: 300;
+  padding: 5px;
+
+}
+#update-button {
+  margin-top: 40px;
+  border-width: 5px;
+  border-color: var(--primary);
+  background-color: var(--primary);
+  color: var(--primary);
+  padding: 10px 25px; /* top&bottom, left&right */
+  border-style: solid;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: transparent;
+  margin-top: 1.5rem;
+  padding: 0.5rem;
+}
+
+#update-button:hover {
+  background-color: var(--primary);
+  color: var(--background-color);
+  transition: .2s ease-in-out;
+}
+
+/* TODO: style checkboxes */
+/* end of SETTINGS ========================================================= */
+
+/* COOKBOOKS/LISTS ================================================================ */
+
+  /* end of COOKBOOKS/LISTS ========================================================= */
+
+#recipe-card-container {
+position: absolute;
+display: flex;
+flex-wrap: wrap;
+max-width: 900px;
+justify-content: center;
+align-items: flex-start;
+width: 70vw;
+/* centers an absolute div */
+left: 50%;
+transform: translate(-50%, 0);
+/* centers an absolute div */
+}
+
+
+
+.box {
+justify-content: center;
+display: flex;  
+padding-top: 30vh;
+}
+
+/* CHECKBOX----------------- */
+.checkbox {
+display: inline-flex;
+align-items: center;
+cursor: pointer;
+}
+.checkbox__input {
+display: none;
+}
+
+
+.checkbox__box {
+width: 1.25em;
+height: 1.25em;
+border: 2px solid var(--primary);
+border-radius: 3px;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-right: 10px;
+flex-shrink: 0;
+/* transition: background 0.15s, border-color 0.15s; */
+}
+.checkbox__box::after {
+content: '\2714' ;
+color: I#ffffff;
+transform: scale(0);
+transition: transform 0.15s;
+}
+.checkbox__input:checked + .checkbox_box {
+background: O#2266dc;
+border-color: 0#2266dc;
+}
+
+.checkbox__input:checked + .checkbox__box::after {
+transform: scale(1);
+}
+
+   /* tap mode button */
+   .tap-mode-off{
+    border: 3px solid var(--primary);
+    padding: 10px;
+    margin-top: 20px;
+    background-color: inherit;
+    font-weight: bold;
+  }
+  .tap-mode-off:hover{
+    cursor: pointer;
+    background-color: var(--primary);
+    color: white;
+  }
+
+  .tap-mode-on{
+    border: 3px solid var(--primary);
+    padding: 10px;
+    margin-top: 20px;
+    background-color: var(--primary);
+    font-weight: bold;
+    color: white;
+  }
+  .tap-mode-on:hover{
+    cursor: pointer;
+    background-color: inherit;
+    color: var(--primary);
+  }
+
+  .hidden {
+    display : none;
+  }
+
+  .header{
+      text-align: center;
+  }
+  
+  .header h1{
+      position: relative;
+      display: inline;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 64px;
+      line-height: 96px;
+      text-align: center;
+  }
+
+  .header #bookmark{
+    text-align: center;
+    /* padding-left: 50px; */
+    margin-left : 50px;
+    /*float: right;*/
+  }
+
+  .middle > div > h3{
+      text-align: center;
+      font-weight: bold;
+      margin-top: 80px;
+  }
+
+  #clear-checkboxes{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 40px;
+  }
+
+  /*-- custom checkbox style --*/
+  
+  input[class="ingredients-custom-checkbox"] + label,
+  input[class="ingredients-custom-checkbox"] + label::before
+  {
+      display: inline-block;
+      vertical-align: middle;
+      
+  }
+
+  input[class="ingredients-custom-checkbox"]
+  {
+      opacity: 0; /*hide the actual checkbox*/
+      position: absolute;
+      transform: scale(2);
+  }
+
+  input[class="ingredients-custom-checkbox"]:hover
+  {
+    cursor: pointer;
+  }
+    
+  input[class="ingredients-custom-checkbox"] + label::before
+  {
+    /*custom new checkbox*/
+      content: "";
+      width: 15px;
+      height: 15px;
+      margin: 0 4px 0 0;
+      line-height: 14px;
+      text-align: center;
+      border: solid 3px var(--primary);
+  }
+  
+    input[class="ingredients-custom-checkbox"]:checked + label::before
+  {
+      content: "\2714"; /* tick sign */
+      font-size: 15px;
+  }
+
+  #ingredients-list > ul > ol > label{
+    color: black;
+  }
+  /*-----------------------------------*/
+  
+  #instructions > ol > li{
+    color: black;
+  }
+
+  #ingredients-list{
+      /* text-align: center; */
+      font-style: normal;
+      font-weight: normal;
+
+  }
+
+  #ingredients-list > button{
+    border: 0;
+    background-color: inherit;
+    font: inherit;
+    text-align: center;
+    padding: 20px;
+  }
+
+  #ingredients-list> button:hover{
+    cursor: pointer;
+    background: #eee;
+  }

@@ -14,7 +14,6 @@
   color: var(--primary);
   margin: 0;
   padding: 0;
-
 }
 
 body {
@@ -27,6 +26,8 @@ body {
   width: inherit;
   height: inherit;
 } */
+
+
 
 .hidden {
   display: none;
@@ -75,7 +76,7 @@ h2 {
   font-weight: 200;
 }
 
-#app-name {
+#app-name{
   cursor: pointer;
   padding-top: 15px;
   z-index: 100;
@@ -87,11 +88,31 @@ h2 {
   margin-right: auto; 
   width: max-content; /* Need a specific value to work */
   font-size: 2rem;
-}
+} 
 
 #app-name:hover {
   color: var(--orange3);
   transition: .2s ease-in-out;
+}
+
+#tap-mode-button{
+  border: solid var(--primary);
+  background-color: inherit;
+  position: absolute;
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto; 
+  width: max-content;
+  font-weight: bold;
+  margin-top: 75px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+#tap-mode-button:hover{
+  color: var(--orange3);
+  border-color: var(--orange3);
 }
 
 /* SEARCH ===========================================================  */
@@ -182,6 +203,39 @@ h2 {
 
 }
 
+.clear-btn {
+  margin-top: 30px;
+  border: none;
+  background-color: var(--background-color);
+  font-size: 1rem;
+  
+}
+
+.clear-btn::after {
+  content: ' \21BA';
+}
+
+.clear-btn:hover {
+  cursor: pointer;
+  transform: scale(1.01,1.01);
+  transition: all 0.3s ease-out;
+
+}
+
+.intolerances-subheading, .diet-subheading {
+  margin-bottom: 50px;
+}
+
+.intolerances-subheading {
+  margin-top: 50px;
+}
+
+#intolerances-container li, #dietary-container li {
+  display: block;
+  width: 33.3%;
+  float: left;
+}
+
 /* Rotate first bar */
 .change .bar1 {
   -webkit-transform: rotate(-45deg) translate(-9px, 6px) ;
@@ -244,12 +298,19 @@ h2 {
   z-index: 99; /* puts menu on top of everything */
   overflow: hidden;
   top: 0;
-  /* left: -100%; */
   text-align: center;
+  padding-bottom: 40px;
 }
 
 #dietary-container {
   text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+#intolerances-container {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
 label {
@@ -279,7 +340,6 @@ label {
   transition: .2s ease-in-out;
 }
 
-/* TODO: style checkboxes */
 /* end of SETTINGS ========================================================= */
 
 /* COOKBOOKS/LISTS ================================================================ */
@@ -298,6 +358,16 @@ width: 70vw;
 left: 50%;
 transform: translate(-50%, 0);
 /* centers an absolute div */
+}
+
+#recipe-page-container{
+  margin-top: -100px;
+  position: absolute;
+  max-width: 900px;
+  justify-content: center;
+  width: 70vw;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 
@@ -359,8 +429,17 @@ transform: scale(1);
   transform: translate(-50%, 0);
   /* centers an absolute div */
 } 
+
 /* End of Category Cards style ============================================================*/
 
+
+footer {
+  text-align: center;
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
 
 /* Category cards style for different Screen sizes ========================================*/
 @media screen and (max-width: 700px) {
@@ -396,3 +475,4 @@ transform: scale(1);
 }
 }
 /* End of Category cards style for different Screen sizes ==================================*/
+
