@@ -13,8 +13,15 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
+
     <!-- Main Stylesheets & Scripts -->
     <link rel="stylesheet" href="./styles/style.css" />
+    <!-- Global functions -->
+    <script src="./scripts/main.js"></script>
+    <!-- Router -->
+    <script src="./scripts/Router.js" type="module"></script>
+    <script src="./scripts/script.js" type="module"></script>
+
     <!-- Category Card Custom Element -->
     <script src="./scripts/CategoryCard.js" type="module"></script>
     <!-- Recipe Card Custom Element -->
@@ -29,7 +36,9 @@
 <body>
 
     <h1 id="app-name" onclick="showHome()">Team 23 Project </h1>
+    <button id="tap-mode-button" class="hidden" onclick="tapMode()">Tap Mode Off</button>
     <main>
+
         <!-- Hamburger Menu Section-->
         <section id="menu-container">
             <div id="menu-icon" onclick="toggleMenu()">
@@ -65,6 +74,11 @@
                 </section>
                 <section id="recipe-card-container">
                     <!--populate this section with the recipe cards using createRecipeCards()  -->
+                </section>
+                <!-- Recipe Page -->
+                <section id="recipe-page-container">
+                    <!-- add Recipe-page here-->
+                    <recipe-page></recipe-page>
                 </section>
 
             </div>
@@ -149,7 +163,7 @@
                             </form>
                         </div>
 
-                        <button id="clear-btn">Clear preferences</button>
+                        <button class="clear-btn" id="clear-btn">Clear Dietary Preferences</button>
 
                         <h2 class="intolerances-subheading">Intolerances</h2>
                         <div class="center">
@@ -239,21 +253,20 @@
                         </div>
                         <button id="update-button" onclick="updateSettings()"> Update</button>
             </section>
+
         </div>
         <!-- Cookbooks (Lists) Section -->
         <section id="cookbook-container">
             <h1 class="heading">Saved Cookbooks</h1>
             <!--populate this section with the cookbooks-->
+            <!-- there should always be one default Cookbook ("Favorite") -->
             <!-- within each cookbook will be a list of recipes -->
         </section>
 
-        <!-- Recipe Page -->
-        <section id="recipe-page-container" class="hidden">
-            <!-- add Recipe-page here-->
-            <recipe-page></recipe-page>
-        </section>
+
     </main>
-    <footer></footer>
+    <footer>
+    </footer>
 
 </body>
 
