@@ -67,9 +67,17 @@ function search() {
     // let searchQuery = document.getElementById('search-query').value;
     // console.log(searchQuery);
     // console.log(localStorage.getItem("dietaryRestrictions"));
-    hideCategoryCards();
-    const recipeCardContainer = document.getElementById('recipe-card-container');
 
+    const recipeCardContainer = document.getElementById('recipe-card-container');
+    
+    const page = searchQuery;
+    router.addPage(page, function() {
+        hideCategoryCards();
+        showRecipeCards();
+     });
+
+     router.navigate(page, false);
+     
     // Reset the recipe-card-container to be empty for every search
     recipeCardContainer.innerHTML = '';
     showRecipeCards();
@@ -192,7 +200,7 @@ function bindCategoryCards(categoryCard, categoryName) {
         let searchSuccessful = await searchByCategory();
         if (searchSuccessful) {
             console.log(recipeData);
-            router.navigate(categoryName, false);
+           // router.navigate(categoryName, false);
             createRecipeCards();
         }
     });
@@ -207,7 +215,7 @@ async function searchByCategory() {
 
     let searchQuery = document.getElementById('search-query').value;
     recipeData = {};
-
+    router.navigate(searchQuery, false);
     // check for user dietary restriction
     const getDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
     let queryStrDiet = "";
@@ -240,7 +248,7 @@ async function searchByCategory() {
 //function to return to home when app name is clicked
 function bindAppNameClick(){
     let appName = document.getElementById("app-name");
-    const page = "";
+    const page = "home";
     router.addPage(page, function() {
         showHome();
      });
@@ -290,7 +298,7 @@ function bindSettingsPage(){
 
 function bindHomePage(){
     let home = document.getElementById("home-page");
-    const page = "";
+    const page = "home";
     router.addPage(page, function() {
         showHome();
      });

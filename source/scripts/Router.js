@@ -20,15 +20,15 @@ export class Router {
   
       let hash;
   
-      if(page == ""){
-        hash = "";
+      if(page == "home"){
+        hash = "/source/index.html";
       }
       else{
         hash = "#" + page;
       }
   
       if(statePopped == false && window.location.hash != hash){
-        window.history.pushState(page, "", window.location.origin + "/source/index.html" + hash); 
+        window.history.pushState(page, "", window.location.origin + hash); 
       }
   
       this[page].call();
