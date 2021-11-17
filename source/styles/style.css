@@ -41,14 +41,6 @@ body {
 .center-hori {
   text-align: center;
 }
-  
-.middle{
-  width: 40%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
 
 #search-container {
   position: absolute;
@@ -75,7 +67,7 @@ h2 {
   font-weight: 200;
 }
 
-#app-name {
+#app-name{
   cursor: pointer;
   padding-top: 15px;
   z-index: 100;
@@ -87,11 +79,31 @@ h2 {
   margin-right: auto; 
   width: max-content; /* Need a specific value to work */
   font-size: 2rem;
-}
+} 
 
 #app-name:hover {
   color: var(--orange3);
   transition: .2s ease-in-out;
+}
+
+#tap-mode-button{
+  border: solid var(--primary);
+  background-color: inherit;
+  position: absolute;
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto; 
+  width: max-content;
+  font-weight: bold;
+  margin-top: 75px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+#tap-mode-button:hover{
+  color: var(--orange3);
+  border-color: var(--orange3);
 }
 
 /* SEARCH ===========================================================  */
@@ -298,6 +310,15 @@ width: 70vw;
 left: 50%;
 transform: translate(-50%, 0);
 /* centers an absolute div */
+}
+
+#recipe-page-container{
+  position: relative;
+  max-width: 900px;
+  justify-content: center;
+  width: 70vw;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 

@@ -1,10 +1,11 @@
-const API_KEY = '43d05cc71ec2491aa7e76580fce53779';
+const API_KEY = '4d936c811cda46879d4749def6bb36a1';
 // API_KEY3 (Nhi): c8f83bb3a9af4355b12de10250b24c88
 // API_KEY2 (Nhi): fafd5e810c304ed3b4f9984672cb21ee
 // API_KEY1: 4d936c811cda46879d4749def6bb36a1
 // API_KEY: 94de49097b8a4673b563741f9515a04c
 // API_KEY: 43d05cc71ec2491aa7e76580fce53779
-const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&instructionsRequired=true`;
+
+const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&fillIngredients=true&addRecipeInformation=true&instructionsRequired=true`;
 const recipes = [];
 let recipeData = {};
 
@@ -26,6 +27,7 @@ document.addEventListener('keydown', function (event) {
 window.addEventListener('DOMContentLoaded', init);
 
 async function init() {
+
     showHome();
     createCategoryCards();
     document.addEventListener('keydown', async function (event) {
@@ -76,54 +78,6 @@ function search() {
     });
 }
 
-var $SOMenuVisibility = "hidden";
-function toggleMenu() {
-    var menuIcon = document.getElementById("menu-icon");
-    menuIcon.classList.toggle("change");
-
-    var slideOverMenu = document.getElementById("slide-over-menu");
-
-    if ($SOMenuVisibility == "hidden") {
-        slideOverMenu.style.transform = "translate(100%)";
-        $SOMenuVisibility = "visible";
-    }
-    else {
-        slideOverMenu.style.transform = "translate(-100%)";
-        $SOMenuVisibility = "hidden";
-    }
-}
-
-function showSettings() {
-    hideHome();
-    hideCookbooks();
-    hideRecipeCards();
-    hideRecipePage();
-    const settings = document.getElementById("settings-container");
-    settings.style.visibility = "visible";
-    //settings.style.transform = "translate(100%)";
-    // Get the list of restrictions from local storage
-    const getDietaryRestrictions = JSON.parse(localStorage.getItem("dietaryRestrictions"));
-    const dietaryContainerElements = document.getElementById('dietary-container').elements;
-
-    for (let i = 0; i < dietaryContainerElements.length; i++) {
-        const dietaryRestriction = dietaryContainerElements[i];
-        // If our restriction is in the list, then check it on the page
-        if (getDietaryRestrictions.includes(dietaryRestriction.value)) {
-            dietaryRestriction.checked = true;
-        }
-    }
-}
-
-function hideRecipePage(){
-    const recipePage = document.getElementById("recipe-page-container");
-    recipePage.classList.add("hidden");
-}
-
-function hideSettings() {
-    const settings = document.getElementById("settings-container");
-    settings.style.visibility = "hidden";
-    // settings.style.transform = "translate(-100%)";
-}
 
 function showHome() {
     hideSettings();
@@ -136,64 +90,6 @@ function showHome() {
     search.style.visibility = "visible";
 }
 
-function hideHome() {
-    hideCategoryCards();
-    const search = document.getElementById("search");
-    search.style.visibility = "hidden";
-}
-
-function showCookbooks() {
-    hideSettings();
-    hideHome();
-    hideRecipeCards();
-    const cookbook = document.getElementById("cookbook-container");
-    cookbook.style.visibility = "visible";
-    cookbook.classList.remove("hidden");
-
-    let bookmarkList = JSON.parse(localStorage.getItem("bookmark"));
-    if (bookmarkList == null) // fix this
-    {
-        let empty = document.createElement("p").ineer = "EMPTY";
-        cookbook.appendChild(empty);
-    }
-    else
-    {
-        for (const el in bookmarkList) {
-            const link = document.createElement("a");
-            link.href=`./recipe-template.html?&id=${bookmarkList[el]}`;
-            link.innerHTML = el;
-            link.style="style='display: block; margin-left: auto; margin-right: auto; width: 50%;'";
-            
-            cookbook.appendChild(link);
-            let br = document.createElement("br");
-            cookbook.appendChild(br);
-        }
-    }
-}
-
-function hideCookbooks() {
-    const cookbook = document.getElementById("cookbook-container");
-    cookbook.style.visibility = "hidden";
-}
-
-function showRecipeCards() {
-    const recipeCards = document.getElementById("recipe-card-container");
-    recipeCards.style.visibility = "visible";
-}
-function hideRecipeCards() {
-    const recipeCards = document.getElementById("recipe-card-container");
-    recipeCards.style.visibility = "hidden";
-}
-
-function showCategoryCards() {
-    const categoryCards = document.getElementById("category-wrapper");
-    categoryCards.style.visibility = "visible";
-}
-
-function hideCategoryCards() {
-    const categoryCards = document.getElementById("category-wrapper");
-    categoryCards.style.visibility = "hidden";
-}
 
 function updateSettings() {
     const dietaryRestrictionList = [];
@@ -216,29 +112,20 @@ function updateSettings() {
 
 
 function createRecipeCards() {
-    // let recipeCard = document.createElement("recipe-card");
-    // recipeCard.data = recipeData[0];
-    // // console.log(recipeCard1.data["title"]);
-    // document.getElementById("recipe-card-container").appendChild(recipeCard);
-    // document.querySelector("recipe-page").data = recipeData[0];
-    // bindRecipeCard(recipeCard);
-
     const recipeCardContainer = document.getElementById('recipe-card-container');
     for (let i = 0; i < recipeData.length; i++) {
         console.log(recipeData[i]);
         var element = document.createElement('recipe-card');
         element.data = recipeData[i];
-        document.querySelector("recipe-page").data = recipeData[i];
         recipeCardContainer.appendChild(element);
-        bindRecipeCard(element,recipeData[i]);
+        bindRecipeCard(element, recipeData[i]);
     }
 }
 
-function bindRecipeCard(recipeCard, data)
-{
+function bindRecipeCard(recipeCard, data) {
     recipeCard.addEventListener('click', event => {
         console.log("Recipe card has been clicked");
-        window.location.href = `./recipe-template.html?&id=${data["id"]}`;
+        window.location.href = `./recipe-page.html?&id=${data["id"]}`;
     });
 }
 
