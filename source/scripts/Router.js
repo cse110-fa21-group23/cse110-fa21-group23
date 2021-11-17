@@ -3,7 +3,7 @@ export class Router {
     static routes = {};
   
     constructor(homeFunction) {
-      this['home'] = homeFunction;
+      this["home"] = homeFunction;
     }
   
     addPage(page, pageFunction) {
@@ -21,15 +21,14 @@ export class Router {
       let hash;
   
       if(page == 'home'){
-          console.log('home')
-        hash = '';
+        hash = "";
       }
       else{
-        hash = '#' + page;
+        hash = "#" + page;
       }
   
       if(statePopped == false && window.location.hash != hash){
-        window.history.pushState(page, '', window.location.origin + hash); 
+        window.history.pushState(page, "", window.location.origin + hash); 
       }
   
       this[page].call();
