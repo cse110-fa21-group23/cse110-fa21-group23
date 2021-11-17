@@ -1,6 +1,6 @@
 // Import API from file
 import { fetchRecipes } from "./api_script.js";
-import { Router } from './Router.js';
+import { Router } from "./Router.js";
 
 const API_KEY = '8aaa6b0816db4a99b92e7852d125a9aa';
 // API_KEY3 (Nhi): c8f83bb3a9af4355b12de10250b24c88
