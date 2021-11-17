@@ -14,6 +14,7 @@
   color: var(--primary);
   margin: 0;
   padding: 0;
+
 }
 
 body {
@@ -26,8 +27,6 @@ body {
   width: inherit;
   height: inherit;
 } */
-
-
 
 .hidden {
   display: none;
@@ -76,7 +75,7 @@ h2 {
   font-weight: 200;
 }
 
-#app-name{
+#app-name {
   cursor: pointer;
   padding-top: 15px;
   z-index: 100;
@@ -88,31 +87,11 @@ h2 {
   margin-right: auto; 
   width: max-content; /* Need a specific value to work */
   font-size: 2rem;
-} 
+}
 
 #app-name:hover {
   color: var(--orange3);
   transition: .2s ease-in-out;
-}
-
-#tap-mode-button{
-  border: solid var(--primary);
-  background-color: inherit;
-  position: absolute;
-  left: 0; 
-  right: 0; 
-  margin-left: auto; 
-  margin-right: auto; 
-  width: max-content;
-  font-weight: bold;
-  margin-top: 75px;
-  padding: 10px;
-  cursor: pointer;
-}
-
-#tap-mode-button:hover{
-  color: var(--orange3);
-  border-color: var(--orange3);
 }
 
 /* SEARCH ===========================================================  */
@@ -203,39 +182,6 @@ h2 {
 
 }
 
-.clear-btn {
-  margin-top: 30px;
-  border: none;
-  background-color: var(--background-color);
-  font-size: 1rem;
-  
-}
-
-.clear-btn::after {
-  content: ' \21BA';
-}
-
-.clear-btn:hover {
-  cursor: pointer;
-  transform: scale(1.01,1.01);
-  transition: all 0.3s ease-out;
-
-}
-
-.intolerances-subheading, .diet-subheading {
-  margin-bottom: 50px;
-}
-
-.intolerances-subheading {
-  margin-top: 50px;
-}
-
-#intolerances-container li, #dietary-container li {
-  display: block;
-  width: 33.3%;
-  float: left;
-}
-
 /* Rotate first bar */
 .change .bar1 {
   -webkit-transform: rotate(-45deg) translate(-9px, 6px) ;
@@ -298,22 +244,15 @@ h2 {
   z-index: 99; /* puts menu on top of everything */
   overflow: hidden;
   top: 0;
+  /* left: -100%; */
   text-align: center;
-  padding-bottom: 40px;
 }
 
 #dietary-container {
   text-align: left;
-  display: flex;
-  flex-direction: column;
-}
-#intolerances-container {
-  text-align: left;
-  display: flex;
-  flex-direction: column;
 }
 
-label {
+#dietary-container > label {
   font-size: 1.5rem;
   font-weight: 300;
   padding: 5px;
@@ -340,6 +279,7 @@ label {
   transition: .2s ease-in-out;
 }
 
+/* TODO: style checkboxes */
 /* end of SETTINGS ========================================================= */
 
 /* COOKBOOKS/LISTS ================================================================ */
@@ -358,16 +298,6 @@ width: 70vw;
 left: 50%;
 transform: translate(-50%, 0);
 /* centers an absolute div */
-}
-
-#recipe-page-container{
-  margin-top: -100px;
-  position: absolute;
-  max-width: 900px;
-  justify-content: center;
-  width: 70vw;
-  left: 50%;
-  transform: translate(-50%, 0);
 }
 
 
@@ -415,65 +345,139 @@ border-color: 0#2266dc;
 .checkbox__input:checked + .checkbox__box::after {
 transform: scale(1);
 }
-/* Category Cards style ============================================================*/
-.category-cards--wrapper{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  grid-gap: 10px;
-  justify-content: center;
-  justify-items: center;
-  align-content: space-evenly;
-  align-items: center;
-  margin-left: 300px;
-  margin-right: 300px;
-  margin-bottom: 50px;
-  margin-top: 50px;
-} 
 
-/* End of Category Cards style ============================================================*/
+   /* tap mode button */
+   .tap-mode-off{
+    border: 3px solid var(--primary);
+    padding: 10px;
+    margin-top: 20px;
+    background-color: inherit;
+    font-weight: bold;
+  }
+  .tap-mode-off:hover{
+    cursor: pointer;
+    background-color: var(--primary);
+    color: white;
+  }
 
+  .tap-mode-on{
+    border: 3px solid var(--primary);
+    padding: 10px;
+    margin-top: 20px;
+    background-color: var(--primary);
+    font-weight: bold;
+    color: white;
+  }
+  .tap-mode-on:hover{
+    cursor: pointer;
+    background-color: inherit;
+    color: var(--primary);
+  }
 
-footer {
-  text-align: center;
-  position: relative;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-}
+  .hidden {
+    display : none;
+  }
 
-/* Category cards style for different Screen sizes ========================================*/
-@media screen and (max-width: 700px) {
-.category-cards--wrapper{
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-}
+  .header{
+      text-align: center;
+  }
+  
+  .header h1{
+      position: relative;
+      display: inline;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 64px;
+      line-height: 96px;
+      text-align: center;
+  }
 
+  .header #bookmark{
+    text-align: center;
+    /* padding-left: 50px; */
+    margin-left : 50px;
+    /*float: right;*/
+  }
 
-@media screen and (max-width: 500px) {
-.category-cards--wrapper{
-  grid-template-columns: repeat(2, 150px);
-  grid-template-rows: repeat(2, 1fr);
-}
-}
+  .middle > div > h3{
+      text-align: center;
+      font-weight: bold;
+      margin-top: 80px;
+  }
 
-@media screen and (min-height: 1000px) {
-.category-cards--wrapper{
-  margin-top: 50%;
-}
-}
+  #clear-checkboxes{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 40px;
+  }
 
-@media screen and (max-height: 450px) {
-.category-cards--wrapper{
-    gap: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 75px;
-}
-}
-/* End of Category cards style for different Screen sizes ==================================*/
+  /*-- custom checkbox style --*/
+  
+  input[class="ingredients-custom-checkbox"] + label,
+  input[class="ingredients-custom-checkbox"] + label::before
+  {
+      display: inline-block;
+      vertical-align: middle;
+      
+  }
 
+  input[class="ingredients-custom-checkbox"]
+  {
+      opacity: 0; /*hide the actual checkbox*/
+      position: absolute;
+      transform: scale(2);
+  }
+
+  input[class="ingredients-custom-checkbox"]:hover
+  {
+    cursor: pointer;
+  }
+    
+  input[class="ingredients-custom-checkbox"] + label::before
+  {
+    /*custom new checkbox*/
+      content: "";
+      width: 15px;
+      height: 15px;
+      margin: 0 4px 0 0;
+      line-height: 14px;
+      text-align: center;
+      border: solid 3px var(--primary);
+  }
+  
+    input[class="ingredients-custom-checkbox"]:checked + label::before
+  {
+      content: "\2714"; /* tick sign */
+      font-size: 15px;
+  }
+
+  #ingredients-list > ul > ol > label{
+    color: black;
+  }
+  /*-----------------------------------*/
+  
+  #instructions > ol > li{
+    color: black;
+  }
+
+  #ingredients-list{
+      /* text-align: center; */
+      font-style: normal;
+      font-weight: normal;
+
+  }
+
+  #ingredients-list > button{
+    border: 0;
+    background-color: inherit;
+    font: inherit;
+    text-align: center;
+    padding: 20px;
+  }
+
+  #ingredients-list> button:hover{
+    cursor: pointer;
+    background: #eee;
+  }

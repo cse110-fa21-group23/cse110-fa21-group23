@@ -6,39 +6,51 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./img/favicon-16x16.png">
     <title>Team 23 Project</title>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
+
     <!-- Main Stylesheets & Scripts -->
     <link rel="stylesheet" href="./styles/style.css" />
+    <!-- Global functions -->
+    <script src="./scripts/main.js"></script>
+    <!-- Router -->
+    <script src="./scripts/Router.js" type="module"></script>
     <script src="./scripts/script.js" type="module"></script>
+
     <!-- Category Card Custom Element -->
     <script src="./scripts/CategoryCard.js" type="module"></script>
     <!-- Recipe Card Custom Element -->
     <script src="./scripts/RecipeCard.js" type="module"></script>
-
-    <script src="./scripts/Router.js" type="module"></script>
+    <!-- Recipe Page Custom Element -->
+    <script src="./scripts/RecipePage.js" type="module"></script>
+    <!-- API backend file -->
+    <script type="module" src="./scripts/script.js"></script>
+    <script type="module" src="./scripts/api_script.js"></script>
 </head>
 
 <body>
 
-    <h1 id="app-name">Team 23 Project </h1>
+    <h1 id="app-name" onclick="showHome()">Team 23 Project </h1>
+    <button id="tap-mode-button" class="hidden" onclick="tapMode()">Tap Mode Off</button>
     <main>
+
         <!-- Hamburger Menu Section-->
         <section id="menu-container">
-            <div id="menu-icon">
+            <div id="menu-icon" onclick="toggleMenu()">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
                 <div class="bar3"></div>
             </div>
             <div id="slide-over-menu" class="slide-over-menu">
                 <div class="menu-item-container">
-                    <a class="menuItem" id="cookbook-page">Cookbooks</a>
-                    <a class="menuItem" id="settings-page">Settings</a>
-                    <a class="menuItem" id="home-page">Home</a>
+                    <a class="menuItem" onclick="showHome(), toggleMenu()">Home</a>
+                    <a class="menuItem" onclick="showCookbooks(),toggleMenu()">Cookbooks</a>
+                    <a class="menuItem" onclick="showSettings(), toggleMenu()">Settings</a>
                 </div>
             </div>
         </section>
@@ -50,7 +62,7 @@
                     <div id="search" class="search">
                         <input id="search-query" class="search-query" type="text" name="search"
                             placeholder="ex: lasagna">
-                        <button type="submit" id="search-button" class="searchButton">
+                        <button type="submit" class="searchButton" id="search-button">
                             <img src="./img/icons/search.svg" alt="search icon" width="25" height="25">
                         </button>
                     </div>
@@ -63,77 +75,199 @@
                 <section id="recipe-card-container">
                     <!--populate this section with the recipe cards using createRecipeCards()  -->
                 </section>
-            </div>
-        </div>    
+                <!-- Recipe Page -->
+                <section id="recipe-page-container">
+                    <!-- add Recipe-page here-->
+                    <recipe-page></recipe-page>
+                </section>
 
-            <section class ="section--category-cards">
-                <div id="category-wrapper" class="category-cards--wrapper">
-                    <!-- Category Cards Added Here-->
-                </div>
-            </section>
-        
+            </div>
+        </div>
+
+        <section class="section--category-cards">
+            <div id="category-wrapper" class="category-cards--wrapper">
+                <!-- Category Cards Added Here-->
+            </div>
+        </section>
+
         </div>
 
         <!-- Settings Section-->
         <div class="center">
             <section id="settings-container">
                 <h1 class="heading">Settings <h1>
-                        <h2 class="subheading">Dietary</h2>
+                        <h2 class="diet-subheading">Dietary</h2>
                         <div class="center">
                             <form id="dietary-container">
                                 <label class="checkbox" for="vegan">
-                                    <input class="checkbox__input" type="checkbox" id="vegan" name="vegan"
+                                    <input class="checkbox__input" type="radio" id="vegan" name="dietary-radio"
                                         value="vegan">
                                     <div class="checkbox__box"></div>
                                     Vegan
-                                </label><br>
+                                </label>
 
                                 <label class="checkbox" for="vegetarian">
-                                    <input class="checkbox__input" type="checkbox" id="vegetarian" name="vegetarian"
+                                    <input class="checkbox__input" type="radio" id="vegetarian" name="dietary-radio"
                                         value="vegetarian">
                                     <div class="checkbox__box"></div>
                                     Vegetarian
-                                </label><br>
+                                </label>
 
-                                <label class="checkbox" for="halal">
-                                    <input class="checkbox__input" type="checkbox" id="halal" name="halal"
-                                        value="halal">
+                                <label class="checkbox" for="ketogenic">
+                                    <input class="checkbox__input" type="radio" id="ketogenic" name="dietary-radio"
+                                        value="ketogenic">
                                     <div class="checkbox__box"></div>
-                                    Halal
-                                </label><br>
+                                    Ketogenic
+                                </label>
 
                                 <label class="checkbox" for="gluten-free">
-                                    <input class="checkbox__input" type="checkbox" id="gluten-free" name="gluten-free"
-                                        value="gluten-free">
+                                    <input class="checkbox__input" type="radio" id="gluten-free" name="dietary-radio"
+                                        value="gluten free">
                                     <div class="checkbox__box"></div>
                                     Gluten-free
-                                </label><br>
-                                <label class="checkbox" for="kosher">
-                                    <input class="checkbox__input" type="checkbox" id="kosher" name="kosher"
-                                        value="kosher">
+                                </label>
+                                <label class="checkbox" for="lacto-vegetarian">
+                                    <input class="checkbox__input" type="radio" id="lacto-vegetarian"
+                                        name="dietary-radio" value="lacto vegetarian">
                                     <div class="checkbox__box"></div>
-                                    Kosher
-                                </label><br>
+                                    Lacto-Vegetarian
+                                </label>
 
-                                <label class="checkbox" for="fish-allergy">
-                                    <input class="checkbox__input" type="checkbox" id="fish-allergy" name="fish-allergy"
-                                        value="fish-allergy">
+                                <label class="checkbox" for="ovo-vegetarian">
+                                    <input class="checkbox__input" type="radio" id="ovo-vegetarian" name="dietary-radio"
+                                        value="ovo vegetarian">
                                     <div class="checkbox__box"></div>
-                                    Fish allergy
-                                </label><br>
+                                    Ovo-Vegetarian
+                                </label>
+
+                                <label class="checkbox" for="pescetarian">
+                                    <input class="checkbox__input" type="radio" id="pescetarian" name="dietary-radio"
+                                        value="pescetarian">
+                                    <div class="checkbox__box"></div>
+                                    Pescetarian
+                                </label>
+
+                                <label class="checkbox" for="paleo">
+                                    <input class="checkbox__input" type="radio" id="paleo" name="dietary-radio"
+                                        value="paleo">
+                                    <div class="checkbox__box"></div>
+                                    Paleo
+                                </label>
+
+                                <label class="checkbox" for="primal">
+                                    <input class="checkbox__input" type="radio" id="primal" name="dietary-radio"
+                                        value="primal">
+                                    <div class="checkbox__box"></div>
+                                    Primal
+                                </label>
+                            </form>
+                        </div>
+
+                        <button class="clear-btn" id="clear-btn">Clear Dietary Preferences</button>
+
+                        <h2 class="intolerances-subheading">Intolerances</h2>
+                        <div class="center">
+                            <form id="intolerances-container">
+                                <label class="checkbox" for="diary">
+                                    <input class="checkbox__input" type="checkbox" id="diary" name="diary"
+                                        value="dairy">
+                                    <div class="checkbox__box"></div>
+                                    Dairy
+                                </label>
+
+                                <label class="checkbox" for="egg">
+                                    <input class="checkbox__input" type="checkbox" id="egg" name="egg" value="egg">
+                                    <div class="checkbox__box"></div>
+                                    Egg
+                                </label>
+
+                                <label class="checkbox" for="gluten">
+                                    <input class="checkbox__input" type="checkbox" id="gluten" name="gluten"
+                                        value="gluten">
+                                    <div class="checkbox__box"></div>
+                                    Gluten
+                                </label>
+
+                                <label class="checkbox" for="grain">
+                                    <input class="checkbox__input" type="checkbox" id="grain" name="grain"
+                                        value="grain">
+                                    <div class="checkbox__box"></div>
+                                    Grain
+                                </label>
+
+                                <label class="checkbox" for="peanut">
+                                    <input class="checkbox__input" type="checkbox" id="peanut" name="peanut"
+                                        value="peanut">
+                                    <div class="checkbox__box"></div>
+                                    Peanut
+                                </label>
+
+                                <label class="checkbox" for="seafood">
+                                    <input class="checkbox__input" type="checkbox" id="seafood" name="seafood"
+                                        value="seafood">
+                                    <div class="checkbox__box"></div>
+                                    Seafood
+                                </label>
+
+                                <label class="checkbox" for="sesame">
+                                    <input class="checkbox__input" type="checkbox" id="sesame" name="sesame"
+                                        value="sesame">
+                                    <div class="checkbox__box"></div>
+                                    Sesame
+                                </label>
+
+                                <label class="checkbox" for="shellfish">
+                                    <input class="checkbox__input" type="checkbox" id="shellfish" name="shellfish"
+                                        value="shellfish">
+                                    <div class="checkbox__box"></div>
+                                    Shellfish
+                                </label>
+
+                                <label class="checkbox" for="soy">
+                                    <input class="checkbox__input" type="checkbox" id="soy" name="soy" value="soy">
+                                    <div class="checkbox__box"></div>
+                                    Soy
+                                </label>
+
+                                <label class="checkbox" for="sulfite">
+                                    <input class="checkbox__input" type="checkbox" id="sulfite" name="sulfite"
+                                        value="sulfite">
+                                    <div class="checkbox__box"></div>
+                                    Sulfite
+                                </label>
+
+                                <label class="checkbox" for="tree-nut">
+                                    <input class="checkbox__input" type="checkbox" id="tree-nut" name="tree-nut"
+                                        value="tree nut">
+                                    <div class="checkbox__box"></div>
+                                    Tree nut
+                                </label>
+
+                                <label class="checkbox" for="wheat">
+                                    <input class="checkbox__input" type="checkbox" id="wheat" name="wheat"
+                                        value="wheat">
+                                    <div class="checkbox__box"></div>
+                                    Wheat
+                                </label>
                             </form>
                         </div>
                         <button id="update-button"> Update</button>
             </section>
+
         </div>
         <!-- Cookbooks (Lists) Section -->
         <section id="cookbook-container">
             <h1 class="heading">Saved Cookbooks</h1>
             <!--populate this section with the cookbooks-->
+            <!-- there should always be one default Cookbook ("Favorite") -->
             <!-- within each cookbook will be a list of recipes -->
         </section>
+
+
     </main>
-    <footer></footer>
+    <footer>
+    </footer>
+
 </body>
 
 </html>
