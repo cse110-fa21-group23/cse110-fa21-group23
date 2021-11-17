@@ -28,6 +28,7 @@ async function init() {
     showHome();
     createCategoryCards();
     bindPopState();
+    bindAll();
     const clearBtn = document.getElementById("clear-btn");
     clearBtn.addEventListener('click', () => {
         const ele = document.getElementsByName("dietary-radio");
@@ -235,6 +236,79 @@ async function searchByCategory() {
     }
 }
 
+
+//function to return to home when app name is clicked
+function bindAppNameClick(){
+    let appName = document.getElementById("app-name");
+    const page = "";
+    router.addPage(page, function() {
+        showHome();
+     });
+    appName.addEventListener("click", (e) => {
+        router.navigate(page, false);
+    })
+}
+
+//function to update settings when update button is clicked
+function bindUpdateButton(){
+    let updateButton = document.getElementById("update-button");
+    updateButton.addEventListener("click", (e) => {
+        updateSettings();
+    })
+}
+
+function bindSearchButton(){
+    let searchButton = document.getElementById("search-button");
+    searchButton.addEventListener("click", (e) => {
+        search();
+    })
+}
+
+function bindCookbookPage(){
+    let cookbook = document.getElementById("cookbook-page");
+    const page = "cookbooks";
+    router.addPage(page, function() {
+        showCookbooks();
+        toggleMenu();
+    });
+    cookbook.addEventListener("click", (e) => {
+        router.navigate(page, false);
+    })
+}
+
+function bindSettingsPage(){
+    let settings = document.getElementById("settings-page");
+    const page = "settings";
+    router.addPage(page, function() {
+         showSettings();
+         toggleMenu();
+     });
+    settings.addEventListener("click", (e) => {
+        router.navigate(page, false);
+    })
+}
+
+function bindHomePage(){
+    let home = document.getElementById("home-page");
+    const page = "";
+    router.addPage(page, function() {
+        showHome();
+     });
+    home.addEventListener("click", (e) => {    
+        toggleMenu();
+        router.navigate(page, false)
+    })
+}
+
+function bindAll() {
+    bindPopState();
+    bindAppNameClick();
+    bindUpdateButton();
+    bindSearchButton();
+    bindSettingsPage();
+    bindCookbookPage();
+    bindHomePage();
+} 
 
 
 window.init = init;

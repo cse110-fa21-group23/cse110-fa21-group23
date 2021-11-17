@@ -20,7 +20,7 @@ export class Router {
   
       let hash;
   
-      if(page == 'home'){
+      if(page == ""){
         hash = "";
       }
       else{
@@ -28,7 +28,7 @@ export class Router {
       }
   
       if(statePopped == false && window.location.hash != hash){
-        window.history.pushState(page, "", window.location.origin + hash); 
+        window.history.pushState(page, "", window.location.origin + "/source/index.html" + hash); 
       }
   
       this[page].call();
