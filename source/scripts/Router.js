@@ -22,7 +22,7 @@ export class Router {
   
       if(page == "home"){
         hash = "";
-        window.location = window.location.origin + window.location.pathname
+        window.location = window.location.origin + window.location.pathname;
       }
       else{
         hash = "#" + page;
