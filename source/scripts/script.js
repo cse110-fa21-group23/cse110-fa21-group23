@@ -5,7 +5,7 @@ const API_KEY = '8aaa6b0816db4a99b92e7852d125a9aa';
 // API_KEY1: 4d936c811cda46879d4749def6bb36a1
 const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&instructionsRequired=true`;
 const urlByID= `https://api.spoonacular.com/recipes//information?apiKey=${API_KEY}`;
-const IDLocation = 36;
+const IDLocation = 36; // where to insert the ID
 const recipes = [];
 let recipeData = {};
 
@@ -360,6 +360,7 @@ function initializeCookbook() {
     let cookbooksList = document.querySelector("#cookbooks-list");
     let cookbooks = JSON.parse(localStorage.getItem("cookbooks"));
     for (const name in cookbooks) {
+        // Bookmark is the book mark icon object
         let bookMark = document.createElement("img");
         bookMark.classList.add("bookmark");
         bookMark.src = "./img/icons/bookmark-filled.svg";
@@ -383,32 +384,6 @@ function initializeCookbook() {
     }
 }
 
-function testInitializeCookbook() {
-    let cookbooksList = document.querySelector("#cookbooks-list");
-    let cookbooks = {a, b, c};
-    for (const name in cookbooks) {
-        let bookMark = document.createElement("img");
-        bookMark.classList.add("bookmark");
-        bookMark.src = "./img/icons/bookmark-filled.svg";
-        bookMark.src = "./img/icons/bookmark-empty.svg";
-        let bookMark = document.createElement("img");
-        bookMark.classList.add("bookMark");
-        bookMark.src = "./img/icons/bookmark-filled.svg";
-        // Learn conditions for filled/unfilled bookmarks and modify this
-        // This is a place holder but should work for now
-        if (cookbooks[name].length != 0) {
-            bookMark.src = "./img/icons/bookmark-filled.svg";
-        } else {
-            bookMark.src = "./img/icons/bookmark-empty.svg";
-        }
-        cookbooksList.appendChild(bookMark);
-        let listLink = document.createElement('p');
-        listLink.classList.add('list_name');
-        listLink.innerText(name);
-        listLink.onclick(showThisList(name));
-        cookbooksList.appendChild(listLink);
-    }
-}
 
 // Updates the cookbook display section to display the inputted cookbook and clears the previous cookbook shown
 function showThisList(cookbook) {
@@ -416,6 +391,7 @@ function showThisList(cookbook) {
     showListContents();
     document.getElementById('list-name-header').innerText(cookbook);
     const recipeCards = document.getElementById('cookbook-contents');
+    // clear previous recipe cards
     let childrenToRemove = recipeCards.getElementsByClassName('recipe-card');
     for (let i = 0; i < childrenToRemove.length; i++) {
         recipeCards.remove(childrenToRemove[i]);
