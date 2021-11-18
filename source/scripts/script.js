@@ -119,6 +119,7 @@ function createRecipeCards() {
 
         const page = recipeData[i]["title"];
         router.addPage(page, function() {
+         hideHome();
          hideRecipeCards();
          showRecipePage();
          document.querySelector("recipe-page").data = recipeData[i];
@@ -182,6 +183,9 @@ function createCategoryCards() {
             hideCategoryCards();
             console.log("hiding category cards")
             showRecipeCards();
+            hideRecipePage();
+            const search = document.getElementById("search");
+            search.style.visibility = "visible";
            
          });
 
@@ -257,21 +261,6 @@ function bindAppNameClick(){
     })
 }
 
-//function to update settings when update button is clicked
-function bindUpdateButton(){
-    let updateButton = document.getElementById("update-button");
-    updateButton.addEventListener("click", (e) => {
-        updateSettings();
-    })
-}
-
-function bindSearchButton(){
-    let searchButton = document.getElementById("search-button");
-    searchButton.addEventListener("click", (e) => {
-        search();
-    })
-}
-
 function bindCookbookPage(){
     let cookbook = document.getElementById("cookbook-page");
     const page = "cookbooks";
@@ -311,8 +300,6 @@ function bindHomePage(){
 function bindAll() {
     bindPopState();
     bindAppNameClick();
-    bindUpdateButton();
-    bindSearchButton();
     bindSettingsPage();
     bindCookbookPage();
     bindHomePage();

@@ -21,14 +21,15 @@ export class Router {
       let hash;
   
       if(page == "home"){
-        hash = "/source/index.html";
+        hash = "";
+        window.location = window.location.origin + window.location.pathname
       }
       else{
         hash = "#" + page;
       }
   
       if(statePopped == false && window.location.hash != hash){
-        window.history.pushState(page, "", window.location.origin + hash); 
+        window.history.pushState(page, "", window.location + hash); 
       }
   
       this[page].call();
