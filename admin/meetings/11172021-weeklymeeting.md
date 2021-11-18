@@ -11,6 +11,8 @@
 * Flynn
 * Suditi
 
+## Meeting Minutes
+
 *	By Friday 11/19, we must complete:
     *	MVP features
     *	Sprint retrospective/review 1
