@@ -355,8 +355,9 @@ function searchByCategory() {
 
 // sets up the list of cookbooks and displays them under cookbooks-list
 // Could do this every time you want to show the cookbooks or you could do this at start up and add functions 
-// to modify it dynamically(probably add ids to the desired, or in fact UNDESIRED, cookbook)
+// to modify it dynamically
 function initializeCookbook() {
+    document.querySelector('#add-empty-cookbook').onclick = newCookbookMenu();
     let cookbooksList = document.querySelector("#cookbooks-list");
     let cookbooks = JSON.parse(localStorage.getItem("cookbooks"));
     for (const name in cookbooks) {
@@ -368,8 +369,9 @@ function initializeCookbook() {
         let bookMark = document.createElement("img");
         bookMark.classList.add("bookMark");
         bookMark.src = "./img/icons/bookmark-filled.svg";
+        bookMark.onclick = confirmRemoveList(name);
         // Probably make the button remove lists when clicked
-        // This is to tell which kind of bookmarks to use
+        // This is to tell which kind of bookmarks to use, currently always choses empty
         if (cookbooks[name].length != 0) {
             bookMark.src = "./img/icons/bookmark-filled.svg";
         } else {
@@ -409,7 +411,7 @@ function showThisList(cookbook) {
             console.log(err);
             reject(false);
         })
-        // Probably need to put the recipe cards in some kind of div/section/ect. to allow sharing and removing
+        // Probably need to put the recipe cards in some kind of div/section/ect. to allow sharing and removing and call confirmRemoveList(cookbook) when done
         let recipeCard = document.createElement("recipe-card");
         recipeCard.data = jsonData;
         document.querySelector("recipe-page").data = recipeData;
@@ -418,12 +420,21 @@ function showThisList(cookbook) {
     }
 }
 
+function confirmRemoveList(name) {
+
+}
+
+function newCookbookMenu() {
+
+}
+
 function addToThisCookbook(cookbook, recipe) {
 }
 
 function removeFromThisCookbook(cookbook, recipe) {
 }
 
+// addsCookbook with optional recipe to add to that cookbook
 function addCookbook(cookbookName, recipe) {
     if (localStorage.getItem("cookbooks") != null ) {
         let cookbooks = JSON.parse(localStorage.getItem("cookbooks"));
