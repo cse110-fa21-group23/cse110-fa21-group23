@@ -21,6 +21,7 @@ function showSettings() {
     hideCookbooks();
     hideRecipeCards();
     hideRecipePage();
+    hideSaveCookbookMenu();
     const settings = document.getElementById("settings-container");
     settings.style.visibility = "visible";
     //settings.style.transform = "translate(100%)";
@@ -55,6 +56,7 @@ function showHome() {
     hideRecipeCards();
     showCategoryCards();
     hideRecipePage();
+    hideSaveCookbookMenu();
     document.getElementById('search-query').value = ''; //clears search result
     const search = document.getElementById("search");
     search.style.visibility = "visible";
@@ -71,6 +73,7 @@ function showCookbooks() {
     hideHome();
     hideRecipeCards();
     hideRecipePage();
+    hideSaveCookbookMenu();
     const cookbook = document.getElementById("cookbook-container");
     cookbook.style.visibility = "visible";
 }
@@ -81,6 +84,7 @@ function hideCookbooks() {
 }
 
 function showRecipePage(){
+    hideSaveCookbookMenu();
     const recipePage = document.getElementById("recipe-page-container");
     recipePage.style.visibility = "visible";
 }
@@ -128,6 +132,16 @@ function updateSettings() {
     alert("your preferences have been updated");
 }
 
+function showSaveCookbookMenu() {
+    const saveCookbookMenu = document.getElementById("save-cookbook-container");
+    saveCookbookMenu.style.visibility = "visible";
+}
+
+function hideSaveCookbookMenu() {
+    const saveCookbookMenu = document.getElementById("save-cookbook-container");
+    saveCookbookMenu.style.visibility = "hidden";
+}
+
 /**
  * This function checks localStorage for saved recipes, and then display bookmark-filled for the ones that already saved
  * @param {Object} data 
@@ -152,6 +166,9 @@ function checkBookMark(data){
  * The data being stored in 'bookmark'
  */
 function setBookMark(){
+
+    showSaveCookbookMenu();
+
     // check local storage for bookmark
     let bookmarkList = JSON.parse(localStorage.getItem("bookmark"));
     if (bookmarkList == null)

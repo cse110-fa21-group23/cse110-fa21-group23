@@ -375,6 +375,49 @@ border-color: 0#2266dc;
 .checkbox__input:checked + .checkbox__box::after {
 transform: scale(1);
 }
+
+/* Save Cookbook Menu Style */
+.save-cookbook-menu{
+  background-color: #FFECDB;
+  border-radius: 20px;
+  position: fixed;
+  left: 33%;
+  bottom: 0px;
+  justify-content: center;
+  display: flex;
+  height: 450px;
+  width: 580px;
+  z-index: 100;
+}
+
+#new-cookbook-button{
+  background-color: #FFECDB;
+  border: #FFECDB;
+  font-size: 40px;
+}
+
+#new-cookbook-button:hover{
+  color: var(--orange3);
+  transition: .2s ease-in-out;
+}
+
+#close-save-cookbook-menu-button{
+  background-color: #FFECDB;
+  border: #FFECDB;
+  font-size: 50px;
+  height: 95px;
+  width: 35px;
+  transform: rotate(90deg);
+  position: absolute;
+  top: 0%;
+  right: 10%;
+}
+
+#close-save-cookbook-menu-button:hover{
+  color: var(--orange3);
+  transition: 0s ease-in-out;
+}
+
 /* Category Cards style ============================================================*/
 .category-cards--wrapper{
   display: grid;
