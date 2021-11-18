@@ -8,7 +8,6 @@ const urlByID= `https://api.spoonacular.com/recipes//information?apiKey=${API_KE
 const IDLocation = 36;
 const recipes = [];
 let recipeData = {};
-var lists = {};
 
 //arrays holding category names and images for category cards
 const categories = ["Indian", "Vegan", "Mexican", "Gluten-Free", "Italian", "Japanese", "American", "Vegetarian", "Thai", "Chinese", "Korean",
@@ -31,6 +30,7 @@ async function init() {
     showHome();
     createCategoryCards();
     showRecipePage();
+    hideCookbookDisplay();
     document.addEventListener('keydown', async function (event) {
         if (event.key === 'Enter') {
             let searchSuccessful = await search();
@@ -39,7 +39,6 @@ async function init() {
             }
         }
     });
-
     // // Make the "Show more" button functional
     // bindShowMore();
 
@@ -343,7 +342,7 @@ function searchByCategory() {
 // loads stored values from memory to initialize lists
 // listsOfCookbooks will be an array
 // there will be an array for each cookbook accessible by that cookbook's name
-function initializeLists() {
+/*function initializeLists() {
     var listOfCookbooks = JSON.parse(localStorage.getItem("listsOfCookbooks"));
     for (let i = 0; i < listOfCookbooks.length; i++) {
         let currentCookbook = JSON.parse(localStorage.getItem(listOfCookbooks[i]));
@@ -352,12 +351,15 @@ function initializeLists() {
             list[listOfCookbooks[i]].push(currentCookbook[j]);
         }
     }
-}
+}*/
 
 // sets up the list of cookbooks and displays them under cookbooks-list
+// Could do this every time you want to show the cookbooks or you could do this at start up and add functions 
+// to modify it dynamically(probably add ids to the desired, or in fact UNDESIRED, cookbook)
 function initializeCookbook() {
     let cookbooksList = document.querySelector("#cookbooks-list");
-    for (const list in lists) {
+    let cookbooks = JSON.parse(localStorage.getItem("cookbooks"));
+    for (const name in cookbooks) {
         let bookMark = document.createElement("img");
         bookMark.classList.add("bookmark");
         bookMark.src = "./img/icons/bookmark-filled.svg";
@@ -365,7 +367,9 @@ function initializeCookbook() {
         let bookMark = document.createElement("img");
         bookMark.classList.add("bookMark");
         bookMark.src = "./img/icons/bookmark-filled.svg";
-        if (lists[i].length != 0) {
+        // Probably make the button remove lists when clicked
+        // This is to tell which kind of bookmarks to use
+        if (cookbooks[name].length != 0) {
             bookMark.src = "./img/icons/bookmark-filled.svg";
         } else {
             bookMark.src = "./img/icons/bookmark-empty.svg";
@@ -373,60 +377,100 @@ function initializeCookbook() {
         cookbooksList.appendChild(bookMark);
         let listLink = document.createElement('p');
         listLink.classList.add('list_name');
-        listLink.innerText(list);
-        listLink.onclick(showThisList(list));
+        listLink.innerText(name);
+        listLink.onclick(showThisList(name));
         cookbooksList.appendChild(listLink);
     }
 }
 
-/* Shows the content of the inputted list
-@param the index of the list to add 
-*/
-function showThisList(index) {
+function testInitializeCookbook() {
+    let cookbooksList = document.querySelector("#cookbooks-list");
+    let cookbooks = {a, b, c};
+    for (const name in cookbooks) {
+        let bookMark = document.createElement("img");
+        bookMark.classList.add("bookmark");
+        bookMark.src = "./img/icons/bookmark-filled.svg";
+        bookMark.src = "./img/icons/bookmark-empty.svg";
+        let bookMark = document.createElement("img");
+        bookMark.classList.add("bookMark");
+        bookMark.src = "./img/icons/bookmark-filled.svg";
+        // Learn conditions for filled/unfilled bookmarks and modify this
+        // This is a place holder but should work for now
+        if (cookbooks[name].length != 0) {
+            bookMark.src = "./img/icons/bookmark-filled.svg";
+        } else {
+            bookMark.src = "./img/icons/bookmark-empty.svg";
+        }
+        cookbooksList.appendChild(bookMark);
+        let listLink = document.createElement('p');
+        listLink.classList.add('list_name');
+        listLink.innerText(name);
+        listLink.onclick(showThisList(name));
+        cookbooksList.appendChild(listLink);
+    }
+}
+
+// Updates the cookbook display section to display the inputted cookbook and clears the previous cookbook shown
+function showThisList(cookbook) {
     hideCookbookDisplay();
     showListContents();
-    document.getElementById('list-name-header').innerText(index);
+    document.getElementById('list-name-header').innerText(cookbook);
     const recipeCards = document.getElementById('cookbook-contents');
     let childrenToRemove = recipeCards.getElementsByClassName('recipe-card');
     for (let i = 0; i < childrenToRemove.length; i++) {
         recipeCards.remove(childrenToRemove[i]);
     }
-    for (let i = 0; i < lists[index].length; i++) {
-        var recipeCard = lists[index][i];
+    const cookbookContents = JSON.parse(localStorage.getItem(cookbook));
+    for (let i = 0; i < cookbookContents.length; i++) {
+        let jsonData;
+        // not sure if fetch is done properly here
+        fetch(`${urlByID.slice(0, IDLocation) + cookbookContents[i] + urlByID.slice(IDLocation)}`).then(res => res.json()).then(data => {
+            console.log(data);
+            jsonData = data.results;
+            console.log(recipeData);        
+            resolve(true);
+        }).catch((err) => {
+            console.log(err);
+            reject(false);
+        })
+        // Probably need to put the recipe cards in some kind of div/section/ect. to allow sharing and removing
+        let recipeCard = document.createElement("recipe-card");
+        recipeCard.data = jsonData;
+        document.querySelector("recipe-page").data = recipeData;
         recipeCards.appendChild(recipeCard);
-        bindRecipeCard(element); // need this to link recipe card to recipe page
+        bindRecipeCard(recipeCard);
     }
 }
 
 function addToThisCookbook(cookbook, recipe) {
-    lists[cookbook].push(recipe);
-
 }
 
 function removeFromThisCookbook(cookbook, recipe) {
 }
 
 function addCookbook(cookbookName, recipe) {
-    if (JSON.parse(localStorage.getItem("listsOfCookbooks"))) {
-
+    if (localStorage.getItem("cookbooks") != null ) {
+        let cookbooks = JSON.parse(localStorage.getItem("cookbooks"));
+        if (recipe != undefined) {
+            cookbooks[cookbookName] = [recipe];
+        } else {
+            cookbooks[cookbookName] = [];
+        }
+        localStorage.setItem("cookbooks", JSON.stringify(cookbooks));
+    } else {
+        let cookbook = {};
+        if (recipe != undefined) {
+            cookbook[cookbookName] = recipe;
+        }
+        localStorage.setItem("cookbooks", JSON.stringify(cookbooks));
     }
-    delete lists.cookbookName;
-    let cookbookArr = JSON.parse(localStorage.getItem(cookbookName));
-    localStorage.removeItem(cookbookName);
-    let cookbooksArr = JSON.parse(localStorage.getItem("listsOfCookbooks"));
-    let ind = cookbooksArr.indexOf(cookbookName);
-    delete cookbooksArr[ind];
-    localStorage.setItem("listOfCookbooks", JSON.stringify(cookbooksArr));
 }
 
 function removeCookbook(cookbookName) {
-    delete lists.cookbookName;
-    let cookbookArr = JSON.parse(localStorage.getItem(cookbookName));
     localStorage.removeItem(cookbookName);
-    let cookbooksArr = JSON.parse(localStorage.getItem("listsOfCookbooks"));
-    let ind = cookbooksArr.indexOf(cookbookName);
-    delete cookbooksArr[ind];
-    localStorage.setItem("listOfCookbooks", JSON.stringify(cookbooksArr));
+    let cookbooks = JSON.parse(localStorage.getItem("cookbooks"));
+    delete cookbooks[cookbookName];
+    localStorage.setItem("listOfCookbooks", JSON.stringify(cookbooks));
 }
 
 function hideListsDisplay() {
