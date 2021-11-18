@@ -22,14 +22,13 @@ export class Router {
   
       if(page == "home"){
         hash = "";
-        window.location = window.location.origin + window.location.pathname;
       }
       else{
         hash = "#" + page;
       }
   
       if(statePopped == false && window.location.hash != hash){
-        window.history.pushState(page, "", window.location + hash); 
+        window.history.pushState(page, "", window.location.pathname + hash); 
       }
   
       this[page].call();

@@ -181,7 +181,6 @@ function createCategoryCards() {
         console.log(page)
         router.addPage(page, function() {
             hideCategoryCards();
-            console.log("hiding category cards")
             showRecipeCards();
             hideRecipePage();
             const search = document.getElementById("search");
