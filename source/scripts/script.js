@@ -29,6 +29,7 @@ async function init() {
     createCategoryCards();
     bindPopState();
     bindAll();
+    router.navigate("home", false);
     const clearBtn = document.getElementById("clear-btn");
     clearBtn.addEventListener('click', () => {
         const ele = document.getElementsByName("dietary-radio");

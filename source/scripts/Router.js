@@ -1,7 +1,5 @@
 // Router.js
 export class Router {
-    static routes = {};
-  
     constructor(homeFunction) {
       this["home"] = homeFunction;
     }
