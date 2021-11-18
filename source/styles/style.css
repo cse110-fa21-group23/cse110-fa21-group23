@@ -283,6 +283,7 @@ label {
 /* end of SETTINGS ========================================================= */
 
 /* COOKBOOKS/LISTS ================================================================ */
+/*Make sure the book mark and list link are next to each other*/
 .bookmark {
   float: left;
 }
