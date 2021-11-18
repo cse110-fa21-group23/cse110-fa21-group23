@@ -151,12 +151,17 @@
 
         <!-- Prompts That Require A Text Answer -->
         <section id="prompt-box-text">
-
+            <label for='text-input' id="text-prompt-text"></label>
+            <br>
+            <input type='text' id='prompt-text' name='text-input'></input>
         </section>
 
         <!-- Prompts That Require A Yes Or No Answer -->
         <section id="prompt-box-yes-no">
-
+            <p id="yes-no-prompt-text"></p>
+            <br>
+            <button id="prompt-yes">Yes</button>
+            <button id="prompt-no" onclick="hideYesNoPrompt()">No</button>
         </section>
     </main>
     <footer></footer>

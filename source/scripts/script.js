@@ -363,12 +363,8 @@ function initializeCookbook() {
     for (const name in cookbooks) {
         // Bookmark is the book mark icon object
         let bookMark = document.createElement("img");
-        bookMark.classList.add("bookmark");
-        bookMark.src = "./img/icons/bookmark-filled.svg";
-        bookMark.src = "./img/icons/bookmark-empty.svg";
-        let bookMark = document.createElement("img");
         bookMark.classList.add("bookMark");
-        bookMark.src = "./img/icons/bookmark-filled.svg";
+        bookMark.id = 'bookMark:' + name;
         bookMark.onclick = confirmRemoveList(name);
         // Probably make the button remove lists when clicked
         // This is to tell which kind of bookmarks to use, currently always choses empty
@@ -380,6 +376,7 @@ function initializeCookbook() {
         cookbooksList.appendChild(bookMark);
         let listLink = document.createElement('p');
         listLink.classList.add('list_name');
+        listLink.id = 'listLink:'+ name;
         listLink.innerText(name);
         listLink.onclick(showThisList(name));
         cookbooksList.appendChild(listLink);
@@ -421,7 +418,16 @@ function showThisList(cookbook) {
 }
 
 function confirmRemoveList(name) {
+    document.getElementById('yes-no-prompt-text').innerText = 'Are you sure you want to delete the cookbook ' + name + '?';
+    document.getElementById('prompt-yes').onclick = removeCookbook(name);
+    let prompt = document.getElementById('prompt-box-yes-no');
+    prompt.style.visibility = 'visible';
+}
 
+function removeCookbook(name) {
+    document.getElementById('bookMark:' + name).remove();
+    document.getElementById('listLink:' + name).remove();
+    removeCookbook(name);
 }
 
 function newCookbookMenu() {
@@ -478,4 +484,9 @@ function hideCookbookDisplay() {
 function showCookbookDisplay() {
     const listDisplay = document.getElementById('cookbooks');
     listDisplay.style.visibility = "visible";
+}
+
+function hideYesNoPrompt() {
+    const yesNoPrompt = document.getElementById('prompt-box-yes-no');
+    yesNoPrompt.style.visibility = "hidden";
 }
