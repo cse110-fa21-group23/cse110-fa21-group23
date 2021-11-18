@@ -4,14 +4,14 @@
 
     Example:
     
-        cookbooks = {"cookbook-1", "cookbook2",...}
+        cookbooks = {"cookbook1", "cookbook2",...}
 
 2. Each cookbook is stored as a list of ids: 
 
     Examples:
      
-        cookbook-1 = {1, 2, 3, 4}
-        cookbook-2 = {3, 4, 5, 6}
+        cookbook1 = {1, 2, 3, 4}
+        cookbook2 = {3, 4, 5, 6}
 
 3. Each id is stored as an object. (add more properties as needed)
 
@@ -24,7 +24,7 @@
                 "eggs",
                 "cheese"
             ],
-            "instruction": [
+            "instructions": [
                 "boil eggs",
                 "eat"
             ]}
