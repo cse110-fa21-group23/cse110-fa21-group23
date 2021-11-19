@@ -24,6 +24,26 @@ const images = ["./img/foodPics/indian.jpeg", "./img/foodPics/vegan.jpeg", "./im
 
 window.addEventListener('DOMContentLoaded', init);
 
+function bindPopState() {
+    window.addEventListener("popstate", (e) => {
+      if(e.state){
+        router.navigate(e.state, true);
+      }
+      else{
+        router.navigate("home", true);
+      }
+    }) 
+}
+
+//calls all binding functions above and is called in the init function
+function bindAll() {
+    bindPopState();
+    bindAppNameClick();
+    bindSettingsPage();
+    bindCookbookPage();
+    bindHomePage();
+} 
+
 async function init() {
     showHome();
     createCategoryCards();
@@ -141,20 +161,6 @@ function bindRecipeCard(recipeCard, pageName) {
       router.navigate(pageName, false);
     });
 }
-    
-
-
-function bindPopState() {
-    window.addEventListener("popstate", (e) => {
-      if(e.state){
-        router.navigate(e.state, true);
-      }
-      else{
-        router.navigate("home", true);
-      }
-    }) 
-}
-
 
 //this function creates 6 category cards from the categories and images arrays above using random 
 //values so everytime the user refreshes, there will be a new set of categories
@@ -301,15 +307,6 @@ function bindHomePage(){
         router.navigate(page, false);
     })
 }
-
-//calls all binding functions above and is called in the init function
-function bindAll() {
-    bindPopState();
-    bindAppNameClick();
-    bindSettingsPage();
-    bindCookbookPage();
-    bindHomePage();
-} 
 
 
 window.init = init;
