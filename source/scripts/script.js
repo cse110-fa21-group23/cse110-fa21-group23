@@ -44,7 +44,7 @@ async function init() {
         if (event.key === 'Enter') {
             let searchSuccessful = await search();
             if (searchSuccessful) {
-                router.navigate(document.getElementById('search-query').value, false);
+                router.navigate(document.getElementById("search-query").value, false);
                 createRecipeCards();
             }
         }
@@ -137,7 +137,7 @@ function createRecipeCards() {
 
 function bindRecipeCard(recipeCard, pageName) {
     recipeCard.addEventListener('click', e => {
-      if (e.path[0].nodeName == 'A') return;
+        if (e.path[0].nodeName == "A") return;
       router.navigate(pageName, false);
     });
 }
