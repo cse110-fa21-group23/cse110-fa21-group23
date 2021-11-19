@@ -120,8 +120,8 @@ function createRecipeCards() {
         element.data = recipeData[i];
         document.querySelector("recipe-page").data = recipeData[i];
 
-        const page = recipeData[i]["title"];
-        router.addPage(page, function() {
+        const id = recipeData[i]["id"];
+        router.addPage(id, function() {
          hideHome();
          hideRecipeCards();
          showRecipePage();
@@ -131,7 +131,7 @@ function createRecipeCards() {
          });
 
         recipeCardContainer.appendChild(element);
-        bindRecipeCard(element, page);
+        bindRecipeCard(element, id);
     }
 }
 
