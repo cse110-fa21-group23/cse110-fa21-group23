@@ -16,7 +16,6 @@ class RecipeCard extends HTMLElement {
 
         article {
             align-items: center;
-            border: 1px;
             border-radius: 8px;
             display: grid;
             row-gap: 5px;
@@ -27,13 +26,10 @@ class RecipeCard extends HTMLElement {
             margin-left: 15px;
             margin-rigth: 15px;
             background-color: var(--orange1);
-            box-shadow: 2px 5px 3px var(--light-grey); 
 
         }
 
         article > img {
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
             padding-left: 10px;
             padding-bottom: 5px;
             height: 118px;
@@ -43,9 +39,14 @@ class RecipeCard extends HTMLElement {
         }
 
         article:hover {
-            transform: scale(1.02, 1.02);
+            transition: ease-in-out .1s;
             cursor: pointer;
+            -webkit-box-shadow:inset 0px 0px 0px 1px #f00;
+            -moz-box-shadow:inset 0px 0px 0px 1px #f00;
+            box-shadow:inset 0px 0px 0px 3px var(--orange3);
+
         }
+
 
         p.title {
             font-size: 1rem;
