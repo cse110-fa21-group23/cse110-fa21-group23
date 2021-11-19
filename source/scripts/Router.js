@@ -25,7 +25,7 @@ export class Router {
         hash = "#" + page;
       }
   
-      if(statePopped === false && window.location.hash != hash){
+      if(statePopped === false && window.location.hash !== hash){
         window.history.pushState(page, "", window.location.pathname + hash); 
       }
   

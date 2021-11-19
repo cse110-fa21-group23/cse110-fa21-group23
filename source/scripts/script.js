@@ -258,7 +258,7 @@ function bindAppNameClick(){
     router.addPage(page, function() {
         showHome();
      });
-    appName.addEventListener("click", (e) => {
+    appName.addEventListener("click", () => {
         router.navigate(page, false);
     })
 }
@@ -271,7 +271,7 @@ function bindCookbookPage(){
         showCookbooks();
         toggleMenu();
     });
-    cookbook.addEventListener("click", (e) => {
+    cookbook.addEventListener("click", () => {
         router.navigate(page, false);
     })
 }
@@ -284,7 +284,7 @@ function bindSettingsPage(){
          showSettings();
          toggleMenu();
      });
-    settings.addEventListener("click", (e) => {
+    settings.addEventListener("click", () => {
         router.navigate(page, false);
     })
 }
@@ -296,7 +296,7 @@ function bindHomePage(){
     router.addPage(page, function() {
         showHome();
      });
-    home.addEventListener("click", (e) => {    
+    home.addEventListener("click", () => {    
         toggleMenu();
         router.navigate(page, false);
     })
