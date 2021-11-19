@@ -37,3 +37,6 @@
 * We can keep our progress going forward and continue working on the additional features of our application.
 * What we can do better for the next sprint is to try to complete code in a more effcient way and prepare enough documentation so that we don't get lost.
 * We will be trying our best to make our recipe app unique and have eomugh of the features that we originally planned on implementing.
+
+![Sprint 1 Retrospective](https://user-images.githubusercontent.com/47440034/142575456-355adb1e-1a83-4239-973c-460056ea743e.jpg)
+
