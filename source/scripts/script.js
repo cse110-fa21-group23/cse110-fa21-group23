@@ -44,7 +44,7 @@ async function init() {
         if (event.key === 'Enter') {
             let searchSuccessful = await search();
             if (searchSuccessful) {
-                router.navigate(document.getElementById('search-query').value, false);
+                router.navigate(document.getElementById("search-query").value, false);
                 createRecipeCards();
             }
         }
