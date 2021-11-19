@@ -29,7 +29,9 @@ async function init() {
     createCategoryCards();
     bindPopState();
     bindAll();
-    router.navigate("home", false);
+
+    router.navigate("home", false); // clears url when user refreshes page
+
     const clearBtn = document.getElementById("clear-btn");
     clearBtn.addEventListener('click', () => {
         const ele = document.getElementsByName("dietary-radio");
@@ -77,7 +79,7 @@ function search() {
         showRecipeCards();
      });
 
-     router.navigate(page, false);
+    router.navigate(page, false);//to clear url when user searches recipe
      
     // Reset the recipe-card-container to be empty for every search
     recipeCardContainer.innerHTML = '';
@@ -126,7 +128,8 @@ function createRecipeCards() {
          document.querySelector("recipe-page").data = recipeData[i];
          checkBookMark(recipeData[i]);
         
-      });
+         });
+
         recipeCardContainer.appendChild(element);
         bindRecipeCard(element, page);
     }
@@ -204,7 +207,6 @@ function bindCategoryCards(categoryCard, categoryName) {
         let searchSuccessful = await searchByCategory();
         if (searchSuccessful) {
             console.log(recipeData);
-           // router.navigate(categoryName, false);
             createRecipeCards();
         }
     });
@@ -261,6 +263,7 @@ function bindAppNameClick(){
     })
 }
 
+//function to go to cookbook page when cookbook is clicked
 function bindCookbookPage(){
     let cookbook = document.getElementById("cookbook-page");
     const page = "cookbooks";
@@ -273,6 +276,7 @@ function bindCookbookPage(){
     })
 }
 
+//function to go to settings page when settings is clicked
 function bindSettingsPage(){
     let settings = document.getElementById("settings-page");
     const page = "settings";
@@ -285,6 +289,7 @@ function bindSettingsPage(){
     })
 }
 
+//function to go to home page when home is clicked
 function bindHomePage(){
     let home = document.getElementById("home-page");
     const page = "home";
@@ -297,6 +302,7 @@ function bindHomePage(){
     })
 }
 
+//calls all binding functions above and is called in the init function
 function bindAll() {
     bindPopState();
     bindAppNameClick();
