@@ -197,14 +197,14 @@ async function searchByCategory() {
     // check for user dietary restriction
     const getDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
     let queryStrDiet = "";
-    if (getDietaryRestrictions.length !== 0) {
+    if (getDietaryRestrictions && getDietaryRestrictions.length !== 0) {
         queryStrDiet = `&diet=${getDietaryRestrictions}`;
     }
 
     // check for user intolerances
     const getIntolerancesRestrictions = JSON.parse(localStorage.getItem("intolerancesRestrictions"));
     let queryStrIntolerances = "";
-    if (getIntolerancesRestrictions.length !== 0) {
+    if (getIntolerancesRestrictions && getIntolerancesRestrictions.length !== 0) {
         queryStrIntolerances = `&intolerances=${getIntolerancesRestrictions}`
     }
 
