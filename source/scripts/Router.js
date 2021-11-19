@@ -9,7 +9,7 @@ export class Router {
     }
   
     navigate(page, statePopped) {
-      console.log(`navigating to: ${page}`);
+
   
       if(!this[page]){
         console.log('Error: function does not exist');
@@ -18,14 +18,14 @@ export class Router {
   
       let hash;
   
-      if(page == "home"){
+      if(page === "home"){
         hash = "";
       }
       else{
         hash = "#" + page;
       }
   
-      if(statePopped == false && window.location.hash != hash){
+      if(statePopped === false && window.location.hash != hash){
         window.history.pushState(page, "", window.location.pathname + hash); 
       }
   

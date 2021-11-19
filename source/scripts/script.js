@@ -182,7 +182,7 @@ function createCategoryCards() {
         
         document.querySelector(".category-cards--wrapper").appendChild(categoryCard); 
         const page = categories[randNums[i]];   
-        console.log(page)
+
         router.addPage(page, function() {
             hideCategoryCards();
             showRecipeCards();
@@ -298,7 +298,7 @@ function bindHomePage(){
      });
     home.addEventListener("click", (e) => {    
         toggleMenu();
-        router.navigate(page, false)
+        router.navigate(page, false);
     })
 }
 
