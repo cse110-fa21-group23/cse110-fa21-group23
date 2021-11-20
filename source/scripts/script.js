@@ -16,6 +16,9 @@ const router = new Router(function () {
     showHome();
 });
 
+const tapModeButton = document.getElementById("tap-mode-button");
+tapModeButton.addEventListener("click", toggleTapMode); // toggleTapMode() is in main.js
+
 //arrays holding category names and images for category cards
 const categories = ["Indian", "Vegan", "Mexican", "Gluten-Free", "Italian", "Japanese", "American", "Vegetarian", "Thai", "Chinese", "Korean",
     "Vietnamese", "African", "Middle Eastern"];
@@ -163,13 +166,6 @@ function bindRecipeCard(recipeCard, pageName) {
     });
 }
 
-function bindPopstate() {
-    window.addEventListener("popstate", (event) => {
-        if (event.state != null) { router.navigate(event.state, true); }
-        else
-            router.navigate("home", true);
-    });
-}
 
 
 //this function creates 6 category cards from the categories and images arrays above using random 

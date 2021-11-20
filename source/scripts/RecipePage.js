@@ -268,7 +268,7 @@ class RecipePage extends HTMLElement {
 
     this.shadowRoot.getElementById("prev-step-button").addEventListener("click", () => {
       if (tapModeInd == 0) {
-        console.log("you're on the first step already!")
+        console.log("you're on the first step already!");
         return;
       }
       else {

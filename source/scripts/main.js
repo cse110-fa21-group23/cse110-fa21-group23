@@ -19,19 +19,18 @@ function toggleMenu() {
 
 
 
+
+// this function is being called from an onClick event in index.html
 function toggleTapMode() {
     const tapModeButton = document.getElementById("tap-mode-button");
+
     if (tapModeButton.innerHTML == "Tap Mode On") {
         tapModeButton.innerHTML = "Tap Mode Off";
         $tapModeVisibility = "hidden";
-        console.log("LOOK OVER HEREEEEEEEE", $tapModeVisibility);
-
     }
     else {
         tapModeButton.innerHTML = "Tap Mode On";
         $tapModeVisibility = "visible";
-        console.log("LOOK OVER HEREEEEEEEE", $tapModeVisibility);
-
     }
 
 }
