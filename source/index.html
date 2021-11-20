@@ -260,7 +260,7 @@
             <h1 class="heading">Saved Cookbooks</h1>
             <!--populate this section with the cookbooks-->
             <div id="cookbooks">
-                <h4 id="add-empty-cookbook">+ New Cookbook</h4>
+                <h4 id="add-empty-cookbook" onclick="addNewCookbookPrompt()">+ New Cookbook</h4>
                 <div id="cookbooks-list"></div>
             </div>
             <!-- there should always be one default Cookbook ("Favorite") -->
@@ -282,7 +282,9 @@
         <section id="prompt-box-text" class="hidden">
             <label for='text-input' id="text-prompt-text"></label>
             <br>
-            <input type='text' id='prompt-text' name='text-input'></input>
+            <input type='text' id='input-prompt-text' name='text-input'></input>
+            <button id="prompt-submit">submit</button>
+            <button id="prompt-cancel" onclick="hideTextPrompt()">Cancel</button>
         </section>
 
         <!-- Prompts That Require A Yes Or No Answer -->

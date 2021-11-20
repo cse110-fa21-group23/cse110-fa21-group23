@@ -1,4 +1,5 @@
 var $SOMenuVisibility = "hidden";
+var defaultName = "favorite";
 
 function toggleMenu() {
     var menuIcon = document.getElementById("menu-icon");
@@ -82,8 +83,12 @@ function showCookbooks() {
     hideHome();
     hideRecipeCards();
     hideRecipePage();
-    let testCookbook = {a:1 , b:2, c:2, e:4};
+    let testCookbook = {a:"" , b:"", c:"", e:""};
     localStorage.setItem("cookbooks", JSON.stringify(testCookbook));
+    localStorage.setItem("a", JSON.stringify("aaaa"));
+    localStorage.setItem("b", JSON.stringify(""));
+    localStorage.setItem("c", JSON.stringify(""));
+    localStorage.setItem("d", JSON.stringify(""));
     initializeCookbook();
     const cookbook = document.getElementById("cookbook-container");
     cookbook.style.visibility = "visible";
@@ -198,28 +203,56 @@ function setBookMark() {
     localStorage.setItem("bookmark", JSON.stringify(bookmarkList));
 }
 
+/*
+NOTE: Should probably create a add to the cookbook display function instead of just copy and pasting code
+Also I've done pretty much no CSS and haven't really tested the actual list displays
+*/
+
 // sets up the list of cookbooks and displays them under cookbooks-list
-// Could do this every time you want to show the cookbooks or you could do this at start up and add functions 
-// to modify it dynamically
+// When we want to add or remove to it will simply do so dynamically in other functions
 function initializeCookbook() {
-    document.querySelector('#add-empty-cookbook').onclick = function() {newCookbookMenu()};
+    document.querySelector('#add-empty-cookbook').onclick = function() {newCookbookPrompt()};
     let cookbooksList = document.querySelector("#cookbooks-list");
     let cookbooks = JSON.parse(localStorage.getItem("cookbooks"));
+    // First set up favorite/default
+    // The bookMark is the part where when clicked prompts you to confirm removing that cookbook
+    let bookMark = document.createElement("img");
+    bookMark.classList.add("bookMark");
+    // Adding bookMark: so as to not have any ID conflicts
+    bookMark.id = 'bookMark:' + defaultName;
+    cookbooksList.appendChild(bookMark);
+    console.log(document.getElementById('bookMark:' + defaultName));
+    const cookbookContents = JSON.parse(localStorage.getItem(defaultName));
+    // Not what to do here, for now it selects a filled vs unfilled book mark based off of if there's anything in the cookbook
+    if (cookbookContents != null && cookbookContents != "") {
+        bookMark.src = "./img/icons/bookmark-filled.svg";
+    } else {
+        bookMark.src = "./img/icons/bookmark-empty.svg";
+    }
+    // The listLink is the part with the actual cookbook name that when clicked leads you to that cookbook's recipes
+    let listLink = document.createElement('p');
+    listLink.classList.add('list_name');
+    // Adding listLink: so as to not have any ID conflicts
+    listLink.id = 'listLink:' + defaultName;
+    listLink.innerText = defaultName;
+    cookbooksList.appendChild(listLink);
+    // Don't allow the removal of default/favorite
+    //bookMark.onclick = function() {confirmRemoveList(defaultName)};
+    listLink.onclick = function() {showThisList(defaultName)};
+    // Then do the rest, the code is pretty much the same so all the comments are above
     for (const name in cookbooks) {
-        // Bookmark is the book mark icon object
-        let bookMark = document.createElement("img");
+        bookMark = document.createElement("img");
         bookMark.classList.add("bookMark");
         bookMark.id = 'bookMark:' + name;
         cookbooksList.appendChild(bookMark);
-        console.log(document.getElementById('bookMark:' + name  ));
-        if (cookbooks[name].length != 0) {
+        console.log(document.getElementById('bookMark:' + name));
+        const cookbookContents = JSON.parse(localStorage.getItem(name));
+        if (cookbookContents != null && cookbookContents != "") {
             bookMark.src = "./img/icons/bookmark-filled.svg";
         } else {
             bookMark.src = "./img/icons/bookmark-empty.svg";
         }
-        // Probably make the button remove lists when clicked
-        // This is to tell which kind of bookmarks to use, currently always choses empty
-        let listLink = document.createElement('p');
+        listLink = document.createElement('p');
         listLink.classList.add('list_name');
         listLink.id = 'listLink:' + name;
         listLink.innerText = name;
@@ -230,10 +263,9 @@ function initializeCookbook() {
 }
 
 
-// Updates the cookbook display section to display the inputted cookbook and clears the previous cookbook shown
+// Updates the cookbook display section to display the inputted cookbook's recipes as recipe cards
+// and clears recipe cards
 function showThisList(cookbook) {
-    hideCookbooksDisplay();
-    showListDisplay();
     document.getElementById('list-name-header').innerText = cookbook;
     const recipeCards = document.getElementById('cookbook-contents');
     // clear previous recipe cards
@@ -242,39 +274,60 @@ function showThisList(cookbook) {
         recipeCards.remove(childrenToRemove[i]);
     }
     const cookbookContents = JSON.parse(localStorage.getItem(cookbook));
-    if (cookbookContents != null) {
+    // Checks to see if the cookbook is empty, if so it shows the cookbook empty message "empty-list" which
+    // can be found on index.html
+    if (cookbookContents != null && cookbookContents != "") {
         for (let i = 0; i < cookbookContents.length; i++) {
-            let jsonData;
-            // not sure if fetch is done properly here
-            fetch(`${urlByID.slice(0, IDLocation) + cookbookContents[i] + urlByID.slice(IDLocation)}`).then(res => res.json()).then(data => {
-                console.log(data);
-                jsonData = data.results;
-                console.log(recipeData);        
-                resolve(true);
-            }).catch((err) => {
-                console.log(err);
-                reject(false);
-            })
+            let jsonData = cookbookContents[i];
             // Probably need to put the recipe cards in some kind of div/section/ect. to allow sharing and removing and call confirmRemoveList(cookbook) when done
             let recipeCard = document.createElement("recipe-card");
             recipeCard.data = jsonData;
-            document.querySelector("recipe-page").data = recipeData;
+            document.querySelector("recipe-page").data = jsonData;
             recipeCards.appendChild(recipeCard);
-            bindRecipeCard(recipeCard);
+            bindRecipeCard(recipeCard, cookbookContents[i]["title"]);
         }
     } else {
         document.getElementById("empty-list").className = "shown";
     }
+    hideCookbooksDisplay();
+    showListDisplay();
 }
 
 function confirmRemoveList(name) {
     console.log("crL" + name);
     document.getElementById('yes-no-prompt-text').innerText = 'Are you sure you want to delete the cookbook ' + name + '?';
-    document.getElementById('prompt-yes').onclick = function() {removeCookbook(name)};
-    let prompt = document.getElementById('prompt-box-yes-no');
-    prompt.style.visibility = 'visible';
+    document.getElementById('prompt-yes').onclick = function() {removeCookbook(name); hideYesNoPrompt();};
+    document.getElementById('prompt-box-yes-no').className = "shown";
+    // Not sure if the line above works below is a backup of sorts
+    //let prompt = document.getElementById('prompt-box-yes-no');
+    //prompt.style.visibility = 'visible';
 }
 
+function addNewCookbookPrompt() {
+    document.getElementById('text-prompt-text').innerText = 'What do you want to call your new cookbook?';
+    document.getElementById('prompt-submit').onclick = function() {processTextSubmitCookbook();};
+}
+
+function processTextSubmitCookbook() {
+    let userInput = document.getElementById("input-prompt-text").value;
+    // Checks if the input is empty, if so it changes the request text and exits the function
+    if (userInput == "") {
+        document.getElementById('text-prompt-text').innerText = 'Error: no input detected, please choose a name for your cookbook.';
+        return;
+    }
+    // Checks if the input is the same as another cookbook, if so it changes the request text and exits the function
+    let cookbooks = JSON.parse(localStorage.getItem("cookbooks"));
+    for (const name in cookbooks) {
+        if (name == userInput) {
+            document.getElementById('text-prompt-text').innerText = 'Error: name already in use, please choose a new name for your cookbook.';
+            return;
+        }
+    }
+    addCookbook(userInput);
+    hideTextPrompt();
+}
+
+// removes a cookbook both form the display and from local storage
 function removeCookbook(name) {
     let k = document.getElementById('bookMark:' + name);
     console.log("rC" + k);
@@ -297,8 +350,10 @@ function addToThisCookbook(cookbook, recipe) {
 function removeFromThisCookbook(cookbook, recipe) {
 }
 
-// addsCookbook with optional recipe to add to that cookbook
+// adds a cookbook with an optional recipe parameter to both the cookbook display and local storage
+// NOTE: recipe parameter might be useless and should maybe be eliminated
 function addCookbook(cookbookName, recipe) {
+    // First checks to see if cookbooks is empty then if their is a recipe to add
     if (localStorage.getItem("cookbooks") != null ) {
         let cookbooks = JSON.parse(localStorage.getItem("cookbooks"));
         if (recipe != undefined) {
@@ -314,6 +369,28 @@ function addCookbook(cookbookName, recipe) {
         }
         localStorage.setItem("cookbooks", JSON.stringify(cookbooks));
     }
+
+    // Here we add the display elements, pretty much the same as what you see in initializeCookbook() 
+    let cookbooksList = document.querySelector("#cookbooks-list");
+    let bookMark = document.createElement("img");
+    bookMark.classList.add("bookMark");
+    bookMark.id = 'bookMark:' + cookbookName;
+    cookbooksList.appendChild(bookMark);
+    console.log(document.getElementById('bookMark:' + cookbookName));
+    const cookbookContents = JSON.parse(localStorage.getItem(cookbookName));
+    if (cookbookContents != null && cookbookContents != "") {
+        bookMark.src = "./img/icons/bookmark-filled.svg";
+    } else {
+        bookMark.src = "./img/icons/bookmark-empty.svg";
+    }
+
+    let listLink = document.createElement('p');
+    listLink.classList.add('list_name');
+    listLink.id = 'listLink:' + cookbookName;
+    listLink.innerText = cookbookName;
+    cookbooksList.appendChild(listLink);
+    bookMark.onclick = function() {confirmRemoveList(cookbookName)};
+    listLink.onclick = function() {showThisList(cookbookName)};
 }
 
 function hideListDisplay() {
@@ -339,4 +416,11 @@ function showCookbooksDisplay() {
 function hideYesNoPrompt() {
     const yesNoPrompt = document.getElementById('prompt-box-yes-no');
     yesNoPrompt.style.visibility = "hidden";
+}
+
+// Hides the text prompt obviously, but also resets the value of the input to an empty string
+function hideTextPrompt() {
+    const textPrompt = document.getElementById('prompt-box-text');
+    textPrompt.style.visibility = "hidden";
+    document.getElementById("input-prompt-text").value = "";
 }
