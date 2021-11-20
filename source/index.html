@@ -35,7 +35,7 @@
 
 <body>
 
-    <h1 id="app-name" onclick="showHome()">Team 23 Project </h1>
+    <h1 id="app-name">Team 23 Project </h1>
     <button id="tap-mode-button" class="hidden" onclick="tapMode()">Tap Mode Off</button>
     <main>
 
@@ -48,9 +48,9 @@
             </div>
             <div id="slide-over-menu" class="slide-over-menu">
                 <div class="menu-item-container">
-                    <a class="menuItem" onclick="showHome(), toggleMenu()">Home</a>
-                    <a class="menuItem" onclick="showCookbooks(),toggleMenu()">Cookbooks</a>
-                    <a class="menuItem" onclick="showSettings(), toggleMenu()">Settings</a>
+                    <a class="menuItem" id="home-page">Home</a>
+                    <a class="menuItem" id="cookbook-page">Cookbooks</a>
+                    <a class="menuItem" id="settings-page">Settings</a>
                 </div>
             </div>
         </section>
