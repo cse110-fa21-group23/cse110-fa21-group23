@@ -16,12 +16,27 @@ function toggleMenu() {
     }
 }
 
+var $SOSaveCookBookMenuVisibility = "hidden";
+function toggleSaveCookBook() {
+    var menu = document.querySelector("#save-cookbook-menu");
+
+    if ($SOSaveCookBookMenuVisibility == "hidden") {
+        menu.style.transform = "translateY(0%)";
+        $SOSaveCookBookMenuVisibility = "visible";
+    }
+    else {
+        menu.style.transform = "translateY(100%)";
+        $SOSaveCookBookMenuVisibility = "hidden";
+    }
+
+}
+
 function showSettings() {
     hideHome();
     hideCookbooks();
     hideRecipeCards();
     hideRecipePage();
-    hideSaveCookbookMenu();
+    //   hideSaveCookbookMenu();
     const settings = document.getElementById("settings-container");
     settings.style.visibility = "visible";
     //settings.style.transform = "translate(100%)";
@@ -67,7 +82,7 @@ function showHome() {
     hideRecipeCards();
     showCategoryCards();
     hideRecipePage();
-    hideSaveCookbookMenu();
+    //    hideSaveCookbookMenu();
     document.getElementById('search-query').value = ''; //clears search result
     const search = document.getElementById("search");
     search.style.visibility = "visible";
@@ -84,7 +99,7 @@ function showCookbooks() {
     hideHome();
     hideRecipeCards();
     hideRecipePage();
-    hideSaveCookbookMenu();
+    //   hideSaveCookbookMenu();
     const cookbook = document.getElementById("cookbook-container");
     cookbook.style.visibility = "visible";
 }
@@ -94,8 +109,8 @@ function hideCookbooks() {
     cookbook.style.visibility = "hidden";
 }
 
-function showRecipePage(){
-    hideSaveCookbookMenu();
+function showRecipePage() {
+    //hideSaveCookbookMenu();
     const recipePage = document.getElementById("recipe-page-container");
     recipePage.style.visibility = "visible";
 }
@@ -108,10 +123,12 @@ function hideRecipePage() {
 function showRecipeCards() {
     const recipeCards = document.getElementById("recipe-card-container");
     recipeCards.style.visibility = "visible";
+    recipeCards.style.display = null;
 }
 function hideRecipeCards() {
     const recipeCards = document.getElementById("recipe-card-container");
     recipeCards.style.visibility = "hidden";
+    recipeCards.style.display = "none";
 }
 
 function showCategoryCards() {
@@ -182,24 +199,20 @@ function checkBookMark(data) {
 }
 
 /**
- * When user clicks on bookMark icon, it saves recipe's title and ID to localStorage
- * If the recipe already saved, clicking it again will remove it from localStorage.
- * The data being stored in 'bookmark'
+ * When bookmark is set this function
  */
-function setBookMark(){
-
-    showSaveCookbookMenu();
+function setBookMark() {
 
     // check local storage for bookmark
     let bookmarkList = JSON.parse(localStorage.getItem("bookmark"));
-    if (bookmarkList == null)
-        {bookmarkList = {};}
+    if (bookmarkList == null) { bookmarkList = {}; }
 
     let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
     const name = bookMark.getAttribute("name");
     const ID = document.querySelector("recipe-page").data["id"];
     const title = document.querySelector("recipe-page").data["title"];
     if (name == "bookmark-empty") {
+        toggleSaveCookBook();
         bookmarkList[title] = ID;
         bookMark.src = "./img/icons/bookmark-filled.svg";
         bookMark.setAttribute("name", "bookmark-filled");
@@ -210,4 +223,8 @@ function setBookMark(){
         bookMark.setAttribute("name", "bookmark-empty");
     }
     localStorage.setItem("bookmark", JSON.stringify(bookmarkList));
+
+    
+    
 }
+

@@ -416,46 +416,63 @@ border-color: 0#2266dc;
 transform: scale(1);
 }
 
-/* Save Cookbook Menu Style */
-.save-cookbook-menu{
+/* Save Cookbook Menu Style ================================*/
+#save-cookbook-menu{
   background-color: #FFECDB;
   border-radius: 20px;
   position: fixed;
-  left: 33%;
-  bottom: 0px;
-  justify-content: center;
+  left: 35%;
+  width:30%;
+  min-width: 400px;
+  bottom: 0%;
   display: flex;
-  height: 450px;
-  width: 580px;
+  height: auto;
+  min-height: 300px;
+  justify-content: center;
   z-index: 100;
+  transition: all ease-out 0.5s;
+  transform: translateY(100%);
+}
+
+#cookbook-lists{
+  height: auto;
+  min-width: 300px;
+  width: auto;
+  padding-top:45px;
+  background-color: #FFECDB;
+  border: #FFECDB;
+  font-size: 20px;
 }
 
 #new-cookbook-button{
   background-color: #FFECDB;
   border: #FFECDB;
-  font-size: 40px;
+  font-size: 25px;
+  padding: 10px;
+  position: absolute;
+  width: 300px;
+  cursor: pointer;
 }
 
 #new-cookbook-button:hover{
-  color: var(--orange3);
-  transition: .2s ease-in-out;
+  color: var(--orange3); 
 }
 
 #close-save-cookbook-menu-button{
   background-color: #FFECDB;
   border: #FFECDB;
   font-size: 50px;
-  height: 95px;
-  width: 35px;
   transform: rotate(90deg);
   position: absolute;
-  top: 0%;
-  right: 10%;
+  top: 0px;
+  right: 20px;
+  z-index: 1;
+  cursor: pointer;
+  border-radius: 20px;
 }
 
 #close-save-cookbook-menu-button:hover{
   color: var(--orange3);
-  transition: 0s ease-in-out;
 }
 
 /* Category Cards style ============================================================*/
