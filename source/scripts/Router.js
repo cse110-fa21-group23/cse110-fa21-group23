@@ -1,32 +1,35 @@
 // Router.js
 export class Router {
-    static routes = {};
-  
-    constructor(homeFunc) {
-      this['home'] = homeFunc;
+    constructor(homeFunction) {
+      this["home"] = homeFunction;
     }
   
-    addPage(page, pageFunc) {
-      this[page] = pageFunc;
+    addPage(page, pageFunction) {
+      this[page] = pageFunction;
     }
   
     navigate(page, statePopped) {
-      console.log(`navigate() function called, requested page: ${page}`);
+
   
       if(!this[page]){
         console.log('Error: function does not exist');
         return;
       }
-
   
-      var hash = (page == "home")? "" : `#${page}`;
+      let hash;
   
-      if (!statePopped && window.location.hash != hash)
-      {
-        history.pushState(page, "", window.location + hash);
-        console.log("Push  " + window.location);
+      if(page === "home"){
+        hash = "";
       }
-      this[page]();
+      else{
+        hash = "#" + page;
+      }
+  
+      if(statePopped === false && window.location.hash !== hash){
+        window.history.pushState(page, "", window.location.pathname + hash); 
+      }
+  
+      this[page].call();
   
     }
   }

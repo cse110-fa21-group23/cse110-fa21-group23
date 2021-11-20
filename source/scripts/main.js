@@ -25,23 +25,34 @@ function showSettings() {
     const settings = document.getElementById("settings-container");
     settings.style.visibility = "visible";
     //settings.style.transform = "translate(100%)";
+
     // Get the list of restrictions from local storage
     const getDietaryRestrictions = JSON.parse(localStorage.getItem("dietaryRestrictions"));
-    const dietaryContainerElements = document.getElementById('dietary-container').elements;
+    const getIntolerancesRestrictions = JSON.parse(localStorage.getItem("intolerancesRestrictions"));
+    const dietaryContainerElements = document.getElementById("dietary-container").elements;
+    const intolerancesContainerElements = document.getElementById("intolerances-container").elements;
 
     for (let i = 0; i < dietaryContainerElements.length; i++) {
         const dietaryRestriction = dietaryContainerElements[i];
         // If our restriction is in the list, then check it on the page
-        if (getDietaryRestrictions.includes(dietaryRestriction.value)) {
+        if (getDietaryRestrictions && getDietaryRestrictions.includes(dietaryRestriction.value)) {
             dietaryRestriction.checked = true;
+        }
+    }
+
+    for (let i = 0; i < intolerancesContainerElements.length; i++) {
+        const intoleranceRestriction = intolerancesContainerElements[i];
+        // If our restriction is in the list, then check it on the page
+        if (getIntolerancesRestrictions && getIntolerancesRestrictions.includes(intoleranceRestriction.value)) {
+            intoleranceRestriction.checked = true;
         }
     }
 }
 
-function clearCheckBoxes(){
+function clearCheckBoxes() {
     let checkboxes = document.querySelector("#recipe-page-container > recipe-page")
         .shadowRoot.querySelectorAll("#ingredients-list > ul > ol > input");
-    checkboxes.forEach(e => e.checked = false);
+    checkboxes.forEach((e) => e.checked = false);
 }
 
 function hideSettings() {
@@ -89,7 +100,7 @@ function showRecipePage(){
     recipePage.style.visibility = "visible";
 }
 
-function hideRecipePage(){
+function hideRecipePage() {
     const recipePage = document.getElementById("recipe-page-container");
     recipePage.style.visibility = "hidden";
 }
@@ -116,7 +127,7 @@ function hideCategoryCards() {
 function updateSettings() {
     const dietaryRestrictionList = [];
     // Get all the inputs under the div
-    const dietaryContainerElements = document.getElementById('dietary-container').elements;
+    const dietaryContainerElements = document.getElementById("dietary-container").elements;
     for (let i = 0; i < dietaryContainerElements.length; i++) {
         // If a checkbox is checked, then add it to our list
         const inputElement = dietaryContainerElements[i];
@@ -125,8 +136,19 @@ function updateSettings() {
         }
     }
 
-    // Add list to local storage
+    const intolerancesRestrictionsList = [];
+    const intolerancesContainerElements = document.getElementById("intolerances-container");
+    for (let i = 0; i < intolerancesContainerElements.length; i++) {
+        // If a checkbox is checked, then add it to our list
+        const inputElement = intolerancesContainerElements[i];
+        if (inputElement.checked) {
+            intolerancesRestrictionsList.push(inputElement.value);
+        }
+    }
+
+    // Add lists to local storage
     localStorage.setItem("dietaryRestrictions", JSON.stringify(dietaryRestrictionList));
+    localStorage.setItem("intolerancesRestrictions", JSON.stringify(intolerancesRestrictionsList));
 
     // TODO: add confirmation message in HTML (alert is temporary)
     alert("your preferences have been updated");
@@ -147,13 +169,12 @@ function hideSaveCookbookMenu() {
  * @param {Object} data 
  * @returns None
  */
-function checkBookMark(data){
+function checkBookMark(data) {
     let bookmarkList = JSON.parse(localStorage.getItem("bookmark"));
     const title = data["title"];
     if (bookmarkList == null)
         return;
-    if (bookmarkList[title] != null)
-    {
+    if (bookmarkList[title] != null) {
         let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
         bookMark.src = "./img/icons/bookmark-filled.svg";
         bookMark.setAttribute("name", "bookmark-filled");
@@ -172,20 +193,18 @@ function setBookMark(){
     // check local storage for bookmark
     let bookmarkList = JSON.parse(localStorage.getItem("bookmark"));
     if (bookmarkList == null)
-        bookmarkList = {};
+        {bookmarkList = {};}
 
     let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
     const name = bookMark.getAttribute("name");
     const ID = document.querySelector("recipe-page").data["id"];
     const title = document.querySelector("recipe-page").data["title"];
-    if (name == "bookmark-empty")
-    {
+    if (name == "bookmark-empty") {
         bookmarkList[title] = ID;
         bookMark.src = "./img/icons/bookmark-filled.svg";
         bookMark.setAttribute("name", "bookmark-filled");
     }
-    else
-    {
+    else {
         delete bookmarkList[title];
         bookMark.src = "./img/icons/bookmark-empty.svg";
         bookMark.setAttribute("name", "bookmark-empty");
