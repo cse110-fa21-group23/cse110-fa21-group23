@@ -26,13 +26,13 @@ window.addEventListener('DOMContentLoaded', init);
 
 function bindPopState() {
     window.addEventListener("popstate", (e) => {
-      if(e.state){
-        router.navigate(e.state, true);
-      }
-      else{
-        router.navigate("home", true);
-      }
-    }) 
+        if (e.state) {
+            router.navigate(e.state, true);
+        }
+        else {
+            router.navigate("home", true);
+        }
+    })
 }
 
 //calls all binding functions above and is called in the init function
@@ -42,7 +42,7 @@ function bindAll() {
     bindSettingsPage();
     bindCookbookPage();
     bindHomePage();
-} 
+}
 
 async function init() {
     showHome();
@@ -79,7 +79,7 @@ async function init() {
         }
     });
 
-    
+
 }
 
 // The search function, calls API function to fetch all recipes
@@ -92,44 +92,44 @@ function search() {
     // console.log(localStorage.getItem("dietaryRestrictions"));
 
     const recipeCardContainer = document.getElementById('recipe-card-container');
-    
+
     const page = searchQuery;
-    router.addPage(page, function() {
+    router.addPage(page, function () {
         hideCategoryCards();
         showRecipeCards();
-     });
+    });
 
     router.navigate(page, false);//to clear url when user searches recipe
-     
+
     // Reset the recipe-card-container to be empty for every search
     recipeCardContainer.innerHTML = '';
     showRecipeCards();
 
-     // check for user dietary restriction
-     const getDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
-     let queryStrDiet = "";
-     if (getDietaryRestrictions.length !== 0) {
-         queryStrDiet = `&diet=${getDietaryRestrictions}`;
-     }
- 
-     // check for user intolerances
-     const getIntolerancesRestrictions = JSON.parse(localStorage.getItem("intolerancesRestrictions"));
-     let queryStrIntolerances = "";
-     if (getIntolerancesRestrictions.length !== 0) {
-         queryStrIntolerances = `&intolerances=${getIntolerancesRestrictions}`
-     }
- 
-     // If it is empty, alert the user it is empty
-     if (!searchQuery) {
-         alert("Please input a search or click a filter below");
-         return;
-     }
- 
-     // Fetch the Recipes with the specified queries
-     const queries = `&query=${searchQuery}${queryStrDiet}${queryStrIntolerances}`;
-     return fetchRecipes(queries, (data) => {
-         recipeData = data;
-     })
+    // check for user dietary restriction
+    const getDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
+    let queryStrDiet = "";
+    if (getDietaryRestrictions && getDietaryRestrictions.length !== 0) {
+        queryStrDiet = `&diet=${getDietaryRestrictions}`;
+    }
+
+    // check for user intolerances
+    const getIntolerancesRestrictions = JSON.parse(localStorage.getItem("intolerancesRestrictions"));
+    let queryStrIntolerances = "";
+    if (getIntolerancesRestrictions && getIntolerancesRestrictions.length !== 0) {
+        queryStrIntolerances = `&intolerances=${getIntolerancesRestrictions}`
+    }
+
+    // If it is empty, alert the user it is empty
+    if (!searchQuery) {
+        alert("Please input a search or click a filter below");
+        return;
+    }
+
+    // Fetch the Recipes with the specified queries
+    const queries = `&query=${searchQuery}${queryStrDiet}${queryStrIntolerances}`;
+    return fetchRecipes(queries, (data) => {
+        recipeData = data;
+    })
 }
 
 
@@ -141,14 +141,14 @@ function createRecipeCards() {
         document.querySelector("recipe-page").data = recipeData[i];
 
         const id = recipeData[i]["id"];
-        router.addPage(id, function() {
-         hideHome();
-         hideRecipeCards();
-         showRecipePage();
-         document.querySelector("recipe-page").data = recipeData[i];
-         checkBookMark(recipeData[i]);
-        
-         });
+        router.addPage(id, function () {
+            hideHome();
+            hideRecipeCards();
+            showRecipePage();
+            document.querySelector("recipe-page").data = recipeData[i];
+            checkBookMark(recipeData[i]);
+
+        });
 
         recipeCardContainer.appendChild(element);
         bindRecipeCard(element, id);
@@ -158,7 +158,7 @@ function createRecipeCards() {
 function bindRecipeCard(recipeCard, pageName) {
     recipeCard.addEventListener('click', e => {
         if (e.path[0].nodeName == "A") return;
-      router.navigate(pageName, false);
+        router.navigate(pageName, false);
     });
 }
 
@@ -185,18 +185,18 @@ function createCategoryCards() {
         let arr = [categories[randNums[i]], images[randNums[i]]]; // array holding the category and corresponding image
         categoryCard.data = arr; //key: name of category, value: picture of category
 
-        
-        document.querySelector(".category-cards--wrapper").appendChild(categoryCard); 
-        const page = categories[randNums[i]];   
 
-        router.addPage(page, function() {
+        document.querySelector(".category-cards--wrapper").appendChild(categoryCard);
+        const page = categories[randNums[i]];
+
+        router.addPage(page, function () {
             hideCategoryCards();
             showRecipeCards();
             hideRecipePage();
             const search = document.getElementById("search");
             search.style.visibility = "visible";
-           
-         });
+
+        });
 
         bindCategoryCards(categoryCard, categories[randNums[i]]);
     }
@@ -231,14 +231,14 @@ async function searchByCategory() {
     // check for user dietary restriction
     const getDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
     let queryStrDiet = "";
-    if (getDietaryRestrictions.length !== 0) {
+    if (getDietaryRestrictions && getDietaryRestrictions.length !== 0) {
         queryStrDiet = `&diet=${getDietaryRestrictions}`;
     }
 
     // check for user intolerances
     const getIntolerancesRestrictions = JSON.parse(localStorage.getItem("intolerancesRestrictions"));
     let queryStrIntolerances = "";
-    if (getIntolerancesRestrictions.length !== 0) {
+    if (getIntolerancesRestrictions && getIntolerancesRestrictions.length !== 0) {
         queryStrIntolerances = `&intolerances=${getIntolerancesRestrictions}`
     }
 
@@ -258,22 +258,22 @@ async function searchByCategory() {
 
 
 //function to return to home when app name is clicked
-function bindAppNameClick(){
+function bindAppNameClick() {
     let appName = document.getElementById("app-name");
     const page = "home";
-    router.addPage(page, function() {
+    router.addPage(page, function () {
         showHome();
-     });
+    });
     appName.addEventListener("click", () => {
         router.navigate(page, false);
     })
 }
 
 //function to go to cookbook page when cookbook is clicked
-function bindCookbookPage(){
+function bindCookbookPage() {
     let cookbook = document.getElementById("cookbook-page");
     const page = "cookbooks";
-    router.addPage(page, function() {
+    router.addPage(page, function () {
         showCookbooks();
         toggleMenu();
     });
@@ -283,26 +283,26 @@ function bindCookbookPage(){
 }
 
 //function to go to settings page when settings is clicked
-function bindSettingsPage(){
+function bindSettingsPage() {
     let settings = document.getElementById("settings-page");
     const page = "settings";
-    router.addPage(page, function() {
-         showSettings();
-         toggleMenu();
-     });
+    router.addPage(page, function () {
+        showSettings();
+        toggleMenu();
+    });
     settings.addEventListener("click", () => {
         router.navigate(page, false);
     })
 }
 
 //function to go to home page when home is clicked
-function bindHomePage(){
+function bindHomePage() {
     let home = document.getElementById("home-page");
     const page = "home";
-    router.addPage(page, function() {
+    router.addPage(page, function () {
         showHome();
-     });
-    home.addEventListener("click", () => {    
+    });
+    home.addEventListener("click", () => {
         toggleMenu();
         router.navigate(page, false);
     })
