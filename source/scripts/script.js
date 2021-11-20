@@ -97,6 +97,8 @@ function search() {
     router.addPage(page, function() {
         hideCategoryCards();
         showRecipeCards();
+        hideCookbooks();
+        hideSettings();
      });
 
     router.navigate(page, false);//to clear url when user searches recipe
@@ -145,6 +147,8 @@ function createRecipeCards() {
          hideHome();
          hideRecipeCards();
          showRecipePage();
+         hideSettings();
+         hideCookbooks();
          document.querySelector("recipe-page").data = recipeData[i];
          checkBookMark(recipeData[i]);
         
@@ -191,6 +195,8 @@ function createCategoryCards() {
 
         router.addPage(page, function() {
             hideCategoryCards();
+            hideCookbooks();
+            hideSettings();
             showRecipeCards();
             hideRecipePage();
             const search = document.getElementById("search");
