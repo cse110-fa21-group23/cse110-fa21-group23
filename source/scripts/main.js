@@ -39,7 +39,7 @@ function showSettings() {
     hideHome();
     hideCookbooks();
     hideRecipeCards();
-    // hideRecipePage();
+    hideRecipePage();
     const settings = document.getElementById("settings-container");
     settings.style.visibility = "visible";
     //settings.style.transform = "translate(100%)";
