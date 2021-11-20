@@ -82,6 +82,9 @@ function showCookbooks() {
     hideHome();
     hideRecipeCards();
     hideRecipePage();
+    let testCookbook = {a:1 , b:2, c:2, e:4};
+    localStorage.setItem("cookbooks", JSON.stringify(testCookbook));
+    initializeCookbook();
     const cookbook = document.getElementById("cookbook-container");
     cookbook.style.visibility = "visible";
 }
@@ -193,4 +196,147 @@ function setBookMark() {
         bookMark.setAttribute("name", "bookmark-empty");
     }
     localStorage.setItem("bookmark", JSON.stringify(bookmarkList));
+}
+
+// sets up the list of cookbooks and displays them under cookbooks-list
+// Could do this every time you want to show the cookbooks or you could do this at start up and add functions 
+// to modify it dynamically
+function initializeCookbook() {
+    document.querySelector('#add-empty-cookbook').onclick = function() {newCookbookMenu()};
+    let cookbooksList = document.querySelector("#cookbooks-list");
+    let cookbooks = JSON.parse(localStorage.getItem("cookbooks"));
+    for (const name in cookbooks) {
+        // Bookmark is the book mark icon object
+        let bookMark = document.createElement("img");
+        bookMark.classList.add("bookMark");
+        bookMark.id = 'bookMark:' + name;
+        cookbooksList.appendChild(bookMark);
+        console.log(document.getElementById('bookMark:' + name  ));
+        if (cookbooks[name].length != 0) {
+            bookMark.src = "./img/icons/bookmark-filled.svg";
+        } else {
+            bookMark.src = "./img/icons/bookmark-empty.svg";
+        }
+        // Probably make the button remove lists when clicked
+        // This is to tell which kind of bookmarks to use, currently always choses empty
+        let listLink = document.createElement('p');
+        listLink.classList.add('list_name');
+        listLink.id = 'listLink:' + name;
+        listLink.innerText = name;
+        cookbooksList.appendChild(listLink);
+        bookMark.onclick = function() {confirmRemoveList(name)};
+        listLink.onclick = function() {showThisList(name)};
+    }
+}
+
+
+// Updates the cookbook display section to display the inputted cookbook and clears the previous cookbook shown
+function showThisList(cookbook) {
+    hideCookbooksDisplay();
+    showListDisplay();
+    document.getElementById('list-name-header').innerText = cookbook;
+    const recipeCards = document.getElementById('cookbook-contents');
+    // clear previous recipe cards
+    let childrenToRemove = recipeCards.getElementsByClassName('recipe-card');
+    for (let i = 0; i < childrenToRemove.length; i++) {
+        recipeCards.remove(childrenToRemove[i]);
+    }
+    const cookbookContents = JSON.parse(localStorage.getItem(cookbook));
+    if (cookbookContents != null) {
+        for (let i = 0; i < cookbookContents.length; i++) {
+            let jsonData;
+            // not sure if fetch is done properly here
+            fetch(`${urlByID.slice(0, IDLocation) + cookbookContents[i] + urlByID.slice(IDLocation)}`).then(res => res.json()).then(data => {
+                console.log(data);
+                jsonData = data.results;
+                console.log(recipeData);        
+                resolve(true);
+            }).catch((err) => {
+                console.log(err);
+                reject(false);
+            })
+            // Probably need to put the recipe cards in some kind of div/section/ect. to allow sharing and removing and call confirmRemoveList(cookbook) when done
+            let recipeCard = document.createElement("recipe-card");
+            recipeCard.data = jsonData;
+            document.querySelector("recipe-page").data = recipeData;
+            recipeCards.appendChild(recipeCard);
+            bindRecipeCard(recipeCard);
+        }
+    } else {
+        document.getElementById("empty-list").className = "shown";
+    }
+}
+
+function confirmRemoveList(name) {
+    console.log("crL" + name);
+    document.getElementById('yes-no-prompt-text').innerText = 'Are you sure you want to delete the cookbook ' + name + '?';
+    document.getElementById('prompt-yes').onclick = function() {removeCookbook(name)};
+    let prompt = document.getElementById('prompt-box-yes-no');
+    prompt.style.visibility = 'visible';
+}
+
+function removeCookbook(name) {
+    let k = document.getElementById('bookMark:' + name);
+    console.log("rC" + k);
+    k.remove();
+    let a = document.getElementById('listLink:' + name);
+    a.remove();
+    localStorage.removeItem(name);
+    let cookbooks = JSON.parse(localStorage.getItem("cookbooks"));
+    delete cookbooks[name];
+    localStorage.setItem("listOfCookbooks", JSON.stringify(cookbooks));
+}
+
+function newCookbookMenu() {
+
+}
+
+function addToThisCookbook(cookbook, recipe) {
+}
+
+function removeFromThisCookbook(cookbook, recipe) {
+}
+
+// addsCookbook with optional recipe to add to that cookbook
+function addCookbook(cookbookName, recipe) {
+    if (localStorage.getItem("cookbooks") != null ) {
+        let cookbooks = JSON.parse(localStorage.getItem("cookbooks"));
+        if (recipe != undefined) {
+            cookbooks[cookbookName] = [recipe];
+        } else {
+            cookbooks[cookbookName] = [];
+        }
+        localStorage.setItem("cookbooks", JSON.stringify(cookbooks));
+    } else {
+        let cookbook = {};
+        if (recipe != undefined) {
+            cookbook[cookbookName] = recipe;
+        }
+        localStorage.setItem("cookbooks", JSON.stringify(cookbooks));
+    }
+}
+
+function hideListDisplay() {
+    const listDisplay = document.getElementById('cookbook-contents');
+    listDisplay.style.visibility = "hidden";
+}
+
+function showListDisplay() {
+    const listDisplay = document.getElementById('cookbook-contents');
+    listDisplay.style.visibility = "visible";
+}
+
+function hideCookbooksDisplay() {
+    const listDisplay = document.getElementById('cookbooks');
+    listDisplay.style.visibility = "hidden";
+}
+
+function showCookbooksDisplay() {
+    const listDisplay = document.getElementById('cookbooks');
+    listDisplay.style.visibility = "visible";
+}
+
+function hideYesNoPrompt() {
+    const yesNoPrompt = document.getElementById('prompt-box-yes-no');
+    yesNoPrompt.style.visibility = "hidden";
 }
