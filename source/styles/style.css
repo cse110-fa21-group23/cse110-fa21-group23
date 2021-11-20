@@ -462,11 +462,6 @@ footer {
 }
 }
 
-@media screen and (min-height: 1000px) {
-.category-cards--wrapper{
-  margin-top: 50%;
-}
-}
 
 @media screen and (max-height: 450px) {
 .category-cards--wrapper{
