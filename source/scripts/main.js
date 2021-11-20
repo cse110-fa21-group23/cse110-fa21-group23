@@ -1,4 +1,5 @@
 var $SOMenuVisibility = "hidden";
+var $tapModeVisibility = "hidden";
 
 function toggleMenu() {
     var menuIcon = document.getElementById("menu-icon");
@@ -14,6 +15,25 @@ function toggleMenu() {
         slideOverMenu.style.transform = "translate(-100%)";
         $SOMenuVisibility = "hidden";
     }
+}
+
+
+
+function toggleTapMode() {
+    const tapModeButton = document.getElementById("tap-mode-button");
+    if (tapModeButton.innerHTML == "Tap Mode On") {
+        tapModeButton.innerHTML = "Tap Mode Off";
+        $tapModeVisibility = "hidden";
+        console.log("LOOK OVER HEREEEEEEEE", $tapModeVisibility);
+
+    }
+    else {
+        tapModeButton.innerHTML = "Tap Mode On";
+        $tapModeVisibility = "visible";
+        console.log("LOOK OVER HEREEEEEEEE", $tapModeVisibility);
+
+    }
+
 }
 
 function showSettings() {
@@ -175,8 +195,7 @@ function checkBookMark(data) {
 function setBookMark() {
     // check local storage for bookmark
     let bookmarkList = JSON.parse(localStorage.getItem("bookmark"));
-    if (bookmarkList == null)
-        {bookmarkList = {};}
+    if (bookmarkList == null) { bookmarkList = {}; }
 
     let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
     const name = bookMark.getAttribute("name");
