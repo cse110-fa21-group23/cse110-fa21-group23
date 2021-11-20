@@ -16,6 +16,7 @@ const router = new Router(function () {
     showHome();
 });
 
+
 const tapModeButton = document.getElementById("tap-mode-button");
 tapModeButton.addEventListener("click", toggleTapMode); // toggleTapMode() is in main.js
 
@@ -103,7 +104,7 @@ function search() {
         showRecipeCards();
         hideCookbooks();
         hideSettings();
-     });
+    });
 
     router.navigate(page, false);//to clear url when user searches recipe
 
@@ -147,16 +148,16 @@ function createRecipeCards() {
         document.querySelector("recipe-page").data = recipeData[i];
 
         const id = recipeData[i]["id"];
-        router.addPage(id, function() {
-         hideHome();
-         hideRecipeCards();
-         showRecipePage();
-         hideSettings();
-         hideCookbooks();
-         document.querySelector("recipe-page").data = recipeData[i];
-         checkBookMark(recipeData[i]);
-        
-         });
+        router.addPage(id, function () {
+            hideHome();
+            hideRecipeCards();
+            showRecipePage();
+            hideSettings();
+            hideCookbooks();
+            document.querySelector("recipe-page").data = recipeData[i];
+            checkBookMark(recipeData[i]);
+
+        });
 
         recipeCardContainer.appendChild(element);
         bindRecipeCard(element, id);

@@ -20,7 +20,7 @@ function toggleMenu() {
 
 
 
-// this function is being called from an onClick event in index.html
+// this function is being called from scripts.js, ignore the Codacy error :D
 function toggleTapMode() {
     const tapModeButton = document.getElementById("tap-mode-button");
 
