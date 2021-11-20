@@ -211,15 +211,12 @@ class RecipePage extends HTMLElement {
  * @param {Object} data JSON
  * @returns {Array} return a list of ingredients
  */
-function getIngredients(data) {
-  const steps = data["analyzedInstructions"][0]["steps"];
+ function getIngredients(data){
+  const extendedIngredients =  data["extendedIngredients"];
   let list = [];
   let index = 0;
-  steps.forEach((step) => {
-    let ingredients = step["ingredients"];
-    for (let i = 0; i < ingredients.length; i++) {
-      list[index++] = ingredients[i]["name"];
-    }
+  extendedIngredients.forEach((ingredien) =>{
+    list[index++] = ingredien["originalString"];
   })
   return list;
 }
