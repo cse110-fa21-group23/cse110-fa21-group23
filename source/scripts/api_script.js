@@ -26,8 +26,8 @@ const API_KEY = "&apiKey=8aaa6b0816db4a99b92e7852d125a9aa&";
 async function fetchRecipes(queries, callbackFn) {
     const complexSearch = "/complexSearch";
     const count = "&addRecipeInformation=true&number=30";
-    const addNutrition = "&fillIngredients=true&instructionsRequired=true";
-    const url = `${MAIN_API_URL}${complexSearch}?${queries}${API_KEY}${addNutrition}${count}`;
+    const addIngridients = "&fillIngredients=true&instructionsRequired=true";
+    const url = `${MAIN_API_URL}${complexSearch}?${queries}${API_KEY}${addIngridients}${count}`;
     console.log(url);
     return new Promise((resolve, reject) => {
         fetch(url)
