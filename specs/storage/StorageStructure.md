@@ -18,7 +18,9 @@
     Example:
 
         ID-1 = {
+            "id"    : 123,
             "title" : "recipe's name", 
+            "image" : "url",
             "ingredients" : [
                 "onion",
                 "eggs",
@@ -27,7 +29,9 @@
             "instructions": [
                 "boil eggs",
                 "eat"
-            ]}
+            ],
+            "cookbook" : "cookbook"
+        }
 
 Note:
 

@@ -10,23 +10,48 @@ class RecipePage extends HTMLElement{
 
       style.innerHTML = `
       .header{
-        text-align: center;
+        display: block;
+        text-align: center; 
+        width: 70%;
+        margin: auto;
       }
       
-      .header h1{
+      @media screen and (min-width: 1200px) {
+        .header h1{
+            position: relative;
+            display: inline;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 64px;
+            line-height: 96px;
+            text-align: center;
+        }
+      }
+
+      @media screen and (max-width: 1199px) {
+        .header h1{
           position: relative;
           display: inline;
           font-style: normal;
           font-weight: normal;
-          font-size: 64px;
-          line-height: 96px;
+          font-size: 34px;
+          line-height: 80px;
           text-align: center;
+        }
       }
-    
+
       .header #bookmark{
         cursor: pointer;
         text-align: center;
         margin-left : 10px;
+        z-index: 100;
+      }
+
+      .middle{
+        display: block;
+        text-align: center;
+        width: 50%;
+        margin: auto;
       }
     
       .middle > div > h3{
@@ -36,17 +61,11 @@ class RecipePage extends HTMLElement{
       }
     
       #clear-checkboxes{
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        margin-top: 20px;
+        display: block;
+        margin: auto;
         color: var(--primary);
-      }
+     }
 
-      #instructions{
-        margin-top: 80px;
-      }
-    
       /*-- custom checkbox style --*/
       
       input[class="ingredients-custom-checkbox"] + label,
@@ -92,17 +111,27 @@ class RecipePage extends HTMLElement{
       }
       /*-----------------------------------*/
       
+      #instructions{
+        width: auto;
+        display: inline-block; 
+        text-align: left;
+      }
+      
       #instructions > ol > li{
         color: black;
       }
-    
+      
       #ingredients-list{
-          /* text-align: center; */
-          font-style: normal;
-          font-weight: normal;
-    
+        font-style: normal;
+        font-weight: normal;
       }
-    
+      
+      #ingredients-list > ul{
+        width: auto;
+        display: inline-block; 
+        text-align: left;
+      }
+      
       #ingredients-list > button{
         border: 0;
         background-color: inherit;
@@ -110,7 +139,7 @@ class RecipePage extends HTMLElement{
         text-align: center;
         padding: 20px;
       }
-    
+      
       #ingredients-list> button:hover{
         cursor: pointer;
         background: #eee;
@@ -120,7 +149,7 @@ class RecipePage extends HTMLElement{
       container.innerHTML = `
       <header class="header">
         <h1></h1>
-        <img id="bookmark" onclick="setBookMark()" src="img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
+        <img id="bookmark" onclick="showCookBookMenu()" src="img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
       </header>
       <main class="middle">
         <img style="display: block; margin-left: auto; margin-right: auto;">
@@ -147,12 +176,11 @@ class RecipePage extends HTMLElement{
             console.log("Error: no data exists");
             return;
         }
-        this.json = data;
 
       this.shadowRoot.querySelector("article").innerHTML = `
       <header class="header">
         <h1></h1>
-        <img id="bookmark" onclick="setBookMark()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
+        <img id="bookmark" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
       </header>
       <main class="middle">
         <img style="display: block; margin-left: auto; margin-right: auto;" >
@@ -195,6 +223,16 @@ class RecipePage extends HTMLElement{
             li.innerHTML = element;
             this.shadowRoot.querySelector("#instructions > ol").appendChild(li);
         });
+
+        // replicate data
+        const replicateData = {
+          "id"    : data["id"],
+          "title" : data["title"],
+          "image" : data["image"],
+          "ingredients" : ingredients,
+          "instructions": instrucstions
+        }
+        this.json = replicateData;
     }
     get data(){
       return this.json;
@@ -211,6 +249,8 @@ class RecipePage extends HTMLElement{
 // let LIST_INGREDIENTS = {};
 function getIngredients(data){
   const extendedIngredients =  data["extendedIngredients"];
+  // called from cookbook
+  if (extendedIngredients == null || extendedIngredients == undefined) { return data["ingredients"]; }
   let list = [];
   let index = 0;
   extendedIngredients.forEach((ingredien) =>{
@@ -226,6 +266,8 @@ function getIngredients(data){
  */
 function getInstructions(data){
   const steps = data["analyzedInstructions"][0]["steps"];
+  // called from cookbook
+  if (steps == null || steps == undefined) { return data["instructions"]; }
   let instrucList = [];
   let index = 0;
 
