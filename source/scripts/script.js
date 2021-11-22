@@ -16,6 +16,8 @@ const router = new Router(function () {
     showHome();
 });
 
+//pull request
+
 
 const tapModeButton = document.getElementById("tap-mode-button");
 tapModeButton.addEventListener("click", toggleTapMode); // toggleTapMode() is in main.js
