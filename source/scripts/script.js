@@ -2,7 +2,7 @@
 import { fetchRecipes } from "./api_script.js";
 import { Router } from "./Router.js";
 
-const API_KEY = '8aaa6b0816db4a99b92e7852d125a9aa';
+const API_KEY = '88d3ad78d6c5d30587478ee955a90019';
 // API_KEY3 (Nhi): c8f83bb3a9af4355b12de10250b24c88
 // API_KEY2 (Nhi): fafd5e810c304ed3b4f9984672cb21ee
 // API_KEY1: 4d936c811cda46879d4749def6bb36a1
