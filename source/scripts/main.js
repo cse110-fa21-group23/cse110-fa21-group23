@@ -165,16 +165,6 @@ function updateSettings() {
     alert("your preferences have been updated");
 }
 
-function showSaveCookbookMenu() {
-    const saveCookbookMenu = document.getElementById("save-cookbook-container");
-    saveCookbookMenu.style.visibility = "visible";
-}
-
-function hideSaveCookbookMenu() {
-    const saveCookbookMenu = document.getElementById("save-cookbook-container");
-    saveCookbookMenu.style.visibility = "hidden";
-}
-
 function checkBookMark(data) {
     const Id = data["id"];
     const Data = JSON.parse(localStorage.getItem(`ID-${Id}`));
