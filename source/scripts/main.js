@@ -21,7 +21,7 @@ function showSettings() {
     hideCookbooks();
     hideRecipeCards();
     hideRecipePage();
-    
+
     const settings = document.getElementById("settings-container");
     settings.style.visibility = "visible";
     settings.style.display = null;
@@ -69,14 +69,23 @@ function showHome() {
     hideRecipeCards();
     showCategoryCards();
     hideRecipePage();
+    showSearchBar();
     document.getElementById('search-query').value = ''; //clears search result
+    
+}
+
+function hideHome() {
+    hideCategoryCards();
+    hideSearchBar();
+}
+
+function showSearchBar() {
     const search = document.getElementById("search");
     search.style.visibility = "visible";
     search.style.display = null;
 }
 
-function hideHome() {
-    hideCategoryCards();
+function hideSearchBar() {
     const search = document.getElementById("search");
     search.style.visibility = "hidden";
     search.style.display = "none";
