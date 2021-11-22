@@ -474,18 +474,15 @@ transform: scale(1);
 
 /* Category Cards style ============================================================*/
 .category-cards--wrapper{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  grid-gap: 10px;
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 900px;
   justify-content: center;
-  justify-items: center;
-  align-content: space-evenly;
-  align-items: center;
-  margin-left: 300px;
-  margin-right: 300px;
-  margin-bottom: 50px;
-  margin-top: 50px;
+  align-items: flex-start;
+  width: 70vw;
+  left: 50%;
+  transform: translate(-50%, 0);
 } 
 
 /* End of Category Cards style ============================================================*/
@@ -518,11 +515,6 @@ footer {
 }
 }
 
-@media screen and (min-height: 1000px) {
-.category-cards--wrapper{
-  margin-top: 50%;
-}
-}
 
 @media screen and (max-height: 450px) {
 .category-cards--wrapper{

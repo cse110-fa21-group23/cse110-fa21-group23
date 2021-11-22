@@ -8,6 +8,10 @@ const router = new Router(function () {
     showHome();
 });
 
+
+const tapModeButton = document.getElementById("tap-mode-button");
+tapModeButton.addEventListener("click", toggleTapMode); // toggleTapMode() is in main.js
+
 //arrays holding category names and images for category cards
 const categories = ["Indian", "Vegan", "Mexican", "Gluten-Free", "Italian", "Japanese", "American", "Vegetarian", "Thai", "Chinese", "Korean",
     "Vietnamese", "African", "Middle Eastern"];
@@ -91,6 +95,8 @@ function search() {
         hideCategoryCards();
         showRecipeCards();
         showSearchBar();
+        hideCookbooks();
+        hideSettings();
     });
 
     router.navigate(page, false);//to clear url when user searches recipe
@@ -139,6 +145,8 @@ function createRecipeCards() {
             hideHome();
             hideRecipeCards();
             showRecipePage();
+            hideSettings();
+            hideCookbooks();
             document.querySelector("recipe-page").data = recipeData[i];
             checkBookMark(recipeData[i]);
         });
@@ -154,6 +162,8 @@ function bindRecipeCard(recipeCard, pageName) {
         router.navigate(pageName, false);
     });
 }
+
+
 
 //this function creates 6 category cards from the categories and images arrays above using random 
 //values so everytime the user refreshes, there will be a new set of categories
@@ -184,6 +194,8 @@ function createCategoryCards() {
 
         router.addPage(page, function () {
             hideCategoryCards();
+            hideCookbooks();
+            hideSettings();
             showRecipeCards();
             hideRecipePage();
             showSearchBar();

@@ -1,4 +1,5 @@
 var $SOMenuVisibility = "hidden";
+var $tapModeVisibility = "hidden";
 
 function toggleMenu() {
     var menuIcon = document.getElementById("menu-icon");
@@ -16,12 +17,26 @@ function toggleMenu() {
     }
 }
 
+// this function is being called from scripts.js, ignore the Codacy error :D
+function toggleTapMode() {
+    const tapModeButton = document.getElementById("tap-mode-button");
+
+    if (tapModeButton.innerHTML == "Tap Mode On") {
+        tapModeButton.innerHTML = "Tap Mode Off";
+        $tapModeVisibility = "hidden";
+    }
+    else {
+        tapModeButton.innerHTML = "Tap Mode On";
+        $tapModeVisibility = "visible";
+    }
+
+}
+
 function showSettings() {
     hideHome();
     hideCookbooks();
     hideRecipeCards();
     hideRecipePage();
-
     const settings = document.getElementById("settings-container");
     settings.style.visibility = "visible";
     settings.style.display = null;
@@ -71,7 +86,6 @@ function showHome() {
     hideRecipePage();
     showSearchBar();
     document.getElementById('search-query').value = ''; //clears search result
-    
 }
 
 function hideHome() {
