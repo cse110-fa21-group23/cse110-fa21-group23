@@ -208,7 +208,7 @@ function showCookBookMenu() {
     console.log("CookBooks List: ", cookbooks);
 
     if (cookbooks == undefined || cookbooks == null) {
-        cookbooks = ["Favorites", "Brunch Ideas"]; 
+        cookbooks = ["Favorites"]; 
         localStorage.setItem(COOK_BOOKS, JSON.stringify(cookbooks));
     }
 
