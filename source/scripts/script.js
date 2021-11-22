@@ -150,7 +150,7 @@ function createRecipeCards() {
 
 function bindRecipeCard(recipeCard, pageName) {
     recipeCard.addEventListener('click', e => {
-        if (e.path[0].nodeName == "A") return;
+        if (e.composePath()[0].nodeName == "A") return;
         router.navigate(pageName, false);
     });
 }
