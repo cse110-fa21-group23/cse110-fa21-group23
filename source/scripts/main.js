@@ -256,7 +256,7 @@ function bindNewCookBook(li) {
 
             // save recipe to cookbook and update local storage for the cookbook
             let cookbook = JSON.parse(localStorage.getItem(CookBookName));
-            if (cookbook == null) { cookbook = []; }
+            if (cookbook == null || cookbook == undefined) { cookbook = []; }
             cookbook.push(Id);
             localStorage.setItem(CookBookName, JSON.stringify(cookbook));
 
