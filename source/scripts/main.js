@@ -165,11 +165,6 @@ function hideSaveCookbookMenu() {
     saveCookbookMenu.style.visibility = "hidden";
 }
 
-/**
- * This function checks localStorage for saved recipes, and then display bookmark-filled for the ones that already saved
- * @param {Object} data 
- * @returns None
- */
 function checkBookMark(data) {
     const Id = data["id"];
     const Data = JSON.parse(localStorage.getItem(`ID-${Id}`));
@@ -200,11 +195,10 @@ function toggleSaveCookBook() {
 
 function showCookBookMenu() {
     let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
-
     console.log("CookBooks List: ", cookbooks);
 
     if (cookbooks == undefined || cookbooks == null) {
-        cookbooks = ["Favorites", "Brunch Idea"]; 
+        cookbooks = ["Favorites", "Brunch Ideas"]; 
         localStorage.setItem(COOK_BOOKS, JSON.stringify(cookbooks));
     }
 
@@ -235,7 +229,7 @@ function showCookBookMenu() {
             bookMark.setAttribute("name", "bookmark-empty");
             bookMark.src = "./img/icons/bookmark-empty.svg"; 
         } catch (err) {
-            alert("An error has occur: " + err);
+            alert("An error has occured: " + err);
         }
     }
 }
@@ -268,7 +262,7 @@ function bindNewCookBook(li) {
             alert("Added to " + CookBookName + " successful");
             toggleSaveCookBook(); // close savecookbook menu
         } catch (err) {
-            alert("There are bugs appears" + err);
+            alert("An error has occured" + err);
         }
     });
   }
@@ -293,6 +287,7 @@ function appendNewCookBook(newcookbook) {
 
 function addNewCookBook() {
     let newCookBook = prompt("Enter new cook book:");
+    if (newCookBook == "" || newCookBook == null) { return; }
     appendNewCookBook(newCookBook);
     // update local storage
     let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
