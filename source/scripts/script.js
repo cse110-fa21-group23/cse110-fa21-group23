@@ -2,7 +2,8 @@
 import { fetchRecipes } from "./api_script.js";
 import { Router } from "./Router.js";
 
-const API_KEY = '8aaa6b0816db4a99b92e7852d125a9aa';
+const API_KEY = '4d936c811cda46879d4749def6bb36a1';
+// API_KEY4: 8aaa6b0816db4a99b92e7852d125a9aa
 // API_KEY3 (Nhi): c8f83bb3a9af4355b12de10250b24c88
 // API_KEY2 (Nhi): fafd5e810c304ed3b4f9984672cb21ee
 // API_KEY1: 4d936c811cda46879d4749def6bb36a1
@@ -14,6 +15,10 @@ let recipeData = {};
 const router = new Router(function () {
     showHome();
 });
+
+
+const tapModeButton = document.getElementById("tap-mode-button");
+tapModeButton.addEventListener("click", toggleTapMode); // toggleTapMode() is in main.js
 
 //arrays holding category names and images for category cards
 const categories = ["Indian", "Vegan", "Mexican", "Gluten-Free", "Italian", "Japanese", "American", "Vegetarian", "Thai", "Chinese", "Korean",
@@ -99,7 +104,7 @@ function search() {
         showRecipeCards();
         hideCookbooks();
         hideSettings();
-     });
+    });
 
     router.navigate(page, false);//to clear url when user searches recipe
 
@@ -143,16 +148,16 @@ function createRecipeCards() {
         document.querySelector("recipe-page").data = recipeData[i];
 
         const id = recipeData[i]["id"];
-        router.addPage(id, function() {
-         hideHome();
-         hideRecipeCards();
-         showRecipePage();
-         hideSettings();
-         hideCookbooks();
-         document.querySelector("recipe-page").data = recipeData[i];
-         checkBookMark(recipeData[i]);
-        
-         });
+        router.addPage(id, function () {
+            hideHome();
+            hideRecipeCards();
+            showRecipePage();
+            hideSettings();
+            hideCookbooks();
+            document.querySelector("recipe-page").data = recipeData[i];
+            checkBookMark(recipeData[i]);
+
+        });
 
         recipeCardContainer.appendChild(element);
         bindRecipeCard(element, id);
@@ -165,6 +170,8 @@ function bindRecipeCard(recipeCard, pageName) {
         router.navigate(pageName, false);
     });
 }
+
+
 
 //this function creates 6 category cards from the categories and images arrays above using random 
 //values so everytime the user refreshes, there will be a new set of categories
