@@ -24,6 +24,7 @@ function showSettings() {
     //   hideSaveCookbookMenu();
     const settings = document.getElementById("settings-container");
     settings.style.visibility = "visible";
+    settings.style.display = null;
     //settings.style.transform = "translate(100%)";
 
     // Get the list of restrictions from local storage
@@ -58,6 +59,7 @@ function clearCheckBoxes() {
 function hideSettings() {
     const settings = document.getElementById("settings-container");
     settings.style.visibility = "hidden";
+    settings.style.display = "none";
     // settings.style.transform = "translate(-100%)";
 }
 
@@ -87,21 +89,27 @@ function showCookbooks() {
     hideRecipePage();
     const cookbook = document.getElementById("cookbook-container");
     cookbook.style.visibility = "visible";
+    cookbook.style.display = null;
+    document.querySelector("body > main > div.box").style.display = "none";
 }
 
 function hideCookbooks() {
     const cookbook = document.getElementById("cookbook-container");
     cookbook.style.visibility = "hidden";
+    cookbook.style.display = "none";
+    document.querySelector("body > main > div.box").style.display = null;
 }
 
 function showRecipePage() {
     const recipePage = document.getElementById("recipe-page-container");
     recipePage.style.visibility = "visible";
+    recipePage.style.display = null;
 }
 
 function hideRecipePage() {
     const recipePage = document.getElementById("recipe-page-container");
     recipePage.style.visibility = "hidden";
+    recipePage.style.display = "none";
 }
 
 function showRecipeCards() {
@@ -118,11 +126,13 @@ function hideRecipeCards() {
 function showCategoryCards() {
     const categoryCards = document.getElementById("category-wrapper");
     categoryCards.style.visibility = "visible";
+    categoryCards.style.display = null;
 }
 
 function hideCategoryCards() {
     const categoryCards = document.getElementById("category-wrapper");
     categoryCards.style.visibility = "hidden";
+    categoryCards.style.display = "none";
 }
 
 function updateSettings() {
