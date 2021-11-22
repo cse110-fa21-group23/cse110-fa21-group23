@@ -18,7 +18,7 @@
     *	Make it more user-friendly
         *   Vertical screw on the right side of the page makes the user think more content
         *   No quantity for recipes, only ingredients shown (Quantity solved on Them’s branch), display format can be improved more
-        *   Bring to the middle of the page instead of the top when clicking a recipe
+        *   Bring to the middle of the page for now instead of the top when clicking a recipe, hope to stay on the top every time
         *   Left sidebar can show all the time so that user doesn’t need to click everytime
 *   Check for next sprint
     *   Search Bar design discussion
