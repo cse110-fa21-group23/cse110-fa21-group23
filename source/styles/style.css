@@ -426,10 +426,6 @@ transform: scale(1);
   width: 70vw;
   left: 50%;
   transform: translate(-50%, 0);
-  grid-gap: 10px;
-  justify-items: center;
-  align-content: space-evenly;
-  margin-top: 50px;
 } 
 
 /* End of Category Cards style ============================================================*/
