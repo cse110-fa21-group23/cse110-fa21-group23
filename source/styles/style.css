@@ -362,14 +362,7 @@ transform: translate(-50%, 0);
 
 #recipe-page-container{
   margin-top: -100px;
-  position: absolute;
-  max-width: 900px;
-  justify-content: center;
-  width: 70vw;
-  left: 50%;
-  transform: translate(-50%, 0);
 }
-
 
 
 .box {
@@ -415,6 +408,70 @@ border-color: 0#2266dc;
 .checkbox__input:checked + .checkbox__box::after {
 transform: scale(1);
 }
+
+/* Save Cookbook Menu Style ================================*/
+#save-cookbook-menu{
+  background-color: #FFECDB;
+  border-radius: 20px;
+  position: fixed;
+  left: 35%;
+  width:30%;
+  min-width: 400px;
+  bottom: 0%;
+  display: flex;
+  height: auto;
+  min-height: 300px;
+  justify-content: center;
+  z-index: 100;
+  transition: all ease-out 0.5s;
+  transform: translateY(100%);
+}
+
+#cookbook-lists{
+  height: auto;
+  min-width: 300px;
+  width: auto;
+  padding-top:55px;
+  background-color: #FFECDB;
+  border: #FFECDB;
+  font-size: 20px;
+}
+#cookbook-lists > ol > li, label:hover {
+  cursor: pointer;
+  color: var(--orange3);
+}
+
+#new-cookbook-button{
+  background-color: #FFECDB;
+  border: #FFECDB;
+  font-size: 25px;
+  padding: 10px;
+  position: absolute;
+  width: 300px;
+  cursor: pointer;
+}
+
+#new-cookbook-button:hover{
+  color: var(--orange3); 
+}
+
+#close-save-cookbook-menu-button{
+  background-color: #FFECDB;
+  border: #FFECDB;
+  font-size: 50px;
+  transform: rotate(90deg);
+  position: absolute;
+  top: -5%;
+  right: 25px;
+  z-index: 1;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+#close-save-cookbook-menu-button:hover{
+  color: var(--orange3);
+}
+
 /* Category Cards style ============================================================*/
 .category-cards--wrapper{
   position: absolute;

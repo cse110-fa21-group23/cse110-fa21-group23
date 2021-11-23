@@ -2,14 +2,6 @@
 import { fetchRecipes } from "./api_script.js";
 import { Router } from "./Router.js";
 
-const API_KEY = '4d936c811cda46879d4749def6bb36a1';
-// API_KEY4: 8aaa6b0816db4a99b92e7852d125a9aa
-// API_KEY3 (Nhi): c8f83bb3a9af4355b12de10250b24c88
-// API_KEY2 (Nhi): fafd5e810c304ed3b4f9984672cb21ee
-// API_KEY1: 4d936c811cda46879d4749def6bb36a1
-// API_KEY0: 43d05cc71ec2491aa7e76580fce53779
-const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&fillIngredients=true&addRecipeInformation=true&instructionsRequired=true`;
-const recipes = [];
 let recipeData = {};
 
 const router = new Router(function () {
@@ -102,6 +94,7 @@ function search() {
     router.addPage(page, function () {
         hideCategoryCards();
         showRecipeCards();
+        showSearchBar();
         hideCookbooks();
         hideSettings();
     });
@@ -156,7 +149,6 @@ function createRecipeCards() {
             hideCookbooks();
             document.querySelector("recipe-page").data = recipeData[i];
             checkBookMark(recipeData[i]);
-
         });
 
         recipeCardContainer.appendChild(element);
@@ -166,7 +158,7 @@ function createRecipeCards() {
 
 function bindRecipeCard(recipeCard, pageName) {
     recipeCard.addEventListener('click', e => {
-        if (e.path[0].nodeName == "A") return;
+        if (e.composedPath()[0].nodeName == "A") return;
         router.navigate(pageName, false);
     });
 }
@@ -206,9 +198,7 @@ function createCategoryCards() {
             hideSettings();
             showRecipeCards();
             hideRecipePage();
-            const search = document.getElementById("search");
-            search.style.visibility = "visible";
-
+            showSearchBar();
         });
 
         bindCategoryCards(categoryCard, categories[randNums[i]]);
