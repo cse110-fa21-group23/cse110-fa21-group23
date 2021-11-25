@@ -20,7 +20,7 @@ function showSettings() {
     hideHome();
     hideCookbooks();
     hideRecipeCards();
-    // hideRecipePage();
+    hideRecipePage();
     const settings = document.getElementById("settings-container");
     settings.style.visibility = "visible";
     //settings.style.transform = "translate(100%)";
@@ -66,6 +66,7 @@ function showHome() {
     hideRecipeCards();
     showCategoryCards();
     hideRecipePage();
+    hideFilters();
     document.getElementById('search-query').value = ''; //clears search result
     const search = document.getElementById("search");
     search.style.visibility = "visible";
@@ -119,6 +120,13 @@ function hideCategoryCards() {
     const categoryCards = document.getElementById("category-wrapper");
     categoryCards.style.visibility = "hidden";
 }
+
+function hideFilters() {
+    console.log("hiding")
+    const filters = document.getElementById("filters-content");
+    filters.style.visibility = "hidden";  
+}
+
 
 function updateSettings() {
     const dietaryRestrictionList = [];
