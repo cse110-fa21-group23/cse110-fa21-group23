@@ -204,6 +204,8 @@ class RecipePage extends HTMLElement {
   }
 }
 
+//TODO: Scaling
+
 
 // Helper functions
 /**
