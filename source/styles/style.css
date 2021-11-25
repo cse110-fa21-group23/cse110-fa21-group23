@@ -4,6 +4,7 @@
   --orange1: #FFECDB;
   --orange2: #FF9534;
   --orange3: #FF9E44; /* use for hover */
+  --orange4: #FFDBBA;
   --dark-grey: #2E2E2E;
   --light-grey: #C1BCB6;
 }
@@ -529,6 +530,8 @@ footer {
 /* Tags style ======================================================================*/
 
 .filtersBtn{
+  display: flex;
+  justify-content: center;
   background-color: var(--orange1);
   margin-left: 20px;
   margin-right: 20px;
@@ -536,9 +539,16 @@ footer {
   padding: 5px 10px 5px 10px;
   border-radius: 20px;
   border-color: var(--orange1);
-  
+  cursor: pointer;
 }
 
+.filtersBtn:hover {
+  background-color: var(--orange4);
+}
+
+.filtersBtn:hover #close-filter-menu-button{
+  background-color: var(--orange4);
+}
 .filters-container{
   display: flex;
 
@@ -557,19 +567,31 @@ footer {
 .diet, .cuisine, .time, .meal-type{
     background-color: var(--orange1);
     font-size: 12px;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-left: 13px;
-    margin-right: 25px;
-    max-width: 130px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 150px;
     z-index: 100;
-    border-radius: 15px;
+    border-radius: 0px 0px 15px 15px;
     display: grid;
     height: 200px;
     overflow-y: auto;
     border-bottom: groove;
 }
 
+#close-filter-menu-button{
+  background-color: #FFECDB;
+  border: #FFECDB;
+  font-size: 20px;
+  transform: rotate(90deg);
+  position: relative;
+  left: 15px;
+  bottom: 2px;
+  z-index: 200;
+  cursor: pointer;
+  border-radius: 10px;
+}
 
 
 

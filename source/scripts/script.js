@@ -319,6 +319,8 @@ function bindDietFilters(){
     let diet = document.getElementById("dietBtn");  
     diet.addEventListener("click", () => {
         showDietFilters();
+        diet.style.borderBottomLeftRadius = 0;
+        diet.style.borderBottomRightRadius = 0;
     })
 }
 
@@ -326,6 +328,8 @@ function bindCuisineFilters(){
     let cuisine = document.getElementById("cuisineBtn");  
     cuisine.addEventListener("click", () => {
         showCuisineFilters();
+        cuisine.style.borderBottomLeftRadius = 0;
+        cuisine.style.borderBottomRightRadius = 0;
     })
 }
 
@@ -333,6 +337,8 @@ function bindTimeFilters(){
     let time = document.getElementById("timeBtn");  
     time.addEventListener("click", () => {
         showTimeFilters();
+        time.style.borderBottomLeftRadius = 0;
+        time.style.borderBottomRightRadius = 0;
     })
 }
 
@@ -340,6 +346,8 @@ function bindMealFilters(){
     let meal = document.getElementById("mealBtn");  
     meal.addEventListener("click", () => {
         showMealFilters();
+        meal.style.borderBottomLeftRadius = 0;
+        meal.style.borderBottomRightRadius = 0;
     })
 }
 
