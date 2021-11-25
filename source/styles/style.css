@@ -473,3 +473,45 @@ footer {
 }
 /* End of Category cards style for different Screen sizes ==================================*/
 
+/* Tags style ======================================================================*/
+
+#filtersBtn{
+  background-color: var(--orange1);
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 5px 50px 5px 50px;
+  border-radius: 50px;
+  border-color: var(--orange2);
+  
+}
+
+.filters-container{
+  display: flex;
+
+}
+
+.filter-checkbox{
+  display: flex;
+  font-size: 1rem;
+}
+
+#filters-content{
+  display: flex;
+  position: absolute;
+}
+
+.diet, .cuisine, .time{
+    background-color: var(--orange1);
+    font-size: 1rem;
+    padding-left: 5px;
+    padding-right: 10px;
+    z-index: 100;
+    border-radius: 20px;
+    display: grid;
+}
+
+
+
+
+/* End of Tags style ======================================================================*/
+
