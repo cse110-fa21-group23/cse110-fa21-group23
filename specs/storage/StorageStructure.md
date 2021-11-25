@@ -10,15 +10,17 @@
 
     Examples:
      
-        cookbook1 = {1, 2, 3, 4}
+        cookbook1 = {123, 2, 3, 4}
         cookbook2 = {3, 4, 5, 6}
 
 3. Each id is stored as an object. (add more properties as needed)
 
     Example:
 
-        ID-1 = {
+        ID-123 = {
+            "id"    : 123,
             "title" : "recipe's name", 
+            "image" : "url",
             "ingredients" : [
                 "onion",
                 "eggs",
@@ -27,7 +29,9 @@
             "instructions": [
                 "boil eggs",
                 "eat"
-            ]}
+            ],
+            "cookbook" : "cookbook1"
+        }
 
 Note:
 
