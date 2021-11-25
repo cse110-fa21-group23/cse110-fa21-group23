@@ -163,8 +163,36 @@ function hideFilters() {
     console.log("hiding")
     const filters = document.getElementById("filters-content");
     filters.style.visibility = "hidden";  
+    const diet = document.getElementById("diet-filter");
+    diet.style.visibility = "hidden";
+    const cuisine = document.getElementById("cuisine-filter");
+    cuisine.style.visibility = "hidden";
+    const time = document.getElementById("time-filter");
+    time.style.visibility = "hidden";
+    const meal = document.getElementById("meal-filter");
+    meal.style.visibility = "hidden";
 }
 
+function showDietFilters() {
+    console.log('diet');
+    const diet = document.getElementById("diet-filter");
+    diet.style.visibility = "visible";
+}
+
+function showCuisineFilters() {
+    const cuisine = document.getElementById("cuisine-filter");
+    cuisine.style.visibility = "visible";
+}
+
+function showTimeFilters() {
+    const time = document.getElementById("time-filter");
+    time.style.visibility = "visible";
+}
+
+function showMealFilters() {
+    const meal = document.getElementById("meal-filter");
+    meal.style.visibility = "visible";
+}
 
 function updateSettings() {
     const dietaryRestrictionList = [];

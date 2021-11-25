@@ -39,6 +39,10 @@ function bindAll() {
     bindSettingsPage();
     bindCookbookPage();
     bindHomePage();
+    bindDietFilters();
+    bindCuisineFilters();
+    bindTimeFilters();
+    bindMealFilters();
 }
 
 async function init() {
@@ -311,6 +315,33 @@ function bindHomePage() {
     })
 }
 
+function bindDietFilters(){
+    let diet = document.getElementById("dietBtn");  
+    diet.addEventListener("click", () => {
+        showDietFilters();
+    })
+}
+
+function bindCuisineFilters(){
+    let cuisine = document.getElementById("cuisineBtn");  
+    cuisine.addEventListener("click", () => {
+        showCuisineFilters();
+    })
+}
+
+function bindTimeFilters(){
+    let time = document.getElementById("timeBtn");  
+    time.addEventListener("click", () => {
+        showTimeFilters();
+    })
+}
+
+function bindMealFilters(){
+    let meal = document.getElementById("mealBtn");  
+    meal.addEventListener("click", () => {
+        showMealFilters();
+    })
+}
 
 window.init = init;
 window.toggleMenu = toggleMenu;

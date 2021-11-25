@@ -70,12 +70,13 @@
             </div>
             <div>
                 <div id="filters-container" class="filters-container">
-                    <button id="filtersBtn">Diet</button>
-                    <button id="filtersBtn">Cuisine</button>
-                    <button id="filtersBtn">Time</button>
+                    <button class="filtersBtn" id="dietBtn">Diet</button>
+                    <button class="filtersBtn" id="cuisineBtn">Cuisine</button>
+                    <button class="filtersBtn" id="timeBtn">Time</button>
+                    <button class="filtersBtn" id="mealBtn">Meal Type</button>
                 </div>
                 <div id="filters-content" name="filters-content">
-                    <div class="diet" name="diet-filters">
+                    <div id="diet-filter" class="diet" name="diet-filters">
                         <label class="filter-checkbox" for="vegetarian">
                             <input class="checkbox__input" type="radio" id="vegetarian" name="dietary-radio"
                                 value="vegetarian">
@@ -106,58 +107,176 @@
                             <div class="checkbox__box"></div>
                             Pescetarian
                         </label>
+                        <label class="filter-checkbox" for="paleo">
+                            <input class="checkbox__input" type="radio" id="paleo" name="dietary-radio"
+                                value="paleo">
+                            <div class="checkbox__box"></div>
+                            Paleo
+                        </label>
+                        <label class="filter-checkbox" for="primal">
+                            <input class="checkbox__input" type="radio" id="primal" name="dietary-radio"
+                                value="primal">
+                            <div class="checkbox__box"></div>
+                            Primal
+                        </label>
+                        <label class="filter-checkbox" for="lacto-vegetarian">
+                            <input class="checkbox__input" type="radio" id="lacto-vegetarian" name="dietary-radio"
+                                value="lacto-vegetarian">
+                            <div class="checkbox__box"></div>
+                            Lacto-Vegetarian
+                        </label>
+                        <label class="filter-checkbox" for="ovo-vegetarian">
+                            <input class="checkbox__input" type="radio" id="ovo-vegetarian" name="dietary-radio"
+                                value="ovo-vegetarian">
+                            <div class="checkbox__box"></div>
+                            Ovo-Vegetarian
+                        </label>
                     </div>
 
-                    <div class="cuisine" name="cuisine-filters">
+                    <div class="cuisine" id="cuisine-filter" name="cuisine-filters">
+                        <label class="filter-checkbox" for="african">
+                            <input class="checkbox__input" type="radio" id="african" name="cuisine-radio"
+                                value="african">
+                            <div class="checkbox__box"></div>
+                            African
+                        </label>
                         <label class="filter-checkbox" for="american">
-                            <input class="checkbox__input" type="radio" id="american" name="dietary-radio"
+                            <input class="checkbox__input" type="radio" id="american" name="cuisine-radio"
                                 value="american">
                             <div class="checkbox__box"></div>
                             American
                         </label>
+                        <label class="filter-checkbox" for="british">
+                            <input class="checkbox__input" type="radio" id="british" name="cuisine-radio"
+                                value="british">
+                            <div class="checkbox__box"></div>
+                            British
+                        </label>
+                        <label class="filter-checkbox" for="cajun">
+                            <input class="checkbox__input" type="radio" id="cajun" name="cuisine-radio"
+                                value="cajun">
+                            <div class="checkbox__box"></div>
+                            Cajun
+                        </label>
+                        <label class="filter-checkbox" for="carribean">
+                            <input class="checkbox__input" type="radio" id="carribean" name="cuisine-radio"
+                                value="carribean">
+                            <div class="checkbox__box"></div>
+                            Carribean
+                        </label>
+                        <label class="filter-checkbox" for="chinese">
+                            <input class="checkbox__input" type="radio" id="chinese" name="cuisine-radio"
+                                value="chinese">
+                            <div class="checkbox__box"></div>
+                            Chinese
+                        </label>
+                        <label class="filter-checkbox" for="european">
+                            <input class="checkbox__input" type="radio" id="european" name="cuisine-radio"
+                                value="european">
+                            <div class="checkbox__box"></div>
+                            European
+                        </label>
+                        <label class="filter-checkbox" for="french">
+                            <input class="checkbox__input" type="radio" id="french" name="cuisine-radio"
+                                value="french">
+                            <div class="checkbox__box"></div>
+                            French
+                        </label>
                         <label class="filter-checkbox" for="mexican">
-                            <input class="checkbox__input" type="radio" id="mexican" name="dietary-radio"
+                            <input class="checkbox__input" type="radio" id="mexican" name="cuisine-radio"
                                 value="mexican">
                             <div class="checkbox__box"></div>
                             Mexican
                         </label>
                         <label class="filter-checkbox" for="indian">
-                            <input class="checkbox__input" type="radio" id="indian" name="dietary-radio"
+                            <input class="checkbox__input" type="radio" id="indian" name="cuisine-radio"
                                 value="indian">
                             <div class="checkbox__box"></div>
                             Indian
                         </label>
-                        <label class="filter-checkbox" for="chinese">
-                            <input class="checkbox__input" type="radio" id="chinese" name="dietary-radio"
-                                value="chinese">
-                            <div class="checkbox__box"></div>
-                            Chinese
-                        </label>
+                        
                         <label class="filter-checkbox" for="japanese">
-                            <input class="checkbox__input" type="radio" id="japanese" name="dietary-radio"
+                            <input class="checkbox__input" type="radio" id="japanese" name="cuisine-radio"
                                 value="japanese">
                             <div class="checkbox__box"></div>
                             Japanese
                         </label>
+                        <label class="filter-checkbox" for="korean">
+                            <input class="checkbox__input" type="radio" id="korean" name="cuisine-radio"
+                                value="korean">
+                            <div class="checkbox__box"></div>
+                            Korean
+                        </label>
                     </div>
-                    <div class="time" name="time-filters">
+                    <div class="time" id="time-filter" name="time-filters">
                         <label class="filter-checkbox" for="mins_30">
-                            <input class="checkbox__input" type="radio" id="mins_30" name="dietary-radio"
+                            <input class="checkbox__input" type="radio" id="mins_30" name="time-radio"
                                 value="mins_30">
                             <div class="checkbox__box"></div>
                             Under 30 mins
                         </label>
                         <label class="filter-checkbox" for="mins_45">
-                            <input class="checkbox__input" type="radio" id="mins_45" name="dietary-radio"
+                            <input class="checkbox__input" type="radio" id="mins_45" name="time-radio"
                                 value="mins_45">
                             <div class="checkbox__box"></div>
                             Under 45 mins
                         </label>
                         <label class="filter-checkbox" for="mins_60">
-                            <input class="checkbox__input" type="radio" id="mins_60" name="dietary-radio"
+                            <input class="checkbox__input" type="radio" id="mins_60" name="time-radio"
                                 value="mins_60">
                             <div class="checkbox__box"></div>
                             Under 1 hour
+                        </label>
+                    </div>
+
+                    <div class="meal-type" id="meal-filter" name="meal-filter">
+                        <label class="filter-checkbox" for="breakfast">
+                            <input class="checkbox__input" type="radio" id="breakfast" name="meal-radio"
+                                value="breakfast">
+                            <div class="checkbox__box"></div>
+                            Breakfast
+                        </label>
+                        <label class="filter-checkbox" for="brunch">
+                            <input class="checkbox__input" type="radio" id="brunch" name="meal-radio"
+                                value="brunch">
+                            <div class="checkbox__box"></div>
+                            Brunch
+                        </label>
+                        <label class="filter-checkbox" for="lunch">
+                            <input class="checkbox__input" type="radio" id="lunch" name="meal-radio"
+                                value="lunch">
+                            <div class="checkbox__box"></div>
+                            Lunch
+                        </label>
+                        <label class="filter-checkbox" for="snack">
+                            <input class="checkbox__input" type="radio" id="snack" name="meal-radio"
+                                value="snack">
+                            <div class="checkbox__box"></div>
+                            Snack
+                        </label>
+                        <label class="filter-checkbox" for="dinner">
+                            <input class="checkbox__input" type="radio" id="dinner" name="meal-radio"
+                                value="dinner">
+                            <div class="checkbox__box"></div>
+                            Dinner
+                        </label>
+                        <label class="filter-checkbox" for="apetizer">
+                            <input class="checkbox__input" type="radio" id="apetizer" name="meal-radio"
+                                value="apetizer">
+                            <div class="checkbox__box"></div>
+                            Appetizers
+                        </label>
+                        <label class="filter-checkbox" for="dessert">
+                            <input class="checkbox__input" type="radio" id="dessert" name="meal-radio"
+                                value="dessert">
+                            <div class="checkbox__box"></div>
+                            Dessert
+                        </label>
+                        <label class="filter-checkbox" for="salad">
+                            <input class="checkbox__input" type="radio" id="salad" name="meal-radio"
+                                value="salad">
+                            <div class="checkbox__box"></div>
+                            Salad
                         </label>
                     </div>
                 </div>
