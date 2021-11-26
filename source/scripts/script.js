@@ -316,38 +316,50 @@ function bindHomePage() {
 }
 
 function bindDietFilters(){
-    let diet = document.getElementById("dietBtn");  
+    let diet = document.getElementById("dietBtn"); 
+    let dietArrow = document.getElementById("dietIcon");
     diet.addEventListener("click", () => {
         showDietFilters();
         diet.style.borderBottomLeftRadius = 0;
         diet.style.borderBottomRightRadius = 0;
+        diet.style.backgroundColor = "var(--orange4)";
+        dietArrow.style.backgroundColor = "var(--orange4)";
     })
 }
 
 function bindCuisineFilters(){
     let cuisine = document.getElementById("cuisineBtn");  
+    let cuisineArrow = document.getElementById("cuisineIcon");
     cuisine.addEventListener("click", () => {
         showCuisineFilters();
         cuisine.style.borderBottomLeftRadius = 0;
         cuisine.style.borderBottomRightRadius = 0;
+        cuisine.style.backgroundColor = "var(--orange4)";
+        cuisineArrow.style.backgroundColor = "var(--orange4)";
     })
 }
 
 function bindTimeFilters(){
     let time = document.getElementById("timeBtn");  
+    let timeArrow = document.getElementById("timeIcon");
     time.addEventListener("click", () => {
         showTimeFilters();
         time.style.borderBottomLeftRadius = 0;
         time.style.borderBottomRightRadius = 0;
+        time.style.backgroundColor = "var(--orange4)";
+        timeArrow.style.backgroundColor = "var(--orange4)";
     })
 }
 
 function bindMealFilters(){
     let meal = document.getElementById("mealBtn");  
+    let mealArrow = document.getElementById("mealIcon");
     meal.addEventListener("click", () => {
         showMealFilters();
         meal.style.borderBottomLeftRadius = 0;
         meal.style.borderBottomRightRadius = 0;
+        meal.style.backgroundColor = "var(--orange4)";
+        mealArrow.style.backgroundColor = "var(--orange4)";
     })
 }
 

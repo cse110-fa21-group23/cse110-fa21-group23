@@ -85,6 +85,7 @@ function showHome() {
     showCategoryCards();
     hideRecipePage();
     hideFilters();
+    showFilterBtns();
     showSearchBar();
     document.getElementById('search-query').value = ''; //clears search result
 }
@@ -92,6 +93,8 @@ function showHome() {
 function hideHome() {
     hideCategoryCards();
     hideSearchBar();
+    hideFilters();
+    hideFilterBtns();
 }
 
 function showSearchBar() {
@@ -171,6 +174,33 @@ function hideFilters() {
     time.style.visibility = "hidden";
     const meal = document.getElementById("meal-filter");
     meal.style.visibility = "hidden";
+
+    let dietBtn = document.getElementById("dietBtn");
+    dietBtn.style.borderBottomLeftRadius = "20px";
+    dietBtn.style.borderBottomRightRadius = "20px";
+
+    let cuisineBtn = document.getElementById("cuisineBtn");
+    cuisineBtn.style.borderBottomLeftRadius = "20px";
+    cuisineBtn.style.borderBottomRightRadius = "20px";
+
+    let timeBtn = document.getElementById("timeBtn");
+    timeBtn.style.borderBottomLeftRadius = "20px";
+    timeBtn.style.borderBottomRightRadius = "20px";
+
+    let mealBtn = document.getElementById("mealBtn");
+    mealBtn.style.borderBottomLeftRadius = "20px";
+    mealBtn.style.borderBottomRightRadius = "20px";
+}
+
+function hideFilterBtns() {
+    const filtersBtn = document.getElementById("filters-container")
+    filtersBtn.style.visibility = "hidden"
+}
+
+function showFilterBtns() {
+    const filtersBtn = document.getElementById("filters-container")
+    filtersBtn.style.visibility = "visible"
+    
 }
 
 function showDietFilters() {

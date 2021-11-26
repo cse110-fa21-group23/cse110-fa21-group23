@@ -287,7 +287,7 @@ h2 {
   position: absolute;
   top: 0;
   left: -100%;
-  z-index: 0;
+  z-index: 3;
   transition: all 0.3s ease-out;
 }
 /* end of MENU ============================================================= */
@@ -359,6 +359,7 @@ width: 70vw;
 left: 50%;
 transform: translate(-50%, 0);
 /* centers an absolute div */
+margin-top: 40px;
 }
 
 #recipe-page-container{
@@ -481,6 +482,7 @@ transform: scale(1);
   max-width: 900px;
   justify-content: center;
   align-items: flex-start;
+  margin-top: 40px;
   width: 70vw;
   left: 50%;
   transform: translate(-50%, 0);
@@ -546,12 +548,14 @@ footer {
   background-color: var(--orange4);
 }
 
-.filtersBtn:hover #close-filter-menu-button{
+.filtersBtn:hover .close-filter-menu-button{
   background-color: var(--orange4);
 }
 .filters-container{
   display: flex;
-
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 .filter-checkbox{
@@ -562,17 +566,20 @@ footer {
 #filters-content{
   display: flex;
   position: absolute;
+  left: 50%;
+  transform: translate(-50%, 35px);
+  z-index: 1;
 }
 
 .diet, .cuisine, .time, .meal-type{
-    background-color: var(--orange1);
+    background-color: var(--orange4);
     font-size: 12px;
     padding-left: 10px;
     padding-right: 10px;
     margin-left: 20px;
     margin-right: 20px;
     width: 150px;
-    z-index: 100;
+    z-index: 1;
     border-radius: 0px 0px 15px 15px;
     display: grid;
     height: 200px;
@@ -580,7 +587,7 @@ footer {
     border-bottom: groove;
 }
 
-#close-filter-menu-button{
+.close-filter-menu-button{
   background-color: #FFECDB;
   border: #FFECDB;
   font-size: 20px;
@@ -588,7 +595,7 @@ footer {
   position: relative;
   left: 15px;
   bottom: 2px;
-  z-index: 200;
+  z-index: 2;
   cursor: pointer;
   border-radius: 10px;
 }
