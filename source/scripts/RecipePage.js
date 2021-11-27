@@ -239,7 +239,7 @@ class RecipePage extends HTMLElement{
       this.shadowRoot.querySelector(".header > h1").innerHTML = data["title"];
 
       //TODO: Ingredients scaling input
-      var scaleSize = 2;
+      var scaleSize = 1;
       let scaleBox = document.createElement("input");
       scaleBox.type = "number";
       scaleBox.min = 1;
@@ -280,9 +280,10 @@ class RecipePage extends HTMLElement{
         };
 
 
-        let ingrArray = ingredient.split(" ");  //split ingredient split by spaces
+        let ingrArray = ingredient.split(" ");  //array of parsed ingredient bits
         let newIngr = "";
         var gcf = 1;  //hold the GCF of possible fraction numerator and denominator
+        var findNum = /\d+/g;
         for(let i = 0; i < ingrArray.length; i++) {
           let fracIndex = ingrArray[i].indexOf("/");   //find index of potential fraction
 
@@ -314,6 +315,10 @@ class RecipePage extends HTMLElement{
               gcf = gcfFunc(numerator, denominator);
               newIngr += (numerator/gcf) + (denominator/gcf) + " ";
             }
+          }
+          //If the substring is a mix of number and word. EX: 5oz
+          else if(ingrArray[i].match(findNum)) {
+            
           }
           else {
             newIngr += ingrArray[i] + " ";
