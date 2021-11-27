@@ -214,6 +214,7 @@ class RecipePage extends HTMLElement{
         <img style="display: block; margin-left: auto; margin-right: auto;" >
           <div id="ingredients-list">
               <h3>INGREDIENTS</h3>
+              <h4>Scale Recipe: </h4>
               <ul style="list-style-type: none;">
               </ul>
               <button id="clear-checkboxes" onclick="clearCheckBoxes()">CLEAR CHECKBOXES</button>
@@ -236,7 +237,14 @@ class RecipePage extends HTMLElement{
 
       this.shadowRoot.querySelector(".middle > img").src = data["image"];
       this.shadowRoot.querySelector(".header > h1").innerHTML = data["title"];
-  
+
+      //TODO: Ingredients scaling input
+      let scaleBox = document.createElement("input");
+      scaleBox.type = "number";
+      scaleBox.min = 1;
+      scaleBox.placeholder = "Min: 1, Max: 10"
+      this.shadowRoot.querySelector("#ingredients-list > h4").appendChild(scaleBox);
+
       //get ingredient list
       const ingredients = getIngredients(data);
       ingredients.forEach(ingredient => {
@@ -245,6 +253,10 @@ class RecipePage extends HTMLElement{
         const ol = document.createElement("ol");
         checkbox.type = "checkbox";
         checkbox.classList.add("ingredients-custom-checkbox");
+        
+        //TODO: Split ingredient string to number and words
+        
+
         label.innerText = ingredient;
         ol.appendChild(checkbox);
         ol.appendChild(label);
@@ -327,16 +339,11 @@ class RecipePage extends HTMLElement{
     }
 }
 
-<<<<<<< HEAD
-//TODO: Scaling
-
-=======
 // this function is used for the tap mode when the user clicks next step or previous step
 function getSingleInstr(instructions, tapModeInd) {
   const instr = instructions[tapModeInd];
   return instr;
 }
->>>>>>> 1145a83e4c2d5d3d8d5cc588fd89080ad213ee56
 
 // Helper functions
 /**
@@ -344,7 +351,6 @@ function getSingleInstr(instructions, tapModeInd) {
  * @param {Object} data JSON
  * @returns {Array} return a list of ingredients
  */
-// let LIST_INGREDIENTS = {};
 function getIngredients(data){
   const extendedIngredients =  data["extendedIngredients"];
   // called from cookbook
