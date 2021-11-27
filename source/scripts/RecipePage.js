@@ -239,6 +239,7 @@ class RecipePage extends HTMLElement{
       this.shadowRoot.querySelector(".header > h1").innerHTML = data["title"];
 
       //TODO: Ingredients scaling input
+      var scaleSize = 2;
       let scaleBox = document.createElement("input");
       scaleBox.type = "number";
       scaleBox.min = 1;
@@ -255,9 +256,71 @@ class RecipePage extends HTMLElement{
         checkbox.classList.add("ingredients-custom-checkbox");
         
         //TODO: Split ingredient string to number and words
-        
+        /**
+         * Find the GCF of two numbers
+         *
+         * @param {Number} a
+         * @param {Number} b
+         * @return {Number} The GCF of a and b
+         */
+        function gcfFunc(a,b) {
+          a = Math.abs(a);
+          b = Math.abs(b);
+          if (b > a) {let temp = a; a = b; b = temp;}
+          while (true) {
+              if (b == 0) {
+                return a;
+              }
+              a %= b;
+              if (a == 0) {
+                return b;
+              }
+              b %= a;
+          }
+        };
 
-        label.innerText = ingredient;
+
+        let ingrArray = ingredient.split(" ");  //split ingredient split by spaces
+        let newIngr = "";
+        var gcf = 1;  //hold the GCF of possible fraction numerator and denominator
+        for(let i = 0; i < ingrArray.length; i++) {
+          let fracIndex = ingrArray[i].indexOf("/");   //find index of potential fraction
+
+          //If substring is a number
+          if(!isNaN(ingrArray[i])) {
+            newIngr += scaleSize * ingrArray[i] + " ";
+          }
+          //If substring is a fraction number
+          else if(fracIndex > 0 && fracIndex < ingrArray.length - 1 && !isNaN(ingrArray[i].at(fracIndex - 1)) && !isNaN(ingrArray[i].at(fracIndex + 1))) {
+            let numerator = ingrArray[i].at(fracIndex - 1) * scaleSize;
+            let denominator = ingrArray[i].at(fracIndex + 1);
+
+            //If numerator is greater than denominator (created mixed fraction)
+            if(numerator > denominator) {
+              let wholeNum = parseInt(numerator/denominator);
+
+              //If fraction can be simplified
+              if(denominator % (numerator%denominator) == 0) {
+                gcf = gcfFunc(denominator, numerator%denominator);
+              }
+              newIngr += wholeNum + " " + ((numerator%denominator)/gcf) + "/" + (denominator/gcf) + " ";
+            }
+            //If numerator is same as denominator, convert to 1
+            else if(denominator % numerator == 0) {
+              newIngr += "1 ";
+            }
+            //Else, simplify the fraction if possible
+            else {
+              gcf = gcfFunc(numerator, denominator);
+              newIngr += (numerator/gcf) + (denominator/gcf) + " ";
+            }
+          }
+          else {
+            newIngr += ingrArray[i] + " ";
+          }
+        }
+
+        label.innerText = newIngr;
         ol.appendChild(checkbox);
         ol.appendChild(label);
         this.shadowRoot.querySelector("#ingredients-list > ul").appendChild(ol);
