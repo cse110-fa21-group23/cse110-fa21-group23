@@ -327,11 +327,16 @@ class RecipePage extends HTMLElement{
     }
 }
 
+<<<<<<< HEAD
+//TODO: Scaling
+
+=======
 // this function is used for the tap mode when the user clicks next step or previous step
 function getSingleInstr(instructions, tapModeInd) {
   const instr = instructions[tapModeInd];
   return instr;
 }
+>>>>>>> 1145a83e4c2d5d3d8d5cc588fd89080ad213ee56
 
 // Helper functions
 /**
