@@ -75,8 +75,6 @@ async function init() {
             createRecipeCards();
         }
     });
-
-
 }
 
 // The search function, calls API function to fetch all recipes
