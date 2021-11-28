@@ -31,11 +31,16 @@ class RecipePage extends HTMLElement{
         z-index: 100;
       }
 
-      .middle{
-        display: block;
-        text-align: center;
-        width: 50%;
-        margin: auto;
+      @media (min-width: 750px) {
+        #instructions {
+          width: auto;
+        }
+        .middle{
+          display: block;
+          text-align: center; 
+          width: 50%;
+          margin: auto;
+        }
       }
     
       .middle > div > h3{
@@ -96,24 +101,30 @@ class RecipePage extends HTMLElement{
       /*-----------------------------------*/
       
       #instructions{
-        width: auto;
+        width: 100%;
         display: inline-block; 
         text-align: left;
       }
+      
+      #instructions > h3 {
+        text-align: center;
+      }
+      
       
       #instructions > ol > li{
         color: black;
       }
       
       #ingredients-list{
+      
         font-style: normal;
         font-weight: normal;
       }
       
-      #ingredients-list > ul{
-        width: auto;
-        display: inline-block; 
-        text-align: left;
+       #ingredients-list > ul{
+         width: auto;
+         display: inline-block; 
+         text-align: left;
       }
       
       #ingredients-list > button{
