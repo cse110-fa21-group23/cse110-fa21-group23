@@ -209,6 +209,7 @@ class RecipePage extends HTMLElement{
       <header class="header">
         <h1></h1>
         <img id="bookmark" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
+        <h2></h2>
       </header>
       <main id="recipe-page-box" class="middle">
         <img style="display: block; margin-left: auto; margin-right: auto;" >
@@ -237,9 +238,10 @@ class RecipePage extends HTMLElement{
 
       this.shadowRoot.querySelector(".middle > img").src = data["image"];
       this.shadowRoot.querySelector(".header > h1").innerHTML = data["title"];
+      this.shadowRoot.querySelector(".header > h2").textContent = "Serving Size: " + data["servings"];
 
       //TODO: Ingredients scaling input
-      var scaleSize = 1;
+      var scaleSize = 2;
       let scaleBox = document.createElement("input");
       scaleBox.type = "number";
       scaleBox.min = 1;
@@ -279,53 +281,89 @@ class RecipePage extends HTMLElement{
           }
         };
 
-
-        let ingrArray = ingredient.split(" ");  //array of parsed ingredient bits
         let newIngr = "";
-        var gcf = 1;  //hold the GCF of possible fraction numerator and denominator
-        var findNum = /\d+/g;
-        for(let i = 0; i < ingrArray.length; i++) {
-          let fracIndex = ingrArray[i].indexOf("/");   //find index of potential fraction
+        if(scaleSize > 1) {
+          let ingrArray = ingredient.split(" ");  //array of parsed ingredient bits
+          var gcf = 1;  //hold the GCF of possible fraction numerator and denominator
+          var findNum = /\d+/g;
+          for(let i = 0; i < ingrArray.length; i++) {
+            let fracIndex = ingrArray[i].indexOf("/");   //find index of potential fraction
 
-          //If substring is a number
-          if(!isNaN(ingrArray[i])) {
-            newIngr += scaleSize * ingrArray[i] + " ";
-          }
-          //If substring is a fraction number
-          else if(fracIndex > 0 && fracIndex < ingrArray.length - 1 && !isNaN(ingrArray[i].at(fracIndex - 1)) && !isNaN(ingrArray[i].at(fracIndex + 1))) {
-            let numerator = ingrArray[i].at(fracIndex - 1) * scaleSize;
-            let denominator = ingrArray[i].at(fracIndex + 1);
+            //If substring is already a mixed function
+            if(i < ingrArray.length-2 && ingrArray[i+1].indexOf("/") > 0 && ingrArray[i+1].indexOf("/") < ingrArray[i+1].length - 1 && !isNaN(ingrArray[i+1].at(ingrArray[i+1].indexOf("/") - 1)) && !isNaN(ingrArray[i+1].at(ingrArray[i+1].indexOf("/") + 1))) {
+              let wholeNum = ingrArray[i] * scaleSize;
 
-            //If numerator is greater than denominator (created mixed fraction)
-            if(numerator > denominator) {
-              let wholeNum = parseInt(numerator/denominator);
+              fracIndex = ingrArray[i+1].indexOf("/");
+              let numerator = ingrArray[i+1].at(fracIndex-1) * scaleSize;
+              let denominator = ingrArray[i+1].at(fracIndex+1);
 
-              //If fraction can be simplified
-              if(denominator % (numerator%denominator) == 0) {
-                gcf = gcfFunc(denominator, numerator%denominator);
+              //If numerator is greater than denominator (create mixed function)
+              if(numerator > denominator) {
+                wholeNum += parseInt(numerator/denominator);
+                
+                //If fraction can be simplified
+                if(denominator % (numerator%denominator) == 0) {
+                  gcf = gcfFunc(denominator, numerator%denominator);
+                }
+                newIngr += wholeNum + " " + ((numerator%denominator)/gcf) + "/" + (denominator/gcf) + " ";
               }
-              newIngr += wholeNum + " " + ((numerator%denominator)/gcf) + "/" + (denominator/gcf) + " ";
+              //If numerator is same as denominator, convert to 1
+              else if(denominator / numerator == 1) {
+                newIngr += wholeNum + 1 + " ";
+              }
+              //Else, simplify the fraction if possible
+              else {
+                gcf = gcfFunc(numerator, denominator);
+                newIngr += wholeNum + " " + (numerator/gcf) + "/" + (denominator/gcf) + " ";
+              }
+
+              i++;
             }
-            //If numerator is same as denominator, convert to 1
-            else if(denominator % numerator == 0) {
-              newIngr += "1 ";
+            //If substring is a number
+            else if(!isNaN(ingrArray[i])) {
+              newIngr += scaleSize * ingrArray[i] + " ";
             }
-            //Else, simplify the fraction if possible
+            //If substring is a fraction number
+            else if(fracIndex > 0 && fracIndex < ingrArray[i].length - 1 && !isNaN(ingrArray[i].at(fracIndex - 1)) && !isNaN(ingrArray[i].at(fracIndex + 1))) {
+              let numerator = ingrArray[i].at(fracIndex - 1) * scaleSize;
+              let denominator = ingrArray[i].at(fracIndex + 1);
+
+              //If numerator is greater than denominator (created mixed fraction)
+              if(numerator > denominator) {
+                let wholeNum = parseInt(numerator/denominator);
+
+                //If fraction can be simplified
+                if(denominator % (numerator%denominator) == 0) {
+                  gcf = gcfFunc(denominator, numerator%denominator);
+                }
+                newIngr += wholeNum + " " + ((numerator%denominator)/gcf) + "/" + (denominator/gcf) + " ";
+              }
+              //If numerator is same as denominator, convert to 1
+              else if(denominator / numerator == 1) {
+                newIngr += "1 ";
+              }
+              //Else, simplify the fraction if possible
+              else {
+                gcf = gcfFunc(numerator, denominator);
+                newIngr += (numerator/gcf) + "/" + (denominator/gcf) + " ";
+              }
+            }
+            //If the substring is a mix of number and word. EX: 5oz
+            else if(ingrArray[i].match(findNum)) {
+
+            }
             else {
-              gcf = gcfFunc(numerator, denominator);
-              newIngr += (numerator/gcf) + (denominator/gcf) + " ";
+              newIngr += ingrArray[i] + " ";
             }
-          }
-          //If the substring is a mix of number and word. EX: 5oz
-          else if(ingrArray[i].match(findNum)) {
-            
-          }
-          else {
-            newIngr += ingrArray[i] + " ";
           }
         }
 
-        label.innerText = newIngr;
+        if(newIngr !== "") {
+          label.innerText = newIngr;
+        }
+        else {
+          label.innerText = ingredient;
+        }
         ol.appendChild(checkbox);
         ol.appendChild(label);
         this.shadowRoot.querySelector("#ingredients-list > ul").appendChild(ol);
