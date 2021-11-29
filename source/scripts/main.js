@@ -384,8 +384,8 @@ function load() {
     // remove all elements in case user clicks it twice <= potential bug
     let ingreList = document.querySelectorAll(".edit-recipe-form > .edit-ingredients > ol > li");
     let instrList = document.querySelectorAll(".edit-recipe-form > .edit-instructions > ol > li");
-    if (ingreList.length != 0) { ingreList.forEach(e => e.remove()) }
-    if (instrList.length != 0) { instrList.forEach(e => e.remove()) }
+    if (ingreList.length !== 0) { ingreList.forEach(e => e.remove()) }
+    if (instrList.length !== 0) { instrList.forEach(e => e.remove()) }
 
     // load ingredients & instructions
     Ingredients.forEach(ingre => {
@@ -475,7 +475,7 @@ function submit() {
             return;
         instrListString[i] = e.value;
         i++;
-    })
+    });
     alert("saved");
     toggleEditRecipe();
     EDIT_RECIPE_DATA["ingredients"] = ingreListString;
