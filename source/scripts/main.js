@@ -162,12 +162,12 @@ function hideCategoryCards() {
     categoryCards.style.display = "none";
 }
 
-function showTapMode(){
+function showTapMode() {
     const tap = document.getElementById("tap-mode-button");
     tap.style.visibility = "visible";
 }
 
-function hideTapMode(){
+function hideTapMode() {
     const tap = document.getElementById("tap-mode-button");
     tap.style.visibility = "hidden";
 }
@@ -208,6 +208,8 @@ function updateSettings() {
  * and load data from local storage.
  * @param {Object} data 
  */
+
+// TODO: Add a warning before removing bookmark ("Are you sure to you want to remove this from your Cookbooks? All local edits to the recipe will be lost")
 function checkBookMark(data) {
     const Id = data["id"];
     const Data = JSON.parse(localStorage.getItem(`ID-${Id}`));
@@ -483,7 +485,7 @@ function submit() {
     // reload
     document.querySelector("recipe-page").data = EDIT_RECIPE_DATA;
     showBookMarkEditReipce();
-    
+
     EDIT_RECIPE_DATA = {};
 }
 
