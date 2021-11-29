@@ -76,8 +76,6 @@ async function init() {
             createRecipeCards();
         }
     });
-
-
 }
 
 // The search function, calls API function to fetch all recipes
@@ -144,6 +142,7 @@ function createRecipeCards() {
 
         const id = recipeData[i]["id"];
         router.addPage(id, function () {
+            window.scrollTo({top: 0, behavior: 'smooth'});
             hideHome();
             hideRecipeCards();
             showRecipePage();
