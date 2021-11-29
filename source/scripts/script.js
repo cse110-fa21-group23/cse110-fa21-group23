@@ -99,7 +99,7 @@ function search() {
     prevSearch = searchQuery;
     const page = searchQuery;
     router.addPage(page, function () {
-        hideRecipePage()
+        hideRecipePage();
         hideCategoryCards();
         showRecipeCards();
         showSearchBar();
