@@ -107,7 +107,7 @@ function searchByFilter () {
     let cuisine = "";
     for (let i = 0; i < cuisineList.length; i++) {
         if (cuisineList[i].checked) {
-            cuisine =  cuisineList[i].value;
+            cuisine =  `&cuisine=${cuisineList[i].value}`;
             console.log(cuisineList[i].value);
             break;
         }
@@ -117,7 +117,7 @@ function searchByFilter () {
     let mealType = "";
     for (let i = 0; i < mealTypeList.length; i++) {
         if (mealTypeList[i].checked) {
-            mealType =  mealTypeList[i].value;
+            mealType =  `&type=${mealTypeList[i].value}`;
             console.log(mealTypeList[i].value);
             break;
         }
@@ -127,7 +127,7 @@ function searchByFilter () {
     let time = "";
     for (let i = 0; i < timeList.length; i++) {
         if (timeList[i].checked) {
-            time =  parseInt(timeList[i].value);
+            time =  `&maxReadyTime=${parseInt(timeList[i].value)}`;
             console.log(timeList[i].value);
             break;
         }
@@ -170,7 +170,7 @@ function searchByFilter () {
     // });
 
     //filter by time
-    return fetchRecipes(`&maxReadyTime=${time}${queryStrDiet}${queryStrIntolerances}`, (data) => {
+    return fetchRecipes(`${cuisine}${mealType}${time}${queryStrDiet}${queryStrIntolerances}`, (data) => {
             console.log(data)
             recipeData = data;
     });
