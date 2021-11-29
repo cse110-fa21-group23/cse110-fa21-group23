@@ -124,15 +124,19 @@ function hideCookbooks() {
 }
 
 function showRecipePage() {
+    showTapMode();
     const recipePage = document.getElementById("recipe-page-container");
     recipePage.style.visibility = "visible";
     recipePage.style.display = null;
 }
 
 function hideRecipePage() {
+    hideTapMode();
     const recipePage = document.getElementById("recipe-page-container");
     recipePage.style.visibility = "hidden";
     recipePage.style.display = "none";
+    const tapModeButton = document.getElementById("tap-mode-button");
+    tapModeButton.innerHTML = "Tap Mode Off";
 }
 
 function showRecipeCards() {
@@ -156,6 +160,16 @@ function hideCategoryCards() {
     const categoryCards = document.getElementById("category-wrapper");
     categoryCards.style.visibility = "hidden";
     categoryCards.style.display = "none";
+}
+
+function showTapMode(){
+    const tap = document.getElementById("tap-mode-button");
+    tap.style.visibility = "visible";
+}
+
+function hideTapMode(){
+    const tap = document.getElementById("tap-mode-button");
+    tap.style.visibility = "hidden";
 }
 
 function updateSettings() {
