@@ -195,6 +195,7 @@ function checkBookMark(data) {
         let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
         bookMark.src = "./img/icons/bookmark-filled.svg";
         bookMark.setAttribute("name", "bookmark-filled");
+        showEditRecipe();
     }
 }
 
@@ -202,6 +203,9 @@ function checkBookMark(data) {
 /* Save new cookbook ========================================================*/
 const COOK_BOOKS = "cookbooks";
 var $SOSaveCookBookMenuVisibility = "hidden";
+/**
+ * This function displays saved-cookbook menu
+ */
 function toggleSaveCookBook() {
     var menu = document.querySelector("#save-cookbook-menu");
 
@@ -216,27 +220,31 @@ function toggleSaveCookBook() {
 
 }
 
+/**
+ *  This functions displays all the cookbooks in local storage to the saved-cookbook menu
+ * when users click on bookmark. There is one cookbook by default - "favorites".
+ *  If bookmark has been marked/filled. It removes the recipe from local Storage.
+ */
 function showCookBookMenu() {
     let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
     console.log("CookBooks List: ", cookbooks);
     if (cookbooks == undefined || cookbooks == null) {
-        cookbooks = ["Favorites"]; 
+        cookbooks = ["Favorites"];
         localStorage.setItem(COOK_BOOKS, JSON.stringify(cookbooks));
     }
 
     let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
-    if (bookMark.getAttribute("name") == "bookmark-empty")
-    {
+    if (bookMark.getAttribute("name") == "bookmark-empty") {
         let cookbooksList = document.querySelectorAll("#cookbook-lists > ol > li");
         if (cookbooksList.length == 0) {
             cookbooks.forEach((cookBook) => {
-            appendNewCookBook(cookBook);
+                appendNewCookBook(cookBook);
             });
         }
         toggleSaveCookBook();
     }
     else {
-        try{
+        try {
             // remove recipe data from local storage and cook book
             const Data = document.querySelector("recipe-page").data;
             const RecipeInStorage = JSON.parse(localStorage.getItem(`ID-${Data["id"]}`));
@@ -247,16 +255,22 @@ function showCookBookMenu() {
             localStorage.setItem(CookBook, JSON.stringify(savedCookBook));
             localStorage.removeItem(`ID-${Data["id"]}`);
             bookMark.setAttribute("name", "bookmark-empty");
-            bookMark.src = "./img/icons/bookmark-empty.svg"; 
+            bookMark.src = "./img/icons/bookmark-empty.svg";
+            hideEditRecipe();
         } catch (err) {
             alert("An error has occured: " + err);
         }
     }
 }
 
+/**
+ * This functions bind a cookbook / add an event upon click, so that when users click on a cookbook, 
+ * it saves the current recipe to the cookbook that user chose
+ * @param {HTML object} li 
+ */
 function bindNewCookBook(li) {
     li.addEventListener("click", (event) => {
-        try{
+        try {
             // save recipe data to local storage and add it to the 
             alert(event.currentTarget.innerText);
             const CookBookName = event.currentTarget.innerText; // cookbook that user chooses
@@ -280,15 +294,34 @@ function bindNewCookBook(li) {
 
             // alert user
             alert("Added to " + CookBookName + " successful");
+
+            // display edit
+            showEditRecipe();
+
             toggleSaveCookBook(); // close savecookbook menu
         } catch (err) {
             alert("An error has occured" + err);
         }
     });
-  }
-  
-function appendNewCookBook(newcookbook) {
-    let cookbooksList = document.querySelector("#cookbook-lists > ol");
+}
+
+function showEditRecipe() {
+    let editDiv = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("article > div");
+    editDiv.classList.remove("hidden");
+}
+
+function hideEditRecipe() {
+    let editDiv = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("article > div");
+    editDiv.classList.add("hidden");
+}
+
+
+/**
+ * This function adds new cookbook to the save-cookbook menu
+ * @param {string} newCookBook 
+ */
+function appendNewCookBook(newCookBook) {
+    let cookBooksList = document.querySelector("#cookbook-lists > ol");
     let li = document.createElement("li");
     let img = document.createElement("img");
     let label = document.createElement("label");
@@ -298,21 +331,151 @@ function appendNewCookBook(newcookbook) {
     img.src = "./img/icons/bookmark-empty.svg";
     img.height = 20;
     img.width = 20;
-    label.innerText = newcookbook;
+    label.innerText = newCookBook;
     li.appendChild(img);
     li.appendChild(label);
-    cookbooksList.appendChild(li);
+    cookBooksList.appendChild(li);
     bindNewCookBook(li);
 }
 
+/**
+ * This function ask user to enter new cookbook's name,
+ * store it to local storage and call appendNewCookBook()
+ */
 function addNewCookBook() {
     let newCookBook = prompt("Enter new cookbook:");
     if (newCookBook == "" || newCookBook == null) { return; }
     appendNewCookBook(newCookBook);
     // update local storage
-    let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
-    cookbooks.push(newCookBook);
-    localStorage.setItem(COOK_BOOKS, JSON.stringify(cookbooks));
+    let cookBooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
+    cookBooks.push(newCookBook);
+    localStorage.setItem(COOK_BOOKS, JSON.stringify(cookBooks));
 }
-  
-/* end save new cookbook ====================================================*/
+
+/* end of save new cookbook ====================================================*/
+
+/* Edit Recipe functions ====================================================*/
+let EDIT_RECIPE_DATA = {}; // data from current recipe
+function load() {
+    const Id = document.querySelector("recipe-page").data["id"];
+    EDIT_RECIPE_DATA = JSON.parse(localStorage.getItem(`ID-${Id}`));
+    const Ingredients = EDIT_RECIPE_DATA["ingredients"];
+    const Instructions = EDIT_RECIPE_DATA["instructions"];
+    // remove all elements in case user clicks it twice <= potential bug
+    let ingreList = document.querySelectorAll(".edit-recipe-form > .edit-ingredients > ol > li");
+    let instrList = document.querySelectorAll(".edit-recipe-form > .edit-instructions > ol > li");
+    if (ingreList.length != 0) { ingreList.forEach(e => e.remove()) }
+    if (instrList.length != 0) { instrList.forEach(e => e.remove()) }
+
+    // load ingredients & instructions
+    Ingredients.forEach(ingre => {
+        addMoreIngredients(ingre);
+    });
+
+    Instructions.forEach(inst => {
+        addMoreInstructions(inst);
+    });
+
+    toggleEditRecipe();
+    $(".edit-recipe-form").scrollTop(0);
+}
+
+/**
+ * This function displays the popup menu to edit recipe
+ */
+var $editRecipeVisibility = "hidden";
+function toggleEditRecipe() {
+    const article = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("article");
+    article.style.opacity = 0.35;
+    var menu = document.querySelector(".edit-recipe-form");
+
+    if ($editRecipeVisibility == "hidden") {
+        article.style.opacity = 0.35;
+        menu.style.transform = "translateY(10%)";
+        $editRecipeVisibility = "visible";
+    } else {
+        menu.style.transform = "translateY(-150%)";
+        article.style.opacity = null;
+        $editRecipeVisibility = "hidden";
+    }
+}
+
+
+/**
+ * This hepler function adds ingredients to the edit recipe.
+ * @param {string} ig ingredient
+ */
+function addMoreIngredients(ig = "") {
+    let li = document.createElement("li");
+    let text = document.createElement("input");
+    let ingreList = document.querySelector(".edit-recipe-form > .edit-ingredients > ol");
+    text.type = "text";
+    text.placeholder = "ingredient / leave blank if not needed";
+    text.value = ig;
+    li.appendChild(text);
+    ingreList.appendChild(li);
+}
+
+/**
+ * This hepler function adds instructions to the edit recipe
+ * @param {string} ins 
+ */
+function addMoreInstructions(ins = "") {
+    let li = document.createElement("li");
+    let text = document.createElement("input");
+    let instrList = document.querySelector(".edit-recipe-form > .edit-instructions > ol");
+    text.type = "text";
+    text.placeholder = "instruction / leave blank if not needed";
+    text.value = ins;
+    li.appendChild(text);
+    instrList.appendChild(li);
+}
+
+/**
+ * When users hit "save" on edit recipe popup
+ * It save the data to recipe on local storage and reload the RecipePage with info
+ */
+function submit() {
+    let ingredientsList = document.querySelectorAll(".edit-recipe-form > .edit-ingredients > ol > li > input");
+    let instructionsList = document.querySelectorAll(".edit-recipe-form > .edit-instructions > ol > li > input");
+    let ingreListString = [];
+    let instrListString = [];
+    let i = 0;
+
+    ingredientsList.forEach(e => {
+        if (e.value === "")
+            return;
+        ingreListString[i] = e.value;
+        i++;
+    });
+
+    i = 0;
+    instructionsList.forEach(e => {
+        if (e.value === "")
+            return;
+        instrListString[i] = e.value;
+        i++;
+    })
+    alert("saved");
+    toggleEditRecipe();
+    EDIT_RECIPE_DATA["ingredients"] = ingreListString;
+    EDIT_RECIPE_DATA["instructions"] = instrListString;
+    localStorage.setItem(`ID-${EDIT_RECIPE_DATA["id"]}`, JSON.stringify(EDIT_RECIPE_DATA));
+
+    // reload
+    document.querySelector("recipe-page").data = EDIT_RECIPE_DATA;
+    showBookMarkEditReipce();
+    
+    EDIT_RECIPE_DATA = {};
+}
+
+/**
+ * This helper function display bookmark-filled and display editRecipe
+ */
+function showBookMarkEditReipce() {
+    let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
+    bookMark.src = "./img/icons/bookmark-filled.svg";
+    bookMark.setAttribute("name", "bookmark-filled");
+    showEditRecipe();
+}
+/* end of Edit Recipe =======================================================*/
