@@ -374,13 +374,19 @@ function addNewCookBook() {
 /* end of save new cookbook ====================================================*/
 
 /* Edit Recipe functions ====================================================*/
+
+
 let EDIT_RECIPE_DATA = {}; // data from current recipe
+/**
+ * This function loads all ingredients and instructions to the Edit Recipe popup
+ */
 function load() {
     const Id = document.querySelector("recipe-page").data["id"];
     EDIT_RECIPE_DATA = JSON.parse(localStorage.getItem(`ID-${Id}`));
     const Ingredients = EDIT_RECIPE_DATA["ingredients"];
     const Instructions = EDIT_RECIPE_DATA["instructions"];
-    // remove all elements in case user clicks it twice <= potential bug
+
+    // remove all elements in case user clicks it twice
     let ingreList = document.querySelectorAll(".edit-recipe-form > .edit-ingredients > ol > li");
     let instrList = document.querySelectorAll(".edit-recipe-form > .edit-instructions > ol > li");
     if (ingreList.length !== 0) { ingreList.forEach(e => e.remove()) }
@@ -437,7 +443,7 @@ function addMoreIngredients(ig = "") {
 
 /**
  * This hepler function adds instructions to the edit recipe
- * @param {string} ins 
+ * @param {string} ins instruction
  */
 function addMoreInstructions(ins = "") {
     let li = document.createElement("li");
