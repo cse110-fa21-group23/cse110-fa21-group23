@@ -22,25 +22,29 @@ function toggleMenu() {
 }
 
 function toggleDietFilters () {
-    let dietFilter = document.getElementById("dietIcon");
-    dietFilter.classList.toggle("filterArrowIcon");
-
+    let dietIcon= document.getElementById("dietIcon");
+    dietIcon.classList.toggle("filterArrowIcon");
+    let dietBtn = document.getElementById("dietBtn"); 
+    dietBtn.classList.toggle("clickedFiltersBtn")
     let dropDownMenu = document.getElementById("diet-filter");
 
     if ($dietFilterVisibility == "hidden") {
         $dietFilterVisibility = "visible";
         dropDownMenu.style.visibility = "visible";
+
     }
     else {
         $dietFilterVisibility = "hidden";
         dropDownMenu.style.visibility = "hidden";  
+
     }
 }
 
 function toggleCuisineFilters () {
-    let cuisineFilter = document.getElementById("cuisineIcon");
-    cuisineFilter.classList.toggle("filterArrowIcon");
-
+    let cuisineIcon = document.getElementById("cuisineIcon");
+    cuisineIcon.classList.toggle("filterArrowIcon");
+    let cuisineBtn = document.getElementById("cuisineBtn");
+    cuisineBtn.classList.toggle("clickedFiltersBtn") 
     let dropDownMenu = document.getElementById("cuisine-filter");
 
     if ($cuisineFilterVisibility == "hidden") {
@@ -50,13 +54,15 @@ function toggleCuisineFilters () {
     else {
         $cuisineFilterVisibility = "hidden";
         dropDownMenu.style.visibility = "hidden";  
+
     }
 }
 
 function toggleTimeFilters () {
     let timeFilter = document.getElementById("timeIcon");
     timeFilter.classList.toggle("filterArrowIcon");
-
+    let timeBtn = document.getElementById("timeBtn"); 
+    timeBtn.classList.toggle("clickedFiltersBtn")
     let dropDownMenu = document.getElementById("time-filter");
 
     if ($timeFilterVisibility == "hidden") {
@@ -66,13 +72,15 @@ function toggleTimeFilters () {
     else {
         $timeFilterVisibility = "hidden";
         dropDownMenu.style.visibility = "hidden";  
+
     }
 }
 
 function toggleMealTypeFilters () {
     let mealFilter = document.getElementById("mealIcon");
     mealFilter.classList.toggle("filterArrowIcon");
-
+    let mealBtn = document.getElementById("mealBtn"); 
+    mealBtn.classList.toggle("clickedFiltersBtn")
     let dropDownMenu = document.getElementById("meal-filter");
 
     if ($mealTypeFilterVisibility == "hidden") {
@@ -243,21 +251,21 @@ function hideFilters() {
     const meal = document.getElementById("meal-filter");
     meal.style.visibility = "hidden";
 
-    let dietBtn = document.getElementById("dietBtn");
-    dietBtn.style.borderBottomLeftRadius = "20px";
-    dietBtn.style.borderBottomRightRadius = "20px";
+    if($dietFilterVisibility !== "hidden"){
+        toggleDietFilters();
+    }
 
-    let cuisineBtn = document.getElementById("cuisineBtn");
-    cuisineBtn.style.borderBottomLeftRadius = "20px";
-    cuisineBtn.style.borderBottomRightRadius = "20px";
+    if($cuisineFilterVisibility !== "hidden"){
+        toggleCuisineFilters();
+    }
 
-    let timeBtn = document.getElementById("timeBtn");
-    timeBtn.style.borderBottomLeftRadius = "20px";
-    timeBtn.style.borderBottomRightRadius = "20px";
+    if($timeFilterVisibility !== "hidden"){
+        toggleTimeFilters();
+    }
 
-    let mealBtn = document.getElementById("mealBtn");
-    mealBtn.style.borderBottomLeftRadius = "20px";
-    mealBtn.style.borderBottomRightRadius = "20px";
+    if($mealTypeFilterVisibility !== "hidden"){
+        toggleMealTypeFilters();
+    }
 }
 
 function hideFilterBtns() {
@@ -276,6 +284,13 @@ function showDietFilters() {
     const diet = document.getElementById("diet-filter");
     diet.style.visibility = "visible";
 }
+
+// function showApplyBtn() {
+//     const input = document.getElementsByName("dietary-radio");
+//     if(input){
+
+//     }
+// }
 
 function showCuisineFilters() {
     const cuisine = document.getElementById("cuisine-filter");

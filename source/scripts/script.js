@@ -426,23 +426,16 @@ function bindDietFilters(){
     diet.addEventListener("click", () => {
         // showDietFilters();
         toggleDietFilters();
-        diet.style.borderBottomLeftRadius = 0;
-        diet.style.borderBottomRightRadius = 0;
-        diet.style.backgroundColor = "var(--orange4)";
-        dietArrow.style.backgroundColor = "var(--orange4)";
+
     })
 }
 
 function bindCuisineFilters(){
     let cuisine = document.getElementById("cuisineBtn");  
-    let cuisineArrow = document.getElementById("cuisineIcon");
     cuisine.addEventListener("click", () => {
         // showCuisineFilters();
         toggleCuisineFilters();
-        cuisine.style.borderBottomLeftRadius = 0;
-        cuisine.style.borderBottomRightRadius = 0;
-        cuisine.style.backgroundColor = "var(--orange4)";
-        cuisineArrow.style.backgroundColor = "var(--orange4)";
+
     })
 }
 
@@ -452,10 +445,7 @@ function bindTimeFilters(){
     time.addEventListener("click", () => {
         // showTimeFilters();
         toggleTimeFilters();
-        time.style.borderBottomLeftRadius = 0;
-        time.style.borderBottomRightRadius = 0;
-        time.style.backgroundColor = "var(--orange4)";
-        timeArrow.style.backgroundColor = "var(--orange4)";
+
     })
 }
 
@@ -465,10 +455,7 @@ function bindMealFilters(){
     meal.addEventListener("click", () => {
         // showMealFilters();
         toggleMealTypeFilters();
-        meal.style.borderBottomLeftRadius = 0;
-        meal.style.borderBottomRightRadius = 0;
-        meal.style.backgroundColor = "var(--orange4)";
-        mealArrow.style.backgroundColor = "var(--orange4)";
+
     })
 }
 

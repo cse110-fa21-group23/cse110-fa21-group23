@@ -587,6 +587,11 @@ footer {
     border-bottom: groove;
 }
 
+.clickedFiltersBtn{
+  border-radius: 20px 20px 0px 0px;
+  background-color: var(--orange4);
+}
+
 .close-filter-menu-button{
   background-color: #FFECDB;
   border: #FFECDB;
@@ -602,6 +607,7 @@ footer {
 
 .filterArrowIcon {
   transform: rotate(270deg);
+  background-color: var(--orange4);
 }
 
 
