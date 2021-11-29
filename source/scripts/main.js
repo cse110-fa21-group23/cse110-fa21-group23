@@ -188,14 +188,18 @@ function updateSettings() {
     alert("your preferences have been updated");
 }
 
+/**
+ * This function check if the recurrent recipe has been whether saved or not.
+ * If the data has been saved, display bookmark and edit recipe,
+ * and load data from local storage.
+ * @param {Object} data 
+ */
 function checkBookMark(data) {
     const Id = data["id"];
     const Data = JSON.parse(localStorage.getItem(`ID-${Id}`));
     if (Data != null) {
-        let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
-        bookMark.src = "./img/icons/bookmark-filled.svg";
-        bookMark.setAttribute("name", "bookmark-filled");
-        showEditRecipe();
+        document.querySelector("recipe-page").data = Data;
+        showBookMarkEditReipce();
     }
 }
 
