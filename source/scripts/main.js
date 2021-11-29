@@ -263,7 +263,7 @@ function showCookBookMenu() {
         }
         toggleSaveCookBook();
     }
-    else {
+    else if (confirm("Are you sure to remove this recipe?")) {
         try {
             // remove recipe data from local storage and cook book
             const Data = document.querySelector("recipe-page").data;
@@ -292,7 +292,6 @@ function bindNewCookBook(li) {
     li.addEventListener("click", (event) => {
         try {
             // save recipe data to local storage and add it to the 
-            alert(event.currentTarget.innerText);
             const CookBookName = event.currentTarget.innerText; // cookbook that user chooses
             let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
             const Data = document.querySelector("recipe-page").data;
