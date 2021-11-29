@@ -600,6 +600,9 @@ footer {
   border-radius: 10px;
 }
 
+.filterArrowIcon {
+  transform: rotate(270deg);
+}
 
 
 /* End of Tags style ======================================================================*/

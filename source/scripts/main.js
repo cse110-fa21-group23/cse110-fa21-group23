@@ -1,5 +1,9 @@
 var $SOMenuVisibility = "hidden";
 var $tapModeVisibility = "hidden";
+var $dietFilterVisibility = "hidden";
+var $timeFilterVisibility = "hidden";
+var $mealTypeFilterVisibility = "hidden";
+var $cuisineFilterVisibility = "hidden";
 
 function toggleMenu() {
     var menuIcon = document.getElementById("menu-icon");
@@ -14,6 +18,70 @@ function toggleMenu() {
     else {
         slideOverMenu.style.transform = "translate(-100%)";
         $SOMenuVisibility = "hidden";
+    }
+}
+
+function toggleDietFilters () {
+    let dietFilter = document.getElementById("dietIcon");
+    dietFilter.classList.toggle("filterArrowIcon");
+
+    let dropDownMenu = document.getElementById("diet-filter");
+
+    if ($dietFilterVisibility == "hidden") {
+        $dietFilterVisibility = "visible";
+        dropDownMenu.style.visibility = "visible";
+    }
+    else {
+        $dietFilterVisibility = "hidden";
+        dropDownMenu.style.visibility = "hidden";  
+    }
+}
+
+function toggleCuisineFilters () {
+    let cuisineFilter = document.getElementById("cuisineIcon");
+    cuisineFilter.classList.toggle("filterArrowIcon");
+
+    let dropDownMenu = document.getElementById("cuisine-filter");
+
+    if ($cuisineFilterVisibility == "hidden") {
+        $cuisineFilterVisibility = "visible";
+        dropDownMenu.style.visibility = "visible";
+    }
+    else {
+        $cuisineFilterVisibility = "hidden";
+        dropDownMenu.style.visibility = "hidden";  
+    }
+}
+
+function toggleTimeFilters () {
+    let timeFilter = document.getElementById("timeIcon");
+    timeFilter.classList.toggle("filterArrowIcon");
+
+    let dropDownMenu = document.getElementById("time-filter");
+
+    if ($timeFilterVisibility == "hidden") {
+        $timeFilterVisibility = "visible";
+        dropDownMenu.style.visibility = "visible";
+    }
+    else {
+        $timeFilterVisibility = "hidden";
+        dropDownMenu.style.visibility = "hidden";  
+    }
+}
+
+function toggleMealTypeFilters () {
+    let mealFilter = document.getElementById("mealIcon");
+    mealFilter.classList.toggle("filterArrowIcon");
+
+    let dropDownMenu = document.getElementById("meal-filter");
+
+    if ($mealTypeFilterVisibility == "hidden") {
+        $mealTypeFilterVisibility = "visible";
+        dropDownMenu.style.visibility = "visible";
+    }
+    else {
+        $mealTypeFilterVisibility = "hidden";
+        dropDownMenu.style.visibility = "hidden";  
     }
 }
 

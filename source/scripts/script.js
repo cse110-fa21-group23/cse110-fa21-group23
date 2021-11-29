@@ -83,6 +83,110 @@ async function init() {
 
 }
 
+// tag functionality
+
+
+
+function searchByFilter () {
+    hideCategoryCards();
+    const recipeCardContainer = document.getElementById('recipe-card-container');
+    recipeCardContainer.innerHTML = '';
+    showRecipeCards();
+
+    let diets = document.getElementsByName("dietary-radio");
+    let diet = "";
+    for (let i = 0; i < diets.length; i++) {
+        if (diets[i].checked) {
+            diet = diet + diets[i].value;
+            console.log(diets[i].value);
+            break;
+        }
+    }
+
+    let cuisineList = document.getElementsByName("cuisine-radio");
+    let cuisine = "";
+    for (let i = 0; i < cuisineList.length; i++) {
+        if (cuisineList[i].checked) {
+            cuisine =  cuisineList[i].value;
+            console.log(cuisineList[i].value);
+            break;
+        }
+    }
+
+    let mealTypeList = document.getElementsByName("meal-radio");
+    let mealType = "";
+    for (let i = 0; i < mealTypeList.length; i++) {
+        if (mealTypeList[i].checked) {
+            mealType =  mealTypeList[i].value;
+            console.log(mealTypeList[i].value);
+            break;
+        }
+    }
+
+    let timeList = document.getElementsByName("time-radio");
+    let time = "";
+    for (let i = 0; i < timeList.length; i++) {
+        if (timeList[i].checked) {
+            time =  parseInt(timeList[i].value);
+            console.log(timeList[i].value);
+            break;
+        }
+    }
+
+
+    //get dietary restrictons from settings
+    const getDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
+    let queryStrDiet ="";
+    if (getDietaryRestrictions && getDietaryRestrictions.length !== 0) {
+        queryStrDiet = `&diet=${getDietaryRestrictions}`;
+    }
+    console.log(diet);
+    //get intolerances from settings
+    const getIntolerancesRestrictions = JSON.parse(localStorage.getItem("intolerancesRestrictions"));
+    let queryStrIntolerances = "";
+    if (getIntolerancesRestrictions && getIntolerancesRestrictions.length !== 0) {
+        queryStrIntolerances = `&intolerances=${getIntolerancesRestrictions}`
+    }
+
+    // if (diet.length != 0) {
+    //     return fetchRecipes(`${queryStrDiet}${queryStrIntolerances}`, (data) => {
+    //             console.log(data);
+    //             recipeData = data
+    //         })
+    // }
+    // else {
+
+    // }
+    
+    //if cuisine isn't an empty string
+    // return fetchRecipes(`&cuisine=${cuisine}${queryStrDiet}${queryStrIntolerances}`, (data) => {
+    //     console.log(data)
+    //     recipeData = data;
+    // });
+
+    // return fetchRecipes(`&type=${mealType}${queryStrDiet}${queryStrIntolerances}`, (data) => {
+    //         console.log(data)
+    //         recipeData = data;
+    // });
+
+    //filter by time
+    return fetchRecipes(`&maxReadyTime=${time}${queryStrDiet}${queryStrIntolerances}`, (data) => {
+            console.log(data)
+            recipeData = data;
+    });
+}
+
+document.getElementById("applyButton").addEventListener("click", async () => {
+    let searchSuccessful = await searchByFilter();
+    if (searchSuccessful) {
+        createRecipeCards();
+    }
+    
+});
+
+
+
+
 // The search function, calls API function to fetch all recipes
 // Generates recipe cards by passing in values into RecipeData
 function search() {
@@ -135,6 +239,7 @@ function search() {
         recipeData = data;
     })
 }
+
 
 
 function createRecipeCards() {
@@ -216,7 +321,7 @@ function bindCategoryCards(categoryCard, categoryName) {
     categoryCard.addEventListener("click", async (e) => {
         let searchQuery = categoryName;
         document.getElementById("search-query").value = searchQuery;
-
+        hideFilters();
         let searchSuccessful = await searchByCategory();
         if (searchSuccessful) {
             console.log(recipeData);
@@ -319,7 +424,8 @@ function bindDietFilters(){
     let diet = document.getElementById("dietBtn"); 
     let dietArrow = document.getElementById("dietIcon");
     diet.addEventListener("click", () => {
-        showDietFilters();
+        // showDietFilters();
+        toggleDietFilters();
         diet.style.borderBottomLeftRadius = 0;
         diet.style.borderBottomRightRadius = 0;
         diet.style.backgroundColor = "var(--orange4)";
@@ -331,7 +437,8 @@ function bindCuisineFilters(){
     let cuisine = document.getElementById("cuisineBtn");  
     let cuisineArrow = document.getElementById("cuisineIcon");
     cuisine.addEventListener("click", () => {
-        showCuisineFilters();
+        // showCuisineFilters();
+        toggleCuisineFilters();
         cuisine.style.borderBottomLeftRadius = 0;
         cuisine.style.borderBottomRightRadius = 0;
         cuisine.style.backgroundColor = "var(--orange4)";
@@ -343,7 +450,8 @@ function bindTimeFilters(){
     let time = document.getElementById("timeBtn");  
     let timeArrow = document.getElementById("timeIcon");
     time.addEventListener("click", () => {
-        showTimeFilters();
+        // showTimeFilters();
+        toggleTimeFilters();
         time.style.borderBottomLeftRadius = 0;
         time.style.borderBottomRightRadius = 0;
         time.style.backgroundColor = "var(--orange4)";
@@ -355,7 +463,8 @@ function bindMealFilters(){
     let meal = document.getElementById("mealBtn");  
     let mealArrow = document.getElementById("mealIcon");
     meal.addEventListener("click", () => {
-        showMealFilters();
+        // showMealFilters();
+        toggleMealTypeFilters();
         meal.style.borderBottomLeftRadius = 0;
         meal.style.borderBottomRightRadius = 0;
         meal.style.backgroundColor = "var(--orange4)";
