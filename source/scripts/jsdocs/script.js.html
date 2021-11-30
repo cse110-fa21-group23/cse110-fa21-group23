@@ -1,4 +1,32 @@
-// Import API from file
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: script.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: script.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// Import API from file
 import { fetchRecipes } from "./api_script.js";
 import { Router } from "./Router.js";
 
@@ -64,7 +92,7 @@ async function init() {
     const clearBtn = document.getElementById("clear-btn");
     clearBtn.addEventListener('click', () => {
         const ele = document.getElementsByName("dietary-radio");
-        for (var i = 0; i < ele.length; i++)
+        for (var i = 0; i &lt; ele.length; i++)
             ele[i].checked = false;
     })
 
@@ -131,19 +159,19 @@ function search() {
     // check for user dietary restriction
     const getDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
     let queryStrDiet = "";
-    if (getDietaryRestrictions && getDietaryRestrictions.length !== 0) {
-        queryStrDiet = `&diet=${getDietaryRestrictions}`;
+    if (getDietaryRestrictions &amp;&amp; getDietaryRestrictions.length !== 0) {
+        queryStrDiet = `&amp;diet=${getDietaryRestrictions}`;
     }
 
     // check for user intolerances
     const getIntolerancesRestrictions = JSON.parse(localStorage.getItem("intolerancesRestrictions"));
     let queryStrIntolerances = "";
-    if (getIntolerancesRestrictions && getIntolerancesRestrictions.length !== 0) {
-        queryStrIntolerances = `&intolerances=${getIntolerancesRestrictions}`
+    if (getIntolerancesRestrictions &amp;&amp; getIntolerancesRestrictions.length !== 0) {
+        queryStrIntolerances = `&amp;intolerances=${getIntolerancesRestrictions}`
     }
 
     // Fetch the Recipes with the specified queries
-    const queries = `&query=${searchQuery}${queryStrDiet}${queryStrIntolerances}`;
+    const queries = `&amp;query=${searchQuery}${queryStrDiet}${queryStrIntolerances}`;
     return fetchRecipes(queries, (data) => {
         recipeData = data;
     })
@@ -152,7 +180,7 @@ function search() {
 
 function createRecipeCards() {
     const recipeCardContainer = document.getElementById('recipe-card-container');
-    for (let i = 0; i < recipeData.length; i++) {
+    for (let i = 0; i &lt; recipeData.length; i++) {
         const element = document.createElement('recipe-card');
         element.data = recipeData[i];
         document.querySelector("recipe-page").data = recipeData[i];
@@ -192,7 +220,7 @@ function createCategoryCards() {
     /* creating an array of length 6 to hold random non-repeating values that are in
         range of all categories in the categories array */
     const randNums = []; // array to hold the random non repeating values 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i &lt; 6; i++) {
         let rand = Math.floor(Math.random() * categories.length);
         while (randNums.indexOf(rand) !== -1) {
             rand = Math.floor(Math.random() * categories.length);
@@ -201,7 +229,7 @@ function createCategoryCards() {
     }
 
     //creating 6 category cards from the random values in the randNums array
-    for (let i = 0; i < randNums.length; i++) {
+    for (let i = 0; i &lt; randNums.length; i++) {
 
         const categoryCard = document.createElement("category-card"); // creating category card
         let arr = [categories[randNums[i]], images[randNums[i]]]; // array holding the category and corresponding image
@@ -263,26 +291,26 @@ async function searchByCategory() {
     // check for user dietary restriction
     const getDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
     let queryStrDiet = "";
-    if (getDietaryRestrictions && getDietaryRestrictions.length !== 0) {
-        queryStrDiet = `&diet=${getDietaryRestrictions}`;
+    if (getDietaryRestrictions &amp;&amp; getDietaryRestrictions.length !== 0) {
+        queryStrDiet = `&amp;diet=${getDietaryRestrictions}`;
     }
 
     // check for user intolerances
     const getIntolerancesRestrictions = JSON.parse(localStorage.getItem("intolerancesRestrictions"));
     let queryStrIntolerances = "";
-    if (getIntolerancesRestrictions && getIntolerancesRestrictions.length !== 0) {
-        queryStrIntolerances = `&intolerances=${getIntolerancesRestrictions}`
+    if (getIntolerancesRestrictions &amp;&amp; getIntolerancesRestrictions.length !== 0) {
+        queryStrIntolerances = `&amp;intolerances=${getIntolerancesRestrictions}`
     }
 
     //if user clicked a diet category, sends search query to diet endpoint
     if (searchQuery == "Vegetarian" || searchQuery == "Vegan" || searchQuery == "Gluten-Free") {
-        return fetchRecipes(`&diet=${searchQuery}${queryStrIntolerances}`, (data) => {
+        return fetchRecipes(`&amp;diet=${searchQuery}${queryStrIntolerances}`, (data) => {
             recipeData = data
         })
     }
     //if user clicked a cuisine category, sends search query to cuisine endpoint
     else {
-        return fetchRecipes(`&cuisine=${searchQuery}${queryStrDiet}${queryStrIntolerances}`, (data) => {
+        return fetchRecipes(`&amp;cuisine=${searchQuery}${queryStrDiet}${queryStrIntolerances}`, (data) => {
             recipeData = data;
         });
     }
@@ -360,3 +388,26 @@ window.updateSettings = updateSettings;
 window.showHome = showHome;
 window.showCookbooks = showCookbooks;
 window.showSettings = showSettings;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CategoryCard.CategoryCard.html">CategoryCard</a></li><li><a href="RecipeCard.RecipeCard.html">RecipeCard</a></li><li><a href="RecipePage.RecipePage.html">RecipePage</a></li><li><a href="Router.exports.Router.html">exports.Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMoreIngredients">addMoreIngredients</a></li><li><a href="global.html#addMoreInstructions">addMoreInstructions</a></li><li><a href="global.html#addNewCookBook">addNewCookBook</a></li><li><a href="global.html#appendNewCookBook">appendNewCookBook</a></li><li><a href="global.html#bindAll">bindAll</a></li><li><a href="global.html#bindAppNameClick">bindAppNameClick</a></li><li><a href="global.html#bindCategoryCards">bindCategoryCards</a></li><li><a href="global.html#bindCookbookPage">bindCookbookPage</a></li><li><a href="global.html#bindHomePage">bindHomePage</a></li><li><a href="global.html#bindNewCookBook">bindNewCookBook</a></li><li><a href="global.html#bindPopState">bindPopState</a></li><li><a href="global.html#bindSettingsPage">bindSettingsPage</a></li><li><a href="global.html#checkBookMark">checkBookMark</a></li><li><a href="global.html#clearCheckBoxes">clearCheckBoxes</a></li><li><a href="global.html#createCategoryCards">createCategoryCards</a></li><li><a href="global.html#fetchRecipes">fetchRecipes</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getInstructions">getInstructions</a></li><li><a href="global.html#getRecipeCardInfo">getRecipeCardInfo</a></li><li><a href="global.html#getSingleInstr">getSingleInstr</a></li><li><a href="global.html#hideCategoryCards">hideCategoryCards</a></li><li><a href="global.html#hideCookbooks">hideCookbooks</a></li><li><a href="global.html#hideEditRecipe">hideEditRecipe</a></li><li><a href="global.html#hideHome">hideHome</a></li><li><a href="global.html#hideRecipeCards">hideRecipeCards</a></li><li><a href="global.html#hideRecipePage">hideRecipePage</a></li><li><a href="global.html#hideSearchBar">hideSearchBar</a></li><li><a href="global.html#hideSettings">hideSettings</a></li><li><a href="global.html#hideTapMode">hideTapMode</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#load">load</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchByCategory">searchByCategory</a></li><li><a href="global.html#showBookMarkEditReipce">showBookMarkEditReipce</a></li><li><a href="global.html#showCategoryCards">showCategoryCards</a></li><li><a href="global.html#showCookBookMenu">showCookBookMenu</a></li><li><a href="global.html#showCookbooks">showCookbooks</a></li><li><a href="global.html#showEditRecipe">showEditRecipe</a></li><li><a href="global.html#showHome">showHome</a></li><li><a href="global.html#showRecipeCards">showRecipeCards</a></li><li><a href="global.html#showRecipePage">showRecipePage</a></li><li><a href="global.html#showSearchBar">showSearchBar</a></li><li><a href="global.html#showSettings">showSettings</a></li><li><a href="global.html#showTapMode">showTapMode</a></li><li><a href="global.html#submit">submit</a></li><li><a href="global.html#sum">sum</a></li><li><a href="global.html#toggleEditRecipe">toggleEditRecipe</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#toggleSaveCookBook">toggleSaveCookBook</a></li><li><a href="global.html#toggleTapMode">toggleTapMode</a></li><li><a href="global.html#updateSettings">updateSettings</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Nov 29 2021 17:51:46 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
