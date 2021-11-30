@@ -1,4 +1,32 @@
-// RecipePage.js
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: RecipePage.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: RecipePage.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// RecipePage.js
 
 class RecipePage extends HTMLElement{
 
@@ -207,27 +235,27 @@ class RecipePage extends HTMLElement{
       `;
 
       container.innerHTML = `
-      <header class="header">
-        <h1></h1>
-        <img id="bookmark" onclick="showCookBookMenu()" src="img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
-      </header>
-      <div class="edit-recipe hidden">
-        <span onclick="load()">Edit <img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> </span>
-      </div>
-      <main class="middle">
-        <img style="display: block; margin-left: auto; margin-right: auto;">
-          <div id="ingredients-list">
-              <h3>INGREDIENTS</h3>
-              <ul style="list-style-type: none;">
-              </ul>
-              <button id="clear-checkboxes" onclick="clearCheckBoxes()">CLEAR CHECKBOXES</button>
-          </div>
-          <div id="instructions">
-              <h3>INSTRUCTIONS</h3>
-              <ol>
-              </ol>
-          </div>
-      </main>
+      &lt;header class="header">
+        &lt;h1>&lt;/h1>
+        &lt;img id="bookmark" onclick="showCookBookMenu()" src="img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
+      &lt;/header>
+      &lt;div class="edit-recipe hidden">
+        &lt;span onclick="load()">Edit &lt;img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> &lt;/span>
+      &lt;/div>
+      &lt;main class="middle">
+        &lt;img style="display: block; margin-left: auto; margin-right: auto;">
+          &lt;div id="ingredients-list">
+              &lt;h3>INGREDIENTS&lt;/h3>
+              &lt;ul style="list-style-type: none;">
+              &lt;/ul>
+              &lt;button id="clear-checkboxes" onclick="clearCheckBoxes()">CLEAR CHECKBOXES&lt;/button>
+          &lt;/div>
+          &lt;div id="instructions">
+              &lt;h3>INSTRUCTIONS&lt;/h3>
+              &lt;ol>
+              &lt;/ol>
+          &lt;/div>
+      &lt;/main>
       `;
 
       this.shadowRoot.append(style, container);
@@ -241,35 +269,35 @@ class RecipePage extends HTMLElement{
         }
 
       this.shadowRoot.querySelector("article").innerHTML = `
-      <header class="header">
-        <h1></h1>
-        <img id="bookmark" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
-      </header>
-      <div class="edit-recipe hidden">
-        <span onclick="load()">Edit <img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> </span>
-      </div>
-      <main id="recipe-page-box" class="middle">
-        <img style="display: block; margin-left: auto; margin-right: auto;" >
-          <div id="ingredients-list">
-              <h3>INGREDIENTS</h3>
-              <ul style="list-style-type: none;">
-              </ul>
-              <button id="clear-checkboxes" onclick="clearCheckBoxes()">CLEAR CHECKBOXES</button>
-          </div>
-          <div id="instructions">
-              <h3>INSTRUCTIONS</h3>   
-              <ol>
-              </ol>
-          </div>
-      </main>
-      <section id="tap-mode-section" > 
-        <section id="change-instr-btn-section">        
-          <button id="prev-step-button" class="change-instr-buttons">&lt Previous Step</button> 
-          <button id="next-step-button" class="change-instr-buttons">Next Step &gt</button>    
-        </section>
+      &lt;header class="header">
+        &lt;h1>&lt;/h1>
+        &lt;img id="bookmark" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
+      &lt;/header>
+      &lt;div class="edit-recipe hidden">
+        &lt;span onclick="load()">Edit &lt;img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> &lt;/span>
+      &lt;/div>
+      &lt;main id="recipe-page-box" class="middle">
+        &lt;img style="display: block; margin-left: auto; margin-right: auto;" >
+          &lt;div id="ingredients-list">
+              &lt;h3>INGREDIENTS&lt;/h3>
+              &lt;ul style="list-style-type: none;">
+              &lt;/ul>
+              &lt;button id="clear-checkboxes" onclick="clearCheckBoxes()">CLEAR CHECKBOXES&lt;/button>
+          &lt;/div>
+          &lt;div id="instructions">
+              &lt;h3>INSTRUCTIONS&lt;/h3>   
+              &lt;ol>
+              &lt;/ol>
+          &lt;/div>
+      &lt;/main>
+      &lt;section id="tap-mode-section" > 
+        &lt;section id="change-instr-btn-section">        
+          &lt;button id="prev-step-button" class="change-instr-buttons">&amp;lt Previous Step&lt;/button> 
+          &lt;button id="next-step-button" class="change-instr-buttons">Next Step &amp;gt&lt;/button>    
+        &lt;/section>
 
-        <div id="tap-mode-instr"><div>
-      </section >
+        &lt;div id="tap-mode-instr">&lt;div>
+      &lt;/section >
       `;
 
       this.shadowRoot.querySelector(".middle > img").src = data["image"];
@@ -289,7 +317,7 @@ class RecipePage extends HTMLElement{
         this.shadowRoot.querySelector("#ingredients-list > ul").appendChild(ol);
       });
 
-        // <-- instruction -->
+        // &lt;-- instruction -->
         // For tap mode, display one instruction at a time
       const instructions = getInstructions(data);
       const instructionSize = instructions.length;
@@ -421,4 +449,26 @@ function getInstructions(data){
 
 
 // Define the class recipe page
-customElements.define("recipe-page", RecipePage);
+customElements.define("recipe-page", RecipePage);</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CategoryCard.CategoryCard.html">CategoryCard</a></li><li><a href="RecipeCard.RecipeCard.html">RecipeCard</a></li><li><a href="RecipePage.RecipePage.html">RecipePage</a></li><li><a href="Router.exports.Router.html">exports.Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMoreIngredients">addMoreIngredients</a></li><li><a href="global.html#addMoreInstructions">addMoreInstructions</a></li><li><a href="global.html#addNewCookBook">addNewCookBook</a></li><li><a href="global.html#appendNewCookBook">appendNewCookBook</a></li><li><a href="global.html#bindAll">bindAll</a></li><li><a href="global.html#bindAppNameClick">bindAppNameClick</a></li><li><a href="global.html#bindCategoryCards">bindCategoryCards</a></li><li><a href="global.html#bindCookbookPage">bindCookbookPage</a></li><li><a href="global.html#bindHomePage">bindHomePage</a></li><li><a href="global.html#bindNewCookBook">bindNewCookBook</a></li><li><a href="global.html#bindPopState">bindPopState</a></li><li><a href="global.html#bindSettingsPage">bindSettingsPage</a></li><li><a href="global.html#checkBookMark">checkBookMark</a></li><li><a href="global.html#clearCheckBoxes">clearCheckBoxes</a></li><li><a href="global.html#createCategoryCards">createCategoryCards</a></li><li><a href="global.html#fetchRecipes">fetchRecipes</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getInstructions">getInstructions</a></li><li><a href="global.html#getRecipeCardInfo">getRecipeCardInfo</a></li><li><a href="global.html#getSingleInstr">getSingleInstr</a></li><li><a href="global.html#hideCategoryCards">hideCategoryCards</a></li><li><a href="global.html#hideCookbooks">hideCookbooks</a></li><li><a href="global.html#hideEditRecipe">hideEditRecipe</a></li><li><a href="global.html#hideHome">hideHome</a></li><li><a href="global.html#hideRecipeCards">hideRecipeCards</a></li><li><a href="global.html#hideRecipePage">hideRecipePage</a></li><li><a href="global.html#hideSearchBar">hideSearchBar</a></li><li><a href="global.html#hideSettings">hideSettings</a></li><li><a href="global.html#hideTapMode">hideTapMode</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#load">load</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchByCategory">searchByCategory</a></li><li><a href="global.html#showBookMarkEditReipce">showBookMarkEditReipce</a></li><li><a href="global.html#showCategoryCards">showCategoryCards</a></li><li><a href="global.html#showCookBookMenu">showCookBookMenu</a></li><li><a href="global.html#showCookbooks">showCookbooks</a></li><li><a href="global.html#showEditRecipe">showEditRecipe</a></li><li><a href="global.html#showHome">showHome</a></li><li><a href="global.html#showRecipeCards">showRecipeCards</a></li><li><a href="global.html#showRecipePage">showRecipePage</a></li><li><a href="global.html#showSearchBar">showSearchBar</a></li><li><a href="global.html#showSettings">showSettings</a></li><li><a href="global.html#showTapMode">showTapMode</a></li><li><a href="global.html#submit">submit</a></li><li><a href="global.html#sum">sum</a></li><li><a href="global.html#toggleEditRecipe">toggleEditRecipe</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#toggleSaveCookBook">toggleSaveCookBook</a></li><li><a href="global.html#toggleTapMode">toggleTapMode</a></li><li><a href="global.html#updateSettings">updateSettings</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Nov 29 2021 17:51:46 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
