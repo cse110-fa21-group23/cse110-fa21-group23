@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: CategoryCard.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: CategoryCard.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class CategoryCard extends HTMLElement {
+
+    /**
+     * Creates an instance of CategoryCard.
+     * @memberof CategoryCard
+     */
+    constructor() {
+        super();
+        this.attachShadow({ mode: "open" });
+
+    }
+
+    //getting the data to set the image and the name of the category card.
+    /**
+     * Sets data for a category card
+     *
+     * @memberof CategoryCard
+     */
+    set data(data) {
+
+        const styleElem = document.createElement("style");
+        const styles = `
+        * {
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary);
+            margin: 0;
+            padding: 0;
+        }
+
+        article {
+            border-radius: 8px;
+            height: 150px;
+            row-gap: 5px;
+            padding: 0 16px 16px 16px;
+            width: 180px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: var(--orange3);
+            align-items: center;   
+            display: grid;
+            margin-top: 30px;
+            margin-left: 15px;
+            margin-rigth: 15px;
+        }
+
+        article > img {
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            height: 118px;
+            object-fit: cover;
+            margin-left: -16px;
+            width: calc(100% + 32px);
+        }
+
+        article:hover {
+            background-color: var(--background-color);
+            box-shadow: 2px 5px 3px var(--light-grey); 
+            transform: scale(1.01, 1.01);
+            transition: ease-in-out .25s;
+        }
+
+        article:hover p {
+            color: var(--primary);
+        }
+
+        p {
+            font-size: 1rem;
+            color: var(--background-color);
+        }
+
+
+        @media screen and (max-width: 500px) {
+
+             article {
+              border-radius: 8px;
+              height: 80px;
+              row-gap: 5px;
+              padding: 0 8px 8px 8px;
+              width: 110px;
+              margin: 2px;
+             }
+
+             article > img {
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+                height: 60px;
+                object-fit: cover;
+                margin-left: -8px;
+                width: calc(100% + 16px);
+               }
+       
+
+          }
+    `;
+
+        styleElem.innerHTML = styles;
+
+        const card = document.createElement("article");
+
+        var pic = data[1]; //allows us to get the picture from the data array passed in
+
+        //creating the image element for the card
+        var img = document.createElement("img");
+        img.setAttribute("src", pic);
+
+        var name = data[0]; //allows us to get the name from the data array passed in
+        const titleText = name;
+
+        //creating the title element for the card
+        const title = document.createElement("p");
+        title.innerHTML = titleText;
+
+        //appending the image and the title to the card element
+        card.appendChild(img);
+        card.appendChild(title);
+        this.shadowRoot.append(styleElem, card);
+    }
+
+
+}
+
+//defining the custom element category-card using the Category Card class 
+customElements.define("category-card", CategoryCard);</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CategoryCard.CategoryCard.html">CategoryCard</a></li><li><a href="RecipeCard.RecipeCard.html">RecipeCard</a></li><li><a href="RecipePage.RecipePage.html">RecipePage</a></li><li><a href="Router.exports.Router.html">exports.Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMoreIngredients">addMoreIngredients</a></li><li><a href="global.html#addMoreInstructions">addMoreInstructions</a></li><li><a href="global.html#addNewCookBook">addNewCookBook</a></li><li><a href="global.html#appendNewCookBook">appendNewCookBook</a></li><li><a href="global.html#bindAll">bindAll</a></li><li><a href="global.html#bindAppNameClick">bindAppNameClick</a></li><li><a href="global.html#bindCategoryCards">bindCategoryCards</a></li><li><a href="global.html#bindCookbookPage">bindCookbookPage</a></li><li><a href="global.html#bindHomePage">bindHomePage</a></li><li><a href="global.html#bindNewCookBook">bindNewCookBook</a></li><li><a href="global.html#bindPopState">bindPopState</a></li><li><a href="global.html#bindSettingsPage">bindSettingsPage</a></li><li><a href="global.html#checkBookMark">checkBookMark</a></li><li><a href="global.html#clearCheckBoxes">clearCheckBoxes</a></li><li><a href="global.html#createCategoryCards">createCategoryCards</a></li><li><a href="global.html#fetchRecipes">fetchRecipes</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getInstructions">getInstructions</a></li><li><a href="global.html#getRecipeCardInfo">getRecipeCardInfo</a></li><li><a href="global.html#getSingleInstr">getSingleInstr</a></li><li><a href="global.html#hideCategoryCards">hideCategoryCards</a></li><li><a href="global.html#hideCookbooks">hideCookbooks</a></li><li><a href="global.html#hideEditRecipe">hideEditRecipe</a></li><li><a href="global.html#hideHome">hideHome</a></li><li><a href="global.html#hideRecipeCards">hideRecipeCards</a></li><li><a href="global.html#hideRecipePage">hideRecipePage</a></li><li><a href="global.html#hideSearchBar">hideSearchBar</a></li><li><a href="global.html#hideSettings">hideSettings</a></li><li><a href="global.html#hideTapMode">hideTapMode</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#load">load</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchByCategory">searchByCategory</a></li><li><a href="global.html#showBookMarkEditReipce">showBookMarkEditReipce</a></li><li><a href="global.html#showCategoryCards">showCategoryCards</a></li><li><a href="global.html#showCookBookMenu">showCookBookMenu</a></li><li><a href="global.html#showCookbooks">showCookbooks</a></li><li><a href="global.html#showEditRecipe">showEditRecipe</a></li><li><a href="global.html#showHome">showHome</a></li><li><a href="global.html#showRecipeCards">showRecipeCards</a></li><li><a href="global.html#showRecipePage">showRecipePage</a></li><li><a href="global.html#showSearchBar">showSearchBar</a></li><li><a href="global.html#showSettings">showSettings</a></li><li><a href="global.html#showTapMode">showTapMode</a></li><li><a href="global.html#submit">submit</a></li><li><a href="global.html#sum">sum</a></li><li><a href="global.html#toggleEditRecipe">toggleEditRecipe</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#toggleSaveCookBook">toggleSaveCookBook</a></li><li><a href="global.html#toggleTapMode">toggleTapMode</a></li><li><a href="global.html#updateSettings">updateSettings</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Nov 29 2021 17:51:46 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
