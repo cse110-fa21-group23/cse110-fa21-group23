@@ -69,6 +69,16 @@ test("Checking the getRecipeCardInfo() function properly cleans up the data", as
   expect(checkData).toEqual(expectData);
 });
 
+test("Checking the getRecipeCardInfo() function works with null", async () => {
+  const checkData = getRecipeCardInfo(null);
+  expect(checkData).toEqual([]);
+});
+
+test("Checking the getRecipeCardInfo() function works with undefined", async () => {
+  const checkData = getRecipeCardInfo(null);
+  expect(checkData).toEqual([]);
+});
+
 test("Checking the getRecipeCardInfo() function properly works with missing keys", async () => {
   const checkData = getRecipeCardInfo(dataMissingKey);
   const dataMissingKeyFilter = [

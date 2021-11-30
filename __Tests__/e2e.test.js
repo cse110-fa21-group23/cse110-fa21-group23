@@ -70,7 +70,7 @@ describe("basic user flow -- clicking a category card", () => {
       // click the first category card
       const categoryCards = await page.$$("category-card");
       await categoryCards[0].click();
-      await page.waitForTimeout(3000);
+      await page.waitForTimeout(2000);
 
       // check for more than 1 recipe card
       const recipeCards = await page.$$eval("recipe-card", (recipeCard) => {
