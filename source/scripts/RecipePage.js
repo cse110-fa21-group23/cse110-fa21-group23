@@ -327,7 +327,13 @@ class RecipePage extends HTMLElement{
     }
 }
 
-// this function is used for the tap mode when the user clicks next step or previous step
+/**
+ * Used for the tap mode when the user clicks next step or previous step
+ *
+ * @param {Array} instructions An array of instructions to send to tap mode
+ * @param {Number} tapModeInd The index of the tap mode
+ * @return {String} The instruction to show to tap mode
+ */
 function getSingleInstr(instructions, tapModeInd) {
   const instr = instructions[tapModeInd];
   return instr;
@@ -339,7 +345,6 @@ function getSingleInstr(instructions, tapModeInd) {
  * @param {Object} data JSON
  * @returns {Array} return a list of ingredients
  */
-// let LIST_INGREDIENTS = {};
 function getIngredients(data){
   const extendedIngredients =  data["extendedIngredients"];
   // called from cookbook
