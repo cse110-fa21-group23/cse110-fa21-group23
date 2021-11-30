@@ -3,6 +3,7 @@ import { fetchRecipes } from "./api_script.js";
 import { Router } from "./Router.js";
 
 let recipeData = {};
+let prevSearch = '';
 
 const router = new Router(function () {
     showHome();
@@ -75,8 +76,6 @@ async function init() {
             createRecipeCards();
         }
     });
-
-
 }
 
 // The search function, calls API function to fetch all recipes
@@ -84,14 +83,21 @@ async function init() {
 function search() {
     // get the search query
     const searchQuery = document.getElementById("search-query").value;
-    // let searchQuery = document.getElementById('search-query').value;
-    // console.log(searchQuery);
-    // console.log(localStorage.getItem("dietaryRestrictions"));
-
     const recipeCardContainer = document.getElementById('recipe-card-container');
 
+    // If it is empty, alert the user it is empty
+    if (!searchQuery) {
+        alert("Please input a search or click a filter below");
+        return false;
+    }
+    
+    // If the prev search hasn't changed, simply keep the results
+    if(prevSearch === searchQuery) return false;
+
+    prevSearch = searchQuery;
     const page = searchQuery;
     router.addPage(page, function () {
+        hideRecipePage();
         hideCategoryCards();
         showRecipeCards();
         showSearchBar();
@@ -119,12 +125,6 @@ function search() {
         queryStrIntolerances = `&intolerances=${getIntolerancesRestrictions}`
     }
 
-    // If it is empty, alert the user it is empty
-    if (!searchQuery) {
-        alert("Please input a search or click a filter below");
-        return;
-    }
-
     // Fetch the Recipes with the specified queries
     const queries = `&query=${searchQuery}${queryStrDiet}${queryStrIntolerances}`;
     return fetchRecipes(queries, (data) => {
@@ -142,6 +142,7 @@ function createRecipeCards() {
 
         const id = recipeData[i]["id"];
         router.addPage(id, function () {
+            window.scrollTo({top: 0, behavior: 'smooth'});
             hideHome();
             hideRecipeCards();
             showRecipePage();
