@@ -472,6 +472,15 @@ transform: scale(1);
   color: var(--orange3);
 }
 
+/* Share recipe by email modal style ============================================================*/
+#send-recipe-email {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  align-items: center;
+}
+
 /* Category Cards style ============================================================*/
 .category-cards--wrapper{
   position: absolute;

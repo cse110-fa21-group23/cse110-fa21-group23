@@ -158,6 +158,12 @@ function hideCategoryCards() {
     categoryCards.style.display = "none";
 }
 
+function toggleShareRecipeModal() {
+    const modal = document.getElementById('send-recipe-email');
+    const display = modal.style.display !== "block" ? "block" : "hidden";
+    modal.style.display = display;
+}
+
 function updateSettings() {
     const dietaryRestrictionList = [];
     // Get all the inputs under the div
@@ -316,3 +322,17 @@ function addNewCookBook() {
 }
   
 /* end save new cookbook ====================================================*/
+
+/**
+ * Print a recipe from the recipe page
+ */
+function printRecipe() {
+    window.print();
+}
+
+/**
+ * Open the share recipe modal
+ */
+function emailRecipe() {
+    toggleShareRecipeModal();
+}

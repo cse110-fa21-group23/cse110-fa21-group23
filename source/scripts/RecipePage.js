@@ -15,6 +15,23 @@ class RecipePage extends HTMLElement{
         width: 70%;
         margin: auto;
       }
+
+      .share-icons {
+        display: flex;
+        text-align: center; 
+        justify-content: center;
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 40px;
+      }
+
+      #print {
+        margin-right: 50px;
+      }
+
+      #print:hover, #email:hover {
+        cursor: pointer;
+      }
       
       .header h1{
         position: relative;
@@ -210,6 +227,10 @@ class RecipePage extends HTMLElement{
         <h1></h1>
         <img id="bookmark" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
       </header>
+      <div class="share-icons" >
+        <img id="print" onclick="printRecipe()" src="./img/icons/print-icon.svg" name="print-icon" width="36" height="36">
+        <img id="email" onclick="emailRecipe()" src="./img/icons/email-icon.svg" name="email-icon" width="36" height="36">
+      </div>
       <main id="recipe-page-box" class="middle">
         <img style="display: block; margin-left: auto; margin-right: auto;" >
           <div id="ingredients-list">
