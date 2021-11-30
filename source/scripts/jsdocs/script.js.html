@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: script.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: script.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// Import API from file
+import { fetchRecipes } from "./api_script.js";
+import { Router } from "./Router.js";
+
+let recipeData = {};
+let prevSearch = '';
+
+const router = new Router(function () {
+    showHome();
+});
+
+
+const tapModeButton = document.getElementById("tap-mode-button");
+tapModeButton.addEventListener("click", toggleTapMode); // toggleTapMode() is in main.js
+
+//arrays holding category names and images for category cards
+const categories = ["Indian", "Vegan", "Mexican", "Gluten-Free", "Italian", "Japanese", "American", "Vegetarian", "Thai", "Chinese", "Korean",
+    "Vietnamese", "African", "Middle Eastern"];
+const images = ["./img/foodPics/indian.jpeg", "./img/foodPics/vegan.jpeg", "./img/foodPics/mexican.jpeg",
+    "./img/foodPics/gluten-free.jpeg", "./img/foodPics/italian.jpeg", "./img/foodPics/japanese.jpeg", "./img/foodPics/american.jpeg", "./img/foodPics/vegetarian.jpeg",
+    "./img/foodPics/thai.jpeg", "./img/foodPics/chinese.jpeg", "./img/foodPics/korean.jpeg", "./img/foodPics/vietnamese.jpeg", "./img/foodPics/african.jpeg", "./img/foodPics/middleEastern.jpeg"];
+
+window.addEventListener('DOMContentLoaded', init);
+
+/**
+ * Binds a pop state to a routing page
+ *
+ */
+function bindPopState() {
+    window.addEventListener("popstate", (e) => {
+        if (e.state) {
+            router.navigate(e.state, true);
+        }
+        else {
+            router.navigate("home", true);
+        }
+    })
+}
+
+/**
+ * Calls all binding functions above and is called in the init function
+ *
+ */
+function bindAll() {
+    bindPopState();
+    bindAppNameClick();
+    bindSettingsPage();
+    bindCookbookPage();
+    bindHomePage();
+}
+
+/**
+ * When page is initialized, create a home page to show
+ *
+ */
+async function init() {
+    showHome();
+    createCategoryCards();
+    bindPopState();
+    bindAll();
+
+    router.navigate("home", false); // clears url when user refreshes page
+
+    const clearBtn = document.getElementById("clear-btn");
+    clearBtn.addEventListener('click', () => {
+        const ele = document.getElementsByName("dietary-radio");
+        for (var i = 0; i &lt; ele.length; i++)
+            ele[i].checked = false;
+    })
+
+    //on enter for search, call search function
+    document.addEventListener('keydown', async function (event) {
+        if (event.key === 'Enter') {
+            let searchSuccessful = await search();
+            if (searchSuccessful) {
+                router.navigate(document.getElementById("search-query").value, false);
+                createRecipeCards();
+            }
+        }
+    });
+
+    // Add click event listener for search button
+    const searchButton = document.getElementById("search-button");
+    searchButton.addEventListener("click", async () => {
+        let searchSuccessful = await search();
+        if (searchSuccessful) {
+            createRecipeCards();
+        }
+    });
+}
+
+// The search function, calls API function to fetch all recipes
+// Generates recipe cards by passing in values into RecipeData
+/**
+ * The search function, calls API functoin to fetch all recipes
+ * Generates recipe cards by passing in values into RecipeData
+ *
+ * @return {Boolean} Whether search was successful
+ */
+function search() {
+    // get the search query
+    const searchQuery = document.getElementById("search-query").value;
+    const recipeCardContainer = document.getElementById('recipe-card-container');
+
+    // If it is empty, alert the user it is empty
+    if (!searchQuery) {
+        alert("Please input a search or click a filter below");
+        return false;
+    }
+    
+    // If the prev search hasn't changed, simply keep the results
+    if(prevSearch === searchQuery) return false;
+
+    prevSearch = searchQuery;
+    const page = searchQuery;
+    router.addPage(page, function () {
+        hideRecipePage();
+        hideCategoryCards();
+        showRecipeCards();
+        showSearchBar();
+        hideCookbooks();
+        hideSettings();
+    });
+
+    router.navigate(page, false);//to clear url when user searches recipe
+
+    // Reset the recipe-card-container to be empty for every search
+    recipeCardContainer.innerHTML = '';
+    showRecipeCards();
+
+    // check for user dietary restriction
+    const getDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
+    let queryStrDiet = "";
+    if (getDietaryRestrictions &amp;&amp; getDietaryRestrictions.length !== 0) {
+        queryStrDiet = `&amp;diet=${getDietaryRestrictions}`;
+    }
+
+    // check for user intolerances
+    const getIntolerancesRestrictions = JSON.parse(localStorage.getItem("intolerancesRestrictions"));
+    let queryStrIntolerances = "";
+    if (getIntolerancesRestrictions &amp;&amp; getIntolerancesRestrictions.length !== 0) {
+        queryStrIntolerances = `&amp;intolerances=${getIntolerancesRestrictions}`
+    }
+
+    // Fetch the Recipes with the specified queries
+    const queries = `&amp;query=${searchQuery}${queryStrDiet}${queryStrIntolerances}`;
+    return fetchRecipes(queries, (data) => {
+        recipeData = data;
+    })
+}
+
+
+function createRecipeCards() {
+    const recipeCardContainer = document.getElementById('recipe-card-container');
+    for (let i = 0; i &lt; recipeData.length; i++) {
+        const element = document.createElement('recipe-card');
+        element.data = recipeData[i];
+        document.querySelector("recipe-page").data = recipeData[i];
+
+        const id = recipeData[i]["id"];
+        router.addPage(id, function () {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            hideHome();
+            hideRecipeCards();
+            showRecipePage();
+            hideSettings();
+            hideCookbooks();
+            document.querySelector("recipe-page").data = recipeData[i];
+            checkBookMark(recipeData[i]);
+        });
+
+        recipeCardContainer.appendChild(element);
+        bindRecipeCard(element, id);
+    }
+}
+
+function bindRecipeCard(recipeCard, pageName) {
+    recipeCard.addEventListener('click', e => {
+        if (e.composedPath()[0].nodeName == "A") return;
+        router.navigate(pageName, false);
+    });
+}
+
+
+/**
+ * Creates 6 category cards from the categories and images arrays above using random
+ * values so every time the user refreshes, there will be a new set of categories
+ *
+ */
+function createCategoryCards() {
+    console.log('creating category cards')
+    /* creating an array of length 6 to hold random non-repeating values that are in
+        range of all categories in the categories array */
+    const randNums = []; // array to hold the random non repeating values 
+    for (let i = 0; i &lt; 6; i++) {
+        let rand = Math.floor(Math.random() * categories.length);
+        while (randNums.indexOf(rand) !== -1) {
+            rand = Math.floor(Math.random() * categories.length);
+        }
+        randNums.push(rand);
+    }
+
+    //creating 6 category cards from the random values in the randNums array
+    for (let i = 0; i &lt; randNums.length; i++) {
+
+        const categoryCard = document.createElement("category-card"); // creating category card
+        let arr = [categories[randNums[i]], images[randNums[i]]]; // array holding the category and corresponding image
+        categoryCard.data = arr; //key: name of category, value: picture of category
+
+
+        document.querySelector(".category-cards--wrapper").appendChild(categoryCard);
+        const page = categories[randNums[i]];
+
+        router.addPage(page, function () {
+            hideCategoryCards();
+            hideCookbooks();
+            hideSettings();
+            showRecipeCards();
+            hideRecipePage();
+            showSearchBar();
+        });
+
+        bindCategoryCards(categoryCard, categories[randNums[i]]);
+    }
+
+
+}
+
+//function to bind the click event to the category card to initiate the search
+/**
+ * Binds the click event to the category card to initiate the search
+ *
+ * @param {Element} categoryCard the category card to bind to
+ * @param {String} categoryName the name of the category searched
+ */
+function bindCategoryCards(categoryCard, categoryName) {
+    categoryCard.addEventListener("click", async (e) => {
+        let searchQuery = categoryName;
+        document.getElementById("search-query").value = searchQuery;
+
+        let searchSuccessful = await searchByCategory();
+        if (searchSuccessful) {
+            console.log(recipeData);
+            createRecipeCards();
+        }
+    });
+}
+
+/**
+ * Function to search when a category card is clicked
+ *
+ * @return {Promise} a Promise whether recipes have been fetched correctly
+ */
+async function searchByCategory() {
+    hideCategoryCards();
+    const recipeCardContainer = document.getElementById('recipe-card-container');
+    recipeCardContainer.innerHTML = '';
+    showRecipeCards();
+
+    let searchQuery = document.getElementById('search-query').value;
+    recipeData = {};
+    router.navigate(searchQuery, false);
+    // check for user dietary restriction
+    const getDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
+    let queryStrDiet = "";
+    if (getDietaryRestrictions &amp;&amp; getDietaryRestrictions.length !== 0) {
+        queryStrDiet = `&amp;diet=${getDietaryRestrictions}`;
+    }
+
+    // check for user intolerances
+    const getIntolerancesRestrictions = JSON.parse(localStorage.getItem("intolerancesRestrictions"));
+    let queryStrIntolerances = "";
+    if (getIntolerancesRestrictions &amp;&amp; getIntolerancesRestrictions.length !== 0) {
+        queryStrIntolerances = `&amp;intolerances=${getIntolerancesRestrictions}`
+    }
+
+    //if user clicked a diet category, sends search query to diet endpoint
+    if (searchQuery == "Vegetarian" || searchQuery == "Vegan" || searchQuery == "Gluten-Free") {
+        return fetchRecipes(`&amp;diet=${searchQuery}${queryStrIntolerances}`, (data) => {
+            recipeData = data
+        })
+    }
+    //if user clicked a cuisine category, sends search query to cuisine endpoint
+    else {
+        return fetchRecipes(`&amp;cuisine=${searchQuery}${queryStrDiet}${queryStrIntolerances}`, (data) => {
+            recipeData = data;
+        });
+    }
+}
+
+
+//function to return to home when app name is clicked
+/**
+ * Returns to home when app name is clicked
+ *
+ */
+function bindAppNameClick() {
+    let appName = document.getElementById("app-name");
+    const page = "home";
+    router.addPage(page, function () {
+        showHome();
+    });
+    appName.addEventListener("click", () => {
+        router.navigate(page, false);
+    })
+}
+
+/**
+ * Goes to cookbook page when cookbook is clicked
+ *
+ */
+function bindCookbookPage() {
+    let cookbook = document.getElementById("cookbook-page");
+    const page = "cookbooks";
+    router.addPage(page, function () {
+        showCookbooks();
+        toggleMenu();
+    });
+    cookbook.addEventListener("click", () => {
+        router.navigate(page, false);
+    })
+}
+
+/**
+ * Goes to setting page when settings is clicked
+ *
+ */
+function bindSettingsPage() {
+    let settings = document.getElementById("settings-page");
+    const page = "settings";
+    router.addPage(page, function () {
+        showSettings();
+        toggleMenu();
+    });
+    settings.addEventListener("click", () => {
+        router.navigate(page, false);
+    })
+}
+
+/**
+ * Goes to home page when home is clicked
+ *
+ */
+function bindHomePage() {
+    let home = document.getElementById("home-page");
+    const page = "home";
+    router.addPage(page, function () {
+        showHome();
+    });
+    home.addEventListener("click", () => {
+        toggleMenu();
+        router.navigate(page, false);
+    })
+}
+
+
+window.init = init;
+window.toggleMenu = toggleMenu;
+window.updateSettings = updateSettings;
+window.showHome = showHome;
+window.showCookbooks = showCookbooks;
+window.showSettings = showSettings;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CategoryCard.CategoryCard.html">CategoryCard</a></li><li><a href="RecipeCard.RecipeCard.html">RecipeCard</a></li><li><a href="RecipePage.RecipePage.html">RecipePage</a></li><li><a href="Router.exports.Router.html">exports.Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMoreIngredients">addMoreIngredients</a></li><li><a href="global.html#addMoreInstructions">addMoreInstructions</a></li><li><a href="global.html#addNewCookBook">addNewCookBook</a></li><li><a href="global.html#appendNewCookBook">appendNewCookBook</a></li><li><a href="global.html#bindAll">bindAll</a></li><li><a href="global.html#bindAppNameClick">bindAppNameClick</a></li><li><a href="global.html#bindCategoryCards">bindCategoryCards</a></li><li><a href="global.html#bindCookbookPage">bindCookbookPage</a></li><li><a href="global.html#bindHomePage">bindHomePage</a></li><li><a href="global.html#bindNewCookBook">bindNewCookBook</a></li><li><a href="global.html#bindPopState">bindPopState</a></li><li><a href="global.html#bindSettingsPage">bindSettingsPage</a></li><li><a href="global.html#checkBookMark">checkBookMark</a></li><li><a href="global.html#clearCheckBoxes">clearCheckBoxes</a></li><li><a href="global.html#createCategoryCards">createCategoryCards</a></li><li><a href="global.html#fetchRecipes">fetchRecipes</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getInstructions">getInstructions</a></li><li><a href="global.html#getRecipeCardInfo">getRecipeCardInfo</a></li><li><a href="global.html#getSingleInstr">getSingleInstr</a></li><li><a href="global.html#hideCategoryCards">hideCategoryCards</a></li><li><a href="global.html#hideCookbooks">hideCookbooks</a></li><li><a href="global.html#hideEditRecipe">hideEditRecipe</a></li><li><a href="global.html#hideHome">hideHome</a></li><li><a href="global.html#hideRecipeCards">hideRecipeCards</a></li><li><a href="global.html#hideRecipePage">hideRecipePage</a></li><li><a href="global.html#hideSearchBar">hideSearchBar</a></li><li><a href="global.html#hideSettings">hideSettings</a></li><li><a href="global.html#hideTapMode">hideTapMode</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#load">load</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchByCategory">searchByCategory</a></li><li><a href="global.html#showBookMarkEditReipce">showBookMarkEditReipce</a></li><li><a href="global.html#showCategoryCards">showCategoryCards</a></li><li><a href="global.html#showCookBookMenu">showCookBookMenu</a></li><li><a href="global.html#showCookbooks">showCookbooks</a></li><li><a href="global.html#showEditRecipe">showEditRecipe</a></li><li><a href="global.html#showHome">showHome</a></li><li><a href="global.html#showRecipeCards">showRecipeCards</a></li><li><a href="global.html#showRecipePage">showRecipePage</a></li><li><a href="global.html#showSearchBar">showSearchBar</a></li><li><a href="global.html#showSettings">showSettings</a></li><li><a href="global.html#showTapMode">showTapMode</a></li><li><a href="global.html#submit">submit</a></li><li><a href="global.html#sum">sum</a></li><li><a href="global.html#toggleEditRecipe">toggleEditRecipe</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#toggleSaveCookBook">toggleSaveCookBook</a></li><li><a href="global.html#toggleTapMode">toggleTapMode</a></li><li><a href="global.html#updateSettings">updateSettings</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Nov 29 2021 17:51:46 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

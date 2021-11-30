@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: RecipePage.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: RecipePage.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// RecipePage.js
+
+class RecipePage extends HTMLElement{
+
+    /**
+     * Creates an instance of RecipePage.
+     * @memberof RecipePage
+     */
+    constructor(){
+      super();
+      this.attachShadow({mode: "open"});
+      
+      const style = document.createElement("style");
+      const container = document.createElement("article");
+
+      style.innerHTML = `
+      .header{
+        display: block;
+        text-align: center; 
+        width: 70%;
+        margin: auto;
+      }
+      
+      .header h1{
+        position: relative;
+        display: inline;
+        font-size: 4rem;
+        text-align: center;
+        line-height: 5rem;
+      }
+
+      .header #bookmark{
+        cursor: pointer;
+        text-align: center;
+        margin-left : 10px;
+        z-index: 100;
+      }
+
+      @media (min-width: 750px) {
+        #instructions {
+          width: auto;
+        }
+        
+        .middle{
+          display: block;
+          text-align: center; 
+          width: 50%;
+          margin: auto;
+        }
+      }
+
+      .edit-recipe {
+        padding: 1em;
+        display: grid;
+        place-items: center;
+      }
+      
+      .edit-recipe > span:hover {
+        cursor: pointer;
+        color: #FF9E44;
+      }
+    
+      .middle > div > h3{
+          text-align: center;
+          font-weight: bold;
+          margin-top: 10px;
+      }
+    
+      #clear-checkboxes{
+        display: block;
+        margin: auto;
+        color: var(--primary);
+     }
+
+      /*-- custom checkbox style --*/
+      
+      input[class="ingredients-custom-checkbox"] + label,
+      input[class="ingredients-custom-checkbox"] + label::before
+      {
+          display: inline-block;
+          vertical-align: middle;
+          
+      }
+    
+      input[class="ingredients-custom-checkbox"]
+      {
+          opacity: 0; /*hide the actual checkbox*/
+          position: absolute;
+          transform: scale(2);
+      }
+    
+      input[class="ingredients-custom-checkbox"]:hover
+      {
+        cursor: pointer;
+      }
+        
+      input[class="ingredients-custom-checkbox"] + label::before
+      {
+        /*custom new checkbox*/
+          content: "";
+          width: 15px;
+          height: 15px;
+          margin: 0 4px 0 0;
+          line-height: 14px;
+          text-align: center;
+          border: solid 3px var(--primary);
+      }
+      
+        input[class="ingredients-custom-checkbox"]:checked + label::before
+      {
+          content: "\\2714"; /* tick sign */
+          font-size: 15px;
+      }
+    
+      #ingredients-list > ul > ol > label{
+        color: black;
+      }
+      /*-----------------------------------*/
+      
+      #instructions{
+        width: 100%;
+        display: inline-block; 
+        text-align: left;
+      }
+      
+      #instructions > h3 {
+        text-align: center;
+      }
+      
+      
+      #instructions > ol > li{
+        color: black;
+      }
+      
+      #ingredients-list{
+      
+        font-style: normal;
+        font-weight: normal;
+      }
+      
+       #ingredients-list > ul{
+         width: auto;
+         display: inline-block; 
+         text-align: left;
+      }
+      
+      #ingredients-list > button{
+        border: 0;
+        background-color: inherit;
+        font: inherit;
+        text-align: center;
+        padding: 20px;
+      }
+      
+      #ingredients-list> button:hover{
+        cursor: pointer;
+        background: #eee;
+      }
+
+      #tap-mode-section {
+        display: flex;
+        flex-direction: column;
+      }
+      #tap-mode-instr{
+        font-size: 1.5rem;
+        font-style: italic;
+      }
+
+      #change-instr-btn-section {
+        padding: 20px;
+        height: 20vh;
+        display: flex;
+        flex-direction: row;
+      }
+
+      .change-instr-buttons {
+        height: max-content;
+        float:right;
+        width: 50%;
+        height: 100%;
+        float: right;
+        background: var(--primary);
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 1rem;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      #prev-step-button {
+        margin-right: 2vw;
+      }
+      #next-step-button {
+        margin-left: 2vw;
+      }
+      
+      #prev-step-button:hover,
+      #next-step-button:hover {
+        cursor: pointer;
+        transform: scale(1.05,1.05);
+        transition: all 0.3s ease-out;
+      }
+
+      `;
+
+      container.innerHTML = `
+      &lt;header class="header">
+        &lt;h1>&lt;/h1>
+        &lt;img id="bookmark" onclick="showCookBookMenu()" src="img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
+      &lt;/header>
+      &lt;div class="edit-recipe hidden">
+        &lt;span onclick="load()">Edit &lt;img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> &lt;/span>
+      &lt;/div>
+      &lt;main class="middle">
+        &lt;img style="display: block; margin-left: auto; margin-right: auto;">
+          &lt;div id="ingredients-list">
+              &lt;h3>INGREDIENTS&lt;/h3>
+              &lt;ul style="list-style-type: none;">
+              &lt;/ul>
+              &lt;button id="clear-checkboxes" onclick="clearCheckBoxes()">CLEAR CHECKBOXES&lt;/button>
+          &lt;/div>
+          &lt;div id="instructions">
+              &lt;h3>INSTRUCTIONS&lt;/h3>
+              &lt;ol>
+              &lt;/ol>
+          &lt;/div>
+      &lt;/main>
+      `;
+
+      this.shadowRoot.append(style, container);
+    }
+
+    set data(data){
+        if (data == null)
+        {
+            console.log("Error: no data exists");
+            return;
+        }
+
+      this.shadowRoot.querySelector("article").innerHTML = `
+      &lt;header class="header">
+        &lt;h1>&lt;/h1>
+        &lt;img id="bookmark" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
+      &lt;/header>
+      &lt;div class="edit-recipe hidden">
+        &lt;span onclick="load()">Edit &lt;img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> &lt;/span>
+      &lt;/div>
+      &lt;main id="recipe-page-box" class="middle">
+        &lt;img style="display: block; margin-left: auto; margin-right: auto;" >
+          &lt;div id="ingredients-list">
+              &lt;h3>INGREDIENTS&lt;/h3>
+              &lt;ul style="list-style-type: none;">
+              &lt;/ul>
+              &lt;button id="clear-checkboxes" onclick="clearCheckBoxes()">CLEAR CHECKBOXES&lt;/button>
+          &lt;/div>
+          &lt;div id="instructions">
+              &lt;h3>INSTRUCTIONS&lt;/h3>   
+              &lt;ol>
+              &lt;/ol>
+          &lt;/div>
+      &lt;/main>
+      &lt;section id="tap-mode-section" > 
+        &lt;section id="change-instr-btn-section">        
+          &lt;button id="prev-step-button" class="change-instr-buttons">&amp;lt Previous Step&lt;/button> 
+          &lt;button id="next-step-button" class="change-instr-buttons">Next Step &amp;gt&lt;/button>    
+        &lt;/section>
+
+        &lt;div id="tap-mode-instr">&lt;div>
+      &lt;/section >
+      `;
+
+      this.shadowRoot.querySelector(".middle > img").src = data["image"];
+      this.shadowRoot.querySelector(".header > h1").innerHTML = data["title"];
+  
+      //get ingredient list
+      const ingredients = getIngredients(data);
+      ingredients.forEach(ingredient => {
+        const checkbox = document.createElement("input");
+        const label = document.createElement("label");
+        const ol = document.createElement("ol");
+        checkbox.type = "checkbox";
+        checkbox.classList.add("ingredients-custom-checkbox");
+        label.innerText = ingredient;
+        ol.appendChild(checkbox);
+        ol.appendChild(label);
+        this.shadowRoot.querySelector("#ingredients-list > ul").appendChild(ol);
+      });
+
+        // &lt;-- instruction -->
+        // For tap mode, display one instruction at a time
+      const instructions = getInstructions(data);
+      const instructionSize = instructions.length;
+
+      var tapModeInd = 0;
+      const instr = getSingleInstr(instructions, tapModeInd);
+
+      const tapModeInstr = this.shadowRoot.getElementById("tap-mode-instr");
+      const recipePageBox = this.shadowRoot.getElementById("recipe-page-box");
+      const tapModeSection = this.shadowRoot.getElementById("tap-mode-section");
+      tapModeSection.style.display = "none"; //by default, tap mode is off/hidden
+      tapModeInstr.innerHTML = instr;
+
+      document.getElementById("tap-mode-button").addEventListener("click", () => {
+        tapModeSection.style.visibility = $tapModeVisibility;
+        tapModeSection.style.display = null;
+        if ($tapModeVisibility == "hidden") {
+          recipePageBox.style.display = "inline";
+        }
+        else {
+          recipePageBox.style.display = "none";
+        }
+
+      })
+
+      this.shadowRoot.getElementById("prev-step-button").addEventListener("click", () => {
+        if (tapModeInd == 0) {
+          console.log("you're on the first step already!");
+          return;
+        }
+        else {
+          tapModeInd--;
+          const instr = getSingleInstr(instructions, tapModeInd);
+          tapModeInstr.innerHTML = instr;
+        }
+
+
+      })
+      this.shadowRoot.getElementById("next-step-button").addEventListener("click", () => {
+        if (tapModeInd >= instructionSize - 1) {
+          console.log("You've reached the end of the recipe!");
+          return;
+        }
+        else {
+          tapModeInd++;
+          const instr = getSingleInstr(instructions, tapModeInd);
+          tapModeInstr.innerHTML = instr;
+        }
+
+      })
+
+
+
+    // This displays all the instructions in numbered order for non-tap mode 
+    instructions.forEach(element => {
+      const li = document.createElement("li");
+      li.innerHTML = element;
+      this.shadowRoot.querySelector("#instructions > ol").appendChild(li);
+    });
+
+        // replicate data
+      const replicateData = {
+        "id"    : data["id"],
+        "title" : data["title"],
+        "image" : data["image"],
+        "ingredients" : ingredients,
+        "instructions": instructions
+      }
+      this.json = replicateData;
+    }
+    get data(){
+      return this.json;
+    }
+}
+
+/**
+ * Used for the tap mode when the user clicks next step or previous step
+ *
+ * @param {Array} instructions An array of instructions to send to tap mode
+ * @param {Number} tapModeInd The index of the tap mode
+ * @return {String} The instruction to show to tap mode
+ */
+function getSingleInstr(instructions, tapModeInd) {
+  const instr = instructions[tapModeInd];
+  return instr;
+}
+
+// Helper functions
+/**
+ * Extract the ingredients from data
+ * @param {Object} data JSON
+ * @returns {Array} return a list of ingredients
+ */
+function getIngredients(data){
+  const extendedIngredients =  data["extendedIngredients"];
+  // called from cookbook
+  if (extendedIngredients == null || extendedIngredients == undefined) { return data["ingredients"]; }
+  let list = [];
+  let index = 0;
+  extendedIngredients.forEach((ingredien) =>{
+    list[index++] = ingredien["originalString"];
+  })
+  return list;
+}
+
+/**
+ * Extract the instructions from data
+ * @param {Object} data JSON
+ * @returns {Array} return a list of instructions
+ */
+function getInstructions(data){
+  let steps = [];
+  try { 
+    steps = data["analyzedInstructions"][0]["steps"]; // Data from API
+  } catch {
+    return data["instructions"]; // Data from Local Storage
+  }
+  let instrucList = [];
+  let index = 0;
+
+  steps.forEach((step) =>{
+      let instruction = step["step"];
+      instrucList[index++] = instruction;
+  });
+
+  return instrucList;
+}
+
+
+
+// Define the class recipe page
+customElements.define("recipe-page", RecipePage);</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CategoryCard.CategoryCard.html">CategoryCard</a></li><li><a href="RecipeCard.RecipeCard.html">RecipeCard</a></li><li><a href="RecipePage.RecipePage.html">RecipePage</a></li><li><a href="Router.exports.Router.html">exports.Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMoreIngredients">addMoreIngredients</a></li><li><a href="global.html#addMoreInstructions">addMoreInstructions</a></li><li><a href="global.html#addNewCookBook">addNewCookBook</a></li><li><a href="global.html#appendNewCookBook">appendNewCookBook</a></li><li><a href="global.html#bindAll">bindAll</a></li><li><a href="global.html#bindAppNameClick">bindAppNameClick</a></li><li><a href="global.html#bindCategoryCards">bindCategoryCards</a></li><li><a href="global.html#bindCookbookPage">bindCookbookPage</a></li><li><a href="global.html#bindHomePage">bindHomePage</a></li><li><a href="global.html#bindNewCookBook">bindNewCookBook</a></li><li><a href="global.html#bindPopState">bindPopState</a></li><li><a href="global.html#bindSettingsPage">bindSettingsPage</a></li><li><a href="global.html#checkBookMark">checkBookMark</a></li><li><a href="global.html#clearCheckBoxes">clearCheckBoxes</a></li><li><a href="global.html#createCategoryCards">createCategoryCards</a></li><li><a href="global.html#fetchRecipes">fetchRecipes</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getInstructions">getInstructions</a></li><li><a href="global.html#getRecipeCardInfo">getRecipeCardInfo</a></li><li><a href="global.html#getSingleInstr">getSingleInstr</a></li><li><a href="global.html#hideCategoryCards">hideCategoryCards</a></li><li><a href="global.html#hideCookbooks">hideCookbooks</a></li><li><a href="global.html#hideEditRecipe">hideEditRecipe</a></li><li><a href="global.html#hideHome">hideHome</a></li><li><a href="global.html#hideRecipeCards">hideRecipeCards</a></li><li><a href="global.html#hideRecipePage">hideRecipePage</a></li><li><a href="global.html#hideSearchBar">hideSearchBar</a></li><li><a href="global.html#hideSettings">hideSettings</a></li><li><a href="global.html#hideTapMode">hideTapMode</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#load">load</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchByCategory">searchByCategory</a></li><li><a href="global.html#showBookMarkEditReipce">showBookMarkEditReipce</a></li><li><a href="global.html#showCategoryCards">showCategoryCards</a></li><li><a href="global.html#showCookBookMenu">showCookBookMenu</a></li><li><a href="global.html#showCookbooks">showCookbooks</a></li><li><a href="global.html#showEditRecipe">showEditRecipe</a></li><li><a href="global.html#showHome">showHome</a></li><li><a href="global.html#showRecipeCards">showRecipeCards</a></li><li><a href="global.html#showRecipePage">showRecipePage</a></li><li><a href="global.html#showSearchBar">showSearchBar</a></li><li><a href="global.html#showSettings">showSettings</a></li><li><a href="global.html#showTapMode">showTapMode</a></li><li><a href="global.html#submit">submit</a></li><li><a href="global.html#sum">sum</a></li><li><a href="global.html#toggleEditRecipe">toggleEditRecipe</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#toggleSaveCookBook">toggleSaveCookBook</a></li><li><a href="global.html#toggleTapMode">toggleTapMode</a></li><li><a href="global.html#updateSettings">updateSettings</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Nov 29 2021 17:51:46 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

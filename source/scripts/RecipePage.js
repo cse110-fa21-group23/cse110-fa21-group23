@@ -1,6 +1,11 @@
 // RecipePage.js
 
 class RecipePage extends HTMLElement{
+
+    /**
+     * Creates an instance of RecipePage.
+     * @memberof RecipePage
+     */
     constructor(){
       super();
       this.attachShadow({mode: "open"});
@@ -504,7 +509,13 @@ class RecipePage extends HTMLElement{
     }
 }
 
-// this function is used for the tap mode when the user clicks next step or previous step
+/**
+ * Used for the tap mode when the user clicks next step or previous step
+ *
+ * @param {Array} instructions An array of instructions to send to tap mode
+ * @param {Number} tapModeInd The index of the tap mode
+ * @return {String} The instruction to show to tap mode
+ */
 function getSingleInstr(instructions, tapModeInd) {
   const instr = instructions[tapModeInd];
   return instr;
