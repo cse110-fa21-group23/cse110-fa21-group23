@@ -9,10 +9,9 @@
     NOTE 3:main link https://spoonacular.com/food-api/docs#Search-Recipes-Complex
  */
 
-
 //Set API_URL
 const MAIN_API_URL = "https://api.spoonacular.com/recipes";
-const API_KEY = "&apiKey=4d936c811cda46879d4749def6bb36a1&";
+const API_KEY = "&apiKey=43d05cc71ec2491aa7e76580fce53779&";
 // API_KEY5: dd38d96d1f5d410f9bf7bfcef6cede83
 // API_KEY4 (Nhi): 8aaa6b0816db4a99b92e7852d125a9aa
 // API_KEY3 (Nhi): c8f83bb3a9af4355b12de10250b24c88
@@ -49,7 +48,7 @@ async function fetchRecipes(queries, callbackFn) {
  * Extract needed info of all recipes fetched as an array 
  * @returns {{diets1,id1,image1,title1},{diets2,id2,image2,title2},...}
  */
-function getRecipeCardInfo(data) {
+ function getRecipeCardInfo(data) {
     const recipes = [];
     for (let i = 0; i < data.length; i++) {
         const result = {};
@@ -60,8 +59,8 @@ function getRecipeCardInfo(data) {
         recipes[i] = result;
     }
     return recipes;
-}
+  }
 
-export { fetchRecipes }
+export { fetchRecipes, getRecipeCardInfo }
 
 
