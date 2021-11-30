@@ -1,16 +1,19 @@
 // RecipePage.js
 
-class RecipePage extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
+class RecipePage extends HTMLElement{
+    constructor(){
+      super();
+      this.attachShadow({mode: "open"});
+      
+      const style = document.createElement("style");
+      const container = document.createElement("article");
 
-    const style = document.createElement("style");
-    const container = document.createElement("article");
-
-    style.innerHTML = `
+      style.innerHTML = `
       .header{
-        text-align: center;
+        display: block;
+        text-align: center; 
+        width: 70%;
+        margin: auto;
       }
       
       .header h1{
@@ -20,33 +23,50 @@ class RecipePage extends HTMLElement {
         text-align: center;
         line-height: 5rem;
       }
-    
+
       .header #bookmark{
         cursor: pointer;
         text-align: center;
-        /* padding-left: 50px; */
-        margin-left : 50px;
-        /*float: right;*/
+        margin-left : 10px;
+        z-index: 100;
       }
 
+      @media (min-width: 750px) {
+        #instructions {
+          width: auto;
+        }
+        
+        .middle{
+          display: block;
+          text-align: center; 
+          width: 50%;
+          margin: auto;
+        }
+      }
+
+      .edit-recipe {
+        padding: 1em;
+        display: grid;
+        place-items: center;
+      }
+      
+      .edit-recipe > span:hover {
+        cursor: pointer;
+        color: #FF9E44;
+      }
+    
       .middle > div > h3{
-        text-align: center;
-        font-weight: bold;
-        margin-top: 10px;
-    }
-  
+          text-align: center;
+          font-weight: bold;
+          margin-top: 10px;
+      }
+    
       #clear-checkboxes{
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        margin-top: 20px;
+        display: block;
+        margin: auto;
         color: var(--primary);
-      }
-    
-      #instructions{
-        margin-top: 80px;
-      }
-    
+     }
+
       /*-- custom checkbox style --*/
       
       input[class="ingredients-custom-checkbox"] + label,
@@ -91,18 +111,34 @@ class RecipePage extends HTMLElement {
         color: black;
       }
       /*-----------------------------------*/
-        
+      
+      #instructions{
+        width: 100%;
+        display: inline-block; 
+        text-align: left;
+      }
+      
+      #instructions > h3 {
+        text-align: center;
+      }
+      
+      
       #instructions > ol > li{
         color: black;
       }
-    
+      
       #ingredients-list{
-          /* text-align: center; */
-          font-style: normal;
-          font-weight: normal;
-    
+      
+        font-style: normal;
+        font-weight: normal;
       }
-    
+      
+       #ingredients-list > ul{
+         width: auto;
+         display: inline-block; 
+         text-align: left;
+      }
+      
       #ingredients-list > button{
         border: 0;
         background-color: inherit;
@@ -110,7 +146,7 @@ class RecipePage extends HTMLElement {
         text-align: center;
         padding: 20px;
       }
-    
+      
       #ingredients-list> button:hover{
         cursor: pointer;
         background: #eee;
@@ -145,6 +181,10 @@ class RecipePage extends HTMLElement {
         font-size: 1rem;
       }
 
+      .hidden {
+        display: none;
+      }
+
       #prev-step-button {
         margin-right: 2vw;
       }
@@ -161,11 +201,14 @@ class RecipePage extends HTMLElement {
 
       `;
 
-    container.innerHTML = `
+      container.innerHTML = `
       <header class="header">
         <h1></h1>
-        <img id="bookmark" onclick="setBookMark()" src="img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
+        <img id="bookmark" onclick="showCookBookMenu()" src="img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
       </header>
+      <div class="edit-recipe hidden">
+        <span onclick="load()">Edit <img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> </span>
+      </div>
       <main class="middle">
         <img style="display: block; margin-left: auto; margin-right: auto;">
           <div id="ingredients-list">
@@ -182,35 +225,37 @@ class RecipePage extends HTMLElement {
       </main>
       `;
 
-
-    this.shadowRoot.append(style, container);
-  }
-
-  set data(data) {
-    if (data == null) {
-      console.log("Error: no data exists");
-      return;
+      this.shadowRoot.append(style, container);
     }
-    this.json = data;
 
-    this.shadowRoot.querySelector("article").innerHTML = `
+    set data(data){
+        if (data == null)
+        {
+            console.log("Error: no data exists");
+            return;
+        }
+
+      this.shadowRoot.querySelector("article").innerHTML = `
       <header class="header">
         <h1></h1>
-        <img id="bookmark" onclick="setBookMark()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
+        <img id="bookmark" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
       </header>
+      <div class="edit-recipe hidden">
+        <span onclick="load()">Edit <img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> </span>
+      </div>
       <main id="recipe-page-box" class="middle">
         <img style="display: block; margin-left: auto; margin-right: auto;" >
-        <div id="ingredients-list">
-          <h3>INGREDIENTS</h3>
-          <ul style="list-style-type: none;">
-          </ul>
-          <button id="clear-checkboxes" onclick="clearCheckBoxes()">CLEAR CHECKBOXES</button>
-        </div>
-        <div id="instructions">
-          <h3>INSTRUCTIONS</h3>   
-          <ol>
-          </ol>
-        </div>
+          <div id="ingredients-list">
+              <h3>INGREDIENTS</h3>
+              <ul style="list-style-type: none;">
+              </ul>
+              <button id="clear-checkboxes" onclick="clearCheckBoxes()">CLEAR CHECKBOXES</button>
+          </div>
+          <div id="instructions">
+              <h3>INSTRUCTIONS</h3>   
+              <ol>
+              </ol>
+          </div>
       </main>
       <section id="tap-mode-section" > 
         <section id="change-instr-btn-section">        
@@ -220,77 +265,76 @@ class RecipePage extends HTMLElement {
 
         <div id="tap-mode-instr"><div>
       </section >
-    `;
+      `;
 
-    // Header - title
-    this.shadowRoot.querySelector(".middle > img").src = data["image"];
-    this.shadowRoot.querySelector(".header > h1").innerHTML = data["title"];
+      this.shadowRoot.querySelector(".middle > img").src = data["image"];
+      this.shadowRoot.querySelector(".header > h1").innerHTML = data["title"];
+  
+      //get ingredient list
+      const ingredients = getIngredients(data);
+      ingredients.forEach(ingredient => {
+        const checkbox = document.createElement("input");
+        const label = document.createElement("label");
+        const ol = document.createElement("ol");
+        checkbox.type = "checkbox";
+        checkbox.classList.add("ingredients-custom-checkbox");
+        label.innerText = ingredient;
+        ol.appendChild(checkbox);
+        ol.appendChild(label);
+        this.shadowRoot.querySelector("#ingredients-list > ul").appendChild(ol);
+      });
 
-    //get ingredient list
-    const ingredients = getIngredients(data);
-    ingredients.forEach(ingredient => {
-      const checkbox = document.createElement("input");
-      const label = document.createElement("label");
-      const ol = document.createElement("ol");
-      checkbox.type = "checkbox";
-      checkbox.classList.add("ingredients-custom-checkbox");
-      label.innerText = ingredient;
-      ol.appendChild(checkbox);
-      ol.appendChild(label);
-      this.shadowRoot.querySelector("#ingredients-list > ul").appendChild(ol);
-    });
+        // <-- instruction -->
+        // For tap mode, display one instruction at a time
+      const instructions = getInstructions(data);
+      const instructionSize = instructions.length;
 
-    // <-- instruction -->
-    // For tap mode, display one instruction at a time
-    const instructions = getInstructions(data);
-    const instructionSize = instructions.length;
+      var tapModeInd = 0;
+      const instr = getSingleInstr(instructions, tapModeInd);
 
-    var tapModeInd = 0;
-    const instr = getSingleInstr(instructions, tapModeInd);
+      const tapModeInstr = this.shadowRoot.getElementById("tap-mode-instr");
+      const recipePageBox = this.shadowRoot.getElementById("recipe-page-box");
+      const tapModeSection = this.shadowRoot.getElementById("tap-mode-section");
+      tapModeSection.style.display = "none"; //by default, tap mode is off/hidden
+      tapModeInstr.innerHTML = instr;
 
+      document.getElementById("tap-mode-button").addEventListener("click", () => {
+        tapModeSection.style.visibility = $tapModeVisibility;
+        tapModeSection.style.display = null;
+        if ($tapModeVisibility == "hidden") {
+          recipePageBox.style.display = "inline";
+        }
+        else {
+          recipePageBox.style.display = "none";
+        }
 
-    const tapModeInstr = this.shadowRoot.getElementById("tap-mode-instr");
-    const recipePageBox = this.shadowRoot.getElementById("recipe-page-box");
-    const tapModeSection = this.shadowRoot.getElementById("tap-mode-section");
-    tapModeSection.style.visibility = "hidden"; //by default, tap mode is off/hidden
-    tapModeInstr.innerHTML = instr;
+      })
 
-    document.getElementById("tap-mode-button").addEventListener("click", () => {
-      tapModeSection.style.visibility = $tapModeVisibility;
-      if ($tapModeVisibility == "hidden") {
-        recipePageBox.style.display = "inline";
-      }
-      else {
-        recipePageBox.style.display = "none";
-      }
-
-    })
-
-    this.shadowRoot.getElementById("prev-step-button").addEventListener("click", () => {
-      if (tapModeInd == 0) {
-        console.log("you're on the first step already!")
-        return;
-      }
-      else {
-        tapModeInd--;
-        const instr = getSingleInstr(instructions, tapModeInd);
-        tapModeInstr.innerHTML = instr;
-      }
+      this.shadowRoot.getElementById("prev-step-button").addEventListener("click", () => {
+        if (tapModeInd == 0) {
+          console.log("you're on the first step already!");
+          return;
+        }
+        else {
+          tapModeInd--;
+          const instr = getSingleInstr(instructions, tapModeInd);
+          tapModeInstr.innerHTML = instr;
+        }
 
 
-    })
-    this.shadowRoot.getElementById("next-step-button").addEventListener("click", () => {
-      if (tapModeInd >= instructionSize - 1) {
-        console.log("You've reached the end of the recipe!");
-        return;
-      }
-      else {
-        tapModeInd++;
-        const instr = getSingleInstr(instructions, tapModeInd);
-        tapModeInstr.innerHTML = instr;
-      }
+      })
+      this.shadowRoot.getElementById("next-step-button").addEventListener("click", () => {
+        if (tapModeInd >= instructionSize - 1) {
+          console.log("You've reached the end of the recipe!");
+          return;
+        }
+        else {
+          tapModeInd++;
+          const instr = getSingleInstr(instructions, tapModeInd);
+          tapModeInstr.innerHTML = instr;
+        }
 
-    })
+      })
 
 
 
@@ -300,13 +344,29 @@ class RecipePage extends HTMLElement {
       li.innerHTML = element;
       this.shadowRoot.querySelector("#instructions > ol").appendChild(li);
     });
-  }
-  get data() {
-    return this.json;
-  }
+
+        // replicate data
+      const replicateData = {
+        "id"    : data["id"],
+        "title" : data["title"],
+        "image" : data["image"],
+        "ingredients" : ingredients,
+        "instructions": instructions
+      }
+      this.json = replicateData;
+    }
+    get data(){
+      return this.json;
+    }
 }
 
-// this function is used for the tap mode when the user clicks next step or previous step
+/**
+ * Used for the tap mode when the user clicks next step or previous step
+ *
+ * @param {Array} instructions An array of instructions to send to tap mode
+ * @param {Number} tapModeInd The index of the tap mode
+ * @return {String} The instruction to show to tap mode
+ */
 function getSingleInstr(instructions, tapModeInd) {
   const instr = instructions[tapModeInd];
   return instr;
@@ -318,15 +378,14 @@ function getSingleInstr(instructions, tapModeInd) {
  * @param {Object} data JSON
  * @returns {Array} return a list of ingredients
  */
-function getIngredients(data) {
-  const steps = data["analyzedInstructions"][0]["steps"];
+function getIngredients(data){
+  const extendedIngredients =  data["extendedIngredients"];
+  // called from cookbook
+  if (extendedIngredients == null || extendedIngredients == undefined) { return data["ingredients"]; }
   let list = [];
   let index = 0;
-  steps.forEach((step) => {
-    let ingredients = step["ingredients"];
-    for (let i = 0; i < ingredients.length; i++) {
-      list[index++] = ingredients[i]["name"];
-    }
+  extendedIngredients.forEach((ingredien) =>{
+    list[index++] = ingredien["originalString"];
   })
   return list;
 }
@@ -336,14 +395,19 @@ function getIngredients(data) {
  * @param {Object} data JSON
  * @returns {Array} return a list of instructions
  */
-function getInstructions(data) {
-  const steps = data["analyzedInstructions"][0]["steps"];
+function getInstructions(data){
+  let steps = [];
+  try { 
+    steps = data["analyzedInstructions"][0]["steps"]; // Data from API
+  } catch {
+    return data["instructions"]; // Data from Local Storage
+  }
   let instrucList = [];
   let index = 0;
 
-  steps.forEach((step) => {
-    let instruction = step["step"];
-    instrucList[index++] = instruction;
+  steps.forEach((step) =>{
+      let instruction = step["step"];
+      instrucList[index++] = instruction;
   });
 
   return instrucList;

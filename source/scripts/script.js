@@ -2,19 +2,16 @@
 import { fetchRecipes } from "./api_script.js";
 import { Router } from "./Router.js";
 
-const API_KEY = '4d936c811cda46879d4749def6bb36a1';
-// API_KEY4: 8aaa6b0816db4a99b92e7852d125a9aa
-// API_KEY3 (Nhi): c8f83bb3a9af4355b12de10250b24c88
-// API_KEY2 (Nhi): fafd5e810c304ed3b4f9984672cb21ee
-// API_KEY1: 4d936c811cda46879d4749def6bb36a1
-// API_KEY0: 43d05cc71ec2491aa7e76580fce53779
-const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&fillIngredients=true&addRecipeInformation=true&instructionsRequired=true`;
-const recipes = [];
 let recipeData = {};
+let prevSearch = '';
 
 const router = new Router(function () {
     showHome();
 });
+
+
+const tapModeButton = document.getElementById("tap-mode-button");
+tapModeButton.addEventListener("click", toggleTapMode); // toggleTapMode() is in main.js
 
 //arrays holding category names and images for category cards
 const categories = ["Indian", "Vegan", "Mexican", "Gluten-Free", "Italian", "Japanese", "American", "Vegetarian", "Thai", "Chinese", "Korean",
@@ -79,8 +76,6 @@ async function init() {
             createRecipeCards();
         }
     });
-
-
 }
 
 // The search function, calls API function to fetch all recipes
@@ -88,16 +83,24 @@ async function init() {
 function search() {
     // get the search query
     const searchQuery = document.getElementById("search-query").value;
-    // let searchQuery = document.getElementById('search-query').value;
-    // console.log(searchQuery);
-    // console.log(localStorage.getItem("dietaryRestrictions"));
-
     const recipeCardContainer = document.getElementById('recipe-card-container');
 
+    // If it is empty, alert the user it is empty
+    if (!searchQuery) {
+        alert("Please input a search or click a filter below");
+        return false;
+    }
+
+    // If the prev search hasn't changed, simply keep the results
+    if (prevSearch === searchQuery) return false;
+
+    prevSearch = searchQuery;
     const page = searchQuery;
     router.addPage(page, function () {
+        hideRecipePage();
         hideCategoryCards();
         showRecipeCards();
+        showSearchBar();
         hideCookbooks();
         hideSettings();
     });
@@ -122,12 +125,6 @@ function search() {
         queryStrIntolerances = `&intolerances=${getIntolerancesRestrictions}`
     }
 
-    // If it is empty, alert the user it is empty
-    if (!searchQuery) {
-        alert("Please input a search or click a filter below");
-        return;
-    }
-
     // Fetch the Recipes with the specified queries
     const queries = `&query=${searchQuery}${queryStrDiet}${queryStrIntolerances}`;
     return fetchRecipes(queries, (data) => {
@@ -145,6 +142,7 @@ function createRecipeCards() {
 
         const id = recipeData[i]["id"];
         router.addPage(id, function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             hideHome();
             hideRecipeCards();
             showRecipePage();
@@ -152,7 +150,6 @@ function createRecipeCards() {
             hideCookbooks();
             document.querySelector("recipe-page").data = recipeData[i];
             checkBookMark(recipeData[i]);
-
         });
 
         recipeCardContainer.appendChild(element);
@@ -162,18 +159,12 @@ function createRecipeCards() {
 
 function bindRecipeCard(recipeCard, pageName) {
     recipeCard.addEventListener('click', e => {
-        if (e.path[0].nodeName == "A") return;
-        router.navigate(pageName);
+        if (e.composedPath()[0].nodeName == "A") return;
+        router.navigate(pageName, false);
     });
 }
 
-function bindPopstate() {
-    window.addEventListener("popstate", (event) => {
-        if (event.state != null) { router.navigate(event.state, true); }
-        else
-            router.navigate("home", true);
-    });
-}
+
 
 //this function creates 6 category cards from the categories and images arrays above using random 
 //values so everytime the user refreshes, there will be a new set of categories
@@ -208,9 +199,7 @@ function createCategoryCards() {
             hideSettings();
             showRecipeCards();
             hideRecipePage();
-            const search = document.getElementById("search");
-            search.style.visibility = "visible";
-
+            showSearchBar();
         });
 
         bindCategoryCards(categoryCard, categories[randNums[i]]);

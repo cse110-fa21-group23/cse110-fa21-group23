@@ -12,7 +12,7 @@
 
 //Set API_URL
 const MAIN_API_URL = "https://api.spoonacular.com/recipes";
-const API_KEY = "&apiKey=43d05cc71ec2491aa7e76580fce53779&";
+const API_KEY = "&apiKey=4d936c811cda46879d4749def6bb36a1&";
 // API_KEY5: dd38d96d1f5d410f9bf7bfcef6cede83
 // API_KEY4 (Nhi): 8aaa6b0816db4a99b92e7852d125a9aa
 // API_KEY3 (Nhi): c8f83bb3a9af4355b12de10250b24c88
@@ -25,8 +25,9 @@ const API_KEY = "&apiKey=43d05cc71ec2491aa7e76580fce53779&";
 // callbackFn assigns the value from the fetch to the global variable
 async function fetchRecipes(queries, callbackFn) {
     const complexSearch = "/complexSearch";
-    const count = "&addRecipeInformation=true&number=30"
-    const url = `${MAIN_API_URL}${complexSearch}?${queries}${API_KEY}${count}`;
+    const count = "&addRecipeInformation=true&number=30";
+    const addIngridients = "&fillIngredients=true&instructionsRequired=true";
+    const url = `${MAIN_API_URL}${complexSearch}?${queries}${API_KEY}${addIngridients}${count}`;
     console.log(url);
     return new Promise((resolve, reject) => {
         fetch(url)
