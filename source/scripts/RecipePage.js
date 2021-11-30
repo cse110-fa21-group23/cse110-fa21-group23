@@ -306,6 +306,11 @@ class RecipePage extends HTMLElement{
       }
 
       var numIngrs = 1;
+      /**
+       * Checks the scaling value and updates ingredient list appropriately
+       *
+       * @return {*} Changes the ingredient list according to scaling 
+       */
       function checkScale() {
         scaleSize = scaleBox.value;
         if(scaleSize == 1) {
@@ -314,7 +319,7 @@ class RecipePage extends HTMLElement{
 
         let ingrArray = [];
         for(let i = 0; i < numIngrs; i++) {
-          ingrArray[i] = this.shadowRoot.querySelector("#ingredient-element-"+(i+1)).innerText;
+          ingrArray[i] = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#ingredient-element-"+(i+1)).innerText;
         }
 
         var gcf = 1;  //hold the GCF of possible fraction numerator and denominator
