@@ -392,7 +392,8 @@ class RecipePage extends HTMLElement {
  */
 function getSingleInstr(instructions, tapModeInd) {
   const instr = instructions[tapModeInd];
-  return instr;
+  const instructionNum = tapModeInd + 1;
+  return instructionNum + ".  " + instr;
 }
 
 // Helper functions
