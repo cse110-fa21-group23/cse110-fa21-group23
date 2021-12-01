@@ -645,3 +645,11 @@ footer {
 }
 /* End of Category cards style for different Screen sizes ==================================*/
 
+/* Used to hide the elements not to be printed */
+@media print {
+  .noprint {
+     visibility: hidden;
+     display: none;
+  }
+}
+

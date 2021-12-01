@@ -221,6 +221,12 @@ class RecipePage extends HTMLElement{
         transition: all 0.3s ease-out;
       }
 
+      @media print {
+        .noprint {
+           visibility: hidden;
+        }
+      }
+
       `;
 
       container.innerHTML = `
@@ -264,9 +270,9 @@ class RecipePage extends HTMLElement{
       this.shadowRoot.querySelector("article").innerHTML = `
       <header class="header">
         <h1 id="recipe-title"></h1>
-        <img id="bookmark" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
+        <img id="bookmark" class="noprint" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
       </header>
-      <div class="share-icons" >
+      <div class="share-icons noprint">
         <img id="print" onclick="printRecipe()" src="./img/icons/print-icon.svg" name="print-icon" width="36" height="36">
         <img id="email" onclick="emailRecipe()" src="./img/icons/email-icon.svg" name="email-icon" width="36" height="36">
       </div>
@@ -279,7 +285,7 @@ class RecipePage extends HTMLElement{
               <h3>INGREDIENTS</h3>
               <ul style="list-style-type: none;" id="recipe-ingredients">
               </ul>
-              <button id="clear-checkboxes" onclick="clearCheckBoxes()">CLEAR CHECKBOXES</button>
+              <button id="clear-checkboxes" onclick="clearCheckBoxes()" class="noprint">CLEAR CHECKBOXES</button>
           </div>
           <div id="instructions">
               <h3>INSTRUCTIONS</h3>   

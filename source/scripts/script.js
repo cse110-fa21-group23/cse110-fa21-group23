@@ -385,7 +385,7 @@ emailFormSubmit.addEventListener("click", (e) => {
     %0D%0A Instructions: %0D%0A ${instructions}`;
 
     window.open(`mailto:${getInputValue.value}?subject=${subject}&body=${body}`);
-})
+});
 
 
 window.init = init;
