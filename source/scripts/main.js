@@ -357,12 +357,14 @@ function hideFilters() {
 
 function hideFilterBtns() {
     const filtersBtn = document.getElementById("filters-container")
-    filtersBtn.style.visibility = "hidden"
+    filtersBtn.style.visibility = "hidden";
+    filtersBtn.style.display = "none";
 }
 
 function showFilterBtns() {
     const filtersBtn = document.getElementById("filters-container")
-    filtersBtn.style.visibility = "visible"
+    filtersBtn.style.visibility = "visible";
+    filtersBtn.style.display = "";
     
 }
 
@@ -375,10 +377,14 @@ function showDietFilters() {
 function showApplyBtn() {
     const applyButton = document.getElementById("applyBtn");
     applyButton.style.visibility = "visible";
+    applyButton.style.display = "";
+
 }
 function hideApplyBtn() {
+    console.log("hiding apply btn")
     const applyButton = document.getElementById("applyBtn");
     applyButton.style.visibility = "hidden";
+    applyButton.style.display = "none";
 }
 
 function showCuisineFilters() {

@@ -94,8 +94,76 @@ async function init() {
 }
 
 // tag functionality
+//const timeFilter = ;
+document.getElementById("cuisine-filter").addEventListener("click", (e)=>{
+    console.log("clicking");
+    let cuisineList = document.getElementsByName("cuisine-radio");
+    let count = 0;
+    for (let i = 0; i < cuisineList.length; i++) {
+        if (cuisineList[i].checked) {
+            count++;       
+        }
+    }
+    if(count>0){
+        showApplyBtn();
+    }
+    else{
+        hideApplyBtn();
+    }
+    
+})
+document.getElementById("diet-filter").addEventListener("click", (e)=>{
+    console.log("clicking");
+    let dietList = document.getElementsByName("diet-radio");
+    let count = 0;
+    for (let i = 0; i < dietList.length; i++) {
+        if (dietList[i].checked) {
+            count++;       
+        }
+    }
+    if(count>0){
+        showApplyBtn();
+    }
+    else{
+        hideApplyBtn();
+    }
+    
+})
+document.getElementById("meal-filter").addEventListener("click", (e)=>{
+    console.log("clicking");
+    let mealList = document.getElementsByName("meal-radio");
+    let count = 0;
+    for (let i = 0; i < mealList.length; i++) {
+        if (mealList[i].checked) {
+            count++;       
+        }
+    }
+    if(count>0){
+        showApplyBtn();
+    }
+    else{
+        hideApplyBtn();
+    }
+    
+})
+document.getElementById("time-filter").addEventListener("click", (e)=>{
+    console.log("clicking");
+    let timeList = document.getElementsByName("time-radio");
+    let count = 0;
+    for (let i = 0; i < timeList.length; i++) {
 
-
+        if (timeList[i].checked) {
+            count++;       
+        }
+    }
+    if(count>0){
+        showApplyBtn();
+    }
+    else{
+        hideApplyBtn();
+    }
+    
+})
 
 function searchByFilter () {
     hideCategoryCards();
@@ -221,7 +289,7 @@ function search() {
         hideCookbooks();
         hideSettings();
         showFilterBtns();
-        showApplyBtn();
+        hideApplyBtn();
     });
 
     router.navigate(page, false);//to clear url when user searches recipe
@@ -322,7 +390,7 @@ function createCategoryCards() {
             hideRecipePage();
             showSearchBar();
             showFilterBtns();
-            showApplyBtn();
+            hideApplyBtn();
         });
 
         bindCategoryCards(categoryCard, categories[randNums[i]]);
