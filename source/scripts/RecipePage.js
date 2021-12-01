@@ -443,7 +443,7 @@ function getInstructions(data){
   return instrucList;
 }
 
-export { getInstructions, getIngredients }
+export { getInstructions, getIngredients };
 
 
 // Define the class recipe page

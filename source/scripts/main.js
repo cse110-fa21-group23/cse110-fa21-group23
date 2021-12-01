@@ -241,7 +241,7 @@ function toggleShareRecipeModal() {
     blackout.onclick = () => {
         modal.style.display = "none";
         blackout.style.display = "none";
-    }
+    };
 }
 
 /**
@@ -635,3 +635,6 @@ function showBookMarkEditReipce() {
 function emailRecipe() {
     toggleShareRecipeModal();
 }
+
+window.printRecipe = printRecipe;
+window.emailRecipe = emailRecipe;
