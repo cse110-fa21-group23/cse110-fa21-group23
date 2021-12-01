@@ -510,9 +510,17 @@ transform: scale(1);
   color: inherit;
   font-weight: bold;
   cursor: pointer;
-  margin: .5em;
+  margin: .5em; 
 }
 
+.edit-recipe-form > div> button:hover{
+  color: var(--orange3);
+}
+
+.edit-ingredients >button, .edit-instructions > button {
+  border: none;
+  float: right;
+}
 .edit-ingredients > *, .edit-instructions > * {
   padding: .5em;
 }
@@ -522,7 +530,7 @@ transform: scale(1);
 }
 .edit-ingredients > ol > li > input, .edit-instructions > ol > li > input {
   padding: 0.25em;
-  border: 0;
+  border: none;
   width: 100%;
   color: black;
 }
@@ -530,6 +538,8 @@ transform: scale(1);
 #cancel, #submit {
   padding: 1em 0;
   width: 7em;
+  width:40%;
+  border: none;
 } 
 @media (min-width: 750px) {
   .edit-recipe-form {

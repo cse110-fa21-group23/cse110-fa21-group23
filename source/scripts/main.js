@@ -533,7 +533,7 @@ function addMoreIngredients(ig = "") {
     let text = document.createElement("input");
     let ingreList = document.querySelector(".edit-recipe-form > .edit-ingredients > ol");
     text.type = "text";
-    text.placeholder = "ingredient / leave blank if not needed";
+    text.placeholder = "ingredient";
     text.value = ig;
     li.appendChild(text);
     ingreList.appendChild(li);
@@ -549,10 +549,26 @@ function addMoreInstructions(ins = "") {
     let text = document.createElement("input");
     let instrList = document.querySelector(".edit-recipe-form > .edit-instructions > ol");
     text.type = "text";
-    text.placeholder = "instruction / leave blank if not needed";
+    text.placeholder = "instruction";
     text.value = ins;
     li.appendChild(text);
     instrList.appendChild(li);
+}
+
+/**
+ * this function removes the last ingredient in the ingredients list
+ */
+function removeIngredient() {
+    let ingreList = document.querySelector(".edit-recipe-form > .edit-ingredients > ol");
+    ingreList.lastChild.remove();
+}
+
+/**
+ * This function removes the last intructions in the instructions list
+ */
+function removeInstruction() {
+    let instrList = document.querySelector(".edit-recipe-form > .edit-instructions > ol");
+    instrList.lastChild.remove();
 }
 
 /**
