@@ -28,6 +28,16 @@ class RecipePage extends HTMLElement {
         text-align: center;
         line-height: 5rem;
       }
+      @media (max-width: 750px) {
+        .header h1{
+          font-size: max(10vw, 10px);
+          letter-spacing: -1px;
+          line-height: 1;
+        }
+        .header #bookmark{
+          height: max(10vw, 10px);
+        }
+      }
 
       .header #bookmark{
         cursor: pointer;
@@ -167,13 +177,16 @@ class RecipePage extends HTMLElement {
         flex-direction: column;
       }
       #tap-mode-instr{
-        font-size: 1.5rem;
+        font-size: 2rem;
         font-style: italic;
+        padding-right: 5rem;
+        padding-left: 5rem;
+        padding-bottom: 2rem;
       }
 
       #change-instr-btn-section {
         padding: 20px;
-        height: 20vh;
+        height: fit-content;
         display: flex;
         flex-direction: row;
       }
@@ -182,7 +195,7 @@ class RecipePage extends HTMLElement {
         height: max-content;
         float:right;
         width: 50%;
-        height: 100%;
+        height: 10vh;
         float: right;
         background: var(--primary);
         border: none;
