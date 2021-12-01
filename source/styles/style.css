@@ -647,8 +647,7 @@ footer {
 /* Used to hide the elements not to be printed */
 @media print {
   .noprint {
-     visibility: hidden;
-     display: none;
+    visibility: hidden;
   }
 }
 
