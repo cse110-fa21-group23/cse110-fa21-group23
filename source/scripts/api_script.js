@@ -20,9 +20,13 @@ const API_KEY = "&apiKey=4d936c811cda46879d4749def6bb36a1&";
 // API_KEY1: 4d936c811cda46879d4749def6bb36a1
 // API_KEY0: 43d05cc71ec2491aa7e76580fce53779
 
-// Fetch the recipes for the search page
-// queries - string that contains all query parameters for API call
-// callbackFn assigns the value from the fetch to the global variable
+/**
+ * Fetch the recipes for the search page
+ *
+ * @param {String} queries string that contains all query parameters for API call
+ * @param {Function} callbackFn assigns the value from the fetch to the global variable
+ * @return {Promise} a Promise for whether or not a recipe has been loaded successfully
+ */
 async function fetchRecipes(queries, callbackFn) {
     const complexSearch = "/complexSearch";
     const count = "&addRecipeInformation=true&number=30";
@@ -41,13 +45,15 @@ async function fetchRecipes(queries, callbackFn) {
                 console.log("Error loading the recipe");
                 reject(err);
             });
-    })
+    });
 }
 
 //HELPER FUNCTIONS
 /**
- * Extract needed info of all recipes fetched as an array 
- * @returns {{diets1,id1,image1,title1},{diets2,id2,image2,title2},...}
+ * Extract needed info of all recipes fetched as an array
+ *
+ * @param {Array} data an array of data for a recipe card
+ * @return {Array} an array of extracted data for a recipe card
  */
 function getRecipeCardInfo(data) {
     const recipes = [];
@@ -62,6 +68,6 @@ function getRecipeCardInfo(data) {
     return recipes;
 }
 
-export { fetchRecipes }
+export { fetchRecipes };
 
 

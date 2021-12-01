@@ -1,9 +1,18 @@
 class RecipeCard extends HTMLElement {
+    /**
+     * Creates an instance of RecipeCard.
+     * @memberof RecipeCard
+     */
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
     }
     //TODO: move style into its own css file
+    /**
+     * Sets data for a recipe card
+     *
+     * @memberof RecipeCard
+     */
     set data(data) {
         const styleElement = document.createElement("style");
         const styles = `
