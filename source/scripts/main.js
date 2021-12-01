@@ -163,6 +163,7 @@ function showHome() {
     hideFilters();
     showFilterBtns();
     showSearchBar();
+    showApplyBtn();
     document.getElementById('search-query').value = ''; //clears search result
 }
 
@@ -171,6 +172,7 @@ function hideHome() {
     hideSearchBar();
     hideFilters();
     hideFilterBtns();
+    hideApplyBtn();
 }
 
 function showSearchBar() {
@@ -286,11 +288,11 @@ function showDietFilters() {
 }
 
 function showApplyBtn() {
-    const applyButton = document.getElementsById("applyBtn");
+    const applyButton = document.getElementById("applyBtn");
     applyButton.style.visibility = "visible";
 }
 function hideApplyBtn() {
-    const applyButton = document.getElementsById("applyBtn");
+    const applyButton = document.getElementById("applyBtn");
     applyButton.style.visibility = "hidden";
 }
 
