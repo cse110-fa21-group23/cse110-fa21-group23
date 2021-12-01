@@ -1,6 +1,11 @@
 // RecipePage.js
 
 class RecipePage extends HTMLElement{
+
+    /**
+     * Creates an instance of RecipePage.
+     * @memberof RecipePage
+     */
     constructor(){
       super();
       this.attachShadow({mode: "open"});

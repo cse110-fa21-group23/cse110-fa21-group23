@@ -1,13 +1,33 @@
 // Router.js
 export class Router {
+    /**
+     * Creates an instance of Router.
+     * @param {*} homeFunction
+     * @memberof Router
+     */
     constructor(homeFunction) {
       this["home"] = homeFunction;
     }
   
+    /**
+     * Adds a page to the router
+     *
+     * @param {String} page the page to add
+     * @param {Function} pageFunction the page function to call
+     * @memberof Router
+     */
     addPage(page, pageFunction) {
       this[page] = pageFunction;
     }
-  
+    
+    /**
+     * Navigtes to the page
+     *
+     * @param {String} page the page to navigate to
+     * @param {Boolean} statePopped whether this page has been popped
+     * @return {*} no return call
+     * @memberof Router
+     */
     navigate(page, statePopped) {
 
   

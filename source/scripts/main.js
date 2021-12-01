@@ -1,6 +1,10 @@
 var $SOMenuVisibility = "hidden";
 var $tapModeVisibility = "hidden";
 
+/**
+ * Toggles the Menu list
+ *
+ */
 function toggleMenu() {
     var menuIcon = document.getElementById("menu-icon");
     menuIcon.classList.toggle("change");
@@ -18,6 +22,10 @@ function toggleMenu() {
 }
 
 // this function is being called from scripts.js, ignore the Codacy error :D
+/**
+ * Toggles Tap Mode
+ *
+ */
 function toggleTapMode() {
     const tapModeButton = document.getElementById("tap-mode-button");
 
@@ -32,6 +40,10 @@ function toggleTapMode() {
 
 }
 
+/**
+ * Shows the Settings page
+ *
+ */
 function showSettings() {
     hideHome();
     hideCookbooks();
@@ -65,12 +77,20 @@ function showSettings() {
     }
 }
 
+/**
+ * Clears check boxes on a recipe page and list
+ *
+ */
 function clearCheckBoxes() {
     let checkboxes = document.querySelector("#recipe-page-container > recipe-page")
         .shadowRoot.querySelectorAll("#ingredients-list > ul > ol > input");
     checkboxes.forEach((e) => e.checked = false);
 }
 
+/**
+ * Hide the settings
+ *
+ */
 function hideSettings() {
     const settings = document.getElementById("settings-container");
     settings.style.visibility = "hidden";
@@ -78,6 +98,10 @@ function hideSettings() {
     // settings.style.transform = "translate(-100%)";
 }
 
+/**
+ * Show home page
+ *
+ */
 function showHome() {
     hideSettings();
     hideCookbooks();
@@ -88,23 +112,39 @@ function showHome() {
     document.getElementById('search-query').value = ''; //clears search result
 }
 
+/**
+ * Hide the home page
+ *
+ */
 function hideHome() {
     hideCategoryCards();
     hideSearchBar();
 }
 
+/**
+ * Show the search bar
+ *
+ */
 function showSearchBar() {
     const search = document.getElementById("search");
     search.style.visibility = "visible";
     search.style.display = null;
 }
 
+/**
+ * Hide search bar
+ *
+ */
 function hideSearchBar() {
     const search = document.getElementById("search");
     search.style.visibility = "hidden";
     search.style.display = "none";
 }
 
+/**
+ * Show cookbooks page
+ *
+ */
 function showCookbooks() {
     hideSettings();
     hideHome();
@@ -116,6 +156,10 @@ function showCookbooks() {
     document.querySelector("body > main > div.box").style.display = "none";
 }
 
+/**
+ * Hide cookbooks page
+ *
+ */
 function hideCookbooks() {
     const cookbook = document.getElementById("cookbook-container");
     cookbook.style.visibility = "hidden";
@@ -123,6 +167,10 @@ function hideCookbooks() {
     document.querySelector("body > main > div.box").style.display = null;
 }
 
+/**
+ * Shoe recipe page
+ *
+ */
 function showRecipePage() {
     showTapMode();
     const recipePage = document.getElementById("recipe-page-container");
@@ -130,6 +178,10 @@ function showRecipePage() {
     recipePage.style.display = null;
 }
 
+/**
+ * Hide recipe page
+ *
+ */
 function hideRecipePage() {
     hideTapMode();
     const recipePage = document.getElementById("recipe-page-container");
@@ -139,39 +191,68 @@ function hideRecipePage() {
     tapModeButton.innerHTML = "Tap Mode Off";
 }
 
+/**
+ * Show the recipe cards
+ *
+ */
 function showRecipeCards() {
     const recipeCards = document.getElementById("recipe-card-container");
     recipeCards.style.visibility = "visible";
     recipeCards.style.display = null;
 }
+
+/**
+ * Hide recipe cards
+ *
+ */
 function hideRecipeCards() {
     const recipeCards = document.getElementById("recipe-card-container");
     recipeCards.style.visibility = "hidden";
     recipeCards.style.display = "none";
 }
 
+/**
+ * Show category cards
+ *
+ */
 function showCategoryCards() {
     const categoryCards = document.getElementById("category-wrapper");
     categoryCards.style.visibility = "visible";
     categoryCards.style.display = null;
 }
 
+/**
+ * Hide category cards
+ *
+ */
 function hideCategoryCards() {
     const categoryCards = document.getElementById("category-wrapper");
     categoryCards.style.visibility = "hidden";
     categoryCards.style.display = "none";
 }
 
+/**
+ * Show tap mode button
+ *
+ */
 function showTapMode() {
     const tap = document.getElementById("tap-mode-button");
     tap.style.visibility = "visible";
 }
 
+/**
+ * Hide tap mode button
+ *
+ */
 function hideTapMode() {
     const tap = document.getElementById("tap-mode-button");
     tap.style.visibility = "hidden";
 }
 
+/**
+ * Update global settings for user
+ *
+ */
 function updateSettings() {
     const dietaryRestrictionList = [];
     // Get all the inputs under the div
@@ -202,14 +283,14 @@ function updateSettings() {
     alert("your preferences have been updated");
 }
 
+// TODO: Add a warning before removing bookmark ("Are you sure to you want to remove this from your Cookbooks? All local edits to the recipe will be lost")
 /**
  * This function check if the recurrent recipe has been whether saved or not.
  * If the data has been saved, display bookmark and edit recipe,
  * and load data from local storage.
+ * 
  * @param {Object} data 
  */
-
-// TODO: Add a warning before removing bookmark ("Are you sure to you want to remove this from your Cookbooks? All local edits to the recipe will be lost")
 function checkBookMark(data) {
     const Id = data["id"];
     const Data = JSON.parse(localStorage.getItem(`ID-${Id}`));
@@ -224,7 +305,8 @@ function checkBookMark(data) {
 const COOK_BOOKS = "cookbooks";
 var $SOSaveCookBookMenuVisibility = "hidden";
 /**
- * This function displays saved-cookbook menu
+ * Displays saved-cookbook menu
+ *
  */
 function toggleSaveCookBook() {
     var menu = document.querySelector("#save-cookbook-menu");
@@ -244,6 +326,7 @@ function toggleSaveCookBook() {
  *  This functions displays all the cookbooks in local storage to the saved-cookbook menu
  * when users click on bookmark. There is one cookbook by default - "favorites".
  *  If bookmark has been marked/filled. It removes the recipe from local Storage.
+ * 
  */
 function showCookBookMenu() {
     let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
@@ -286,7 +369,8 @@ function showCookBookMenu() {
 /**
  * This functions bind a cookbook / add an event upon click, so that when users click on a cookbook, 
  * it saves the current recipe to the cookbook that user chose
- * @param {HTML object} li 
+ * 
+ * @param {HTMLObjectElement} li the cookbook to save to
  */
 function bindNewCookBook(li) {
     li.addEventListener("click", (event) => {
@@ -324,11 +408,19 @@ function bindNewCookBook(li) {
     });
 }
 
+/**
+ * Show edit recipe button
+ *
+ */
 function showEditRecipe() {
     let editDiv = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("article > div");
     editDiv.classList.remove("hidden");
 }
 
+/**
+ * Hide edit recipe button
+ *
+ */
 function hideEditRecipe() {
     let editDiv = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("article > div");
     editDiv.classList.add("hidden");
@@ -337,6 +429,7 @@ function hideEditRecipe() {
 
 /**
  * This function adds new cookbook to the save-cookbook menu
+ * 
  * @param {string} newCookBook 
  */
 function appendNewCookBook(newCookBook) {
@@ -360,6 +453,7 @@ function appendNewCookBook(newCookBook) {
 /**
  * This function ask user to enter new cookbook's name,
  * store it to local storage and call appendNewCookBook()
+ * 
  */
 function addNewCookBook() {
     let newCookBook = prompt("Enter new cookbook:");
@@ -379,6 +473,7 @@ function addNewCookBook() {
 let EDIT_RECIPE_DATA = {}; // data from current recipe
 /**
  * This function loads all ingredients and instructions to the Edit Recipe popup
+ * 
  */
 function load() {
     const Id = document.querySelector("recipe-page").data["id"];
@@ -405,10 +500,12 @@ function load() {
     $(".edit-recipe-form").scrollTop(0);
 }
 
+
+var $editRecipeVisibility = "hidden";
 /**
  * This function displays the popup menu to edit recipe
+ * 
  */
-var $editRecipeVisibility = "hidden";
 function toggleEditRecipe() {
     const article = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("article");
     article.style.opacity = 0.35;
@@ -428,6 +525,7 @@ function toggleEditRecipe() {
 
 /**
  * This hepler function adds ingredients to the edit recipe.
+ * 
  * @param {string} ig ingredient
  */
 function addMoreIngredients(ig = "") {
@@ -443,6 +541,7 @@ function addMoreIngredients(ig = "") {
 
 /**
  * This hepler function adds instructions to the edit recipe
+ * 
  * @param {string} ins instruction
  */
 function addMoreInstructions(ins = "") {
@@ -459,6 +558,7 @@ function addMoreInstructions(ins = "") {
 /**
  * When users hit "save" on edit recipe popup
  * It save the data to recipe on local storage and reload the RecipePage with info
+ * 
  */
 function submit() {
     let ingredientsList = document.querySelectorAll(".edit-recipe-form > .edit-ingredients > ol > li > input");
@@ -496,6 +596,7 @@ function submit() {
 
 /**
  * This helper function display bookmark-filled and display editRecipe
+ * 
  */
 function showBookMarkEditReipce() {
     let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
