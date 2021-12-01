@@ -22,6 +22,10 @@ const images = ["./img/foodPics/indian.jpeg", "./img/foodPics/vegan.jpeg", "./im
 
 window.addEventListener('DOMContentLoaded', init);
 
+/**
+ * Binds a pop state to a routing page
+ *
+ */
 function bindPopState() {
     window.addEventListener("popstate", (e) => {
         if (e.state) {
@@ -33,7 +37,10 @@ function bindPopState() {
     })
 }
 
-//calls all binding functions above and is called in the init function
+/**
+ * Calls all binding functions above and is called in the init function
+ *
+ */
 function bindAll() {
     bindPopState();
     bindAppNameClick();
@@ -46,6 +53,10 @@ function bindAll() {
     bindMealFilters();
 }
 
+/**
+ * When page is initialized, create a home page to show
+ *
+ */
 async function init() {
     showHome();
     createCategoryCards();
@@ -80,8 +91,6 @@ async function init() {
             createRecipeCards();
         }
     });
-
-
 }
 
 // tag functionality
@@ -181,6 +190,12 @@ document.getElementById("applyBtn").addEventListener("click", async () => {
 
 // The search function, calls API function to fetch all recipes
 // Generates recipe cards by passing in values into RecipeData
+/**
+ * The search function, calls API functoin to fetch all recipes
+ * Generates recipe cards by passing in values into RecipeData
+ *
+ * @return {Boolean} Whether search was successful
+ */
 function search() {
     clearFilterCheckBoxes();
     // get the search query
@@ -247,6 +262,7 @@ function createRecipeCards() {
 
         const id = recipeData[i]["id"];
         router.addPage(id, function () {
+            window.scrollTo({top: 0, behavior: 'smooth'});
             hideHome();
             hideRecipeCards();
             showRecipePage();
@@ -269,10 +285,11 @@ function bindRecipeCard(recipeCard, pageName) {
 }
 
 
-
-//this function creates 6 category cards from the categories and images arrays above using random 
-//values so everytime the user refreshes, there will be a new set of categories
-
+/**
+ * Creates 6 category cards from the categories and images arrays above using random
+ * values so every time the user refreshes, there will be a new set of categories
+ *
+ */
 function createCategoryCards() {
     console.log('creating category cards')
     /* creating an array of length 6 to hold random non-repeating values that are in
@@ -315,6 +332,12 @@ function createCategoryCards() {
 }
 
 //function to bind the click event to the category card to initiate the search
+/**
+ * Binds the click event to the category card to initiate the search
+ *
+ * @param {Element} categoryCard the category card to bind to
+ * @param {String} categoryName the name of the category searched
+ */
 function bindCategoryCards(categoryCard, categoryName) {
     categoryCard.addEventListener("click", async (e) => {
         let searchQuery = categoryName;
@@ -328,7 +351,11 @@ function bindCategoryCards(categoryCard, categoryName) {
     });
 }
 
-//function to search when a category card is clicked
+/**
+ * Function to search when a category card is clicked
+ *
+ * @return {Promise} a Promise whether recipes have been fetched correctly
+ */
 async function searchByCategory() {
     hideCategoryCards();
     const recipeCardContainer = document.getElementById('recipe-card-container');
@@ -368,6 +395,10 @@ async function searchByCategory() {
 
 
 //function to return to home when app name is clicked
+/**
+ * Returns to home when app name is clicked
+ *
+ */
 function bindAppNameClick() {
     let appName = document.getElementById("app-name");
     const page = "home";
@@ -379,7 +410,10 @@ function bindAppNameClick() {
     })
 }
 
-//function to go to cookbook page when cookbook is clicked
+/**
+ * Goes to cookbook page when cookbook is clicked
+ *
+ */
 function bindCookbookPage() {
     let cookbook = document.getElementById("cookbook-page");
     const page = "cookbooks";
@@ -392,7 +426,10 @@ function bindCookbookPage() {
     })
 }
 
-//function to go to settings page when settings is clicked
+/**
+ * Goes to setting page when settings is clicked
+ *
+ */
 function bindSettingsPage() {
     let settings = document.getElementById("settings-page");
     const page = "settings";
@@ -405,7 +442,10 @@ function bindSettingsPage() {
     })
 }
 
-//function to go to home page when home is clicked
+/**
+ * Goes to home page when home is clicked
+ *
+ */
 function bindHomePage() {
     let home = document.getElementById("home-page");
     const page = "home";
