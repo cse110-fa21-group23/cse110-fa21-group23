@@ -190,6 +190,10 @@ class RecipePage extends HTMLElement {
         height: fit-content;
         display: flex;
         flex-direction: row;
+        width: 50%;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
       }
 
       .change-instr-buttons {
@@ -211,16 +215,19 @@ class RecipePage extends HTMLElement {
 
       #prev-step-button {
         margin-right: 2vw;
+        font-weight: bold;
       }
       #next-step-button {
         margin-left: 2vw;
+        font-weight: bold;
+
       }
       
       #prev-step-button:hover,
       #next-step-button:hover {
         cursor: pointer;
-        transform: scale(1.05,1.05);
-        transition: all 0.3s ease-out;
+        transform: scale(1.01,1.01);
+        transition: all 0.1s ease-in;
       }
 
       `;
@@ -282,13 +289,14 @@ class RecipePage extends HTMLElement {
       </main>
       <section id="tap-mode-section" > 
         <section id="change-instr-btn-section">        
-          <button id="prev-step-button" class="change-instr-buttons">&lt Previous Step</button> 
-          <button id="next-step-button" class="change-instr-buttons">Next Step &gt</button>    
+          <button id="prev-step-button" class="change-instr-buttons">&larr; Previous Step</button> 
+          <button id="next-step-button" class="change-instr-buttons">Next Step &rarr;</button>    
         </section>
 
         <div id="tap-mode-instr"><div>
       </section >
       `;
+    // TODO: move instructions on top of buttons instead
 
     this.shadowRoot.querySelector(".middle > img").src = data["image"];
     this.shadowRoot.querySelector(".header > h1").innerHTML = data["title"];
