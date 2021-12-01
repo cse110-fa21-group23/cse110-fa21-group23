@@ -1,6 +1,11 @@
 // RecipePage.js
 
 class RecipePage extends HTMLElement{
+
+    /**
+     * Creates an instance of RecipePage.
+     * @memberof RecipePage
+     */
     constructor(){
       super();
       this.attachShadow({mode: "open"});
@@ -48,11 +53,28 @@ class RecipePage extends HTMLElement{
         z-index: 100;
       }
 
-      .middle{
-        display: block;
-        text-align: center;
-        width: 50%;
-        margin: auto;
+      @media (min-width: 750px) {
+        #instructions {
+          width: auto;
+        }
+        
+        .middle{
+          display: block;
+          text-align: center; 
+          width: 50%;
+          margin: auto;
+        }
+      }
+
+      .edit-recipe {
+        padding: 1em;
+        display: grid;
+        place-items: center;
+      }
+      
+      .edit-recipe > span:hover {
+        cursor: pointer;
+        color: #FF9E44;
       }
     
       .middle > div > h3{
@@ -113,24 +135,30 @@ class RecipePage extends HTMLElement{
       /*-----------------------------------*/
       
       #instructions{
-        width: auto;
+        width: 100%;
         display: inline-block; 
         text-align: left;
       }
+      
+      #instructions > h3 {
+        text-align: center;
+      }
+      
       
       #instructions > ol > li{
         color: black;
       }
       
       #ingredients-list{
+      
         font-style: normal;
         font-weight: normal;
       }
       
-      #ingredients-list > ul{
-        width: auto;
-        display: inline-block; 
-        text-align: left;
+       #ingredients-list > ul{
+         width: auto;
+         display: inline-block; 
+         text-align: left;
       }
       
       #ingredients-list > button{
@@ -175,6 +203,10 @@ class RecipePage extends HTMLElement{
         font-size: 1rem;
       }
 
+      .hidden {
+        display: none;
+      }
+
       #prev-step-button {
         margin-right: 2vw;
       }
@@ -196,6 +228,9 @@ class RecipePage extends HTMLElement{
         <h1></h1>
         <img id="bookmark" onclick="showCookBookMenu()" src="img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
       </header>
+      <div class="edit-recipe hidden">
+        <span onclick="load()">Edit <img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> </span>
+      </div>
       <main class="middle">
         <img style="display: block; margin-left: auto; margin-right: auto;">
           <div id="ingredients-list">
@@ -230,6 +265,8 @@ class RecipePage extends HTMLElement{
       <div class="share-icons" >
         <img id="print" onclick="printRecipe()" src="./img/icons/print-icon.svg" name="print-icon" width="36" height="36">
         <img id="email" onclick="emailRecipe()" src="./img/icons/email-icon.svg" name="email-icon" width="36" height="36">
+      <div class="edit-recipe hidden">
+        <span onclick="load()">Edit <img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> </span>
       </div>
       <main id="recipe-page-box" class="middle">
         <img style="display: block; margin-left: auto; margin-right: auto;" >
@@ -348,7 +385,13 @@ class RecipePage extends HTMLElement{
     }
 }
 
-// this function is used for the tap mode when the user clicks next step or previous step
+/**
+ * Used for the tap mode when the user clicks next step or previous step
+ *
+ * @param {Array} instructions An array of instructions to send to tap mode
+ * @param {Number} tapModeInd The index of the tap mode
+ * @return {String} The instruction to show to tap mode
+ */
 function getSingleInstr(instructions, tapModeInd) {
   const instr = instructions[tapModeInd];
   return instr;
@@ -360,7 +403,6 @@ function getSingleInstr(instructions, tapModeInd) {
  * @param {Object} data JSON
  * @returns {Array} return a list of ingredients
  */
-// let LIST_INGREDIENTS = {};
 function getIngredients(data){
   const extendedIngredients =  data["extendedIngredients"];
   // called from cookbook
@@ -379,9 +421,12 @@ function getIngredients(data){
  * @returns {Array} return a list of instructions
  */
 function getInstructions(data){
-  const steps = data["analyzedInstructions"][0]["steps"];
-  // called from cookbook
-  if (steps == null || steps == undefined) { return data["instructions"]; }
+  let steps = [];
+  try { 
+    steps = data["analyzedInstructions"][0]["steps"]; // Data from API
+  } catch {
+    return data["instructions"]; // Data from Local Storage
+  }
   let instrucList = [];
   let index = 0;
 
