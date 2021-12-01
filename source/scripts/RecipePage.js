@@ -42,8 +42,9 @@ class RecipePage extends HTMLElement {
       .header #bookmark{
         cursor: pointer;
         text-align: center;
-        margin-left : 10px;
+        margin-left: min(0.5vw, 10px);
         z-index: 100;
+        width: fit-content;
       }
 
       #bookmark:hover{
