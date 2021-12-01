@@ -507,6 +507,17 @@ transform: scale(1);
   height: 225px;
 }
 
+#send-recipe-cancel {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 25px;
+}
+
+#send-recipe-cancel:hover {
+  cursor: pointer;
+}
+
 #send-recipe-form input {
   width: 90%;
   margin-top: 25px;

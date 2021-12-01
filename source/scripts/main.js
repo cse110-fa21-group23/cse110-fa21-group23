@@ -232,15 +232,24 @@ function hideCategoryCards() {
 }
 
 function toggleShareRecipeModal() {
+    const setDisplay = (modal, blackout, display) => {
+        modal.style.display = display;
+        blackout.style.display = display;    
+    };
+    
     const modal = document.getElementById('send-recipe-email');
     const blackout = document.getElementById('body-blackout');
+    const cancelModal = document.getElementById("send-recipe-cancel");
+    
     const display = modal.style.display !== "block" ? "block" : "none";
-    modal.style.display = display;
-    blackout.style.display = display;
+    setDisplay(modal, blackout, display); 
 
     blackout.onclick = () => {
-        modal.style.display = "none";
-        blackout.style.display = "none";
+        setDisplay(modal, blackout, "none"); 
+    };
+
+    cancelModal.onclick = () => {
+        setDisplay(modal, blackout, "none");  
     };
 }
 
