@@ -285,12 +285,14 @@ function showDietFilters() {
     diet.style.visibility = "visible";
 }
 
-// function showApplyBtn() {
-//     const input = document.getElementsByName("dietary-radio");
-//     if(input){
-
-//     }
-// }
+function showApplyBtn() {
+    const applyButton = document.getElementsById("applyBtn");
+    applyButton.style.visibility = "visible";
+}
+function hideApplyBtn() {
+    const applyButton = document.getElementsById("applyBtn");
+    applyButton.style.visibility = "hidden";
+}
 
 function showCuisineFilters() {
     const cuisine = document.getElementById("cuisine-filter");

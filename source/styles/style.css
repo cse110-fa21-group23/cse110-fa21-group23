@@ -54,6 +54,7 @@ body {
 
 #search-container {
   position: absolute;
+  display: flex;
   width: 40vw;
   top: 20vh;
   left: 30vw;
@@ -610,6 +611,15 @@ footer {
   background-color: var(--orange4);
 }
 
-
+.applyBtn{
+  margin-left: 20px;
+  background-color: var(--orange1);
+  right: 75%;
+  width: 150px;
+  padding: 5px 10px 5px 10px;
+  border-radius: 20px;
+  border-color: var(--orange1);
+  cursor: pointer;
+}
 /* End of Tags style ======================================================================*/
 

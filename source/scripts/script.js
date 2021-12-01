@@ -176,10 +176,12 @@ function searchByFilter () {
     });
 }
 
-document.getElementById("applyButton").addEventListener("click", async () => {
+document.getElementById("applyBtn").addEventListener("click", async () => {
+    hideFilters();
     let searchSuccessful = await searchByFilter();
     if (searchSuccessful) {
         createRecipeCards();
+
     }
     
 });
