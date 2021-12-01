@@ -261,7 +261,11 @@
             <!--populate this section with the cookbooks-->
             <div id="cookbooks">
                 <h4 id="add-empty-cookbook" onclick="addNewCookbookPrompt()">+ New Cookbook</h4>
-                <div id="cookbooks-list"></div>
+                <div id="cookbook-display-lists">
+                    <ol style="list-style-type: none">
+                        <!-- Add new cookbooks here -->    
+                    </ol>
+                </div>
             </div>
             <!-- there should always be one default Cookbook ("Favorite") -->
             <!-- within each cookbook will be a list of recipes -->
@@ -269,7 +273,6 @@
                 <h2 id="list-name-header"></h2>
                 <h4 id="empty-list" class="hidden">It look like your cookbook is empty. You should probably go add something to it or delete it.</h4>
             </div>
-            
         </section>
 
         <!-- Recipe Page -->

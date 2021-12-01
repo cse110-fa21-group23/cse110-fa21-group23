@@ -613,7 +613,7 @@ function showBookMarkEditReipce() {
     showEditRecipe();
 }
 /* end of Edit Recipe =======================================================*/
-/* Start Cookbook Display*/
+/* Start Cookbook Display ===================================================*/
 /*
 NOTE: Should probably create a add to the cookbook display function instead of just copy and pasting code
 Also I've done pretty much no CSS and haven't really tested the actual list displays
@@ -622,54 +622,47 @@ Also I've done pretty much no CSS and haven't really tested the actual list disp
 // sets up the list of cookbooks and displays them under cookbooks-list
 // When we want to add or remove to it will simply do so dynamically in other functions
 function initializeCookbook() {
-    document.querySelector('#add-empty-cookbook').onclick = function() {newCookbookPrompt()};
-    let cookbooksList = document.querySelector("#cookbooks-list");
-    let cookbooks = JSON.parse(localStorage.getItem("cookbooks"));
-    // First set up favorite/default
-    // The bookMark is the part where when clicked prompts you to confirm removing that cookbook
-    let bookMark = document.createElement("img");
-    bookMark.classList.add("bookMark");
-    // Adding bookMark: so as to not have any ID conflicts
-    bookMark.id = 'bookMark:' + defaultName;
-    cookbooksList.appendChild(bookMark);
-    console.log(document.getElementById('bookMark:' + defaultName));
-    const cookbookContents = JSON.parse(localStorage.getItem(defaultName));
-    // Not what to do here, for now it selects a filled vs unfilled book mark based off of if there's anything in the cookbook
-    if (cookbookContents != null && cookbookContents != "") {
-        bookMark.src = "./img/icons/bookmark-filled.svg";
+    let cookbooksList = document.querySelector("#cookbook-display-lists > ol");
+    let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
+    // First we check to see if we already have any cookbooks, if we don't we set up the default one
+    // The img is the part where when clicked prompts you to confirm removing that cookbook
+    if (cookbooksList.length == 0) {
+        let li = document.createElement("li");
+        let img = document.createElement("img");
+        let label = document.createElement("label");
+        // set img src
+        img.alt = "bookmark";
+        img.src = "./img/icons/bookmark-empty.svg";
+        img.height = 20;
+        img.width = 20;
+        label.innerText = defaultName;
+        li.appendChild(img);
+        li.appendChild(label);
+        cookBooksList.appendChild(li);
+        img.onclick = function() {confirmRemoveList(li)};
+        label.onclick = function() {showThisList(defaultName)};
     } else {
-        bookMark.src = "./img/icons/bookmark-empty.svg";
-    }
-    // The listLink is the part with the actual cookbook name that when clicked leads you to that cookbook's recipes
-    let listLink = document.createElement('p');
-    listLink.classList.add('list_name');
-    // Adding listLink: so as to not have any ID conflicts
-    listLink.id = 'listLink:' + defaultName;
-    listLink.innerText = defaultName;
-    cookbooksList.appendChild(listLink);
-    // Don't allow the removal of default/favorite
-    //bookMark.onclick = function() {confirmRemoveList(defaultName)};
-    listLink.onclick = function() {showThisList(defaultName)};
-    // Then do the rest, the code is pretty much the same so all the comments are above
-    for (const name in cookbooks) {
-        bookMark = document.createElement("img");
-        bookMark.classList.add("bookMark");
-        bookMark.id = 'bookMark:' + name;
-        cookbooksList.appendChild(bookMark);
-        console.log(document.getElementById('bookMark:' + name));
-        const cookbookContents = JSON.parse(localStorage.getItem(name));
-        if (cookbookContents != null && cookbookContents != "") {
-            bookMark.src = "./img/icons/bookmark-filled.svg";
-        } else {
-            bookMark.src = "./img/icons/bookmark-empty.svg";
+        for (const name in cookbooks) {
+            let li = document.createElement("li");
+            let img = document.createElement("img");
+            let label = document.createElement("label");
+            // set img src
+            img.alt = "bookmark";
+            if (JSON.parse(localStorage.getItem(name)) == undefined || JSON.parse(localStorage.getItem(name)) == null || 
+            JSON.parse(localStorage.getItem(name)).length == 0) {
+                img.src = "./img/icons/bookmark-empty.svg";
+            } else {
+                img.src = "./img/icons/bookmark-filled.svg";
+            }  
+            img.height = 20;
+            img.width = 20;
+            label.innerText = name;
+            li.appendChild(img);
+            li.appendChild(label);
+            cookBooksList.appendChild(li);
+            img.onclick = function() {confirmRemoveList(li)};
+            label.onclick = function() {showThisList(name)};
         }
-        listLink = document.createElement('p');
-        listLink.classList.add('list_name');
-        listLink.id = 'listLink:' + name;
-        listLink.innerText = name;
-        cookbooksList.appendChild(listLink);
-        bookMark.onclick = function() {confirmRemoveList(name)};
-        listLink.onclick = function() {showThisList(name)};
     }
 }
 
@@ -835,4 +828,4 @@ function hideTextPrompt() {
     textPrompt.style.visibility = "hidden";
     document.getElementById("input-prompt-text").value = "";
 }
-/* End Cookbook Display*/
+/* End Cookbook Display =====================================================*/
