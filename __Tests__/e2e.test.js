@@ -26,7 +26,7 @@ describe("basic user flow of the website", () => {
       const hamburgerIcon = await page.$("#menu-icon");
       await hamburgerIcon.click();
 
-      await page.waitForTimeout(2000);
+      await page.waitForTimeout(1000);
       const settings = await page.$("#settings-page");
       await settings.click();
 
@@ -47,7 +47,7 @@ describe("basic user flow of the website", () => {
     const hamburgerIcon = await page.$("#menu-icon");
     await hamburgerIcon.click();
 
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(1000);
     const cookbooks = await page.$("#cookbook-page");
     await cookbooks.click();
 
@@ -70,7 +70,7 @@ describe("basic user flow -- clicking a category card", () => {
       // click the first category card
       const categoryCards = await page.$$("category-card");
       await categoryCards[0].click();
-      await page.waitForTimeout(2000);
+      await page.waitForTimeout(1000);
 
       // check for more than 1 recipe card
       const recipeCards = await page.$$eval("recipe-card", (recipeCard) => {
@@ -90,11 +90,11 @@ describe("basic user flow -- searching with a query", () => {
       await page.goto(URL);
 
       // click the first category card
-      const searchBar = await page.$eval("#search-query", el => el.value = "pasta");
+      await page.$eval("#search-query", el => el.value = "pasta");
       const searchButton = await page.$("#search-button");
       await searchButton.click();
 
-      await page.waitForTimeout(2500);
+      await page.waitForTimeout(1000);
 
       // check for more than 1 recipe card
       const recipeCards = await page.$$eval("recipe-card", (recipeCard) => {
@@ -119,7 +119,7 @@ describe("basic user flow -- searching with a query and clicking a search result
       const searchButton = await page.$("#search-button");
       await searchButton.click();
 
-      await page.waitForTimeout(2000);
+      await page.waitForTimeout(1000);
 
       // check for more than 1 recipe card
       const recipeCards = await page.$$("recipe-card");
