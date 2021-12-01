@@ -225,9 +225,13 @@ class RecipePage extends HTMLElement{
 
       container.innerHTML = `
       <header class="header">
-        <h1></h1>
+        <h1 id="recipe-title"></h1>
         <img id="bookmark" onclick="showCookBookMenu()" src="img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
       </header>
+      <div class="share-icons" >
+        <img id="print" onclick="printRecipe()" src="./img/icons/print-icon.svg" name="print-icon" width="36" height="36">
+        <img id="email" onclick="emailRecipe()" src="./img/icons/email-icon.svg" name="email-icon" width="36" height="36">
+      </div>
       <div class="edit-recipe hidden">
         <span onclick="load()">Edit <img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> </span>
       </div>
@@ -235,13 +239,13 @@ class RecipePage extends HTMLElement{
         <img style="display: block; margin-left: auto; margin-right: auto;">
           <div id="ingredients-list">
               <h3>INGREDIENTS</h3>
-              <ul style="list-style-type: none;">
+              <ul style="list-style-type: none;" id="recipe-ingredients" >
               </ul>
               <button id="clear-checkboxes" onclick="clearCheckBoxes()">CLEAR CHECKBOXES</button>
           </div>
           <div id="instructions">
               <h3>INSTRUCTIONS</h3>
-              <ol>
+              <ol id="recipe-instructions">
               </ol>
           </div>
       </main>
@@ -259,12 +263,13 @@ class RecipePage extends HTMLElement{
 
       this.shadowRoot.querySelector("article").innerHTML = `
       <header class="header">
-        <h1></h1>
+        <h1 id="recipe-title"></h1>
         <img id="bookmark" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
       </header>
       <div class="share-icons" >
         <img id="print" onclick="printRecipe()" src="./img/icons/print-icon.svg" name="print-icon" width="36" height="36">
         <img id="email" onclick="emailRecipe()" src="./img/icons/email-icon.svg" name="email-icon" width="36" height="36">
+      </div>
       <div class="edit-recipe hidden">
         <span onclick="load()">Edit <img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> </span>
       </div>
@@ -272,13 +277,13 @@ class RecipePage extends HTMLElement{
         <img style="display: block; margin-left: auto; margin-right: auto;" >
           <div id="ingredients-list">
               <h3>INGREDIENTS</h3>
-              <ul style="list-style-type: none;">
+              <ul style="list-style-type: none;" id="recipe-ingredients">
               </ul>
               <button id="clear-checkboxes" onclick="clearCheckBoxes()">CLEAR CHECKBOXES</button>
           </div>
           <div id="instructions">
               <h3>INSTRUCTIONS</h3>   
-              <ol>
+              <ol id="recipe-instructions">
               </ol>
           </div>
       </main>
@@ -438,6 +443,7 @@ function getInstructions(data){
   return instrucList;
 }
 
+export { getInstructions, getIngredients }
 
 
 // Define the class recipe page

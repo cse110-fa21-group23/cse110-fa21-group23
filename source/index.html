@@ -282,10 +282,13 @@
 
         <!-- email modal  -->
         <section id="send-recipe-email">
-            <form id="send-recipe-form"> 
-                <input id="recipe-email" placeholder="Enter email"/>
-                <button type="submit" >Send</button>
-            </form>
+            <div class="send-recipe-div">
+                <h2>Email to share with</h2>
+                <form id="send-recipe-form"> 
+                    <input id="recipe-email" placeholder="Enter email"/>
+                    <button type="submit" id="share-recipe-email">Send</button>
+                </form>
+            </div>
         </section>
 
         <!-- Edit Recipe Section-->
@@ -314,6 +317,8 @@
     <footer>
     </footer>
 
+    <!-- Black out the background for modal -->
+    <div id="body-blackout"></div>
 </body>
 
 </html>

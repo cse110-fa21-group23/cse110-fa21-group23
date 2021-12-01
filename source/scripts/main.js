@@ -233,8 +233,15 @@ function hideCategoryCards() {
 
 function toggleShareRecipeModal() {
     const modal = document.getElementById('send-recipe-email');
-    const display = modal.style.display !== "block" ? "block" : "hidden";
+    const blackout = document.getElementById('body-blackout');
+    const display = modal.style.display !== "block" ? "block" : "none";
     modal.style.display = display;
+    blackout.style.display = display;
+
+    blackout.onclick = () => {
+        modal.style.display = "none";
+        blackout.style.display = "none";
+    }
 }
 
 /**
