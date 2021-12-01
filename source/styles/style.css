@@ -131,9 +131,8 @@ h2 {
 }
 
 .search:hover > .search-query {
-  transform: scale(1.005,1.005);
+  transform: scale(1.005, 1.005);
   transition: all 0.3s ease-out;
-
 }
 
 
@@ -555,25 +554,23 @@ transform: scale(1);
 
 #cancel {
   border: none;
-} 
+}
 
 #submit {
-  padding: .5vh 1vw;
+  padding: 0.5vh 1vw;
   margin: 2vw;
   border: solid var(--primary);
 }
 
 #cancel:hover{
   color: var(--orange3);
-}                                                                                                                                                                                                                                                                             
+}                                                                                                                                                                                                                                                                       
 
 #submit:hover {
   background-color: var(--primary);
-  color: var(--orange1);   
-  transition: .4s ease-in-out;
-                                                                                                                                                                                                                                    
+  color: var(--orange1);
+  transition: 0.4s ease-in-out;                                                                                                                                                                               
 }
-
 
 .edit-recipe-form h1 {
   margin-top: 4vh;
@@ -587,8 +584,9 @@ transform: scale(1);
 .edit-recipe-form ol li input:focus {
   outline: 1px solid var(--primary);
   background-color: white; 
-  font-weight: 600; 
+  font-weight: 600;
 }
+
 @media (min-width: 750px) {
   .edit-recipe-form {
     left: 25%;
@@ -623,31 +621,30 @@ footer {
 
 /* Category cards style for different Screen sizes ========================================*/
 @media screen and (max-width: 700px) {
-.category-cards--wrapper{
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
-}
+  .category-cards--wrapper{
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 10px;
+      margin-left: 20px;
+      margin-right: 20px;
+  }
 }
 
 
 @media screen and (max-width: 500px) {
-.category-cards--wrapper{
-  grid-template-columns: repeat(2, 150px);
-  grid-template-rows: repeat(2, 1fr);
+  .category-cards--wrapper{
+    grid-template-columns: repeat(2, 150px);
+    grid-template-rows: repeat(2, 1fr);
+  }
 }
-}
-
 
 @media screen and (max-height: 450px) {
-.category-cards--wrapper{
-    gap: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 75px;
-}
+  .category-cards--wrapper{
+      gap: 10px;
+      margin-left: 20px;
+      margin-right: 20px;
+      margin-top: 75px;
+  }
 }
 /* End of Category cards style for different Screen sizes ==================================*/
 
