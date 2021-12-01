@@ -1,9 +1,11 @@
 // Import API from file
 import { fetchRecipes } from "./api_script.js";
 import { Router } from "./Router.js";
+import { getInstructions, getIngredients } from "./RecipePage.js";
 
 let recipeData = {};
 let prevSearch = '';
+let currentRecipeData = {};
 
 const router = new Router(function () {
     showHome();
@@ -170,14 +172,15 @@ function createRecipeCards() {
         });
 
         recipeCardContainer.appendChild(element);
-        bindRecipeCard(element, id);
+        bindRecipeCard(element, id, recipeData[i]);
     }
 }
 
-function bindRecipeCard(recipeCard, pageName) {
+function bindRecipeCard(recipeCard, pageName, data) {
     recipeCard.addEventListener('click', e => {
         if (e.composedPath()[0].nodeName == "A") return;
         router.navigate(pageName, false);
+        currentRecipeData = data;
     });
 }
 
@@ -352,6 +355,37 @@ function bindHomePage() {
         router.navigate(page, false);
     })
 }
+
+// get the email form button to handle submission
+const emailFormSubmit = document.getElementById("share-recipe-email");
+emailFormSubmit.addEventListener("click", (e) => {
+    e.preventDefault();
+    const label = document.getElementById("recipe-email-label");
+    const getInputValue = document.getElementById("recipe-email");
+
+    label.style.display = "none";
+    if(!getInputValue.value) {
+        label.style.display = "block";
+        getInputValue.style.border = "1px solid red";
+        return;
+    }
+
+    // get the recipe title and format the subject
+    const recipeTitle = currentRecipeData.title;
+    const subject = `Recipe: ${recipeTitle}`;
+
+    // get the instructions
+    const instructions = getInstructions(currentRecipeData).join(", %0D%0A");
+    // get the ingredients
+    const ingredients = getIngredients(currentRecipeData).join(", %0D%0A");
+
+    // format the email to include ingredients and instructions
+    const body = `Ingredients: %0D%0A ${ingredients} 
+    %0D%0A
+    %0D%0A Instructions: %0D%0A ${instructions}`;
+
+    window.open(`mailto:${getInputValue.value}?subject=${subject}&body=${body}`);
+});
 
 
 window.init = init;
