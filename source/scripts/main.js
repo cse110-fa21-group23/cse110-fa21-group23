@@ -315,10 +315,12 @@ function toggleSaveCookBook() {
 
     if ($SOSaveCookBookMenuVisibility == "hidden") {
         menu.style.transform = "translateY(0%)";
+        menu.style.visibility = "visible";
         $SOSaveCookBookMenuVisibility = "visible";
     }
     else {
         menu.style.transform = "translateY(100%)";
+        menu.style.visibility = "hidden";
         $SOSaveCookBookMenuVisibility = "hidden";
     }
 
@@ -514,9 +516,11 @@ function toggleEditRecipe() {
     if ($editRecipeVisibility == "hidden") {
         article.style.opacity = 0.35;
         menu.style.transform = "translateY(10%)";
+        menu.style.visibility = "visible";
         $editRecipeVisibility = "visible";
     } else {
         menu.style.transform = "translateY(-150%)";
+        menu.style.visibility = "hidden";
         article.style.opacity = null;
         $editRecipeVisibility = "hidden";
     }

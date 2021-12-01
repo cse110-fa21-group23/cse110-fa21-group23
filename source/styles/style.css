@@ -424,6 +424,7 @@ transform: scale(1);
   z-index: 100;
   transition: all ease-out 0.5s;
   transform: translateY(100%);
+  visibility: hidden;
 }
 
 @media (min-width: 750px) {
@@ -498,6 +499,7 @@ transform: scale(1);
   transition: all ease-out 0.5s;
   transform: translateY(-150%);
   opacity: 1;
+  visibility: hidden;
 }
 
 .edit-recipe-form > div {
