@@ -1,5 +1,9 @@
 class CategoryCard extends HTMLElement {
 
+    /**
+     * Creates an instance of CategoryCard.
+     * @memberof CategoryCard
+     */
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
@@ -7,6 +11,11 @@ class CategoryCard extends HTMLElement {
     }
 
     //getting the data to set the image and the name of the category card.
+    /**
+     * Sets data for a category card
+     *
+     * @memberof CategoryCard
+     */
     set data(data) {
 
         const styleElem = document.createElement("style");
@@ -27,6 +36,11 @@ class CategoryCard extends HTMLElement {
             margin: 10px;
             cursor: pointer;
             background-color: var(--orange3);
+            align-items: center;   
+            display: grid;
+            margin-top: 30px;
+            margin-left: 15px;
+            margin-rigth: 15px;
         }
 
         article > img {

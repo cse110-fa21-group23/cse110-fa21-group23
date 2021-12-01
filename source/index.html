@@ -36,7 +36,7 @@
 <body>
 
     <h1 id="app-name" onclick="showHome()">Team 23 Project </h1>
-    <button id="tap-mode-button" class="hidden" onclick="tapMode()">Tap Mode Off</button>
+    <button id="tap-mode-button" class="visible">Tap Mode Off</button>
     <main>
 
         <!-- Hamburger Menu Section-->
@@ -48,9 +48,9 @@
             </div>
             <div id="slide-over-menu" class="slide-over-menu">
                 <div class="menu-item-container">
-                    <a class="menuItem" onclick="showHome(), toggleMenu()">Home</a>
-                    <a class="menuItem" onclick="showCookbooks(),toggleMenu()">Cookbooks</a>
-                    <a class="menuItem" onclick="showSettings(), toggleMenu()">Settings</a>
+                    <a class="menuItem" id="home-page">Home</a>
+                    <a class="menuItem" id="cookbook-page">Cookbooks</a>
+                    <a class="menuItem" id="settings-page">Settings</a>
                 </div>
             </div>
         </section>
@@ -278,23 +278,42 @@
             <recipe-page></recipe-page>
         </section>
 
-        <!-- Prompts That Require A Text Answer -->
-        <section id="prompt-box-text" class="hidden">
-            <label for='text-input' id="text-prompt-text"></label>
-            <br>
-            <input type='text' id='input-prompt-text' name='text-input'></input>
-            <button id="prompt-submit">submit</button>
-            <button id="prompt-cancel" onclick="hideTextPrompt()">Cancel</button>
+        <!-- Save Cookbooks Menu Section -->
+        <section id="save-cookbook-container">
+            <div id="save-cookbook-menu">
+                <button id="close-save-cookbook-menu-button" onclick="toggleSaveCookBook()">></button>
+                <button id="new-cookbook-button" onclick="addNewCookBook()">+ New Cookbook</button>
+                <div id="cookbook-lists">
+                  <ol style="list-style-type: none">
+                  <!-- Add new cookbooks here -->    
+                  </ol>
+                </div>
+              
+            </div>
         </section>
 
-        <!-- Prompts That Require A Yes Or No Answer -->
-        <section id="prompt-box-yes-no" class="hidden">
-            <p id="yes-no-prompt-text"></p>
-            <br>
-            <button id="prompt-yes">Yes</button>
-            <button id="prompt-no" onclick="hideYesNoPrompt()">No</button>
-        </section>
+        <!-- Edit Recipe Section-->
+        <div class="edit-recipe-form">
+            <h1> Edit Recipe </h1>
+            <div class="edit-ingredients">
+              <h3>Ingredients</h3>
+              <ol>
+              </ol>
+              <button onclick="addMoreIngredients()">Add more</button>
+            </div>
+            <div class="edit-instructions">
+              <h3>Instructions </h3>
+              <ol>
+              </ol>
+              <button onclick="addMoreInstructions()">Add more</button>
+            </div>
+            <div>
+              <button id="cancel" onclick="toggleEditRecipe()">Cancel </button>
+              <button id="submit" onclick="submit()">Save </button>
+            </div>
+        </div>
 
+     
     </main>
     <footer>
     </footer>
