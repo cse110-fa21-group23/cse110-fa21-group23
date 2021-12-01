@@ -1,19 +1,19 @@
 // RecipePage.js
 
-class RecipePage extends HTMLElement{
+class RecipePage extends HTMLElement {
 
-    /**
-     * Creates an instance of RecipePage.
-     * @memberof RecipePage
-     */
-    constructor(){
-      super();
-      this.attachShadow({mode: "open"});
-      
-      const style = document.createElement("style");
-      const container = document.createElement("article");
+  /**
+   * Creates an instance of RecipePage.
+   * @memberof RecipePage
+   */
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
 
-      style.innerHTML = `
+    const style = document.createElement("style");
+    const container = document.createElement("article");
+
+    style.innerHTML = `
       .header{
         display: block;
         text-align: center; 
@@ -34,6 +34,11 @@ class RecipePage extends HTMLElement{
         text-align: center;
         margin-left : 10px;
         z-index: 100;
+      }
+
+      #bookmark:hover{
+        transform: scale(1.05,1.05);
+        transition: all 0.3s ease-out;
       }
 
       @media (min-width: 750px) {
@@ -206,7 +211,7 @@ class RecipePage extends HTMLElement{
 
       `;
 
-      container.innerHTML = `
+    container.innerHTML = `
       <header class="header">
         <h1></h1>
         <img id="bookmark" onclick="showCookBookMenu()" src="img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
@@ -230,17 +235,16 @@ class RecipePage extends HTMLElement{
       </main>
       `;
 
-      this.shadowRoot.append(style, container);
+    this.shadowRoot.append(style, container);
+  }
+
+  set data(data) {
+    if (data == null) {
+      console.log("Error: no data exists");
+      return;
     }
 
-    set data(data){
-        if (data == null)
-        {
-            console.log("Error: no data exists");
-            return;
-        }
-
-      this.shadowRoot.querySelector("article").innerHTML = `
+    this.shadowRoot.querySelector("article").innerHTML = `
       <header class="header">
         <h1></h1>
         <img id="bookmark" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
@@ -272,74 +276,74 @@ class RecipePage extends HTMLElement{
       </section >
       `;
 
-      this.shadowRoot.querySelector(".middle > img").src = data["image"];
-      this.shadowRoot.querySelector(".header > h1").innerHTML = data["title"];
-  
-      //get ingredient list
-      const ingredients = getIngredients(data);
-      ingredients.forEach(ingredient => {
-        const checkbox = document.createElement("input");
-        const label = document.createElement("label");
-        const ol = document.createElement("ol");
-        checkbox.type = "checkbox";
-        checkbox.classList.add("ingredients-custom-checkbox");
-        label.innerText = ingredient;
-        ol.appendChild(checkbox);
-        ol.appendChild(label);
-        this.shadowRoot.querySelector("#ingredients-list > ul").appendChild(ol);
-      });
+    this.shadowRoot.querySelector(".middle > img").src = data["image"];
+    this.shadowRoot.querySelector(".header > h1").innerHTML = data["title"];
 
-        // <-- instruction -->
-        // For tap mode, display one instruction at a time
-      const instructions = getInstructions(data);
-      const instructionSize = instructions.length;
+    //get ingredient list
+    const ingredients = getIngredients(data);
+    ingredients.forEach(ingredient => {
+      const checkbox = document.createElement("input");
+      const label = document.createElement("label");
+      const ol = document.createElement("ol");
+      checkbox.type = "checkbox";
+      checkbox.classList.add("ingredients-custom-checkbox");
+      label.innerText = ingredient;
+      ol.appendChild(checkbox);
+      ol.appendChild(label);
+      this.shadowRoot.querySelector("#ingredients-list > ul").appendChild(ol);
+    });
 
-      var tapModeInd = 0;
-      const instr = getSingleInstr(instructions, tapModeInd);
+    // <-- instruction -->
+    // For tap mode, display one instruction at a time
+    const instructions = getInstructions(data);
+    const instructionSize = instructions.length;
 
-      const tapModeInstr = this.shadowRoot.getElementById("tap-mode-instr");
-      const recipePageBox = this.shadowRoot.getElementById("recipe-page-box");
-      const tapModeSection = this.shadowRoot.getElementById("tap-mode-section");
-      tapModeSection.style.display = "none"; //by default, tap mode is off/hidden
-      tapModeInstr.innerHTML = instr;
+    var tapModeInd = 0;
+    const instr = getSingleInstr(instructions, tapModeInd);
 
-      document.getElementById("tap-mode-button").addEventListener("click", () => {
-        tapModeSection.style.visibility = $tapModeVisibility;
-        tapModeSection.style.display = null;
-        if ($tapModeVisibility == "hidden") {
-          recipePageBox.style.display = "inline";
-        }
-        else {
-          recipePageBox.style.display = "none";
-        }
+    const tapModeInstr = this.shadowRoot.getElementById("tap-mode-instr");
+    const recipePageBox = this.shadowRoot.getElementById("recipe-page-box");
+    const tapModeSection = this.shadowRoot.getElementById("tap-mode-section");
+    tapModeSection.style.display = "none"; //by default, tap mode is off/hidden
+    tapModeInstr.innerHTML = instr;
 
-      })
+    document.getElementById("tap-mode-button").addEventListener("click", () => {
+      tapModeSection.style.visibility = $tapModeVisibility;
+      tapModeSection.style.display = null;
+      if ($tapModeVisibility == "hidden") {
+        recipePageBox.style.display = "inline";
+      }
+      else {
+        recipePageBox.style.display = "none";
+      }
 
-      this.shadowRoot.getElementById("prev-step-button").addEventListener("click", () => {
-        if (tapModeInd == 0) {
-          console.log("you're on the first step already!");
-          return;
-        }
-        else {
-          tapModeInd--;
-          const instr = getSingleInstr(instructions, tapModeInd);
-          tapModeInstr.innerHTML = instr;
-        }
+    })
+
+    this.shadowRoot.getElementById("prev-step-button").addEventListener("click", () => {
+      if (tapModeInd == 0) {
+        console.log("you're on the first step already!");
+        return;
+      }
+      else {
+        tapModeInd--;
+        const instr = getSingleInstr(instructions, tapModeInd);
+        tapModeInstr.innerHTML = instr;
+      }
 
 
-      })
-      this.shadowRoot.getElementById("next-step-button").addEventListener("click", () => {
-        if (tapModeInd >= instructionSize - 1) {
-          console.log("You've reached the end of the recipe!");
-          return;
-        }
-        else {
-          tapModeInd++;
-          const instr = getSingleInstr(instructions, tapModeInd);
-          tapModeInstr.innerHTML = instr;
-        }
+    })
+    this.shadowRoot.getElementById("next-step-button").addEventListener("click", () => {
+      if (tapModeInd >= instructionSize - 1) {
+        console.log("You've reached the end of the recipe!");
+        return;
+      }
+      else {
+        tapModeInd++;
+        const instr = getSingleInstr(instructions, tapModeInd);
+        tapModeInstr.innerHTML = instr;
+      }
 
-      })
+    })
 
 
 
@@ -350,19 +354,19 @@ class RecipePage extends HTMLElement{
       this.shadowRoot.querySelector("#instructions > ol").appendChild(li);
     });
 
-        // replicate data
-      const replicateData = {
-        "id"    : data["id"],
-        "title" : data["title"],
-        "image" : data["image"],
-        "ingredients" : ingredients,
-        "instructions": instructions
-      }
-      this.json = replicateData;
+    // replicate data
+    const replicateData = {
+      "id": data["id"],
+      "title": data["title"],
+      "image": data["image"],
+      "ingredients": ingredients,
+      "instructions": instructions
     }
-    get data(){
-      return this.json;
-    }
+    this.json = replicateData;
+  }
+  get data() {
+    return this.json;
+  }
 }
 
 /**
@@ -383,13 +387,13 @@ function getSingleInstr(instructions, tapModeInd) {
  * @param {Object} data JSON
  * @returns {Array} return a list of ingredients
  */
-function getIngredients(data){
-  const extendedIngredients =  data["extendedIngredients"];
+function getIngredients(data) {
+  const extendedIngredients = data["extendedIngredients"];
   // called from cookbook
   if (extendedIngredients == null || extendedIngredients == undefined) { return data["ingredients"]; }
   let list = [];
   let index = 0;
-  extendedIngredients.forEach((ingredien) =>{
+  extendedIngredients.forEach((ingredien) => {
     list[index++] = ingredien["originalString"];
   })
   return list;
@@ -400,9 +404,9 @@ function getIngredients(data){
  * @param {Object} data JSON
  * @returns {Array} return a list of instructions
  */
-function getInstructions(data){
+function getInstructions(data) {
   let steps = [];
-  try { 
+  try {
     steps = data["analyzedInstructions"][0]["steps"]; // Data from API
   } catch {
     return data["instructions"]; // Data from Local Storage
@@ -410,9 +414,9 @@ function getInstructions(data){
   let instrucList = [];
   let index = 0;
 
-  steps.forEach((step) =>{
-      let instruction = step["step"];
-      instrucList[index++] = instruction;
+  steps.forEach((step) => {
+    let instruction = step["step"];
+    instrucList[index++] = instruction;
   });
 
   return instrucList;
