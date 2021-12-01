@@ -379,6 +379,12 @@ transform: translate(-50%, 0);
   }
 }
 
+@media (min-height: 1000px) {
+  #recipe-page-container{
+    margin-top: -200px;
+  }
+}
+
 .box {
 justify-content: center;
 display: flex;  
