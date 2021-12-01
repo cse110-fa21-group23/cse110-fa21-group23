@@ -415,27 +415,30 @@ transform: scale(1);
   border-radius: 20px;
   position: fixed;
   width: 100%;
-  bottom: 0%;
-  display: flex;
+  min-width: 350px;
   height: auto;
   min-height: 300px;
+  bottom: 0%;
+  display: flex;
   justify-content: center;
   z-index: 100;
   transition: all ease-out 0.5s;
   transform: translateY(100%);
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 750px) {
   #save-cookbook-menu {
-    left: 35%;
-    max-width: 30%;
+    left: 32.5%;
+    max-width: 35%;
   }
 }
 
 #cookbook-lists{
+  border-radius: 20px;
   height: auto;
-  min-width: 300px;
+  min-width: px;
   width: auto;
+  max-width: 90%;
   padding-top:55px;
   background-color: #FFECDB;
   border: #FFECDB;

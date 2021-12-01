@@ -338,12 +338,10 @@ function showCookBookMenu() {
 
     let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
     if (bookMark.getAttribute("name") == "bookmark-empty") {
-        let cookbooksList = document.querySelectorAll("#cookbook-lists > ol > li");
-        if (cookbooksList.length == 0) {
-            cookbooks.forEach((cookBook) => {
-                appendNewCookBook(cookBook);
-            });
-        }
+        let cookbooksListHTML = document.querySelectorAll("#cookbook-lists > ol > li");
+        // remove all cookbooks
+        if (cookbooksListHTML.length !== 0) cookbooksListHTML.forEach(cb => cb.remove());
+        cookbooks.forEach(cb => appendNewCookBook(cb));
         toggleSaveCookBook();
     }
     else if (confirm("Are you sure to remove this recipe?")) {
