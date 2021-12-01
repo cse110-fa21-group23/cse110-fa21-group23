@@ -94,23 +94,17 @@ function searchByFilter () {
     recipeCardContainer.innerHTML = '';
     showRecipeCards();
 
-    let diets = document.getElementsByName("dietary-radio");
-    let diet = "";
-    for (let i = 0; i < diets.length; i++) {
-        if (diets[i].checked) {
-            diet = diet + diets[i].value;
-            console.log(diets[i].value);
-            break;
-        }
-    }
-
     let cuisineList = document.getElementsByName("cuisine-radio");
     let cuisine = "";
     for (let i = 0; i < cuisineList.length; i++) {
         if (cuisineList[i].checked) {
-            cuisine =  `&cuisine=${cuisineList[i].value}`;
-            console.log(cuisineList[i].value);
-            break;
+            if (cuisine.length == 0) {
+                cuisine =  `&cuisine=${cuisineList[i].value}`;
+                console.log(cuisineList[i].value);
+            }
+            else {
+                cuisine = cuisine + `,${cuisineList[i].value}`;
+            }      
         }
     }
 
@@ -118,9 +112,13 @@ function searchByFilter () {
     let mealType = "";
     for (let i = 0; i < mealTypeList.length; i++) {
         if (mealTypeList[i].checked) {
-            mealType =  `&type=${mealTypeList[i].value}`;
-            console.log(mealTypeList[i].value);
-            break;
+            if (mealType.length == 0) {
+                mealType =  `&type=${mealTypeList[i].value}`;
+                console.log(mealTypeList[i].value);
+            }
+            else {
+                mealType =  mealType + `,${mealTypeList[i].value}`;
+            }   
         }
     }
 
@@ -129,11 +127,9 @@ function searchByFilter () {
     for (let i = 0; i < timeList.length; i++) {
         if (timeList[i].checked) {
             time =  `&maxReadyTime=${parseInt(timeList[i].value)}`;
-            console.log(timeList[i].value);
-            break;
+            console.log(timeList[i].value);     
         }
     }
-
 
     //get dietary restrictons from settings
     const getDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
@@ -141,7 +137,23 @@ function searchByFilter () {
     if (getDietaryRestrictions && getDietaryRestrictions.length !== 0) {
         queryStrDiet = `&diet=${getDietaryRestrictions}`;
     }
-    console.log(diet);
+
+    let diets = document.getElementsByName("dietary-radio");
+    for (let i = 0; i < diets.length; i++) {
+        if (diets[i].checked) {
+            if (queryStrDiet.length == 0) {
+                let diet = diets[i].value;
+                queryStrDiet=`&diet=${diet}`
+            }
+            else {
+                let diet = diets[i].value;
+                queryStrDiet = queryStrDiet + `,${diet}`
+            }
+        }
+    }
+
+
+    
     //get intolerances from settings
     const getIntolerancesRestrictions = JSON.parse(localStorage.getItem("intolerancesRestrictions"));
     let queryStrIntolerances = "";
@@ -149,29 +161,8 @@ function searchByFilter () {
         queryStrIntolerances = `&intolerances=${getIntolerancesRestrictions}`
     }
 
-    // if (diet.length != 0) {
-    //     return fetchRecipes(`${queryStrDiet}${queryStrIntolerances}`, (data) => {
-    //             console.log(data);
-    //             recipeData = data
-    //         })
-    // }
-    // else {
-
-    // }
-    
-    //if cuisine isn't an empty string
-    // return fetchRecipes(`&cuisine=${cuisine}${queryStrDiet}${queryStrIntolerances}`, (data) => {
-    //     console.log(data)
-    //     recipeData = data;
-    // });
-
-    // return fetchRecipes(`&type=${mealType}${queryStrDiet}${queryStrIntolerances}`, (data) => {
-    //         console.log(data)
-    //         recipeData = data;
-    // });
-
-    //filter by time
-    return fetchRecipes(`${cuisine}${mealType}${time}${queryStrDiet}${queryStrIntolerances}`, (data) => {
+    const searchQuery = document.getElementById("search-query").value;
+    return fetchRecipes(`&query=${searchQuery}${cuisine}${mealType}${time}${queryStrDiet}${queryStrIntolerances}`, (data) => {
             console.log(data)
             recipeData = data;
     });
@@ -188,11 +179,10 @@ document.getElementById("applyBtn").addEventListener("click", async () => {
 });
 
 
-
-
 // The search function, calls API function to fetch all recipes
 // Generates recipe cards by passing in values into RecipeData
 function search() {
+    clearFilterCheckBoxes();
     // get the search query
     const searchQuery = document.getElementById("search-query").value;
     const recipeCardContainer = document.getElementById('recipe-card-container');
@@ -215,6 +205,8 @@ function search() {
         showSearchBar();
         hideCookbooks();
         hideSettings();
+        showFilterBtns();
+        showApplyBtn();
     });
 
     router.navigate(page, false);//to clear url when user searches recipe
@@ -312,6 +304,8 @@ function createCategoryCards() {
             showRecipeCards();
             hideRecipePage();
             showSearchBar();
+            showFilterBtns();
+            showApplyBtn();
         });
 
         bindCategoryCards(categoryCard, categories[randNums[i]]);

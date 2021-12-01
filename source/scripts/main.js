@@ -147,6 +147,17 @@ function clearCheckBoxes() {
     checkboxes.forEach((e) => e.checked = false);
 }
 
+function clearFilterCheckBoxes() {
+    let diets = document.getElementsByName("dietary-radio");
+    let cuisines= document.getElementsByName("cuisine-radio");
+    let mealtypes = document.getElementsByName("meal-radio")
+    let time = document.getElementsByName("time-radio")
+    diets.forEach((e) => e.checked = false);
+    cuisines.forEach((e) => e.checked = false);
+    mealtypes.forEach((e) => e.checked = false);
+    time.forEach((e) => e.checked = false);
+}
+
 function hideSettings() {
     const settings = document.getElementById("settings-container");
     settings.style.visibility = "hidden";
@@ -161,9 +172,10 @@ function showHome() {
     showCategoryCards();
     hideRecipePage();
     hideFilters();
-    showFilterBtns();
     showSearchBar();
-    showApplyBtn();
+    hideFilterBtns();
+    hideApplyBtn();
+    clearFilterCheckBoxes();
     document.getElementById('search-query').value = ''; //clears search result
 }
 
