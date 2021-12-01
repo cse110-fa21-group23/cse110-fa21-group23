@@ -114,7 +114,7 @@ describe("basic user flow -- searching with a query and clicking a search result
       await page.goto(URL);
 
       // click the first category card
-      const searchBar = await page.$eval("#search-query", el => el.value = "pasta");
+      await page.$eval("#search-query", el => el.value = "pasta");
       const searchButton = await page.$("#search-button");
       await searchButton.click();
 
