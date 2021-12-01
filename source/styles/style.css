@@ -477,7 +477,7 @@ transform: scale(1);
   color: var(--orange3);
 }
 
-/* Share recipe by email modal style ============================================================*/
+/* Share recipe by email modal style ============================================================ */
 #send-recipe-email {
   display: none;
   position: absolute;
@@ -532,7 +532,6 @@ transform: scale(1);
   display: none;
   font-size: 18px;
   color: red;
-  margin-top: 0px;
 }
 
 /* Edit Recipe style ================================================================*/
