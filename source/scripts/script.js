@@ -109,9 +109,9 @@ function search() {
         alert("Please input a search or click a filter below");
         return false;
     }
-    
+
     // If the prev search hasn't changed, simply keep the results
-    if(prevSearch === searchQuery) return false;
+    if (prevSearch === searchQuery) return false;
 
     prevSearch = searchQuery;
     const page = searchQuery;
@@ -161,7 +161,7 @@ function createRecipeCards() {
 
         const id = recipeData[i]["id"];
         router.addPage(id, function () {
-            window.scrollTo({top: 0, behavior: 'smooth'});
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             hideHome();
             hideRecipeCards();
             showRecipePage();
