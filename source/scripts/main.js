@@ -153,8 +153,10 @@ function showCookbooks() {
     const cookbook = document.getElementById("cookbook-container");
     cookbook.style.visibility = "visible";
     cookbook.style.display = null;
+
     document.querySelector("body > main > div.box").style.display = "none";
 }
+
 
 /**
  * Hide cookbooks page

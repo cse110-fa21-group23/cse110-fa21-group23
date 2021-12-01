@@ -253,15 +253,15 @@
                         </div>
                         <button id="update-button" onclick="updateSettings()"> Update</button>
             </section>
-
+            <!-- Cookbooks (Lists) Section -->
+            <section id="cookbook-container">
+                <h1 class="heading">Saved Cookbooks</h1>
+                <!--populate this section with the cookbooks-->
+                <!-- there should always be one default Cookbook ("Favorite") -->
+                <!-- within each cookbook will be a list of recipes -->
+            </section>
         </div>
-        <!-- Cookbooks (Lists) Section -->
-        <section id="cookbook-container">
-            <h1 class="heading">Saved Cookbooks</h1>
-            <!--populate this section with the cookbooks-->
-            <!-- there should always be one default Cookbook ("Favorite") -->
-            <!-- within each cookbook will be a list of recipes -->
-        </section>
+        
 
         <!-- Save Cookbooks Menu Section -->
         <section id="save-cookbook-container">
@@ -292,7 +292,7 @@
               </ol>
               <button onclick="addMoreInstructions()">Add more</button>
             </div>
-            <div>
+            <div id="group-buttons">
               <button id="cancel" onclick="toggleEditRecipe()">Cancel </button>
               <button id="submit" onclick="submit()">Save </button>
             </div>
