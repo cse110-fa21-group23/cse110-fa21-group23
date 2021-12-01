@@ -12,7 +12,7 @@
 
 //Set API_URL
 const MAIN_API_URL = "https://api.spoonacular.com/recipes";
-const API_KEY = "&apiKey=43d05cc71ec2491aa7e76580fce53779";
+const API_KEY = "&apiKey=fafd5e810c304ed3b4f9984672cb21ee";
 // API_KEY5: dd38d96d1f5d410f9bf7bfcef6cede83
 // API_KEY4 (Nhi): 8aaa6b0816db4a99b92e7852d125a9aa
 // API_KEY3 (Nhi): c8f83bb3a9af4355b12de10250b24c88

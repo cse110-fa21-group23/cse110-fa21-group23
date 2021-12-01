@@ -360,8 +360,15 @@ function bindHomePage() {
 const emailFormSubmit = document.getElementById("share-recipe-email");
 emailFormSubmit.addEventListener("click", (e) => {
     e.preventDefault();
+    const label = document.getElementById("recipe-email-label");
     const getInputValue = document.getElementById("recipe-email");
-    if(!getInputValue.value) return;
+
+    label.style.display = "none";
+    if(!getInputValue.value) {
+        label.style.display = "block";
+        getInputValue.style.border = "1px solid red";
+        return;
+    }
 
     // get the recipe title and format the subject
     const recipeTitle = currentRecipeData.title;

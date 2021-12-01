@@ -489,12 +489,13 @@ transform: scale(1);
 .send-recipe-div {
   width: 450px;
   height: 300px;
-  background-color: var(--orange2);
+  background-color: var(--background-color);
+  border: 10px solid var(--orange2);
   text-align: center;
 }
 
 .send-recipe-div h2 {
-  color: white;
+  color: var(--orange3);
 }
 
 #send-recipe-form {
@@ -503,11 +504,12 @@ transform: scale(1);
   justify-content: center;
   align-items: center;
   text-align: center;
-  height: 200px;
+  height: 225px;
 }
 
 #send-recipe-form input {
   width: 90%;
+  margin-top: 25px;
 }
 
 #send-recipe-form button {
@@ -521,9 +523,16 @@ transform: scale(1);
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .65);
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.555);
   display: none;
+}
+
+#recipe-email-label {
+  display: none;
+  font-size: 18px;
+  color: red;
+  margin-top: 0px;
 }
 
 /* Edit Recipe style ================================================================*/
