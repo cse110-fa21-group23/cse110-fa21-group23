@@ -364,13 +364,12 @@ class RecipePage extends HTMLElement {
       tapModeSection.style.visibility = $tapModeVisibility;
       tapModeSection.style.display = null;
       if ($tapModeVisibility == "hidden") {
-        recipePageBox.style.display = "inline";
+        recipePageBox.style.display = "block";
       }
       else {
         recipePageBox.style.display = "none";
       }
-
-    })
+    });
 
     this.shadowRoot.getElementById("prev-step-button").addEventListener("click", () => {
       if (tapModeInd == 0) {
@@ -382,9 +381,8 @@ class RecipePage extends HTMLElement {
         const instr = getSingleInstr(instructions, tapModeInd);
         tapModeInstr.innerHTML = instr;
       }
+    });
 
-
-    })
     this.shadowRoot.getElementById("next-step-button").addEventListener("click", () => {
       if (tapModeInd >= instructionSize - 1) {
         console.log("You've reached the end of the recipe!");
@@ -395,10 +393,7 @@ class RecipePage extends HTMLElement {
         const instr = getSingleInstr(instructions, tapModeInd);
         tapModeInstr.innerHTML = instr;
       }
-
-    })
-
-
+    });
 
     // This displays all the instructions in numbered order for non-tap mode 
     instructions.forEach(element => {
