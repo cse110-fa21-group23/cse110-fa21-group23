@@ -582,7 +582,8 @@ transform: scale(1);
   width: 70%;
 }
 
-.edit-ingredients > button, .edit-instructions > button {
+.edit-ingredients > button, 
+.edit-instructions > button {
   border: none;
   float: right;
 }
@@ -592,30 +593,34 @@ transform: scale(1);
   color: inherit;
   font-weight: bold;
   cursor: pointer;
-  margin: 0.5em; 
+  margin: 0.5em;
 }
 
-.edit-recipe-form > div > button:hover{
+.edit-recipe-form > div > button:hover {
   color: var(--orange3);
 }
 
-.edit-ingredients > *, .edit-instructions > * {
+.edit-ingredients > *,
+.edit-instructions > * {
   padding: 0.5em;
 }
 
-.edit-ingredients > ol > li, .edit-instructions > ol > li {
+.edit-ingredients > ol > li,
+.edit-instructions > ol > li {
   padding: 0.25em;
   width: auto;
 }
 
-.edit-ingredients > ol > li > input, .edit-instructions > ol > li > input {
+.edit-ingredients > ol > li > input,
+.edit-instructions > ol > li > input {
   padding: 0.25em;
   border: none;
   width: 100%;
   color: black;
 }
   
-#cancel, #submit {
+#cancel,
+#submit {
   padding: 1em 0;
   width: 7em;
   width: 40%;
@@ -633,12 +638,12 @@ transform: scale(1);
 
 #cancel:hover{
   color: var(--orange3);
-}                                                                                                                                                                                                                                                                       
+}
 
 #submit:hover {
   background-color: var(--primary);
   color: var(--orange1);
-  transition: 0.4s ease-in-out;                                                                                                                                                                               
+  transition: 0.4s ease-in-out;
 }
 
 .edit-recipe-form h1 {
@@ -691,11 +696,11 @@ footer {
 /* Category cards style for different Screen sizes ========================================*/
 @media screen and (max-width: 700px) {
   .category-cards--wrapper{
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(2, 1fr);
-      gap: 10px;
-      margin-left: 20px;
-      margin-right: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
   }
 }
 
@@ -709,10 +714,10 @@ footer {
 
 @media screen and (max-height: 450px) {
   .category-cards--wrapper{
-      gap: 10px;
-      margin-left: 20px;
-      margin-right: 20px;
-      margin-top: 75px;
+    gap: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 75px;
   }
 }
 /* End of Category cards style for different Screen sizes ==================================*/
