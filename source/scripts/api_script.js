@@ -11,7 +11,6 @@ import SPOONACULAR_API_KEY from "./apikey.js";
     NOTE 3:main link https://spoonacular.com/food-api/docs#Search-Recipes-Complex
  */
 
-
 //Set API_URL
 const MAIN_API_URL = "https://api.spoonacular.com/recipes";
 const API_KEY = SPOONACULAR_API_KEY;
@@ -52,7 +51,7 @@ async function fetchRecipes(queries, callbackFn) {
  * @param {Array} data an array of data for a recipe card
  * @return {Array} an array of extracted data for a recipe card
  */
-function getRecipeCardInfo(data) {
+ function getRecipeCardInfo(data) {
     const recipes = [];
     for (let i = 0; i < data.length; i++) {
         const result = {};
@@ -63,7 +62,7 @@ function getRecipeCardInfo(data) {
         recipes[i] = result;
     }
     return recipes;
-}
+  }
 
 export { fetchRecipes };
 
