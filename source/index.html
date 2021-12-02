@@ -19,6 +19,7 @@
 
     <!-- Main Stylesheets & Scripts -->
     <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Global functions -->
     <script src="./scripts/main.js"></script>
     <!-- Router -->
@@ -264,7 +265,7 @@
                 <!-- within each cookbook will be a list of recipes -->
             </section>
         </div>
-        
+
 
         <!-- Save Cookbooks Menu Section -->
         <section id="save-cookbook-container" class="noprint">
@@ -283,12 +284,13 @@
         <!-- email modal  -->
         <section id="send-recipe-email">
             <div class="send-recipe-div">
-                <h2>Email to share with</h2>
+                <h2>Email recipe to</h2>
+                <p>(make sure pop-ups are enabled)</p>
                 <button id="send-recipe-cancel">X</button>
-                <form id="send-recipe-form"> 
-                    <input id="recipe-email" placeholder="Enter email" name="email-form" />
+                <form id="send-recipe-form">
+                    <input id="recipe-email" placeholder="helloHema@gmail.com" name="email-form" />
                     <label for="email-form" id="recipe-email-label">Please input an email</label>
-                    <button type="submit" id="share-recipe-email">Send</button>
+                    <button type="submit" id="share-recipe-email"><i class="fa fa-send-o"></i>&nbsp;&nbsp;Send</button>
                 </form>
             </div>
         </section>
@@ -297,20 +299,22 @@
         <div class="edit-recipe-form noprint">
             <h1> Edit Recipe </h1>
             <div class="edit-ingredients">
-              <h3>Ingredients</h3>
-              <ol>
-              </ol>
-              <button class="add-more-btn" onclick="addMoreIngredients()">+ Add more</button><button onclick="removeIngredient()">Remove</button>
+                <h3>Ingredients</h3>
+                <ol>
+                </ol>
+                <button class="add-more-btn" onclick="addMoreIngredients()">+ Add more</button><button
+                    onclick="removeIngredient()">Remove</button>
             </div>
             <div class="edit-instructions">
-              <h3>Instructions </h3>
-              <ol>
-              </ol>
-              <button class="add-more-btn" onclick="addMoreInstructions()">+ Add more</button><button onclick="removeInstruction()">Remove</button>
+                <h3>Instructions </h3>
+                <ol>
+                </ol>
+                <button class="add-more-btn" onclick="addMoreInstructions()">+ Add more</button><button
+                    onclick="removeInstruction()">Remove</button>
             </div>
             <div id="group-buttons">
-              <button id="cancel" onclick="toggleEditRecipe()">Cancel </button>
-              <button id="submit" onclick="submit()">Save </button>
+                <button id="cancel" onclick="toggleEditRecipe()">Cancel </button>
+                <button id="submit" onclick="submit()">Save </button>
             </div>
         </div>
 

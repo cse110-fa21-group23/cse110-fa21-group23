@@ -520,26 +520,58 @@ transform: scale(1);
   height: 225px;
 }
 
+
 #send-recipe-cancel {
   position: absolute;
+  margin-right: 5px;
   right: 10px;
   top: 10px;
-  width: 25px;
+  width: fit-content;
+  height: fit-content;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: none;
+  background-color: transparent;
 }
 
 #send-recipe-cancel:hover {
   cursor: pointer;
+  color: var(--orange3);
 }
 
 #send-recipe-form input {
   width: 90%;
-  margin-top: 25px;
+  margin-top: 50px;
+  padding: 3px 8px;
+  border: 1px solid var(--primary);
+
 }
 
 #send-recipe-form button {
-  margin-top: 100px;
-  width: 100px;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  padding: 10px 20px;
+  width: fit-content;
+  background-color: var(--primary);
+  color: var(--background-color);
+  border:none;
+  border-radius: 4px;
 }
+
+#send-recipe-form button:hover {
+  background-color: var(--orange3);
+  transition: all ease-out 0.5s;
+  cursor: pointer;
+}
+
+#send-recipe-form button:active {
+  background-color: var(--background-color);
+}
+
+#send-recipe-form i {
+  color: var(--background-color);
+}
+
 
 #body-blackout {
   position: absolute;
@@ -553,7 +585,8 @@ transform: scale(1);
 }
 
 #recipe-email-label {
-  display: none;
+  display: block;
+  visibility: hidden;
   font-size: 18px;
   color: red;
 }
