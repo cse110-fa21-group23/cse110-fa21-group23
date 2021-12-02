@@ -348,6 +348,7 @@ class RecipePage extends HTMLElement {
 
     // <-- instruction -->
     // For tap mode, display one instruction at a time
+
     const instructions = getInstructions(data);
     const instructionSize = instructions.length;
 
@@ -365,9 +366,11 @@ class RecipePage extends HTMLElement {
       tapModeSection.style.display = null;
       if ($tapModeVisibility == "hidden") {
         recipePageBox.style.display = "block";
+        tapModeSection.style.display = "none";
       }
       else {
         recipePageBox.style.display = "none";
+
       }
     });
 
