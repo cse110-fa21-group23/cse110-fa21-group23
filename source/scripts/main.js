@@ -153,8 +153,10 @@ function showCookbooks() {
     const cookbook = document.getElementById("cookbook-container");
     cookbook.style.visibility = "visible";
     cookbook.style.display = null;
+
     document.querySelector("body > main > div.box").style.display = "none";
 }
+
 
 /**
  * Hide cookbooks page
@@ -335,10 +337,12 @@ function toggleSaveCookBook() {
 
     if ($SOSaveCookBookMenuVisibility == "hidden") {
         menu.style.transform = "translateY(0%)";
+        menu.style.visibility = "visible";
         $SOSaveCookBookMenuVisibility = "visible";
     }
     else {
         menu.style.transform = "translateY(100%)";
+        menu.style.visibility = "hidden";
         $SOSaveCookBookMenuVisibility = "hidden";
     }
 
@@ -360,12 +364,10 @@ function showCookBookMenu() {
 
     let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
     if (bookMark.getAttribute("name") == "bookmark-empty") {
-        let cookbooksList = document.querySelectorAll("#cookbook-lists > ol > li");
-        if (cookbooksList.length == 0) {
-            cookbooks.forEach((cookBook) => {
-                appendNewCookBook(cookBook);
-            });
-        }
+        let cookbooksListHTML = document.querySelectorAll("#cookbook-lists > ol > li");
+        // remove all cookbooks
+        if (cookbooksListHTML.length !== 0) cookbooksListHTML.forEach(cb => cb.remove());
+        cookbooks.forEach(cb => appendNewCookBook(cb));
         toggleSaveCookBook();
     }
     else if (confirm("Are you sure to remove this recipe?")) {
@@ -536,9 +538,11 @@ function toggleEditRecipe() {
     if ($editRecipeVisibility == "hidden") {
         article.style.opacity = 0.35;
         menu.style.transform = "translateY(10%)";
+        menu.style.visibility = "visible";
         $editRecipeVisibility = "visible";
     } else {
         menu.style.transform = "translateY(-150%)";
+        menu.style.visibility = "hidden";
         article.style.opacity = null;
         $editRecipeVisibility = "hidden";
     }
@@ -555,7 +559,7 @@ function addMoreIngredients(ig = "") {
     let text = document.createElement("input");
     let ingreList = document.querySelector(".edit-recipe-form > .edit-ingredients > ol");
     text.type = "text";
-    text.placeholder = "ingredient / leave blank if not needed";
+    text.placeholder = "ingredient";
     text.value = ig;
     li.appendChild(text);
     ingreList.appendChild(li);
@@ -571,10 +575,26 @@ function addMoreInstructions(ins = "") {
     let text = document.createElement("input");
     let instrList = document.querySelector(".edit-recipe-form > .edit-instructions > ol");
     text.type = "text";
-    text.placeholder = "instruction / leave blank if not needed";
+    text.placeholder = "instruction";
     text.value = ins;
     li.appendChild(text);
     instrList.appendChild(li);
+}
+
+/**
+ * this function removes the last ingredient in the ingredients list
+ */
+function removeIngredient() {
+    let ingreList = document.querySelector(".edit-recipe-form > .edit-ingredients > ol");
+    ingreList.lastChild.remove();
+}
+
+/**
+ * This function removes the last intructions in the instructions list
+ */
+function removeInstruction() {
+    let instrList = document.querySelector(".edit-recipe-form > .edit-instructions > ol");
+    instrList.lastChild.remove();
 }
 
 /**

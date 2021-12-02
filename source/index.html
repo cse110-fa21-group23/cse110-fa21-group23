@@ -256,15 +256,15 @@
                         </div>
                         <button id="update-button" onclick="updateSettings()"> Update</button>
             </section>
-
+            <!-- Cookbooks (Lists) Section -->
+            <section id="cookbook-container">
+                <h1 class="heading">Saved Cookbooks</h1>
+                <!--populate this section with the cookbooks-->
+                <!-- there should always be one default Cookbook ("Favorite") -->
+                <!-- within each cookbook will be a list of recipes -->
+            </section>
         </div>
-        <!-- Cookbooks (Lists) Section -->
-        <section id="cookbook-container">
-            <h1 class="heading">Saved Cookbooks</h1>
-            <!--populate this section with the cookbooks-->
-            <!-- there should always be one default Cookbook ("Favorite") -->
-            <!-- within each cookbook will be a list of recipes -->
-        </section>
+        
 
         <!-- Save Cookbooks Menu Section -->
         <section id="save-cookbook-container" class="noprint">
@@ -297,20 +297,20 @@
         <div class="edit-recipe-form noprint">
             <h1> Edit Recipe </h1>
             <div class="edit-ingredients">
-                <h3>Ingredients</h3>
-                <ol>
-                </ol>
-                <button class="add-more-btn" onclick="addMoreIngredients()">+ Add more</button>
+              <h3>Ingredients</h3>
+              <ol>
+              </ol>
+              <button class="add-more-btn" onclick="addMoreIngredients()">+ Add more</button><button onclick="removeIngredient()">Remove</button>
             </div>
             <div class="edit-instructions">
-                <h3>Instructions </h3>
-                <ol>
-                </ol>
-                <button class="add-more-btn" onclick="addMoreInstructions()">+ Add more</button>
+              <h3>Instructions </h3>
+              <ol>
+              </ol>
+              <button class="add-more-btn" onclick="addMoreInstructions()">+ Add more</button><button onclick="removeInstruction()">Remove</button>
             </div>
-            <div>
-                <button id="cancel" onclick="toggleEditRecipe()">Cancel </button>
-                <button id="submit" onclick="submit()">Save </button>
+            <div id="group-buttons">
+              <button id="cancel" onclick="toggleEditRecipe()">Cancel </button>
+              <button id="submit" onclick="submit()">Save </button>
             </div>
         </div>
 
