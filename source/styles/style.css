@@ -501,6 +501,73 @@ transform: scale(1);
   color: var(--orange3);
 }
 
+/* Share recipe by email modal style ============================================================ */
+#send-recipe-email {
+  display: none;
+  position: absolute;
+  z-index: 1100;
+  top: 20%;
+  left: 39%;
+}
+
+.send-recipe-div {
+  width: 450px;
+  height: 300px;
+  background-color: var(--background-color);
+  border: 10px solid var(--orange2);
+  text-align: center;
+}
+
+.send-recipe-div h2 {
+  color: var(--orange3);
+}
+
+#send-recipe-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 225px;
+}
+
+#send-recipe-cancel {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 25px;
+}
+
+#send-recipe-cancel:hover {
+  cursor: pointer;
+}
+
+#send-recipe-form input {
+  width: 90%;
+  margin-top: 25px;
+}
+
+#send-recipe-form button {
+  margin-top: 100px;
+  width: 100px;
+}
+
+#body-blackout {
+  position: absolute;
+  z-index: 1099;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.555);
+  display: none;
+}
+
+#recipe-email-label {
+  display: none;
+  font-size: 18px;
+  color: red;
+}
 
 /* Edit Recipe style ================================================================*/
 .edit-recipe-form {
@@ -660,4 +727,11 @@ footer {
   }
 }
 /* End of Category cards style for different Screen sizes ==================================*/
+
+/* Used to hide the elements not to be printed */
+@media print {
+  .noprint {
+    visibility: hidden;
+  }
+}
 
