@@ -320,12 +320,13 @@ class RecipePage extends HTMLElement {
           </div>
       </main>
       <section id="tap-mode-section" > 
+        <div id="tap-mode-instr"></div>
         <section id="change-instr-btn-section">        
           <button id="prev-step-button" class="change-instr-buttons">&larr; Previous Step</button> 
           <button id="next-step-button" class="change-instr-buttons">Next Step &rarr;</button>    
         </section>
 
-        <div id="tap-mode-instr"><div>
+        
       </section >
       `;
     // TODO: move instructions on top of buttons instead
@@ -349,6 +350,7 @@ class RecipePage extends HTMLElement {
 
     // <-- instruction -->
     // For tap mode, display one instruction at a time
+
     const instructions = getInstructions(data);
     const instructionSize = instructions.length;
 
@@ -365,13 +367,14 @@ class RecipePage extends HTMLElement {
       tapModeSection.style.visibility = $tapModeVisibility;
       tapModeSection.style.display = null;
       if ($tapModeVisibility == "hidden") {
-        recipePageBox.style.display = "inline";
+        recipePageBox.style.display = "block";
+        tapModeSection.style.display = "none";
       }
       else {
         recipePageBox.style.display = "none";
-      }
 
-    })
+      }
+    });
 
     this.shadowRoot.getElementById("prev-step-button").addEventListener("click", () => {
       if (tapModeInd == 0) {
@@ -383,9 +386,8 @@ class RecipePage extends HTMLElement {
         const instr = getSingleInstr(instructions, tapModeInd);
         tapModeInstr.innerHTML = instr;
       }
+    });
 
-
-    })
     this.shadowRoot.getElementById("next-step-button").addEventListener("click", () => {
       if (tapModeInd >= instructionSize - 1) {
         console.log("You've reached the end of the recipe!");
@@ -396,10 +398,7 @@ class RecipePage extends HTMLElement {
         const instr = getSingleInstr(instructions, tapModeInd);
         tapModeInstr.innerHTML = instr;
       }
-
-    })
-
-
+    });
 
     // This displays all the instructions in numbered order for non-tap mode 
     instructions.forEach(element => {

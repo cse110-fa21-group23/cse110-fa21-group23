@@ -370,9 +370,20 @@ transform: translate(-50%, 0);
 }
 
 #recipe-page-container{
-  margin-top: -100px;
+  margin-top: 0px;
 }
 
+@media (min-height: 500px) {
+  #recipe-page-container{
+    margin-top: -100px;
+  }
+}
+
+@media (min-height: 1000px) {
+  #recipe-page-container{
+    margin-top: -200px;
+  }
+}
 
 .box {
 justify-content: center;
