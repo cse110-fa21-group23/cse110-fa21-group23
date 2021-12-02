@@ -490,10 +490,6 @@ transform: scale(1);
   color: var(--orange3);
 }
 
-.edit-recipe-form > div > button:hover {
-  color: var(--orange3);
-}
-
 /* Share recipe by email modal style ============================================================ */
 #send-recipe-email {
   display: none;
@@ -598,6 +594,10 @@ transform: scale(1);
   font-weight: bold;
   cursor: pointer;
   margin: 0.5em;
+}
+
+.edit-recipe-form > div > button:hover {
+  color: var(--orange3);
 }
 
 .edit-ingredients > *,
