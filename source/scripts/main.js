@@ -374,7 +374,7 @@ function showCookBookMenu() {
         cookbooks.forEach(cb => appendNewCookBook(cb));
         toggleSaveCookBook();
     }
-    else if (confirm("Are you sure to remove this recipe?")) {
+    else if (confirm("⚠ Are you sure to remove this bookmark?  \nAll local edits to the recipe will be lost 👀 ")) {
         try {
             // remove recipe data from local storage and cook book
             const Data = document.querySelector("recipe-page").data;
