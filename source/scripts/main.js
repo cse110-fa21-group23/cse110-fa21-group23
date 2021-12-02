@@ -47,6 +47,7 @@ function toggleTapMode() {
 function showSettings() {
     hideHome();
     hideCookbooks();
+    clearSavedRecipe();
     hideRecipeCards();
     hideRecipePage();
     const settings = document.getElementById("settings-container");
@@ -105,6 +106,7 @@ function hideSettings() {
 function showHome() {
     hideSettings();
     hideCookbooks();
+    clearSavedRecipe();
     hideRecipeCards();
     showCategoryCards();
     hideRecipePage();
@@ -236,22 +238,22 @@ function hideCategoryCards() {
 function toggleShareRecipeModal() {
     const setDisplay = (modal, blackout, display) => {
         modal.style.display = display;
-        blackout.style.display = display;    
+        blackout.style.display = display;
     };
-    
+
     const modal = document.getElementById('send-recipe-email');
     const blackout = document.getElementById('body-blackout');
     const cancelModal = document.getElementById("send-recipe-cancel");
-    
+
     const display = modal.style.display !== "block" ? "block" : "none";
-    setDisplay(modal, blackout, display); 
+    setDisplay(modal, blackout, display);
 
     blackout.onclick = () => {
-        setDisplay(modal, blackout, "none"); 
+        setDisplay(modal, blackout, "none");
     };
 
     cancelModal.onclick = () => {
-        setDisplay(modal, blackout, "none");  
+        setDisplay(modal, blackout, "none");
     };
 }
 
@@ -646,7 +648,7 @@ function showBookMarkEditReipce() {
     bookMark.setAttribute("name", "bookmark-filled");
     showEditRecipe();
 }
-  
+
 /* end save new cookbook ====================================================*/
 
 /* end of Edit Recipe =======================================================*/
@@ -654,7 +656,7 @@ function showBookMarkEditReipce() {
 /**
  * Print a recipe from the recipe page
  */
- function printRecipe() {
+function printRecipe() {
     window.print();
 }
 
@@ -667,3 +669,81 @@ function emailRecipe() {
 
 window.printRecipe = printRecipe;
 window.emailRecipe = emailRecipe;
+
+// show saved recipes in cookbooks
+function showSavedRecipe() {
+    let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
+    const container = document.getElementById("cookbook-container");
+    let br1 = document.createElement("br");
+    let br2 = document.createElement("br");
+    let br3 = document.createElement("br");
+    container.appendChild(br1);
+    container.appendChild(br2);
+    container.appendChild(br3);
+    let copy = cookbooks;
+    for (let i = 0; i < Object.keys(cookbooks).length; i++) {
+        let current = JSON.parse(localStorage.getItem(cookbooks[i]));
+        if (cookbooks[i] != "Favorites") {
+            if (current == null || current.length == 0) {
+                localStorage.removeItem(cookbooks[i]);
+                const index = cookbooks.indexOf(cookbooks[i]);
+                if (index > -1) {
+                    copy.splice(index, 1);
+                    localStorage.setItem("cookbooks", JSON.stringify(copy));
+                    continue;
+                }
+            }
+        }
+        let host = document.createElement("div");
+        let list = JSON.parse(localStorage.getItem(cookbooks[i]));
+        let holder = document.createElement("button");
+        holder.innerHTML = cookbooks[i];
+        host.appendChild(holder);
+        let IDs = [];
+        for (let j = 0; j < list.length; j++) {
+            IDs.push(list[j]);
+        }
+        for (let m = 0; m < IDs.length; m++) {
+            let appended = false;
+            let ID = IDs[m];
+            let uniquedish = JSON.parse(localStorage.getItem(`ID-${ID}`));
+            const element = document.createElement('recipe-card');
+            element.data = uniquedish;
+            const id = uniquedish["id"];
+            host.appendChild(element);
+            element.classList.remove('shown');
+            element.classList.add('hidden');
+            holder.addEventListener('click', e => {
+                if (!appended) {
+                    element.classList.remove('hidden');
+                    element.classList.add('shown');
+                    appended = true;
+                }
+                else {
+                    element.classList.remove('shown');
+                    element.classList.add('hidden');
+                    appended = false;
+                }
+            });
+            element.addEventListener('click', e => {
+                if (e.composedPath()[0].nodeName == "A") return;
+                let hash;
+                hash = "#" + id;
+                window.history.pushState(id, "", window.location.pathname + hash);
+                hideCookbooks();
+                clearSavedRecipe();
+                showRecipePage();
+                document.querySelector("recipe-page").data = uniquedish;
+                showBookMarkEditReipce();
+            });
+
+        }
+        container.appendChild(host);
+    }
+
+}
+//remove appended recipes when leave cookbook
+function clearSavedRecipe() {
+    const container = document.getElementById("cookbook-container");
+    container.innerHTML = "";
+}

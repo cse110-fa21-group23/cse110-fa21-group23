@@ -58,7 +58,6 @@ function bindAll() {
 async function init() {
     showHome();
     createCategoryCards();
-    bindPopState();
     bindAll();
 
     router.navigate("home", false); // clears url when user refreshes page
@@ -121,6 +120,7 @@ function search() {
         showRecipeCards();
         showSearchBar();
         hideCookbooks();
+        clearSavedRecipe();
         hideSettings();
     });
 
@@ -167,6 +167,7 @@ function createRecipeCards() {
             showRecipePage();
             hideSettings();
             hideCookbooks();
+            clearSavedRecipe();
             document.querySelector("recipe-page").data = recipeData[i];
             checkBookMark(recipeData[i]);
         });
@@ -217,6 +218,7 @@ function createCategoryCards() {
         router.addPage(page, function () {
             hideCategoryCards();
             hideCookbooks();
+            clearSavedRecipe();
             hideSettings();
             showRecipeCards();
             hideRecipePage();
@@ -317,9 +319,16 @@ function bindCookbookPage() {
     const page = "cookbooks";
     router.addPage(page, function () {
         showCookbooks();
+        showSavedRecipe();
+        if ($SOMenuVisibility == "hidden") {
+            $SOMenuVisibility = "visible";
+            var menuIcon = document.getElementById("menu-icon");
+            menuIcon.classList.toggle("change");
+        }
         toggleMenu();
     });
     cookbook.addEventListener("click", () => {
+        clearSavedRecipe()
         router.navigate(page, false);
     })
 }
@@ -364,7 +373,7 @@ emailFormSubmit.addEventListener("click", (e) => {
     const getInputValue = document.getElementById("recipe-email");
 
     label.style.display = "none";
-    if(!getInputValue.value) {
+    if (!getInputValue.value) {
         label.style.display = "block";
         getInputValue.style.border = "1px solid red";
         return;
