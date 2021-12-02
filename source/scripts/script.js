@@ -4,6 +4,7 @@ import { Router } from "./Router.js";
 
 let recipeData = {};
 let prevSearch = '';
+let filters = [];
 
 const router = new Router(function () {
     showHome();
@@ -101,69 +102,125 @@ document.getElementById("cuisine-filter").addEventListener("click", (e)=>{
     let count = 0;
     for (let i = 0; i < cuisineList.length; i++) {
         if (cuisineList[i].checked) {
-            count++;       
+            count++;   
+            console.log(count)
+            if(filters.indexOf(cuisineList[i].value) == -1) {
+                filters.push(cuisineList[i].value);      
+            }
+        }
+        else{
+            if(filters.indexOf(cuisineList[i].value) !== -1){
+                filters.splice(filters.indexOf(cuisineList[i].value), 1);
+            }
         }
     }
-    if(count>0){
+    console.log(filters);
+    if(filters.length>0){
+        console.log("showing");
         showApplyBtn();
     }
     else{
         hideApplyBtn();
     }
-    
-})
+    //resetFilters();
+    createFilters();
+});
+
 document.getElementById("diet-filter").addEventListener("click", (e)=>{
     console.log("clicking");
     let dietList = document.getElementsByName("diet-radio");
     let count = 0;
     for (let i = 0; i < dietList.length; i++) {
         if (dietList[i].checked) {
-            count++;       
+            count++;  
+            if(filters.indexOf(dietList[i].value) == -1) {
+                console.log("adding");
+                filters.push(dietList[i].value);      
+            }
+        
+        }
+        else{
+            if(filters.indexOf(dietList[i].value) !== -1){
+                console.log("splicing");
+                filters.splice(filters.indexOf(dietList[i].value), 1);
+            }
         }
     }
-    if(count>0){
+
+    if(filters.length>0){
         showApplyBtn();
     }
     else{
         hideApplyBtn();
     }
-    
-})
+    //resetFilters();
+    createFilters();
+});
+
 document.getElementById("meal-filter").addEventListener("click", (e)=>{
     console.log("clicking");
     let mealList = document.getElementsByName("meal-radio");
     let count = 0;
     for (let i = 0; i < mealList.length; i++) {
         if (mealList[i].checked) {
-            count++;       
+            count++;    
+            if(filters.indexOf(mealList[i].value) == -1) {
+                filters.push(mealList[i].value);      
+            }   
+            else{
+                if(filters.indexOf(mealList[i].value) !== -1){
+                    filters.splice(filters.indexOf(mealList[i].value), 1);
+                }
+            }  
         }
     }
-    if(count>0){
+    if(filters.length>0){
         showApplyBtn();
     }
     else{
         hideApplyBtn();
     }
-    
-})
+    //resetFilters();
+    createFilters();  
+});
+
 document.getElementById("time-filter").addEventListener("click", (e)=>{
     console.log("clicking");
     let timeList = document.getElementsByName("time-radio");
     let count = 0;
     for (let i = 0; i < timeList.length; i++) {
-
         if (timeList[i].checked) {
-            count++;       
+            count++;   
+            if(filters.indexOf(timeList[i].value) == -1) {
+                filters.push(timeList[i].value);      
+
+            }  
         }
+        else{
+            if(filters.indexOf(timeList[i].value) !== -1){
+                filters.splice(filters.indexOf(timeList[i].value), 1);
+            }
+        }  
     }
-    if(count>0){
+    if(filters.length>0){
         showApplyBtn();
     }
     else{
         hideApplyBtn();
     }
-    
-})
+    //resetFilters();
+    createFilters();
+});
+
+function createFilters() {
+    resetFilters();
+    console.log(filters);
+    for(let i = 0; i<filters.length; i++){
+        const filter = document.createElement("filter-card"); // creating category card // array holding the category and corresponding image
+        filter.data = filters[i]; //key: name of category, value: picture of category
+        document.querySelector(".selected-filters-container").appendChild(filter);
+    }
+}
 
 function searchByFilter () {
     hideCategoryCards();
@@ -250,11 +307,15 @@ document.getElementById("applyBtn").addEventListener("click", async () => {
     let searchSuccessful = await searchByFilter();
     if (searchSuccessful) {
         createRecipeCards();
-
     }
-    
 });
 
+document.getElementById("clear-filters-btn").addEventListener("click", () => {
+    console.log(filters)
+    filters = [];
+    clearAllFilters();
+    console.log(filters)
+})
 
 // The search function, calls API function to fetch all recipes
 // Generates recipe cards by passing in values into RecipeData

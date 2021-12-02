@@ -164,7 +164,7 @@ function clearCheckBoxes() {
 }
 
 function clearFilterCheckBoxes() {
-    let diets = document.getElementsByName("dietary-radio");
+    let diets = document.getElementsByName("diet-radio");
     let cuisines= document.getElementsByName("cuisine-radio");
     let mealtypes = document.getElementsByName("meal-radio")
     let time = document.getElementsByName("time-radio")
@@ -173,7 +173,20 @@ function clearFilterCheckBoxes() {
     mealtypes.forEach((e) => e.checked = false);
     time.forEach((e) => e.checked = false);
 }
+function resetFilters() {
+    document.querySelectorAll("filter-card").forEach(function (filters) {
+        filters.remove();
+    });
+}
 
+function clearAllFilters(filterArray) {
+    document.querySelectorAll("filter-card").forEach(function (elem) {
+        elem.remove();
+    });
+    clearFilterCheckBoxes();
+    hideApplyBtn();
+    hideClearFiltersBtn();
+}
 /**
  * Hide the settings
  *
@@ -359,14 +372,20 @@ function hideFilterBtns() {
     const filtersBtn = document.getElementById("filters-container")
     filtersBtn.style.visibility = "hidden";
     filtersBtn.style.display = "none";
+    const filterText = document.getElementById("filterText");
+    filterText.style.visibility = "hidden";
+    filterText.style.display = "none";
 }
 
 function showFilterBtns() {
     const filtersBtn = document.getElementById("filters-container")
     filtersBtn.style.visibility = "visible";
     filtersBtn.style.display = "";
+    const filterText = document.getElementById("filterText");
+    filterText.style.visibility = "visible";
+    filterText.style.display = "";
     
-}
+} 
 
 function showDietFilters() {
     console.log('diet');
@@ -378,13 +397,25 @@ function showApplyBtn() {
     const applyButton = document.getElementById("applyBtn");
     applyButton.style.visibility = "visible";
     applyButton.style.display = "";
+    showClearFiltersBtn();
 
 }
 function hideApplyBtn() {
-    console.log("hiding apply btn")
     const applyButton = document.getElementById("applyBtn");
     applyButton.style.visibility = "hidden";
     applyButton.style.display = "none";
+    hideClearFiltersBtn();
+}
+
+function showClearFiltersBtn() {
+    const clearButton = document.getElementById("clear-filters-btn");
+    clearButton.style.visibility = "visible";
+    clearButton.style.display = "";
+}
+function hideClearFiltersBtn() {
+    const clearButton = document.getElementById("clear-filters-btn");
+    clearButton.style.visibility = "hidden";
+    clearButton.style.display = "none";
 }
 
 function showCuisineFilters() {

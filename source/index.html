@@ -28,6 +28,8 @@
     <script src="./scripts/RecipeCard.js" type="module"></script>
     <!-- Recipe Page Custom Element -->
     <script src="./scripts/RecipePage.js" type="module"></script>
+    <!-- Filter Custom Element -->
+    <script src="./scripts/Filter.js" type="module"></script>
     <!-- API backend file -->
     <script type="module" src="./scripts/script.js"></script>
     <script type="module" src="./scripts/api_script.js"></script>
@@ -69,9 +71,17 @@
                         
                     </div>
                     <button class="applyBtn" id="applyBtn">Apply Filters?</button>
-
+                    <button class="clear-filters-btn" id="clear-filters-btn">Clear All Filters</button>
                 </div>
             </div>
+            <div>
+            <div id="selected-filters-container" class="selected-filters-container">
+                <p id="filterText">Filter Your Search: </p>
+                 <!--populate this section with the filters using createFilters()  -->
+                
+            </div>
+
+        </div>
             <div>
                 <div id="filters-container" class="filters-container">
                     <div class="filtersBtn" id="dietBtn">Diet 
@@ -91,9 +101,9 @@
 
                 <div id="filters-content" name="filters-content">
                     <div id="diet-filter" class="diet" name="diet-filters">
-                        <label class="filter-checkbox" for="vegetarian">
-                            <input class="checkbox__input" type="checkbox" id="vegetarian" name="diet-radio"
-                                value="vegetarian">
+                        <label class="filter-checkbox" for="Vegetarian">
+                            <input class="checkbox__input" type="checkbox" id="Vegetarian" name="diet-radio"
+                                value="Vegetarian">
                             <div class="checkbox__box"></div>
                             Vegetarian
                         </label>
@@ -115,54 +125,54 @@
                             <div class="checkbox__box"></div>
                             Ketogenic
                         </label>
-                        <label class="filter-checkbox" for="pescetarian">
-                            <input class="checkbox__input" type="checkbox" id="pescetarian" name="diet-radio"
-                                value="pescetarian">
+                        <label class="filter-checkbox" for="Pescetarian">
+                            <input class="checkbox__input" type="checkbox" id="Pescetarian" name="diet-radio"
+                                value="Pescetarian">
                             <div class="checkbox__box"></div>
                             Pescetarian
                         </label>
-                        <label class="filter-checkbox" for="paleo">
-                            <input class="checkbox__input" type="checkbox" id="paleo" name="diet-radio"
-                                value="paleo">
+                        <label class="filter-checkbox" for="Paleo">
+                            <input class="checkbox__input" type="checkbox" id="Paleo" name="diet-radio"
+                                value="Paleo">
                             <div class="checkbox__box"></div>
                             Paleo
                         </label>
-                        <label class="filter-checkbox" for="primal">
-                            <input class="checkbox__input" type="checkbox" id="primal" name="diet-radio"
-                                value="primal">
+                        <label class="filter-checkbox" for="Primal">
+                            <input class="checkbox__input" type="checkbox" id="Primal" name="diet-radio"
+                                value="Primal">
                             <div class="checkbox__box"></div>
                             Primal
                         </label>
-                        <label class="filter-checkbox" for="lacto-vegetarian">
-                            <input class="checkbox__input" type="checkbox" id="lacto-vegetarian" name="diet-radio"
-                                value="lacto-vegetarian">
+                        <label class="filter-checkbox" for="Lacto-Vegetarian">
+                            <input class="checkbox__input" type="checkbox" id="Lacto-Vegetarian" name="diet-radio"
+                                value="Lacto-Vegetarian">
                             <div class="checkbox__box"></div>
                             Lacto-Vegetarian
                         </label>
-                        <label class="filter-checkbox" for="ovo-vegetarian">
-                            <input class="checkbox__input" type="checkbox" id="ovo-vegetarian" name="diet-radio"
-                                value="ovo-vegetarian">
+                        <label class="filter-checkbox" for="Ovo-Vegetarian">
+                            <input class="checkbox__input" type="checkbox" id="Ovo-Vegetarian" name="diet-radio"
+                                value="Ovo-Vegetarian">
                             <div class="checkbox__box"></div>
                             Ovo-Vegetarian
                         </label>
                     </div>
 
                     <div class="cuisine" id="cuisine-filter" name="cuisine-filters">
-                        <label class="filter-checkbox" for="african">
-                            <input class="checkbox__input" type="checkbox" id="african" name="cuisine-radio"
-                                value="african">
+                        <label class="filter-checkbox" for="African">
+                            <input class="checkbox__input" type="checkbox" id="African" name="cuisine-radio"
+                                value="African">
                             <div class="checkbox__box"></div>
                             African
                         </label>
-                        <label class="filter-checkbox" for="american">
-                            <input class="checkbox__input" type="checkbox" id="american" name="cuisine-radio"
-                                value="american">
+                        <label class="filter-checkbox" for="American">
+                            <input class="checkbox__input" type="checkbox" id="American" name="cuisine-radio"
+                                value="American">
                             <div class="checkbox__box"></div>
                             American
                         </label>
-                        <label class="filter-checkbox" for="british">
-                            <input class="checkbox__input" type="checkbox" id="british" name="cuisine-radio"
-                                value="british">
+                        <label class="filter-checkbox" for="British">
+                            <input class="checkbox__input" type="checkbox" id="British" name="cuisine-radio"
+                                value="British">
                             <div class="checkbox__box"></div>
                             British
                         </label>
