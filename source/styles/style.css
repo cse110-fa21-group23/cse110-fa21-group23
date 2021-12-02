@@ -76,6 +76,14 @@ h2 {
   font-weight: 200;
 }
 
+.add-more-btn {
+  border: none;
+}
+
+.add-more-btn:hover {
+  color: var(--orange3);
+}
+
 #app-name{
   cursor: pointer;
   padding-top: 15px;
@@ -123,7 +131,9 @@ h2 {
 }
 
 .search:hover > .search-query {
-  transform: scale(1.01,1.01);
+  transform: scale(1.005,1.005);
+  transition: all 0.3s ease-out;
+
 }
 
 
@@ -137,7 +147,7 @@ h2 {
 }
 
 .search-query:focus{
-  color: var(--primary);
+  outline: 1px solid var(--primary);
 }
 
 .searchButton {
@@ -223,7 +233,7 @@ h2 {
 }
 
 .intolerances-subheading, .diet-subheading {
-  margin-bottom: 50px;
+  margin-bottom: 10px;
 }
 
 .intolerances-subheading {
@@ -477,6 +487,74 @@ transform: scale(1);
   color: var(--orange3);
 }
 
+/* Share recipe by email modal style ============================================================ */
+#send-recipe-email {
+  display: none;
+  position: absolute;
+  z-index: 1100;
+  top: 20%;
+  left: 39%;
+}
+
+.send-recipe-div {
+  width: 450px;
+  height: 300px;
+  background-color: var(--background-color);
+  border: 10px solid var(--orange2);
+  text-align: center;
+}
+
+.send-recipe-div h2 {
+  color: var(--orange3);
+}
+
+#send-recipe-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 225px;
+}
+
+#send-recipe-cancel {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 25px;
+}
+
+#send-recipe-cancel:hover {
+  cursor: pointer;
+}
+
+#send-recipe-form input {
+  width: 90%;
+  margin-top: 25px;
+}
+
+#send-recipe-form button {
+  margin-top: 100px;
+  width: 100px;
+}
+
+#body-blackout {
+  position: absolute;
+  z-index: 1099;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.555);
+  display: none;
+}
+
+#recipe-email-label {
+  display: none;
+  font-size: 18px;
+  color: red;
+}
+
 /* Edit Recipe style ================================================================*/
 .edit-recipe-form {
   position: fixed;
@@ -521,10 +599,42 @@ transform: scale(1);
   color: black;
 }
   
-#cancel, #submit {
-  padding: 1em 0;
-  width: 7em;
+#cancel {
+  border: none;
 } 
+
+#submit {
+  padding: .5vh 1vw;
+  margin: 2vw;
+  border: solid var(--primary);
+}
+
+#cancel:hover{
+  color: var(--orange3);
+}                                                                                                                                                                                                                                                                             
+
+#submit:hover {
+  background-color: var(--primary);
+  color: var(--orange1);   
+  transition: .4s ease-in-out;
+                                                                                                                                                                                                                                    
+}
+
+
+.edit-recipe-form h1 {
+  margin-top: 4vh;
+}
+
+.edit-recipe-form ol li input {
+  color: var(--primary);
+  background-color: var(--background-color);
+}
+
+.edit-recipe-form ol li input:focus {
+  outline: 1px solid var(--primary);
+  background-color: white; 
+  font-weight: 600; 
+}
 @media (min-width: 750px) {
   .edit-recipe-form {
     left: 25%;
@@ -586,4 +696,11 @@ footer {
 }
 }
 /* End of Category cards style for different Screen sizes ==================================*/
+
+/* Used to hide the elements not to be printed */
+@media print {
+  .noprint {
+    visibility: hidden;
+  }
+}
 
