@@ -673,12 +673,6 @@ window.emailRecipe = emailRecipe;
 function showSavedRecipe() {
     let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
     const container = document.getElementById("cookbook-container");
-    let br1 = document.createElement("br");
-    let br2 = document.createElement("br");
-    let br3 = document.createElement("br");
-    container.appendChild(br1);
-    container.appendChild(br2);
-    container.appendChild(br3);
     let copy = cookbooks;
     for (let i = 0; i < Object.keys(cookbooks).length; i++) {
         let current = JSON.parse(localStorage.getItem(cookbooks[i]));
@@ -751,5 +745,5 @@ function showSavedRecipe() {
 //remove appended recipes when leave cookbook
 function clearSavedRecipe() {
     const container = document.getElementById("cookbook-container");
-    container.innerHTML = "";
+    container.innerHTML = `<h1 class="heading">Saved Cookbooks</h1>`;
 }
