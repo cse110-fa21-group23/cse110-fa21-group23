@@ -33,6 +33,10 @@ function toggleDietFilters () {
     let dropDownMenu = document.getElementById("diet-filter");
 
     if ($dietFilterVisibility == "hidden") {
+        const getDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
+        if (getDietaryRestrictions && getDietaryRestrictions.length !== 0) {
+            alert("Choosing a diet filter will override your diet restrictions in settings")
+        }
         $dietFilterVisibility = "visible";
         dropDownMenu.style.visibility = "visible";
 
@@ -179,7 +183,7 @@ function resetFilters() {
     });
 }
 
-function clearAllFilters(filterArray) {
+function clearAllFilters() {
     document.querySelectorAll("filter-card").forEach(function (elem) {
         elem.remove();
     });
@@ -212,7 +216,9 @@ function showHome() {
     showSearchBar();
     hideFilterBtns();
     hideApplyBtn();
+    showSelectedFilters();
     clearFilterCheckBoxes();
+    clearAllFilters();
     document.getElementById('search-query').value = ''; //clears search result
 }
 
@@ -226,6 +232,7 @@ function hideHome() {
     hideFilters();
     hideFilterBtns();
     hideApplyBtn();
+    hideSelectedFilters();
 }
 
 /**
@@ -431,6 +438,18 @@ function showTimeFilters() {
 function showMealFilters() {
     const meal = document.getElementById("meal-filter");
     meal.style.visibility = "visible";
+}
+
+function hideSelectedFilters() {
+    const selectedFilters = document.getElementById("selected-filters-container");
+    selectedFilters.style.visibility = "hidden";
+    selectedFilters.style.display = "none";
+}
+
+function showSelectedFilters() {
+    const selectedFilters = document.getElementById("selected-filters-container");
+    selectedFilters.style.visibility = "visible";
+    selectedFilters.style.display = "";
 }
 
 /**

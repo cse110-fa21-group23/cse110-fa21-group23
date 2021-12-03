@@ -452,6 +452,10 @@ function createCategoryCards() {
             showSearchBar();
             showFilterBtns();
             hideApplyBtn();
+            showSelectedFilters();
+            if(filters.length>0){
+                showApplyBtn();
+            }
         });
 
         bindCategoryCards(categoryCard, categories[randNums[i]]);
@@ -531,10 +535,12 @@ async function searchByCategory() {
 function bindAppNameClick() {
     let appName = document.getElementById("app-name");
     const page = "home";
+
     router.addPage(page, function () {
         showHome();
     });
     appName.addEventListener("click", () => {
+        filters = [];
         router.navigate(page, false);
     })
 }
@@ -583,6 +589,7 @@ function bindHomePage() {
     });
     home.addEventListener("click", () => {
         toggleMenu();
+        filters = [];
         router.navigate(page, false);
     })
 }
