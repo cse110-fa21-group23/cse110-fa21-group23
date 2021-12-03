@@ -334,18 +334,19 @@ var $SOSaveCookBookMenuVisibility = "hidden";
  */
 function toggleSaveCookBook() {
     var menu = document.querySelector("#save-cookbook-menu");
-
+    const article = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("article");
     if ($SOSaveCookBookMenuVisibility == "hidden") {
         menu.style.transform = "translateY(0%)";
         menu.style.visibility = "visible";
         $SOSaveCookBookMenuVisibility = "visible";
+        article.style.opacity = 0.35;
     }
     else {
         menu.style.transform = "translateY(100%)";
         menu.style.visibility = "hidden";
         $SOSaveCookBookMenuVisibility = "hidden";
+        article.style.opacity = null;
     }
-
 }
 
 /**
@@ -532,7 +533,6 @@ var $editRecipeVisibility = "hidden";
  */
 function toggleEditRecipe() {
     const article = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("article");
-    article.style.opacity = 0.35;
     var menu = document.querySelector(".edit-recipe-form");
 
     if ($editRecipeVisibility == "hidden") {
