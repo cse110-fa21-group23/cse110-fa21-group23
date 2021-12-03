@@ -297,7 +297,7 @@ class RecipePage extends HTMLElement {
     this.shadowRoot.querySelector("article").innerHTML = `
       <header class="header">
         <h1 id="recipe-title"></h1>
-        <img id="bookmark" class="noprint" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
+        <img id="bookmark" class="noprint" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56" title="click to save this recipe">
       </header>
       <div class="edit-recipe hidden">
         <span onclick="load()">Edit <img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> </span>

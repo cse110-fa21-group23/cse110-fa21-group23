@@ -388,6 +388,7 @@ function showCookBookMenu() {
             localStorage.removeItem(`ID-${Data["id"]}`);
             bookMark.setAttribute("name", "bookmark-empty");
             bookMark.src = "./img/icons/bookmark-empty.svg";
+            bookMark.title = "Click to save this recipe";
             hideEditRecipe();
         } catch (err) {
             alert("An error has occured: " + err);
@@ -420,16 +421,9 @@ function bindNewCookBook(li) {
             Data["cookbook"] = CookBookName;
             localStorage.setItem(`ID-${Id}`, JSON.stringify(Data));
 
-            // update bookMark icon
-            bookMark.setAttribute("name", "bookmark-filled");
-            bookMark.src = "./img/icons/bookmark-filled.svg";
-
             // alert user
             alert("Added to " + CookBookName + " successful");
-
-            // display edit
-            showEditRecipe();
-
+            showBookMarkEditReipce();
             toggleSaveCookBook(); // close savecookbook menu
         } catch (err) {
             alert("An error has occured" + err);
@@ -647,6 +641,7 @@ function submit() {
 function showBookMarkEditReipce() {
     let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
     bookMark.src = "./img/icons/bookmark-filled.svg";
+    bookMark.title = "Click to remove this recipe";
     bookMark.setAttribute("name", "bookmark-filled");
     showEditRecipe();
 }
