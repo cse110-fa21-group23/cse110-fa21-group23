@@ -12,10 +12,14 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
+    <link href="https://pro.fontawesome.com/releases/v5.10.0/css/fontawesome.css" rel="stylesheet">
+    <link href="https://pro.fontawesome.com/releases/v5.10.0/css/brands.css" rel="stylesheet">
+    <link href="https://pro.fontawesome.com/releases/v5.10.0/css/solid.css" rel="stylesheet">
 
 
     <!-- Main Stylesheets & Scripts -->
     <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Global functions -->
     <script src="./scripts/main.js"></script>
     <!-- Router -->
@@ -38,7 +42,7 @@
 <body>
 
     <h1 id="app-name" onclick="showHome()">Team 23 Project </h1>
-    <button id="tap-mode-button" class="visible">Tap Mode Off</button>
+    <button id="tap-mode-button" class="visible noprint">Enter Tap Mode</button>
     <main>
 
         <!-- Hamburger Menu Section-->
@@ -497,56 +501,74 @@
                         </div>
                         <button id="update-button" onclick="updateSettings()"> Update</button>
             </section>
-
+            <!-- Cookbooks (Lists) Section -->
+            <section id="cookbook-container">
+                <h1 class="heading">Saved Cookbooks</h1>
+                <!--populate this section with the cookbooks-->
+                <!-- there should always be one default Cookbook ("Favorite") -->
+                <!-- within each cookbook will be a list of recipes -->
+            </section>
         </div>
-        <!-- Cookbooks (Lists) Section -->
-        <section id="cookbook-container">
-            <h1 class="heading">Saved Cookbooks</h1>
-            <!--populate this section with the cookbooks-->
-            <!-- there should always be one default Cookbook ("Favorite") -->
-            <!-- within each cookbook will be a list of recipes -->
-        </section>
+
 
         <!-- Save Cookbooks Menu Section -->
-        <section id="save-cookbook-container">
+        <section id="save-cookbook-container" class="noprint">
             <div id="save-cookbook-menu">
                 <button id="close-save-cookbook-menu-button" onclick="toggleSaveCookBook()">></button>
-                <button id="new-cookbook-button" onclick="addNewCookBook()">+ New Cookbook</button>
+                <button id="new-cookbook-button" onclick="addNewCookBook()" title="Click to add new cookbook">+ New Cookbook</button>
                 <div id="cookbook-lists">
-                  <ol style="list-style-type: none">
-                  <!-- Add new cookbooks here -->    
-                  </ol>
+                    <ol style="list-style-type: none">
+                        <!-- Add new cookbooks here -->
+                    </ol>
                 </div>
-              
+
+            </div>
+        </section>
+
+        <!-- email modal  -->
+        <section id="send-recipe-email">
+            <div class="send-recipe-div">
+                <h2>Email recipe to</h2>
+                <p>(make sure pop-ups are enabled)</p>
+                <button id="send-recipe-cancel">X</button>
+                <form id="send-recipe-form">
+                    <input id="recipe-email" placeholder="helloHema@gmail.com" name="email-form" />
+                    <label for="email-form" id="recipe-email-label">Please input an email</label>
+                    <button type="submit" id="share-recipe-email"><i class="fa fa-send-o"></i>&nbsp;&nbsp;Send</button>
+                </form>
             </div>
         </section>
 
         <!-- Edit Recipe Section-->
-        <div class="edit-recipe-form">
+        <div class="edit-recipe-form noprint">
             <h1> Edit Recipe </h1>
             <div class="edit-ingredients">
-              <h3>Ingredients</h3>
-              <ol>
-              </ol>
-              <button onclick="addMoreIngredients()">Add more</button>
+                <h3>Ingredients</h3>
+                <ol>
+                </ol>
+                <button class="add-more-btn" onclick="addMoreIngredients()">+ Add more</button><button
+                    onclick="removeIngredient()">Remove</button>
             </div>
             <div class="edit-instructions">
-              <h3>Instructions </h3>
-              <ol>
-              </ol>
-              <button onclick="addMoreInstructions()">Add more</button>
+                <h3>Instructions </h3>
+                <ol>
+                </ol>
+                <button class="add-more-btn" onclick="addMoreInstructions()">+ Add more</button><button
+                    onclick="removeInstruction()">Remove</button>
             </div>
-            <div>
-              <button id="cancel" onclick="toggleEditRecipe()">Cancel </button>
-              <button id="submit" onclick="submit()">Save </button>
+            <div id="group-buttons">
+                <button id="cancel" onclick="toggleEditRecipe()">Cancel </button>
+                <button id="submit" onclick="submit()">Save </button>
             </div>
         </div>
 
-     
+
     </main>
     <footer>
     </footer>
 
+    <!-- Black out the background for modal -->
+    <div id="body-blackout"></div>
 </body>
 
 </html>
