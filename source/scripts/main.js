@@ -28,14 +28,18 @@ function toggleMenu() {
  */
 function toggleTapMode() {
     const tapModeButton = document.getElementById("tap-mode-button");
-
-    if (tapModeButton.innerHTML == "Tap Mode On") {
-        tapModeButton.innerHTML = "Tap Mode Off";
+    if (tapModeButton.innerHTML == "Leave Tap Mode") {
+        tapModeButton.innerHTML = "Enter Tap Mode";
         $tapModeVisibility = "hidden";
+        tapModeButton.style.backgroundColor = "var(--background-color)";
+        tapModeButton.style.color = "var(--primary)";
+
     }
     else {
-        tapModeButton.innerHTML = "Tap Mode On";
+        tapModeButton.innerHTML = "Leave Tap Mode";
         $tapModeVisibility = "visible";
+        tapModeButton.style.backgroundColor = "var(--primary)";
+        tapModeButton.style.color = "var(--background-color)";
     }
 
 }
@@ -192,7 +196,7 @@ function hideRecipePage() {
     recipePage.style.visibility = "hidden";
     recipePage.style.display = "none";
     const tapModeButton = document.getElementById("tap-mode-button");
-    tapModeButton.innerHTML = "Tap Mode Off";
+    tapModeButton.innerHTML = "Enter Tap Mode";
 }
 
 /**
@@ -336,18 +340,19 @@ var $SOSaveCookBookMenuVisibility = "hidden";
  */
 function toggleSaveCookBook() {
     var menu = document.querySelector("#save-cookbook-menu");
-
+    const article = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("article");
     if ($SOSaveCookBookMenuVisibility == "hidden") {
         menu.style.transform = "translateY(0%)";
         menu.style.visibility = "visible";
         $SOSaveCookBookMenuVisibility = "visible";
+        article.style.opacity = 0.35;
     }
     else {
         menu.style.transform = "translateY(100%)";
         menu.style.visibility = "hidden";
         $SOSaveCookBookMenuVisibility = "hidden";
+        article.style.opacity = null;
     }
-
 }
 
 /**
@@ -372,7 +377,7 @@ function showCookBookMenu() {
         cookbooks.forEach(cb => appendNewCookBook(cb));
         toggleSaveCookBook();
     }
-    else if (confirm("Are you sure to remove this recipe?")) {
+    else if (confirm("⚠ Are you sure to remove this bookmark?  \nAll local edits to the recipe will be lost 👀 ")) {
         try {
             // remove recipe data from local storage and cook book
             const Data = document.querySelector("recipe-page").data;
@@ -385,6 +390,7 @@ function showCookBookMenu() {
             localStorage.removeItem(`ID-${Data["id"]}`);
             bookMark.setAttribute("name", "bookmark-empty");
             bookMark.src = "./img/icons/bookmark-empty.svg";
+            bookMark.title = "Click to save this recipe";
             hideEditRecipe();
         } catch (err) {
             alert("An error has occured: " + err);
@@ -417,16 +423,9 @@ function bindNewCookBook(li) {
             Data["cookbook"] = CookBookName;
             localStorage.setItem(`ID-${Id}`, JSON.stringify(Data));
 
-            // update bookMark icon
-            bookMark.setAttribute("name", "bookmark-filled");
-            bookMark.src = "./img/icons/bookmark-filled.svg";
-
             // alert user
             alert("Added to " + CookBookName + " successful");
-
-            // display edit
-            showEditRecipe();
-
+            showBookMarkEditReipce();
             toggleSaveCookBook(); // close savecookbook menu
         } catch (err) {
             alert("An error has occured" + err);
@@ -534,7 +533,6 @@ var $editRecipeVisibility = "hidden";
  */
 function toggleEditRecipe() {
     const article = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("article");
-    article.style.opacity = 0.35;
     var menu = document.querySelector(".edit-recipe-form");
 
     if ($editRecipeVisibility == "hidden") {
@@ -645,6 +643,7 @@ function submit() {
 function showBookMarkEditReipce() {
     let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
     bookMark.src = "./img/icons/bookmark-filled.svg";
+    bookMark.title = "Click to remove this recipe";
     bookMark.setAttribute("name", "bookmark-filled");
     showEditRecipe();
 }

@@ -372,9 +372,8 @@ emailFormSubmit.addEventListener("click", (e) => {
     const label = document.getElementById("recipe-email-label");
     const getInputValue = document.getElementById("recipe-email");
 
-    label.style.display = "none";
     if (!getInputValue.value) {
-        label.style.display = "block";
+        label.style.visibility = "visible";
         getInputValue.style.border = "1px solid red";
         return;
     }

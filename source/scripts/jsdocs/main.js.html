@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>JSDoc: Source: main.js</title>
@@ -15,18 +16,18 @@
 
 <body>
 
-<div id="main">
+    <div id="main">
 
-    <h1 class="page-title">Source: main.js</h1>
-
-    
+        <h1 class="page-title">Source: main.js</h1>
 
 
 
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>var $SOMenuVisibility = "hidden";
+
+
+
+        <section>
+            <article>
+                <pre class="prettyprint source linenums"><code>var $SOMenuVisibility = "hidden";
 var $tapModeVisibility = "hidden";
 
 /**
@@ -57,12 +58,12 @@ function toggleMenu() {
 function toggleTapMode() {
     const tapModeButton = document.getElementById("tap-mode-button");
 
-    if (tapModeButton.innerHTML == "Tap Mode On") {
-        tapModeButton.innerHTML = "Tap Mode Off";
+    if (tapModeButton.innerHTML == "Leave Tap Mode") {
+        tapModeButton.innerHTML = "Enter Tap Mode";
         $tapModeVisibility = "hidden";
     }
     else {
-        tapModeButton.innerHTML = "Tap Mode On";
+        tapModeButton.innerHTML = "Leave Tap Mode";
         $tapModeVisibility = "visible";
     }
 
@@ -216,7 +217,7 @@ function hideRecipePage() {
     recipePage.style.visibility = "hidden";
     recipePage.style.display = "none";
     const tapModeButton = document.getElementById("tap-mode-button");
-    tapModeButton.innerHTML = "Tap Mode Off";
+    tapModeButton.innerHTML = "Enter Tap Mode";
 }
 
 /**
@@ -633,25 +634,88 @@ function showBookMarkEditReipce() {
     showEditRecipe();
 }
 /* end of Edit Recipe =======================================================*/</code></pre>
-        </article>
-    </section>
+            </article>
+        </section>
 
 
 
 
-</div>
+    </div>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CategoryCard.CategoryCard.html">CategoryCard</a></li><li><a href="RecipeCard.RecipeCard.html">RecipeCard</a></li><li><a href="RecipePage.RecipePage.html">RecipePage</a></li><li><a href="Router.exports.Router.html">exports.Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMoreIngredients">addMoreIngredients</a></li><li><a href="global.html#addMoreInstructions">addMoreInstructions</a></li><li><a href="global.html#addNewCookBook">addNewCookBook</a></li><li><a href="global.html#appendNewCookBook">appendNewCookBook</a></li><li><a href="global.html#bindAll">bindAll</a></li><li><a href="global.html#bindAppNameClick">bindAppNameClick</a></li><li><a href="global.html#bindCategoryCards">bindCategoryCards</a></li><li><a href="global.html#bindCookbookPage">bindCookbookPage</a></li><li><a href="global.html#bindHomePage">bindHomePage</a></li><li><a href="global.html#bindNewCookBook">bindNewCookBook</a></li><li><a href="global.html#bindPopState">bindPopState</a></li><li><a href="global.html#bindSettingsPage">bindSettingsPage</a></li><li><a href="global.html#checkBookMark">checkBookMark</a></li><li><a href="global.html#clearCheckBoxes">clearCheckBoxes</a></li><li><a href="global.html#createCategoryCards">createCategoryCards</a></li><li><a href="global.html#fetchRecipes">fetchRecipes</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getInstructions">getInstructions</a></li><li><a href="global.html#getRecipeCardInfo">getRecipeCardInfo</a></li><li><a href="global.html#getSingleInstr">getSingleInstr</a></li><li><a href="global.html#hideCategoryCards">hideCategoryCards</a></li><li><a href="global.html#hideCookbooks">hideCookbooks</a></li><li><a href="global.html#hideEditRecipe">hideEditRecipe</a></li><li><a href="global.html#hideHome">hideHome</a></li><li><a href="global.html#hideRecipeCards">hideRecipeCards</a></li><li><a href="global.html#hideRecipePage">hideRecipePage</a></li><li><a href="global.html#hideSearchBar">hideSearchBar</a></li><li><a href="global.html#hideSettings">hideSettings</a></li><li><a href="global.html#hideTapMode">hideTapMode</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#load">load</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchByCategory">searchByCategory</a></li><li><a href="global.html#showBookMarkEditReipce">showBookMarkEditReipce</a></li><li><a href="global.html#showCategoryCards">showCategoryCards</a></li><li><a href="global.html#showCookBookMenu">showCookBookMenu</a></li><li><a href="global.html#showCookbooks">showCookbooks</a></li><li><a href="global.html#showEditRecipe">showEditRecipe</a></li><li><a href="global.html#showHome">showHome</a></li><li><a href="global.html#showRecipeCards">showRecipeCards</a></li><li><a href="global.html#showRecipePage">showRecipePage</a></li><li><a href="global.html#showSearchBar">showSearchBar</a></li><li><a href="global.html#showSettings">showSettings</a></li><li><a href="global.html#showTapMode">showTapMode</a></li><li><a href="global.html#submit">submit</a></li><li><a href="global.html#sum">sum</a></li><li><a href="global.html#toggleEditRecipe">toggleEditRecipe</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#toggleSaveCookBook">toggleSaveCookBook</a></li><li><a href="global.html#toggleTapMode">toggleTapMode</a></li><li><a href="global.html#updateSettings">updateSettings</a></li></ul>
-</nav>
+    <nav>
+        <h2><a href="index.html">Home</a></h2>
+        <h3>Classes</h3>
+        <ul>
+            <li><a href="CategoryCard.CategoryCard.html">CategoryCard</a></li>
+            <li><a href="RecipeCard.RecipeCard.html">RecipeCard</a></li>
+            <li><a href="RecipePage.RecipePage.html">RecipePage</a></li>
+            <li><a href="Router.exports.Router.html">exports.Router</a></li>
+        </ul>
+        <h3>Global</h3>
+        <ul>
+            <li><a href="global.html#addMoreIngredients">addMoreIngredients</a></li>
+            <li><a href="global.html#addMoreInstructions">addMoreInstructions</a></li>
+            <li><a href="global.html#addNewCookBook">addNewCookBook</a></li>
+            <li><a href="global.html#appendNewCookBook">appendNewCookBook</a></li>
+            <li><a href="global.html#bindAll">bindAll</a></li>
+            <li><a href="global.html#bindAppNameClick">bindAppNameClick</a></li>
+            <li><a href="global.html#bindCategoryCards">bindCategoryCards</a></li>
+            <li><a href="global.html#bindCookbookPage">bindCookbookPage</a></li>
+            <li><a href="global.html#bindHomePage">bindHomePage</a></li>
+            <li><a href="global.html#bindNewCookBook">bindNewCookBook</a></li>
+            <li><a href="global.html#bindPopState">bindPopState</a></li>
+            <li><a href="global.html#bindSettingsPage">bindSettingsPage</a></li>
+            <li><a href="global.html#checkBookMark">checkBookMark</a></li>
+            <li><a href="global.html#clearCheckBoxes">clearCheckBoxes</a></li>
+            <li><a href="global.html#createCategoryCards">createCategoryCards</a></li>
+            <li><a href="global.html#fetchRecipes">fetchRecipes</a></li>
+            <li><a href="global.html#getIngredients">getIngredients</a></li>
+            <li><a href="global.html#getInstructions">getInstructions</a></li>
+            <li><a href="global.html#getRecipeCardInfo">getRecipeCardInfo</a></li>
+            <li><a href="global.html#getSingleInstr">getSingleInstr</a></li>
+            <li><a href="global.html#hideCategoryCards">hideCategoryCards</a></li>
+            <li><a href="global.html#hideCookbooks">hideCookbooks</a></li>
+            <li><a href="global.html#hideEditRecipe">hideEditRecipe</a></li>
+            <li><a href="global.html#hideHome">hideHome</a></li>
+            <li><a href="global.html#hideRecipeCards">hideRecipeCards</a></li>
+            <li><a href="global.html#hideRecipePage">hideRecipePage</a></li>
+            <li><a href="global.html#hideSearchBar">hideSearchBar</a></li>
+            <li><a href="global.html#hideSettings">hideSettings</a></li>
+            <li><a href="global.html#hideTapMode">hideTapMode</a></li>
+            <li><a href="global.html#init">init</a></li>
+            <li><a href="global.html#load">load</a></li>
+            <li><a href="global.html#search">search</a></li>
+            <li><a href="global.html#searchByCategory">searchByCategory</a></li>
+            <li><a href="global.html#showBookMarkEditReipce">showBookMarkEditReipce</a></li>
+            <li><a href="global.html#showCategoryCards">showCategoryCards</a></li>
+            <li><a href="global.html#showCookBookMenu">showCookBookMenu</a></li>
+            <li><a href="global.html#showCookbooks">showCookbooks</a></li>
+            <li><a href="global.html#showEditRecipe">showEditRecipe</a></li>
+            <li><a href="global.html#showHome">showHome</a></li>
+            <li><a href="global.html#showRecipeCards">showRecipeCards</a></li>
+            <li><a href="global.html#showRecipePage">showRecipePage</a></li>
+            <li><a href="global.html#showSearchBar">showSearchBar</a></li>
+            <li><a href="global.html#showSettings">showSettings</a></li>
+            <li><a href="global.html#showTapMode">showTapMode</a></li>
+            <li><a href="global.html#submit">submit</a></li>
+            <li><a href="global.html#sum">sum</a></li>
+            <li><a href="global.html#toggleEditRecipe">toggleEditRecipe</a></li>
+            <li><a href="global.html#toggleMenu">toggleMenu</a></li>
+            <li><a href="global.html#toggleSaveCookBook">toggleSaveCookBook</a></li>
+            <li><a href="global.html#toggleTapMode">toggleTapMode</a></li>
+            <li><a href="global.html#updateSettings">updateSettings</a></li>
+        </ul>
+    </nav>
 
-<br class="clear">
+    <br class="clear">
 
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Nov 29 2021 17:51:46 GMT-0800 (Pacific Standard Time)
-</footer>
+    <footer>
+        Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Nov 29 2021 17:51:46
+        GMT-0800 (Pacific Standard Time)
+    </footer>
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+    <script> prettyPrint();</script>
+    <script src="scripts/linenumber.js"> </script>
 </body>
+
 </html>
