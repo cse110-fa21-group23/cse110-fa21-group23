@@ -28,14 +28,18 @@ function toggleMenu() {
  */
 function toggleTapMode() {
     const tapModeButton = document.getElementById("tap-mode-button");
-
-    if (tapModeButton.innerHTML == "Tap Mode On") {
-        tapModeButton.innerHTML = "Tap Mode Off";
+    if (tapModeButton.innerHTML == "Leave Tap Mode") {
+        tapModeButton.innerHTML = "Enter Tap Mode";
         $tapModeVisibility = "hidden";
+        tapModeButton.style.backgroundColor = "var(--background-color)";
+        tapModeButton.style.color = "var(--primary)";
+
     }
     else {
-        tapModeButton.innerHTML = "Tap Mode On";
+        tapModeButton.innerHTML = "Leave Tap Mode";
         $tapModeVisibility = "visible";
+        tapModeButton.style.backgroundColor = "var(--primary)";
+        tapModeButton.style.color = "var(--background-color)";
     }
 
 }
@@ -190,7 +194,7 @@ function hideRecipePage() {
     recipePage.style.visibility = "hidden";
     recipePage.style.display = "none";
     const tapModeButton = document.getElementById("tap-mode-button");
-    tapModeButton.innerHTML = "Tap Mode Off";
+    tapModeButton.innerHTML = "Enter Tap Mode";
 }
 
 /**
@@ -236,22 +240,22 @@ function hideCategoryCards() {
 function toggleShareRecipeModal() {
     const setDisplay = (modal, blackout, display) => {
         modal.style.display = display;
-        blackout.style.display = display;    
+        blackout.style.display = display;
     };
-    
+
     const modal = document.getElementById('send-recipe-email');
     const blackout = document.getElementById('body-blackout');
     const cancelModal = document.getElementById("send-recipe-cancel");
-    
+
     const display = modal.style.display !== "block" ? "block" : "none";
-    setDisplay(modal, blackout, display); 
+    setDisplay(modal, blackout, display);
 
     blackout.onclick = () => {
-        setDisplay(modal, blackout, "none"); 
+        setDisplay(modal, blackout, "none");
     };
 
     cancelModal.onclick = () => {
-        setDisplay(modal, blackout, "none");  
+        setDisplay(modal, blackout, "none");
     };
 }
 
@@ -371,7 +375,7 @@ function showCookBookMenu() {
         cookbooks.forEach(cb => appendNewCookBook(cb));
         toggleSaveCookBook();
     }
-    else if (confirm("Are you sure to remove this recipe?")) {
+    else if (confirm("⚠ Are you sure to remove this bookmark?  \nAll local edits to the recipe will be lost 👀 ")) {
         try {
             // remove recipe data from local storage and cook book
             const Data = document.querySelector("recipe-page").data;
@@ -646,7 +650,7 @@ function showBookMarkEditReipce() {
     bookMark.setAttribute("name", "bookmark-filled");
     showEditRecipe();
 }
-  
+
 /* end save new cookbook ====================================================*/
 
 /* end of Edit Recipe =======================================================*/
@@ -654,7 +658,7 @@ function showBookMarkEditReipce() {
 /**
  * Print a recipe from the recipe page
  */
- function printRecipe() {
+function printRecipe() {
     window.print();
 }
 

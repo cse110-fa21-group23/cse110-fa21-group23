@@ -41,15 +41,16 @@ class RecipePage extends HTMLElement {
       .header h1{
         position: relative;
         display: inline;
-        font-size: 4rem;
+        font-size: min(10vw, 2rem);
         text-align: center;
-        line-height: 5rem;
+        line-height: max(1px, 1rem);
       }
+
       @media (max-width: 750px) {
         .header h1{
-          font-size: max(10vw, 10px);
+          font-size: min(10vw, 2rem);
           letter-spacing: -1px;
-          line-height: 1;
+          line-height: max(1px, 2rem);
         }
         .header #bookmark{
           height: max(10vw, 10px);
@@ -61,7 +62,8 @@ class RecipePage extends HTMLElement {
         text-align: center;
         margin-left: min(0.5vw, 10px);
         z-index: 100;
-        width: fit-content;
+        width: min(30px, 2rem);
+        height: fit-content;
       }
 
       #bookmark:hover{
