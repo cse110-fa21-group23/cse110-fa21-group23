@@ -96,6 +96,7 @@ h2 {
   margin-right: auto; 
   width: max-content; /* Need a specific value to work */
   font-size: 2rem;
+  font-weight: 300;
 } 
 
 #app-name:hover {

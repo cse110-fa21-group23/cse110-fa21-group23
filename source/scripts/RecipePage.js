@@ -45,6 +45,7 @@ class RecipePage extends HTMLElement {
         text-align: center;
         line-height: max(1px, 1rem);
       }
+
       @media (max-width: 750px) {
         .header h1{
           font-size: min(10vw, 2rem);
