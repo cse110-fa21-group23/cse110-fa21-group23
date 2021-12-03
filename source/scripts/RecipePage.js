@@ -41,15 +41,16 @@ class RecipePage extends HTMLElement {
       .header h1{
         position: relative;
         display: inline;
-        font-size: 4rem;
+        font-size: min(10vw, 2rem);
         text-align: center;
-        line-height: 5rem;
+        line-height: max(1px, 1rem);
       }
+
       @media (max-width: 750px) {
         .header h1{
-          font-size: max(10vw, 10px);
+          font-size: min(10vw, 2rem);
           letter-spacing: -1px;
-          line-height: 1;
+          line-height: max(1px, 2rem);
         }
         .header #bookmark{
           height: max(10vw, 10px);
@@ -61,7 +62,8 @@ class RecipePage extends HTMLElement {
         text-align: center;
         margin-left: min(0.5vw, 10px);
         z-index: 100;
-        width: fit-content;
+        width: min(30px, 2rem);
+        height: fit-content;
       }
 
       #bookmark:hover{
@@ -295,7 +297,7 @@ class RecipePage extends HTMLElement {
     this.shadowRoot.querySelector("article").innerHTML = `
       <header class="header">
         <h1 id="recipe-title"></h1>
-        <img id="bookmark" class="noprint" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
+        <img id="bookmark" class="noprint" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56" title="click to save this recipe">
       </header>
       <div class="edit-recipe hidden">
         <span onclick="load()">Edit <img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> </span>
@@ -319,12 +321,13 @@ class RecipePage extends HTMLElement {
           </div>
       </main>
       <section id="tap-mode-section" > 
+        <div id="tap-mode-instr"></div>
         <section id="change-instr-btn-section">        
           <button id="prev-step-button" class="change-instr-buttons">&larr; Previous Step</button> 
           <button id="next-step-button" class="change-instr-buttons">Next Step &rarr;</button>    
         </section>
 
-        <div id="tap-mode-instr"><div>
+        
       </section >
       `;
     // TODO: move instructions on top of buttons instead
@@ -348,6 +351,7 @@ class RecipePage extends HTMLElement {
 
     // <-- instruction -->
     // For tap mode, display one instruction at a time
+
     const instructions = getInstructions(data);
     const instructionSize = instructions.length;
 
@@ -364,13 +368,14 @@ class RecipePage extends HTMLElement {
       tapModeSection.style.visibility = $tapModeVisibility;
       tapModeSection.style.display = null;
       if ($tapModeVisibility == "hidden") {
-        recipePageBox.style.display = "inline";
+        recipePageBox.style.display = "block";
+        tapModeSection.style.display = "none";
       }
       else {
         recipePageBox.style.display = "none";
-      }
 
-    })
+      }
+    });
 
     this.shadowRoot.getElementById("prev-step-button").addEventListener("click", () => {
       if (tapModeInd == 0) {
@@ -382,9 +387,8 @@ class RecipePage extends HTMLElement {
         const instr = getSingleInstr(instructions, tapModeInd);
         tapModeInstr.innerHTML = instr;
       }
+    });
 
-
-    })
     this.shadowRoot.getElementById("next-step-button").addEventListener("click", () => {
       if (tapModeInd >= instructionSize - 1) {
         console.log("You've reached the end of the recipe!");
@@ -395,10 +399,7 @@ class RecipePage extends HTMLElement {
         const instr = getSingleInstr(instructions, tapModeInd);
         tapModeInstr.innerHTML = instr;
       }
-
-    })
-
-
+    });
 
     // This displays all the instructions in numbered order for non-tap mode 
     instructions.forEach(element => {
