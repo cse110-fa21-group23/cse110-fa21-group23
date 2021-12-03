@@ -1,2 +1,0 @@
-const SPOONACULAR_API_KEY = '&apiKey=4d936c811cda46879d4749def6bb36a1&';
-export default SPOONACULAR_API_KEY;
