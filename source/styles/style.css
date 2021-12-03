@@ -95,8 +95,7 @@ h2 {
   margin-left: auto; 
   margin-right: auto; 
   width: max-content; /* Need a specific value to work */
-  font-size: 2rem;
-} 
+  font-size: min(7vw, 2rem);} 
 
 #app-name:hover {
   color: var(--orange3);
@@ -729,3 +728,16 @@ footer {
   }
 }
 
+
+/* SAVED COOKBOOK PAGE =============================================================================== */
+.recipes-in-cookbook-container {
+  background-color: red;
+  width: 80vw;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+
+
+/* End of Saved Cookbook Page ============================ */

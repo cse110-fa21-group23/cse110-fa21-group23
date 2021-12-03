@@ -696,9 +696,16 @@ function showSavedRecipe() {
         }
         let host = document.createElement("div");
         let list = JSON.parse(localStorage.getItem(cookbooks[i]));
+
         let holder = document.createElement("button");
+        holder.classList.add("cookbook-name");
         holder.innerHTML = cookbooks[i];
+
+        let recipesInCookbook = document.createElement("div");
+        recipesInCookbook.classList.add("recipes-in-cookbook-container");
+
         host.appendChild(holder);
+        host.appendChild(recipesInCookbook);
         let IDs = [];
         for (let j = 0; j < list.length; j++) {
             IDs.push(list[j]);
@@ -710,7 +717,7 @@ function showSavedRecipe() {
             const element = document.createElement('recipe-card');
             element.data = uniquedish;
             const id = uniquedish["id"];
-            host.appendChild(element);
+            recipesInCookbook.appendChild(element);
             element.classList.remove('shown');
             element.classList.add('hidden');
             holder.addEventListener('click', e => {
