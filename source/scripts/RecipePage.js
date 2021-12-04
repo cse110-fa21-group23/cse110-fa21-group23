@@ -20,6 +20,7 @@ class RecipePage extends HTMLElement {
         margin: auto;
         width: 80vw;
         max-width: 550px;
+        margin-top: 10px;
       }
 
       .share-icons {
