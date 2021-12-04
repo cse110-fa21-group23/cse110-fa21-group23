@@ -1,5 +1,5 @@
 var $SOMenuVisibility = "hidden";
-var defaultName = "favorite";
+var defaultCookbook = "Favorites";
 var $tapModeVisibility = "hidden";
 
 /**
@@ -151,12 +151,6 @@ function showCookbooks() {
     hideHome();
     hideRecipeCards();
     hideRecipePage();
-    let testCookbook = {a:"" , b:"", c:"", e:""};
-    localStorage.setItem("cookbooks", JSON.stringify(testCookbook));
-    localStorage.setItem("a", JSON.stringify("aaaa"));
-    localStorage.setItem("b", JSON.stringify(""));
-    localStorage.setItem("c", JSON.stringify(""));
-    localStorage.setItem("d", JSON.stringify(""));
     initializeCookbook();
     const cookbook = document.getElementById("cookbook-container");
     cookbook.style.visibility = "visible";
@@ -332,7 +326,7 @@ function toggleSaveCookBook() {
 
 /**
  *  This functions displays all the cookbooks in local storage to the saved-cookbook menu
- * when users click on bookmark. There is one cookbook by default - "favorites".
+ * when users click on bookmark. There is one cookbook by default - defaultCookbook.
  *  If bookmark has been marked/filled. It removes the recipe from local Storage.
  * 
  */
@@ -340,7 +334,7 @@ function showCookBookMenu() {
     let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
     console.log("CookBooks List: ", cookbooks);
     if (cookbooks == undefined || cookbooks == null) {
-        cookbooks = ["Favorites"];
+        cookbooks = [defaultCookbook];
         localStorage.setItem(COOK_BOOKS, JSON.stringify(cookbooks));
     }
 
@@ -626,7 +620,7 @@ function initializeCookbook() {
     let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
     // First we check to see if we already have any cookbooks, if we don't we set up the default one
     // The img is the part where when clicked prompts you to confirm removing that cookbook
-    if (cookbooksList.length == 0) {
+    if (cookbooks.length == 0) {
         let li = document.createElement("li");
         let img = document.createElement("img");
         let label = document.createElement("label");
@@ -638,30 +632,31 @@ function initializeCookbook() {
         label.innerText = defaultName;
         li.appendChild(img);
         li.appendChild(label);
-        cookBooksList.appendChild(li);
+        cookbooksList.appendChild(li);
         img.onclick = function() {confirmRemoveList(li)};
         label.onclick = function() {showThisList(defaultName)};
     } else {
-        for (const name in cookbooks) {
+        for (let i = 0; i < cookbooks.length; i++) {
             let li = document.createElement("li");
             let img = document.createElement("img");
             let label = document.createElement("label");
             // set img src
             img.alt = "bookmark";
-            if (JSON.parse(localStorage.getItem(name)) == undefined || JSON.parse(localStorage.getItem(name)) == null || 
-            JSON.parse(localStorage.getItem(name)).length == 0) {
+            if (JSON.parse(localStorage.getItem(cookbooks[i])) == undefined || JSON.parse(localStorage.getItem(cookbooks[i])) == null || 
+            JSON.parse(localStorage.getItem(cookbooks[i])).length == 0) {
                 img.src = "./img/icons/bookmark-empty.svg";
             } else {
                 img.src = "./img/icons/bookmark-filled.svg";
             }  
             img.height = 20;
             img.width = 20;
-            label.innerText = name;
+            label.innerText = cookbooks[i];
+            label.id = "label";
             li.appendChild(img);
             li.appendChild(label);
-            cookBooksList.appendChild(li);
+            cookbooksList.appendChild(li);
             img.onclick = function() {confirmRemoveList(li)};
-            label.onclick = function() {showThisList(name)};
+            label.onclick = function() {showThisList(cookbooks[i])};
         }
     }
 }
@@ -670,12 +665,12 @@ function initializeCookbook() {
 // Updates the cookbook display section to display the inputted cookbook's recipes as recipe cards
 // and clears recipe cards
 function showThisList(cookbook) {
-    const recipeCardContainer = document.getElementById('cookbook-contents');
+    const recipeCardsContainer = document.getElementById('cookbook-contents');
     const cookbookIDs = JSON.parse(localStorage.getItem(cookbook));
     // Clears previous recipe cards, might not be needed
-    let childrenToRemove = recipeCards.getElementsByClassName('recipe-card');
+    let childrenToRemove = recipeCardsContainer.getElementsByClassName('recipe-card');
     for (let i = 0; i < childrenToRemove.length; i++) {
-        recipeCards.remove(childrenToRemove[i]);
+        recipeCardsContainer.remove(childrenToRemove[i]);
     }
 
     for (let i = 0; i < cookbookIDs.length; i++) {
@@ -699,7 +694,7 @@ function showThisList(cookbook) {
 
         // TODO: Add a container for the recipe card with a trash or bookmark button inside it to remove the recipe
         // Could do something like what's done in initialize cookbook but have the label be the recipe card.
-        recipeCardContainer.appendChild(element);
+        recipeCardsContainer.appendChild(element);
         bindRecipeCard(element, id);
     }
 
@@ -709,21 +704,26 @@ function showThisList(cookbook) {
 
 // Confirms that the user wants to remove the cookbook then if confirmed removes it and it's contents
 function confirmRemoveList(li) {
-    let cookbookName = li.getElementsByClassName("label").innerText;
+    let cookbookName = li.querySelector("#label").innerText;
+    console.log("X: " + cookbookName);
     let cookbookIDs = JSON.parse(localStorage.getItem(cookbookName));
-    if (confirm(("Are you sure you want to permanently remove " + cookbookName + "and its contents from your cookbooks?"))) {
+    if (confirm(("Are you sure you want to permanently remove " + cookbookName + " and its contents from your cookbooks?"))) {
         // Removes the cookbook from the cookbook display
         li.remove();
         // Removes the cookbook and its elements from local storage
         // NOTE: Removes all recipes from that cookbook even if they are in another cookbook
         // so this might be a bug or not depending on what we want to do
+        console.log(cookbookIDs);
         for (let i = 0; i < cookbookIDs.length; i++) {
             localStorage.removeItem(`ID-${cookbookIDs[i]}`);
         }
         localStorage.removeItem(cookbookName);
         let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
-        delete cookbooks[cookbooks.indexOf(cookbookName)];
+        console.log("X:" + cookbooks);
+        cookbooks.splice(cookbooks.indexOf(cookbookName), 1);
+        console.log("X" + cookbooks);
         localStorage.setItem(COOK_BOOKS, JSON.stringify(cookbooks));
+        let res = JSON.parse(localStorage.getItem(COOK_BOOKS));
     }
     /* Code for version that requires some CSS
     console.log("crL" + name);
@@ -749,7 +749,7 @@ function addNewCookbookPrompt() {
 
     if (processTextSubmitCookbook(cookbookName) == true) {
         //addCookbook(cookbookName)
-        let cookbooks = JSON.parse(localStorage(COOK_BOOKS));
+        let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
         cookbooks.push(cookbookName);
         localStorage.setItem(COOK_BOOKS, JSON.stringify(cookbooks));
         let recipeArr = [];
@@ -793,7 +793,7 @@ function showNewCookbook(cookbookName) {
     label.innerText = cookbookName;
     li.appendChild(img);
     li.appendChild(label);
-    cookBooksList.appendChild(li);
+    cookbooksList.appendChild(li);
     img.onclick = function() {confirmRemoveList(li)};
     label.onclick = function() {showThisList(cookbookName)};
 }
@@ -829,4 +829,12 @@ function hideTextPrompt() {
     textPrompt.style.visibility = "hidden";
     document.getElementById("input-prompt-text").value = "";
 }
+
+// This here are some cookbooks for testing; delete it if I've forgotten to
+let testCookbook = ["a", "b", "c", "d"];
+localStorage.setItem("cookbooks", JSON.stringify(testCookbook));
+localStorage.setItem("a", JSON.stringify(""));
+localStorage.setItem("b", JSON.stringify(""));
+localStorage.setItem("c", JSON.stringify(""));
+localStorage.setItem("d", JSON.stringify(""));
 /* End Cookbook Display =====================================================*/

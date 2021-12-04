@@ -92,7 +92,7 @@ async function init() {
 // The search function, calls API function to fetch all recipes
 // Generates recipe cards by passing in values into RecipeData
 /**
- * The search function, calls API functoin to fetch all recipes
+ * The search function, calls API function to fetch all recipes
  * Generates recipe cards by passing in values into RecipeData
  *
  * @return {Boolean} Whether search was successful
