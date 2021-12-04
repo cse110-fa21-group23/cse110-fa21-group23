@@ -243,7 +243,7 @@ function toggleShareRecipeModal() {
         modal.style.position = "absolute";
         modal.style.top = "50%";
         modal.style.left = "50%";
-        modal.style.margin = "-100px 0 0 -150px"
+        modal.style.margin = "-100px 0 0 -150px";
         blackout.style.display = display;
         blackout.style.height = "100vh";
         blackout.style.position = "fixed";
