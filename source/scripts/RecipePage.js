@@ -62,8 +62,7 @@ class RecipePage extends HTMLElement {
       @media (min-width: 750px) {      
         .middle{
           display: grid;
-          grid-template-columns: auto auto;
-          text-align: center; 
+          grid-template-columns: auto auto; 
           width: 70%;
           margin: auto;
         }
