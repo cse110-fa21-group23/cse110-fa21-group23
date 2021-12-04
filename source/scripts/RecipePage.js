@@ -71,15 +71,12 @@ class RecipePage extends HTMLElement {
         transition: all 0.3s ease-out;
       }
 
-      @media (min-width: 750px) {
-        #instructions {
-          width: auto;
-        }
-        
+      @media (min-width: 750px) {      
         .middle{
-          display: block;
+          display: grid;
+          grid-template-columns: auto auto;
           text-align: center; 
-          width: 50%;
+          width: 70%;
           margin: auto;
         }
       }
@@ -257,34 +254,6 @@ class RecipePage extends HTMLElement {
 
       `;
 
-    container.innerHTML = `
-      <header class="header">
-        <h1 id="recipe-title"></h1>
-        <img id="bookmark" onclick="showCookBookMenu()" src="img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
-      </header>
-      <div class="edit-recipe hidden">
-        <span onclick="load()">Edit <img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> </span>
-      </div>
-      <div class="share-icons noprint">
-        <img id="print" onclick="printRecipe()" src="./img/icons/print-icon.svg" name="print-icon" width="36" height="36">
-        <img id="email" onclick="emailRecipe()" src="./img/icons/email-icon.svg" name="email-icon" width="36" height="36">
-      </div>
-      <main class="middle">
-        <img style="display: block; margin-left: auto; margin-right: auto;">
-          <div id="ingredients-list">
-              <h3>INGREDIENTS</h3>
-              <ul style="list-style-type: none;" id="recipe-ingredients" >
-              </ul>
-              <button id="clear-checkboxes" onclick="clearCheckBoxes()">CLEAR CHECKBOXES</button>
-          </div>
-          <div id="instructions">
-              <h3>INSTRUCTIONS</h3>
-              <ol id="recipe-instructions">
-              </ol>
-          </div>
-      </main>
-      `;
-
     this.shadowRoot.append(style, container);
   }
 
@@ -306,8 +275,11 @@ class RecipePage extends HTMLElement {
         <img id="print" onclick="printRecipe()" src="./img/icons/print-icon.svg" name="print-icon" width="36" height="36">
         <img id="email" onclick="emailRecipe()" src="./img/icons/email-icon.svg" name="email-icon" width="36" height="36">
       </div>
-      <main id="recipe-page-box" class="middle">
+      <div class="dish-image">
         <img style="display: block; margin-left: auto; margin-right: auto;" >
+      </div>
+      
+      <main id="recipe-page-box" class="middle"> 
           <div id="ingredients-list">
               <h3>INGREDIENTS</h3>
               <ul style="list-style-type: none;" id="recipe-ingredients">
@@ -326,13 +298,11 @@ class RecipePage extends HTMLElement {
           <button id="prev-step-button" class="change-instr-buttons">&larr; Previous Step</button> 
           <button id="next-step-button" class="change-instr-buttons">Next Step &rarr;</button>    
         </section>
-
-        
       </section >
       `;
     // TODO: move instructions on top of buttons instead
 
-    this.shadowRoot.querySelector(".middle > img").src = data["image"];
+    this.shadowRoot.querySelector(".dish-image > img").src = data["image"];
     this.shadowRoot.querySelector(".header > h1").innerHTML = data["title"];
 
     //get ingredient list
