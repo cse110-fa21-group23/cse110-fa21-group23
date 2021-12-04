@@ -18,6 +18,8 @@ class RecipePage extends HTMLElement {
         display: block;
         text-align: center; 
         margin: auto;
+        width: 80vw;
+        max-width: 550px;
       }
 
       .share-icons {
@@ -26,7 +28,7 @@ class RecipePage extends HTMLElement {
         justify-content: center;
         width: 100%;
         margin-top: 20px;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
       }
 
       #print {
@@ -82,7 +84,7 @@ class RecipePage extends HTMLElement {
       .middle > div > h3{
           text-align: center;
           font-weight: bold;
-          margin-top: 10px;
+          margin-top: 30px;
       }
     
       #clear-checkboxes{
@@ -178,32 +180,52 @@ class RecipePage extends HTMLElement {
 
       .right {
         position: fixed;
-        bottom: 0%;
+        top: 0%;
         left: 55%;
         width: 45%;
-        height: 60%;
+        height: 100vh;
       }
+
       .left {
         position: fixed;
-        bottom: 0%;
+        top: 0%;
         left: 0%;
         width: 45%;
-        height: 60%;
+        height: 100vh;
       }
       
       .left:hover, .right:hover{
         cursor: pointer;
       }
 
-      #content, #alert{
+      #right-arrow {
+        position: absolute;
+        right: 5vw;
+        top: 50%;
+        font-size: 2rem;
+      }
+
+      #left-arrow {
+        position: absolute;
+        left: 5vw;
+        top: 50%;
+        font-size: 2rem;
+      }
+
+      #content{
         font-size: 1rem;
         margin: auto;
         text-align: center;
         overflow: hidden;
+        margin: 0px 50px;
       }
 
       #alert {
         color: red;
+        font-size: 1rem;
+        margin: auto;
+        text-align: center;
+        overflow: hidden;
       }
 
       @media (min-width: 750px) {
@@ -220,6 +242,13 @@ class RecipePage extends HTMLElement {
         .noprint {
            visibility: hidden;
         }
+      }
+
+      #tap-mode-section {
+        width: 100vw;
+        position: relative; 
+        left: 50%;
+        transform: translateX(-50%);
       }
       
 
@@ -305,11 +334,12 @@ class RecipePage extends HTMLElement {
       <div id="tap-mode-section" class="noprint" style="display:none">
         <div id="alert"> </div>
         <div id="content"></div>
-        <div class="right"></div>
         <div class="left"></div>
+        <div id="left-arrow">&#60;</div>
+        <div id="right-arrow">&#62;</div>
+        <div class="right"></div>        
       </div>
       `;
-    // TODO: move instructions on top of buttons instead
 
     this.shadowRoot.querySelector(".dish-image > img").src = data["image"];
     this.shadowRoot.querySelector(".header > h1").innerHTML = data["title"];
