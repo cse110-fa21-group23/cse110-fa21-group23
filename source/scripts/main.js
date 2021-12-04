@@ -672,7 +672,7 @@ function emailRecipe() {
 window.printRecipe = printRecipe;
 window.emailRecipe = emailRecipe;
 
-// show saved recipes in cookbooks
+// show saved recipes in cookbooks, used in script.js
 function showSavedRecipe() {
     let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
     const container = document.getElementById("cookbook-container");

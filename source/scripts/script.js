@@ -343,7 +343,7 @@ function bindCookbookPage() {
         toggleMenu();
     });
     cookbook.addEventListener("click", () => {
-        clearSavedRecipe()
+        clearSavedRecipe();
         router.navigate(page, false);
     })
 }

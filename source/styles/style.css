@@ -788,7 +788,6 @@ footer {
     grid-template-rows: repeat(2, 1fr);
     gap: 10px;
     width: fit-content;
-    /* padding: 3px; */
     margin: 4px;
   }
 }
@@ -836,7 +835,7 @@ footer {
   cursor: pointer;
 }
 
-.cookbook-name i{
+.cookbook-name i {
   color: var(--background-color);
 }
 
