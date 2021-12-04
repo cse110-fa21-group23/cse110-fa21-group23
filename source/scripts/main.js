@@ -1,5 +1,5 @@
 var $SOMenuVisibility = "hidden";
-var defaultCookbook = "Favorites";
+const defaultCookbook = "Favorites";
 var $tapModeVisibility = "hidden";
 
 /**
@@ -151,6 +151,8 @@ function showCookbooks() {
     hideHome();
     hideRecipeCards();
     hideRecipePage();
+    showCookbooksDisplay();
+    hideListDisplay();
     initializeCookbook();
     const cookbook = document.getElementById("cookbook-container");
     cookbook.style.visibility = "visible";
@@ -698,14 +700,19 @@ function showThisList(cookbook) {
         bindRecipeCard(element, id);
     }
 
+    if (cookbookIDs.length == 0) {
+        document.getElementById("empty-list").classList.remove("hidden");
+    } else {
+        document.getElementById("empty-list").classList.add("hidden");
+    }
+
     hideCookbooksDisplay();
     showListDisplay();
 }
 
 // Confirms that the user wants to remove the cookbook then if confirmed removes it and it's contents
 function confirmRemoveList(li) {
-    let cookbookName = li.querySelector("#label").innerText;
-    console.log("X: " + cookbookName);
+    let cookbookName = li.querySelector("   label").innerText;
     let cookbookIDs = JSON.parse(localStorage.getItem(cookbookName));
     if (confirm(("Are you sure you want to permanently remove " + cookbookName + " and its contents from your cookbooks?"))) {
         // Removes the cookbook from the cookbook display
@@ -739,7 +746,7 @@ function confirmRemoveList(li) {
 // Prompts the user for a new cookbook name then checks if it is valid. If it adds that cookbook to the list of cookbooks
 function addNewCookbookPrompt() {
     let cookbookName = prompt("What would you like to name this cookbook?");
-    while (processTextSubmitCookbook(cookbookName) == false) {
+    while (processTextSubmitCookbook(cookbookName) == false && cookbookName != null) {
         if (cookbookName == "") {
             cookbookName = prompt("Error: No input detected. Please choose a valid name.");
         } else {
@@ -765,7 +772,8 @@ function addNewCookbookPrompt() {
 // Returns false if the name is already in use or an empty string, other wise returns true
 function processTextSubmitCookbook(userInput) {
     // Checks if the input is empty, if so it changes the request text and exits the function
-    if (userInput == "") {
+    console.log("X: " + userInput);
+    if (userInput == "" || userInput == null) {
         return false;
     }
     // Checks if the input is the same as another cookbook, if so it changes the request text and exits the function
@@ -778,7 +786,7 @@ function processTextSubmitCookbook(userInput) {
     return true;
 }
 
-// adds a cookbook with an optional recipe parameter to the cookbook display but not local storage
+// adds a cookbook with to the cookbook display but not local storage
 function showNewCookbook(cookbookName) {
     // Here we add the display elements, pretty much the same as what you see in initializeCookbook() 
     let cookbooksList = document.querySelector("#cookbook-display-lists > ol");
@@ -793,6 +801,7 @@ function showNewCookbook(cookbookName) {
     label.innerText = cookbookName;
     li.appendChild(img);
     li.appendChild(label);
+    console.log("X:" + li.querySelector("label").innerText);
     cookbooksList.appendChild(li);
     img.onclick = function() {confirmRemoveList(li)};
     label.onclick = function() {showThisList(cookbookName)};
