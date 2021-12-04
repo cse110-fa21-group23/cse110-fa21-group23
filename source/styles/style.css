@@ -857,10 +857,10 @@ footer {
 #settings-row {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: baseline;
   justify-content: center;
   gap: 10vw;
-
 }
 
 .settings-col {
