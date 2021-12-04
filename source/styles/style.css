@@ -60,7 +60,7 @@ body {
 .heading {
  text-align: center;
  margin-top: 70px;
- font-weight: 300;
+ font-weight: 700;
  margin-bottom: 2rem;
 }
 
@@ -216,6 +216,7 @@ h2 {
   border: none;
   background-color: var(--background-color);
   font-size: 1rem;
+  font-weight: 700;
   
 }
 
@@ -225,17 +226,17 @@ h2 {
 
 .clear-btn:hover {
   cursor: pointer;
-  transform: scale(1.01,1.01);
+  color: var(--orange3);
   transition: all 0.3s ease-out;
-
 }
 
 .intolerances-subheading, .diet-subheading {
   margin-bottom: 10px;
+  font-weight: bold;
 }
 
 .intolerances-subheading {
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 #intolerances-container li, #dietary-container li {
@@ -331,21 +332,27 @@ label {
   margin-top: 40px;
   border-width: 5px;
   border-color: var(--primary);
-  background-color: var(--primary);
-  color: var(--primary);
+  color: var(--background-color);
   padding: 10px 25px; /* top&bottom, left&right */
   border-style: solid;
   font-weight: 600;
   cursor: pointer;
-  background-color: transparent;
+  background-color: var(--primary);
   margin-top: 1.5rem;
   padding: 0.5rem;
 }
 
 #update-button:hover {
-  background-color: var(--primary);
+  background-color: var(--orange3);
+  border-color: var(--orange3);
   color: var(--background-color);
   transition: .2s ease-in-out;
+}
+
+#update-button:active {
+  background-color: var(--orange1);
+  border-color: var(--orange1);
+
 }
 
 /* end of SETTINGS ========================================================= */
@@ -395,37 +402,75 @@ padding-top: 30vh;
 display: inline-flex;
 align-items: center;
 cursor: pointer;
+padding: 0.2px;
 }
 .checkbox__input {
 display: none;
 }
 
+.radio__input { /* gets rid of default */
+  display: none;
+}
+
+
+.radio__box {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--primary);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  flex-shrink: 0;
+  /* transition: background 0.15s, border-color 0.15s; */
+}
+
+.radio__box::after {
+  content: '\2B24' ;
+  color: I#ffffff;
+  transform: scale(0);
+  transition: transform 0.15s;
+  }
+
+.radio__input:checked + .radio__box{
+  background: O#2266dc;
+  border-color: 0#2266dc;
+  }
+  
+  .radio__input:checked + .radio__box::after {
+  transform: scale(1);
+
+  }
+
+
+
 
 .checkbox__box {
-width: 1.25em;
-height: 1.25em;
-border: 2px solid var(--primary);
-border-radius: 3px;
-display: flex;
-align-items: center;
-justify-content: center;
-margin-right: 10px;
-flex-shrink: 0;
-/* transition: background 0.15s, border-color 0.15s; */
+  width: 1em;
+  height: 1em;
+  border: 2px solid var(--primary);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  flex-shrink: 0;
+  /* transition: background 0.15s, border-color 0.15s; */
 }
 .checkbox__box::after {
-content: '\2714' ;
-color: I#ffffff;
-transform: scale(0);
-transition: transform 0.15s;
+  content: '\2714' ;
+  color: I#ffffff;
+  transform: scale(0);
+  transition: transform 0.15s;
 }
-.checkbox__input:checked + .checkbox_box {
-background: O#2266dc;
-border-color: 0#2266dc;
+.checkbox__input:checked + .checkbox__box {
+  background: O#2266dc;
+  border-color: 0#2266dc;
 }
 
 .checkbox__input:checked + .checkbox__box::after {
-transform: scale(1);
+  transform: scale(1);
 }
 
 /* Save Cookbook Menu Style ================================*/
@@ -810,3 +855,16 @@ footer {
 /* End of Saved Cookbook Page ============================ */
 
 
+#settings-row {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: center;
+  gap: 10vw;
+
+}
+
+.settings-col {
+  display: flex;
+  flex-direction: column;
+}
