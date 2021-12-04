@@ -31,9 +31,10 @@ class RecipeCard extends HTMLElement {
             height: auto;
             width: 200px;
             padding: 16px 16px 16px 16px;
-            margin-top: 30px;
-            margin-left: 15px;
-            margin-rigth: 15px;
+            margin-top: 8px;
+            margin-bottom: 8px;
+            margin-left: 10px;
+            margin-right: 10px;
             background-color: var(--orange1);
 
         }
