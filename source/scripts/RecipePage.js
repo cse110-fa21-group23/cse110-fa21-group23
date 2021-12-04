@@ -196,15 +196,19 @@ class RecipePage extends HTMLElement {
         cursor: pointer;
       }
 
-      #content{
+      #content, #alert{
         font-size: 1rem;
         margin: auto;
         text-align: center;
         overflow: hidden;
       }
 
+      #alert {
+        color: red;
+      }
+
       @media (min-width: 750px) {
-        #content{
+        #content, #alert{
           font-size: 2rem;
           padding: 0 20%;
         }
@@ -300,6 +304,7 @@ class RecipePage extends HTMLElement {
           </div>
       </main>
       <div id="tap-mode-section" class="noprint" style="display:none">
+        <div id="alert"> </div>
         <div id="content"></div>
         <div class="right"></div>
         <div class="left"></div>
@@ -336,11 +341,15 @@ class RecipePage extends HTMLElement {
     tapMode();
     let index = 0;
     let instr = this.shadowRoot.querySelector("#content");
+    let alert = this.shadowRoot.querySelector("#alert");
     instr.innerHTML = `${index + 1}. ` + instructions[index];
     this.shadowRoot.querySelector(".right").addEventListener("click", () => {
       alert.innerHTML = "";
       if (index !== instructions.length - 1)
         index++;
+      else
+        alert.innerHTML = "You've reached the end of the instructions!";
+
       instr.innerHTML = `${index + 1}. ` + instructions[index];
     });
 
@@ -348,10 +357,11 @@ class RecipePage extends HTMLElement {
       alert.innerHTML = "";
       if (index !== 0)
         index--;
-
+      else
+        alert.innerHTML = "You've reached the first instruction!";
       instr.innerHTML = `${index + 1}. ` + instructions[index];
     });
-    
+
     // replicate data
     const replicateData = {
       "id": data["id"],
