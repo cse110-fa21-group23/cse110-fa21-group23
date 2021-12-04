@@ -93,7 +93,9 @@ h2 {
   margin-left: auto; 
   margin-right: auto; 
   width: max-content; /* Need a specific value to work */
-  font-size: min(7vw, 2rem);} 
+  font-size: min(7vw, 2rem);
+  font-weight: 300;
+}
 
 #app-name:hover {
   color: var(--orange3);
@@ -217,8 +219,8 @@ h2 {
   
 }
 
-.clear-btn::after {
-  content: ' \21BA';
+.clear-btn::before {
+  content: ' \21BB ';
 }
 
 .clear-btn:hover {
@@ -773,15 +775,38 @@ footer {
 
 
 /* SAVED COOKBOOK PAGE =============================================================================== */
+.cookbook-name {
+  background-color: var(--primary);
+  border: none;
+  width: 100%;
+  font-size: 2rem;
+  color: var(--background-color);
+  margin-top: 10px;
+  text-align: left;
+  padding-left: 20px;
+}
+
+.cookbook-name:hover {
+  background-color: var(--orange3);
+  cursor: pointer;
+}
+
+.cookbook-name i{
+  color: var(--background-color);
+}
+
 .recipes-in-cookbook-container {
-  background-color: red;
+  background-color: var(--orange1);
   width: 80vw;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  
+  justify-content: center;
+  border-radius: 0 0 13px 13px;
 }
 
 
 
 /* End of Saved Cookbook Page ============================ */
+
+

@@ -7,7 +7,6 @@ var $tapModeVisibility = "hidden";
  */
 function toggleMenu() {
 
-    console.log("INSIDE TOGGLE MENU");
     var menuIcon = document.getElementById("menu-icon");
     menuIcon.classList.toggle("change");
 
@@ -313,7 +312,7 @@ function updateSettings() {
     localStorage.setItem("dietaryRestrictions", JSON.stringify(dietaryRestrictionList));
     localStorage.setItem("intolerancesRestrictions", JSON.stringify(intolerancesRestrictionsList));
 
-    // TODO: add confirmation message in HTML (alert is temporary)
+    //add confirmation message in HTML (alert is temporary)
     alert("your preferences have been updated");
 }
 
@@ -381,7 +380,7 @@ function showCookBookMenu() {
         cookbooks.forEach(cb => appendNewCookBook(cb));
         toggleSaveCookBook();
     }
-    else if (confirm("⚠ Are you sure to remove this bookmark?  \nAll local edits to the recipe will be lost 👀 ")) {
+    else if (confirm("⚠ Removing recipes from your Saved Cookbooks will cause all local edits to be lost. 👀 ")) {
         try {
             // remove recipe data from local storage and cook book
             const Data = document.querySelector("recipe-page").data;
@@ -702,7 +701,7 @@ function showSavedRecipe() {
 
         let holder = document.createElement("button");
         holder.classList.add("cookbook-name");
-        holder.innerHTML = cookbooks[i];
+        holder.innerHTML = '<i class = "fas fa-angle-down""></i> ' + cookbooks[i];
 
         let recipesInCookbook = document.createElement("div");
         recipesInCookbook.classList.add("recipes-in-cookbook-container");
@@ -724,6 +723,7 @@ function showSavedRecipe() {
             element.classList.remove('shown');
             element.classList.add('hidden');
             holder.addEventListener('click', e => {
+
                 if (!appended) {
                     element.classList.remove('hidden');
                     element.classList.add('shown');
