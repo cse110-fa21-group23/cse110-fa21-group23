@@ -335,9 +335,9 @@ class RecipePage extends HTMLElement {
       <div id="tap-mode-section" class="noprint" style="display:none">
         <div id="alert"> </div>
         <div id="content"></div>
-        <div class="left"></div>
         <div id="left-arrow">&#60;</div>
         <div id="right-arrow">&#62;</div>
+        <div class="left"></div>
         <div class="right"></div>        
       </div>
       `;
