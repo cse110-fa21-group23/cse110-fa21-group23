@@ -6,6 +6,8 @@ var $tapModeVisibility = "hidden";
  *
  */
 function toggleMenu() {
+
+    console.log("INSIDE TOGGLE MENU");
     var menuIcon = document.getElementById("menu-icon");
     menuIcon.classList.toggle("change");
 
@@ -20,6 +22,8 @@ function toggleMenu() {
         $SOMenuVisibility = "hidden";
     }
 }
+
+
 
 // this function is being called from scripts.js, ignore the Codacy error :D
 /**

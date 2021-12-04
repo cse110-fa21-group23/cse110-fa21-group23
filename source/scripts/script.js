@@ -15,6 +15,21 @@ const router = new Router(function () {
 const tapModeButton = document.getElementById("tap-mode-button");
 tapModeButton.addEventListener("click", toggleTapMode); // toggleTapMode() is in main.js
 
+// same variables used in main.js
+var slideOverMenu = document.getElementById("slide-over-menu");
+var menuIcon = document.getElementById("menu-icon");
+
+document.addEventListener('click', function (event) {
+    var isClickInside = slideOverMenu.contains(event.target);
+
+    //the click was outside the slideOverMenu, close the menu without needing to click the x
+    if (!isClickInside && !menuIcon.contains(event.target) && $SOMenuVisibility == "visible") { //if clicking outside
+        menuIcon.classList.toggle("change");
+        slideOverMenu.style.transform = "translate(-100%)";
+        $SOMenuVisibility = "hidden";
+    }
+});
+
 //arrays holding category names and images for category cards
 const categories = ["Indian", "Vegan", "Mexican", "Gluten-Free", "Italian", "Japanese", "American", "Vegetarian", "Thai", "Chinese", "Korean",
     "Vietnamese", "African", "Middle Eastern"];
