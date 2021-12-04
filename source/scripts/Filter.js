@@ -33,9 +33,10 @@ class Filter extends HTMLElement {
             background-color: var(--orange2);
             margin-left: 20px;
             margin-right: 20px;
+
             height: 20px;
-            width: 100px;
-            padding: 5px 10px 5px 10px;
+            
+            padding: 5px 10px 10px 10px;
             border-radius: 20px;
             border-color: var(--orange2);
             cursor: pointer;
@@ -58,7 +59,7 @@ class Filter extends HTMLElement {
         const filter = document.createElement("article");
 
         const titleText = data;
-
+        console.log(titleText)
         //creating the title element for the card
         const title = document.createElement("p");
         title.innerHTML = titleText;

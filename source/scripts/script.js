@@ -97,15 +97,19 @@ async function init() {
 }
 
 // tag functionality
-//const timeFilter = ;
+/**
+ * Adds an eventlistener to the cuisine filters to populate the array needed
+ * to display all selected filters
+ *
+ */
 document.getElementById("cuisine-filter").addEventListener("click", (e)=>{
-    console.log("clicking");
+    // console.log("clicking");
     let cuisineList = document.getElementsByName("cuisine-radio");
     let count = 0;
     for (let i = 0; i < cuisineList.length; i++) {
         if (cuisineList[i].checked) {
             count++;   
-            console.log(count)
+            // console.log(count)
             if(filters.indexOf(cuisineList[i].value) == -1) {
                 filters.push(cuisineList[i].value);      
             }
@@ -116,53 +120,96 @@ document.getElementById("cuisine-filter").addEventListener("click", (e)=>{
             }
         }
     }
-    console.log(filters);
+    // console.log(filters);
     if(filters.length>0){
-        console.log("showing");
+        // console.log("showing");
         showApplyBtn();
     }
     else{
         hideApplyBtn();
     }
-    //resetFilters();
+
+    //createFilter function is called to create the filter element for each filter in the array
     createFilters();
 });
 
+/**
+ * Adds an eventlistener to the diet filters to populate the array needed
+ * to display all selected filters
+ *
+ */
 document.getElementById("diet-filter").addEventListener("click", (e)=>{
-    console.log("clicking");
+    // console.log("clicking");
     let dietList = document.getElementsByName("diet-radio");
+
+    /*
+    This little for loop is to allow the radio buttons to be deselcted and selected like 
+    checkboxes but only allow for one radio button to be selected at a time
+    */ 
+    let dietRadios = document.getElementsByName("diet-radio");
+    for (let i = 0; i < dietRadios.length; i++) {  
+        if (dietRadios[i].checked == true) {
+            dietRadios[i].addEventListener("click", (e) => {
+                    if (e.target.checked == true) {
+                        e.target.checked = false;
+                    }
+                });
+        } 
+        else {
+            dietRadios[i].addEventListener("click", (e) => {
+                if (e.target.checked == false) {
+                    e.target.checked = true;
+                }
+            });
+
+        }
+    }
+    /*
+        This for loop adds the checked filters to the filters array once the user
+        checks that filter. If the user unchecks the filter, it will remove the
+        filter from the array.
+    */
     let count = 0;
     for (let i = 0; i < dietList.length; i++) {
         if (dietList[i].checked) {
             count++;  
             if(filters.indexOf(dietList[i].value) == -1) {
-                console.log("adding");
+                // console.log("adding");
                 filters.push(dietList[i].value);      
             }
         
         }
         else{
             if(filters.indexOf(dietList[i].value) !== -1){
-                console.log("splicing");
+                // console.log("splicing");
                 filters.splice(filters.indexOf(dietList[i].value), 1);
             }
         }
     }
 
+    // shows apply and clear buttons if filters are selected
     if(filters.length>0){
         showApplyBtn();
     }
     else{
         hideApplyBtn();
     }
-    //resetFilters();
+    
+    //createFilter function is called to create the filter element for each filter in the array
     createFilters();
 });
 
+/**
+ * Adds an eventlistener to the meal filters to populate the array needed
+ * to display all selected filters
+ *
+ */
 document.getElementById("meal-filter").addEventListener("click", (e)=>{
-    console.log("clicking");
+    // console.log("clicking");
     let mealList = document.getElementsByName("meal-radio");
     let count = 0;
+
+
     for (let i = 0; i < mealList.length; i++) {
         if (mealList[i].checked) {
             count++;    
@@ -176,19 +223,52 @@ document.getElementById("meal-filter").addEventListener("click", (e)=>{
             }  
         }
     }
+
+     // shows apply and clear buttons if filters are selected
     if(filters.length>0){
         showApplyBtn();
     }
     else{
         hideApplyBtn();
     }
-    //resetFilters();
+
+    //createFilter function is called to create the filter element for each filter in the array
     createFilters();  
 });
 
+/**
+ * Adds an eventlistener to the time filters to populate the array needed
+ * to display all selected filters
+ *
+ */
 document.getElementById("time-filter").addEventListener("click", (e)=>{
-    console.log("clicking");
+    // console.log("clicking");
     let timeList = document.getElementsByName("time-radio");
+
+     /*
+    Similar to the for loop in the diet-radio section up above, this for loop allows for radio buttons
+    for the time to be selected and deselected like a normal checkbox but only one will be allowed to be 
+    selected at a time
+    */
+    for (let i = 0; i < timeList.length; i++) {  
+        if (timeList[i].checked == true) {
+            timeList[i].addEventListener("click", (e) => {
+                    if (e.target.checked == true) {
+                        e.target.checked = false;
+                    }
+                });
+        } 
+        else {
+            timeList[i].addEventListener("click", (e) => {
+                if (e.target.checked == false) {
+                    e.target.checked = true;
+                }
+            });
+
+        }
+    }
+
+
     let count = 0;
     for (let i = 0; i < timeList.length; i++) {
         if (timeList[i].checked) {
@@ -204,39 +284,56 @@ document.getElementById("time-filter").addEventListener("click", (e)=>{
             }
         }  
     }
+    
+    // shows apply and clear buttons if filters are selected
     if(filters.length>0){
         showApplyBtn();
     }
     else{
         hideApplyBtn();
     }
-    //resetFilters();
+
+    //createFilter function is called to create the filter element for each filter in the array
     createFilters();
 });
 
+/**
+ * Function to create filter-card elements based off of the selected 
+ * filters in the filters array.
+ *
+ */
 function createFilters() {
     resetFilters();
     console.log(filters);
     for(let i = 0; i<filters.length; i++){
-        const filter = document.createElement("filter-card"); // creating category card // array holding the category and corresponding image
-        filter.data = filters[i]; //key: name of category, value: picture of category
+        const filter = document.createElement("filter-card"); 
+        filter.data = filters[i]; 
         document.querySelector(".selected-filters-container").appendChild(filter);
     }
 }
 
+/**
+ * Function to filter the search the by the filters that the user 
+ * selects
+ *
+ */
 function searchByFilter () {
     hideCategoryCards();
     const recipeCardContainer = document.getElementById('recipe-card-container');
     recipeCardContainer.innerHTML = '';
     showRecipeCards();
 
+    /*
+        For loop to check if there are values checked in the cuisine menu
+        and prepares the string that will get sent to the endpoint
+    */
     let cuisineList = document.getElementsByName("cuisine-radio");
     let cuisine = "";
     for (let i = 0; i < cuisineList.length; i++) {
         if (cuisineList[i].checked) {
             if (cuisine.length == 0) {
                 cuisine =  `&cuisine=${cuisineList[i].value}`;
-                console.log(cuisineList[i].value);
+                // console.log(cuisineList[i].value);
             }
             else {
                 cuisine = cuisine + `,${cuisineList[i].value}`;
@@ -244,13 +341,17 @@ function searchByFilter () {
         }
     }
 
+    /*
+        For loop to check if there are values checked in the meal menu
+        and prepares the string that will get sent to the endpoint
+    */
     let mealTypeList = document.getElementsByName("meal-radio");
     let mealType = "";
     for (let i = 0; i < mealTypeList.length; i++) {
         if (mealTypeList[i].checked) {
             if (mealType.length == 0) {
                 mealType =  `&type=${mealTypeList[i].value}`;
-                console.log(mealTypeList[i].value);
+                // console.log(mealTypeList[i].value);
             }
             else {
                 mealType =  mealType + `,${mealTypeList[i].value}`;
@@ -258,12 +359,16 @@ function searchByFilter () {
         }
     }
 
+    /*
+        For loop to check if there are values checked in the time menu
+        and prepares the string that will get sent to the endpoint
+    */
     let timeList = document.getElementsByName("time-radio");
     let time = "";
     for (let i = 0; i < timeList.length; i++) {
         if (timeList[i].checked) {
             time =  `&maxReadyTime=${parseInt(timeList[i].value)}`;
-            console.log(timeList[i].value);     
+            // console.log(timeList[i].value);     
         }
     }
 
@@ -274,21 +379,19 @@ function searchByFilter () {
         queryStrDiet = `&diet=${getDietaryRestrictions}`;
     }
 
-    let diets = document.getElementsByName("dietary-radio");
+    /*
+        For loop to check if there are values checked in the diet menu
+        and prepares the string that will get sent to the endpoint
+        If a user has a dietary restriction set, it will be overwritten
+        when a diet filter is chosen
+    */
+    let diets = document.getElementsByName("diet-radio");
     for (let i = 0; i < diets.length; i++) {
         if (diets[i].checked) {
-            if (queryStrDiet.length == 0) {
-                let diet = diets[i].value;
-                queryStrDiet=`&diet=${diet}`
-            }
-            else {
-                let diet = diets[i].value;
-                queryStrDiet = queryStrDiet + `,${diet}`
-            }
+             let diet = diets[i].value;
+             queryStrDiet=`&diet=${diet}`;
         }
     }
-
-
     
     //get intolerances from settings
     const getIntolerancesRestrictions = JSON.parse(localStorage.getItem("intolerancesRestrictions"));
@@ -297,13 +400,21 @@ function searchByFilter () {
         queryStrIntolerances = `&intolerances=${getIntolerancesRestrictions}`
     }
 
+    //gets the search query from the search bar
     const searchQuery = document.getElementById("search-query").value;
+    
+    console.log(searchQuery);
     return fetchRecipes(`&query=${searchQuery}${cuisine}${mealType}${time}${queryStrDiet}${queryStrIntolerances}`, (data) => {
             console.log(data)
             recipeData = data;
     });
 }
 
+/**
+ * Adds an eventlistener to the apply button to search based on the 
+ * filters that the user chose
+ *
+ */
 document.getElementById("applyBtn").addEventListener("click", async () => {
     hideFilters();
     let searchSuccessful = await searchByFilter();
@@ -312,12 +423,18 @@ document.getElementById("applyBtn").addEventListener("click", async () => {
     }
 });
 
+/**
+ * Adds an eventlistener to the clear button to clear all of the filters
+ * that the user selected
+ *
+ */
 document.getElementById("clear-filters-btn").addEventListener("click", () => {
-    console.log(filters)
+    // console.log(filters)
     filters = [];
     clearAllFilters();
-    console.log(filters)
+    // console.log(filters)
 })
+
 
 // The search function, calls API function to fetch all recipes
 // Generates recipe cards by passing in values into RecipeData
@@ -386,7 +503,8 @@ function search() {
 
 function createRecipeCards() {
     const recipeCardContainer = document.getElementById('recipe-card-container');
-    for (let i = 0; i < recipeData.length; i++) {
+    for (let i = 0; i < Object.keys(recipeData).length; i++) {
+        Object.keys(recipeData)[i];
         const element = document.createElement('recipe-card');
         element.data = recipeData[i];
         document.querySelector("recipe-page").data = recipeData[i];
@@ -596,41 +714,51 @@ function bindHomePage() {
         router.navigate(page, false);
     })
 }
-
+/**
+ * This function adds an event listener waiting for the user to click on the diet filters button
+ * which will then call toggleDietFilters() method to either reveal or hide the diet filters drop down menu
+ * and change the direction of the arrow icon
+ */
 function bindDietFilters(){
     let diet = document.getElementById("dietBtn"); 
-    let dietArrow = document.getElementById("dietIcon");
     diet.addEventListener("click", () => {
-        // showDietFilters();
         toggleDietFilters();
 
     })
 }
 
+
+/**
+ * This function adds an event listener waiting for the user to click on the cuisine filters button 
+ * and change the direction of the arrow icon which will then call toggleCuisineFilters() method to 
+ * either reveal or hide the cuisine filters drop down menu
+ */
 function bindCuisineFilters(){
     let cuisine = document.getElementById("cuisineBtn");  
     cuisine.addEventListener("click", () => {
-        // showCuisineFilters();
         toggleCuisineFilters();
-
     })
 }
 
+/** This function adds an event listener waiting for the user to click on the time filters button
+ * which will then call toggleTimeFilters() method to either reveal or hide the time filters drop down menu
+ * and change the direction of the arrow icon
+ */
 function bindTimeFilters(){
     let time = document.getElementById("timeBtn");  
-    let timeArrow = document.getElementById("timeIcon");
     time.addEventListener("click", () => {
-        // showTimeFilters();
         toggleTimeFilters();
 
     })
 }
+/** This function adds an event listener waiting for the user to click on the meal type filters button
+ *  which will then call toggleMealTypeFilters() method to either reveal or hide the meal type filters
+ *  drop down menu and change the direction of the arrow icon
+ */
 
 function bindMealFilters(){
     let meal = document.getElementById("mealBtn");  
-    let mealArrow = document.getElementById("mealIcon");
     meal.addEventListener("click", () => {
-        // showMealFilters();
         toggleMealTypeFilters();
 
     })

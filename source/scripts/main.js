@@ -25,6 +25,10 @@ function toggleMenu() {
     }
 }
 
+/**
+ * Function to toggle the diet filters each time the diet button is clicked
+ *
+ */
 function toggleDietFilters () {
     let dietIcon= document.getElementById("dietIcon");
     dietIcon.classList.toggle("filterArrowIcon");
@@ -48,6 +52,10 @@ function toggleDietFilters () {
     }
 }
 
+/**
+ * Function to toggle the cuisine filters each time the cuisine button is clicked
+ *
+ */
 function toggleCuisineFilters () {
     let cuisineIcon = document.getElementById("cuisineIcon");
     cuisineIcon.classList.toggle("filterArrowIcon");
@@ -66,6 +74,10 @@ function toggleCuisineFilters () {
     }
 }
 
+/**
+ * Function to toggle the time filters each time the time button is clicked
+ *
+ */
 function toggleTimeFilters () {
     let timeFilter = document.getElementById("timeIcon");
     timeFilter.classList.toggle("filterArrowIcon");
@@ -84,6 +96,10 @@ function toggleTimeFilters () {
     }
 }
 
+/**
+ * Function to toggle the meal filters each time the meal button is clicked
+ *
+ */
 function toggleMealTypeFilters () {
     let mealFilter = document.getElementById("mealIcon");
     mealFilter.classList.toggle("filterArrowIcon");
@@ -171,6 +187,10 @@ function clearCheckBoxes() {
     checkboxes.forEach((e) => e.checked = false);
 }
 
+/**
+ * Clears check boxes in the filter drop down menus
+ *
+ */
 function clearFilterCheckBoxes() {
     let diets = document.getElementsByName("diet-radio");
     let cuisines= document.getElementsByName("cuisine-radio");
@@ -181,12 +201,23 @@ function clearFilterCheckBoxes() {
     mealtypes.forEach((e) => e.checked = false);
     time.forEach((e) => e.checked = false);
 }
+
+/**
+ * This function removes all the filter cards in order to display new ones
+ * each time a user selects a new filter
+ *
+ */
 function resetFilters() {
     document.querySelectorAll("filter-card").forEach(function (filters) {
         filters.remove();
     });
 }
 
+/**
+ * This function removes all the filter cards and clears all checkboxes
+ * 
+ *
+ */
 function clearAllFilters() {
     document.querySelectorAll("filter-card").forEach(function (elem) {
         elem.remove();
@@ -351,6 +382,10 @@ function hideCategoryCards() {
     categoryCards.style.display = "none";
 }
 
+/**
+ * This function hides the filter drop down menus
+ *
+ */
 function hideFilters() {
     console.log("hiding")
     const filters = document.getElementById("filters-content");
@@ -381,6 +416,10 @@ function hideFilters() {
     }
 }
 
+/**
+ * This function hides the filter buttons
+ *
+ */
 function hideFilterBtns() {
     const filtersBtn = document.getElementById("filters-container")
     filtersBtn.style.visibility = "hidden";
@@ -390,6 +429,10 @@ function hideFilterBtns() {
     filterText.style.display = "none";
 }
 
+/**
+ * This function shows the filter buttons
+ *
+ */
 function showFilterBtns() {
     const filtersBtn = document.getElementById("filters-container")
     filtersBtn.style.visibility = "visible";
@@ -400,12 +443,10 @@ function showFilterBtns() {
     
 } 
 
-function showDietFilters() {
-    console.log('diet');
-    const diet = document.getElementById("diet-filter");
-    diet.style.visibility = "visible";
-}
-
+/**
+ * This function shows the apply filters button
+ *
+ */
 function showApplyBtn() {
     const applyButton = document.getElementById("applyBtn");
     applyButton.style.visibility = "visible";
@@ -413,6 +454,10 @@ function showApplyBtn() {
     showClearFiltersBtn();
 
 }
+/**
+ * This function hides the apply filters button
+ *
+ */
 function hideApplyBtn() {
     const applyButton = document.getElementById("applyBtn");
     applyButton.style.visibility = "hidden";
@@ -420,27 +465,63 @@ function hideApplyBtn() {
     hideClearFiltersBtn();
 }
 
+/**
+ * This function just reveals the clear filters button which should only appear after a filter is selected
+ * in any category
+ */
 function showClearFiltersBtn() {
-    const clearButton = document.getElementById("clear-filters-btn");
+   const clearButton = document.getElementById("clear-filters-btn");
     clearButton.style.visibility = "visible";
     clearButton.style.display = "";
 }
+
+/**
+ * This function should only be called when no filters are selected, showing, or is on another page like the settings
+ * home, or cookbook page.  Thus the clear filters button should only show when a filter is selected but disappear
+ * all other times
+ */
 function hideClearFiltersBtn() {
     const clearButton = document.getElementById("clear-filters-btn");
     clearButton.style.visibility = "hidden";
     clearButton.style.display = "none";
 }
 
+/**
+ * This function shows the diet filter drop down menu when diet button
+ * is clicked
+ *
+ */
+ function showDietFilters() {
+    console.log('diet');
+    const diet = document.getElementById("diet-filter");
+    diet.style.visibility = "visible";
+}
+
+/**
+ * This function shows the cuisine filter drop down menu when cuisine button
+ * is clicked
+ *
+ */
 function showCuisineFilters() {
     const cuisine = document.getElementById("cuisine-filter");
     cuisine.style.visibility = "visible";
 }
 
+/**
+ * This function shows the time filter drop down menu when time button
+ * is clicked
+ *
+ */
 function showTimeFilters() {
     const time = document.getElementById("time-filter");
     time.style.visibility = "visible";
 }
 
+/**
+ * This function shows the meal filter drop down menu when meal button
+ * is clicked
+ *
+ */
 function showMealFilters() {
     const meal = document.getElementById("meal-filter");
     meal.style.visibility = "visible";

@@ -353,6 +353,7 @@ class RecipePage extends HTMLElement {
     // For tap mode, display one instruction at a time
 
     const instructions = getInstructions(data);
+    
     const instructionSize = instructions.length;
 
     var tapModeInd = 0;
