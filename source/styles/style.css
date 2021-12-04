@@ -778,7 +778,7 @@ footer {
 .cookbook-name {
   background-color: var(--primary);
   border: none;
-  width: 100%;
+  width: 80vw;
   font-size: 2rem;
   color: var(--background-color);
   margin-top: 10px;
