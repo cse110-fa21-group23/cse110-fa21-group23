@@ -298,7 +298,7 @@ class RecipePage extends HTMLElement {
       <header class="header">
         <h1 id="recipe-title"></h1>
         <img id="bookmark" class="noprint" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
-        <h2></h2>
+        <h2 id="serving-size"></h2>
         </header>
       <div class="edit-recipe hidden">
         <span onclick="load()">Edit <img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> </span>
@@ -416,7 +416,8 @@ class RecipePage extends HTMLElement {
       "title": data["title"],
       "image": data["image"],
       "ingredients": ingredients,
-      "instructions": instructions
+      "instructions": instructions,
+      "servings": data["servings"]
     }
     this.json = replicateData;
   }
