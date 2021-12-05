@@ -54,7 +54,8 @@ function toggleTapMode() {
 function showSettings() {
     hideHome();
     hideCookbooks();
-    clearSavedRecipe();
+    const container = document.getElementById("cookbook-container");
+    container.innerHTML = "";
     hideRecipeCards();
     hideRecipePage();
     const settings = document.getElementById("settings-container");
@@ -113,7 +114,8 @@ function hideSettings() {
 function showHome() {
     hideSettings();
     hideCookbooks();
-    clearSavedRecipe();
+    const container = document.getElementById("cookbook-container");
+    container.innerHTML = "";
     hideRecipeCards();
     showCategoryCards();
     hideRecipePage();
@@ -671,83 +673,3 @@ function emailRecipe() {
 
 window.printRecipe = printRecipe;
 window.emailRecipe = emailRecipe;
-
-// show saved recipes in cookbooks, used in script.js
-function showSavedRecipe() {
-    let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
-    const container = document.getElementById("cookbook-container");
-    let copy = cookbooks;
-    for (let i = 0; i < Object.keys(cookbooks).length; i++) {
-        let current = JSON.parse(localStorage.getItem(cookbooks[i]));
-        if (cookbooks[i] != "Favorites") {
-            if (current == null || current.length == 0) {
-                localStorage.removeItem(cookbooks[i]);
-                const index = cookbooks.indexOf(cookbooks[i]);
-                if (index > -1) {
-                    copy.splice(index, 1);
-                    localStorage.setItem("cookbooks", JSON.stringify(copy));
-                    continue;
-                }
-            }
-        }
-        let host = document.createElement("div");
-        let list = JSON.parse(localStorage.getItem(cookbooks[i]));
-
-        let holder = document.createElement("button");
-        holder.classList.add("cookbook-name");
-        holder.innerHTML = '<i class = "fas fa-angle-down""></i> ' + cookbooks[i];
-
-        let recipesInCookbook = document.createElement("div");
-        recipesInCookbook.classList.add("recipes-in-cookbook-container");
-
-        host.appendChild(holder);
-        host.appendChild(recipesInCookbook);
-        let IDs = [];
-        for (let j = 0; j < list.length; j++) {
-            IDs.push(list[j]);
-        }
-        for (let m = 0; m < IDs.length; m++) {
-            let appended = false;
-            let ID = IDs[m];
-            let uniquedish = JSON.parse(localStorage.getItem(`ID-${ID}`));
-            const element = document.createElement('recipe-card');
-            element.data = uniquedish;
-            const id = uniquedish["id"];
-            recipesInCookbook.appendChild(element);
-            element.classList.remove('shown');
-            element.classList.add('hidden');
-            holder.addEventListener('click', e => {
-
-                if (!appended) {
-                    element.classList.remove('hidden');
-                    element.classList.add('shown');
-                    appended = true;
-                }
-                else {
-                    element.classList.remove('shown');
-                    element.classList.add('hidden');
-                    appended = false;
-                }
-            });
-            element.addEventListener('click', e => {
-                if (e.composedPath()[0].nodeName == "A") return;
-                let hash;
-                hash = "#" + id;
-                window.history.pushState(id, "", window.location.pathname + hash);
-                hideCookbooks();
-                clearSavedRecipe();
-                showRecipePage();
-                document.querySelector("recipe-page").data = uniquedish;
-                showBookMarkEditReipce();
-            });
-
-        }
-        container.appendChild(host);
-    }
-
-}
-//remove appended recipes when leave cookbook
-function clearSavedRecipe() {
-    const container = document.getElementById("cookbook-container");
-    container.innerHTML = `<h1 class="heading">Saved Cookbooks</h1>`;
-}
