@@ -2,6 +2,7 @@ var $SOMenuVisibility = "hidden";
 const defaultCookbook = "Favorites";
 var $tapModeVisibility = "hidden";
 
+
 /**
  * Toggles the Menu list
  *
@@ -730,7 +731,8 @@ function showThisList(cookbook) {
  *
  * @param {*} cookbookName the cookbook to remove
  */
-function confirmRemoveList(cookbookName) {
+function confirmRemoveList(li) {
+    let cookbookName = li.querySelector("label").innerText;
     let cookbookIDs = JSON.parse(localStorage.getItem(cookbookName));
     if (confirm(("Are you sure you want to permanently remove " + cookbookName + " and its contents from your cookbooks?"))) {
         // Removes the cookbook and its elements from local storage
@@ -744,6 +746,7 @@ function confirmRemoveList(cookbookName) {
         cookbooks.splice(cookbooks.indexOf(cookbookName), 1);
         localStorage.setItem(COOK_BOOKS, JSON.stringify(cookbooks));
         let res = JSON.parse(localStorage.getItem(COOK_BOOKS));
+        li.remove();
     }
     /* Code for version that requires some CSS
     console.log("crL" + name);
@@ -883,8 +886,8 @@ function hideTextPrompt() {
 // These here are some cookbooks for testing; delete them if I've forgotten to
 let testCookbook = ["a", "b", "c", "d"];
 localStorage.setItem("cookbooks", JSON.stringify(testCookbook));
-localStorage.setItem("a", JSON.stringify(""));
-localStorage.setItem("b", JSON.stringify(""));
-localStorage.setItem("c", JSON.stringify(""));
-localStorage.setItem("d", JSON.stringify(""));
+localStorage.setItem("a", JSON.stringify([]));
+localStorage.setItem("b", JSON.stringify([]));
+localStorage.setItem("c", JSON.stringify([]));
+localStorage.setItem("d", JSON.stringify([]));
 /* End Cookbook Display =====================================================*/
