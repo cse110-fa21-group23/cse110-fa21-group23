@@ -611,8 +611,8 @@ function showBookMarkEditRecipe() {
 /* end of Edit Recipe =======================================================*/
 /* Start Cookbook Display ===================================================*/
 /*
-NOTE: I am adding cookbooks dynamically but clearing them anyways do due to time constraints so I need to get rid of them sometime,
-but not right now
+NOTE: I am adding cookbooks dynamically but clearing them anyways do due to time constraints so I need to get rid of the code
+adding them dynamically sometime but not right now
 */
 
 // 
@@ -678,6 +678,7 @@ function initializeCookbook() {
  * @param {*} cookbook The cookbook to display
  */
 function showThisList(cookbook) {
+    document.getElementById("list-name-header").innerText = cookbook;
     const recipeCardsContainer = document.getElementById('cookbook-contents');
     const cookbookIDs = JSON.parse(localStorage.getItem(cookbook));
     // Clears previous recipe cards, might not be needed
@@ -719,31 +720,28 @@ function showThisList(cookbook) {
         document.getElementById("empty-list").classList.add("hidden");
     }
 
-    document.getElementById("list-name-header").innerText = cookbook;
-
     hideCookbooksDisplay();
     showListDisplay();
 }
 
-// Confirms that the user wants to remove the cookbook then if confirmed removes it and it's contents
-function confirmRemoveList(li) {
-    let cookbookName = li.querySelector("   label").innerText;
+// 
+/**
+ * Confirms that the user wants to remove the cookbook then, if confirmed, removes it and it's contents
+ *
+ * @param {*} cookbookName the cookbook to remove
+ */
+function confirmRemoveList(cookbookName) {
     let cookbookIDs = JSON.parse(localStorage.getItem(cookbookName));
     if (confirm(("Are you sure you want to permanently remove " + cookbookName + " and its contents from your cookbooks?"))) {
-        // Removes the cookbook from the cookbook display
-        li.remove();
         // Removes the cookbook and its elements from local storage
         // NOTE: Removes all recipes from that cookbook even if they are in another cookbook
         // so this might be a bug or not depending on what we want to do
-        console.log(cookbookIDs);
         for (let i = 0; i < cookbookIDs.length; i++) {
             localStorage.removeItem(`ID-${cookbookIDs[i]}`);
         }
         localStorage.removeItem(cookbookName);
         let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
-        console.log("X:" + cookbooks);
         cookbooks.splice(cookbooks.indexOf(cookbookName), 1);
-        console.log("X" + cookbooks);
         localStorage.setItem(COOK_BOOKS, JSON.stringify(cookbooks));
         let res = JSON.parse(localStorage.getItem(COOK_BOOKS));
     }
@@ -758,7 +756,11 @@ function confirmRemoveList(li) {
     */
 }
 
-// Prompts the user for a new cookbook name then checks if it is valid. If it adds that cookbook to the list of cookbooks
+// 
+/**
+ * Prompts the user for a new cookbook name then checks if it is valid. If it adds that cookbook to the list of cookbooks.
+ *
+ */
 function addNewCookbookPrompt() {
     let cookbookName = prompt("What would you like to name this cookbook?");
     while (processTextSubmitCookbook(cookbookName) == false && cookbookName != null) {
@@ -776,7 +778,6 @@ function addNewCookbookPrompt() {
         localStorage.setItem(COOK_BOOKS, JSON.stringify(cookbooks));
         let recipeArr = [];
         localStorage.setItem(cookbookName, JSON.stringify(recipeArr));
-        showNewCookbook(cookbookName);
     }
     /* Code for version that requires some CSS
     document.getElementById('text-prompt-text').innerText = 'What do you want to call your new cookbook?';
@@ -784,7 +785,12 @@ function addNewCookbookPrompt() {
     */
 }
 
-// Returns false if the name is already in use or an empty string, other wise returns true
+/**
+ * Checks to see if the cookbook name is valid
+ *
+ * @param {*} userInput the cookbook name to check
+ * @return {*} true if the name isn't null, empty, or already in use. Otherwise it returns false
+ */
 function processTextSubmitCookbook(userInput) {
     // Checks if the input is empty, if so it changes the request text and exits the function
     console.log("X: " + userInput);
@@ -801,7 +807,7 @@ function processTextSubmitCookbook(userInput) {
     return true;
 }
 
-// adds a cookbook with to the cookbook display but not local storage
+/* Method to add cookbook to display should probably delete it since we aren't doing that
 function showNewCookbook(cookbookName) {
     // Here we add the display elements, pretty much the same as what you see in initializeCookbook() 
     let cookbooksList = document.querySelector("#cookbook-display-lists > ol");
@@ -821,29 +827,46 @@ function showNewCookbook(cookbookName) {
     img.onclick = function() {confirmRemoveList(li)};
     label.onclick = function() {showThisList(cookbookName)};
 }
+*/
 
+/**
+ * Hides the display for a cookbook's contents
+ *
+ */
 function hideListDisplay() {
     const listDisplay = document.getElementById('cookbook-contents');
     listDisplay.style.visibility = "hidden";
 }
 
+/**
+ * Shows the display for a cookbook's contents
+ *
+ */
 function showListDisplay() {
     const listDisplay = document.getElementById('cookbook-contents');
     listDisplay.style.visibility = "visible";
 }
 
+/**
+ * Hides the display of cookbooks
+ *
+ */
 function hideCookbooksDisplay() {
     const listDisplay = document.getElementById('cookbooks');
     listDisplay.style.visibility = "hidden";
     listDisplay.style.display = "none";
 }
 
+/**
+ * Shows the display of cookbooks
+ *
+ */
 function showCookbooksDisplay() {
     const listDisplay = document.getElementById('cookbooks');
     listDisplay.style.visibility = "visible";
     listDisplay.style.display = null;
 }
-
+/* more code for the prompts using CSS, should probably delete it since I probably won't use it
 function hideYesNoPrompt() {
     const yesNoPrompt = document.getElementById('prompt-box-yes-no');
     yesNoPrompt.style.visibility = "hidden";
@@ -855,8 +878,9 @@ function hideTextPrompt() {
     textPrompt.style.visibility = "hidden";
     document.getElementById("input-prompt-text").value = "";
 }
+*/
 
-// This here are some cookbooks for testing; delete it if I've forgotten to
+// These here are some cookbooks for testing; delete them if I've forgotten to
 let testCookbook = ["a", "b", "c", "d"];
 localStorage.setItem("cookbooks", JSON.stringify(testCookbook));
 localStorage.setItem("a", JSON.stringify(""));
