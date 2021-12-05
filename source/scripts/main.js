@@ -611,14 +611,23 @@ function showBookMarkEditRecipe() {
 /* end of Edit Recipe =======================================================*/
 /* Start Cookbook Display ===================================================*/
 /*
-NOTE: Should probably create a add to the cookbook display function instead of just copy and pasting code
-Also I've done pretty much no CSS and haven't really tested the actual list displays
+NOTE: I am adding cookbooks dynamically but clearing them anyways do due to time constraints so I need to get rid of them sometime,
+but not right now
 */
 
-// sets up the list of cookbooks and displays them under cookbooks-list
-// When we want to add or remove to it will simply do so dynamically in other functions
+// 
+// 
+/**
+ * Clears the cookbook display and replaces it with all cookbooks currently in local storage.
+ * If there no cookbooks in local storage it will create a default cookbook
+ */
 function initializeCookbook() {
     let cookbooksList = document.querySelector("#cookbook-display-lists > ol");
+    // Clears the cookbook display
+    while (cookbooksList.firstChild) {
+        cookbooksList.removeChild(cookbooksList.firstChild);
+    }
+
     let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
     // First we check to see if we already have any cookbooks, if we don't we set up the default one
     // The img is the part where when clicked prompts you to confirm removing that cookbook
@@ -663,9 +672,11 @@ function initializeCookbook() {
     }
 }
 
-
-// Updates the cookbook display section to display the inputted cookbook's recipes as recipe cards
-// and clears recipe cards
+/**
+ * Shows the contents of the inputted cookbook; if it is empty it will inform the user
+ * 
+ * @param {*} cookbook The cookbook to display
+ */
 function showThisList(cookbook) {
     const recipeCardsContainer = document.getElementById('cookbook-contents');
     const cookbookIDs = JSON.parse(localStorage.getItem(cookbook));
@@ -675,6 +686,7 @@ function showThisList(cookbook) {
         recipeCardsContainer.remove(childrenToRemove[i]);
     }
 
+    // Pretty much copied this from the showRecipeCards function not all that sure how it works
     for (let i = 0; i < cookbookIDs.length; i++) {
         const element = document.createElement('recipe-card');
         let jsonData = JSON.parse(localStorage.getItem(`ID-${cookbookIDs[i]}`));
@@ -700,11 +712,14 @@ function showThisList(cookbook) {
         bindRecipeCard(element, id);
     }
 
+    // Hides or shows the empty cookbook message based on the length of the cookbook
     if (cookbookIDs.length == 0) {
         document.getElementById("empty-list").classList.remove("hidden");
     } else {
         document.getElementById("empty-list").classList.add("hidden");
     }
+
+    document.getElementById("list-name-header").innerText = cookbook;
 
     hideCookbooksDisplay();
     showListDisplay();
@@ -820,11 +835,13 @@ function showListDisplay() {
 function hideCookbooksDisplay() {
     const listDisplay = document.getElementById('cookbooks');
     listDisplay.style.visibility = "hidden";
+    listDisplay.style.display = "none";
 }
 
 function showCookbooksDisplay() {
     const listDisplay = document.getElementById('cookbooks');
     listDisplay.style.visibility = "visible";
+    listDisplay.style.display = null;
 }
 
 function hideYesNoPrompt() {

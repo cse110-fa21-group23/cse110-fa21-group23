@@ -347,14 +347,18 @@ label {
 .bookmark {
   float: left;
 }
-.list-name {
-  color: var(--primary);
-}
-#list-name-header {
-  color: var(--primary);
-}
+
 #add-empty-cookbook {
-  color: var(--primary);
+  text-align: center;
+  cursor: pointer;
+}
+
+#cookbook-display-lists, #empty-list, #list-name-header {
+  text-align: center;
+}
+
+#cookbook-display-lists > ol > li > img {
+  cursor: pointer;
 }
   /* end of COOKBOOKS/LISTS ========================================================= */
 
