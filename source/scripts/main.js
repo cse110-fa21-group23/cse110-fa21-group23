@@ -250,8 +250,8 @@ function toggleShareRecipeModal() {
     const setDisplay = (modal, blackout, display) => {
         modal.style.display = display;
         modal.style.position = "absolute";
-        modal.style.top = "50%";
-        modal.style.left = "50%";
+        modal.style.top = "30%";
+        modal.style.left = "45%";
         modal.style.margin = "-100px 0 0 -150px";
         blackout.style.display = display;
         blackout.style.height = "100vh";
