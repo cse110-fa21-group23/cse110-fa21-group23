@@ -32,9 +32,13 @@ window.addEventListener('DOMContentLoaded', init);
 function bindPopState() {
     window.addEventListener("popstate", (e) => {
         if (e.state) {
+            if(filters.length>0){
+                showApplyBtn();
+            }
             router.navigate(e.state, true);
         }
         else {
+            filters = [];
             router.navigate("home", true);
         }
     })
@@ -75,27 +79,49 @@ async function init() {
             ele[i].checked = false;
     })
 
-    //on enter for search, call search function
-    document.addEventListener('keydown', async function (event) {
-        if (event.key === 'Enter') {
-            let searchSuccessful = await search();
-            if (searchSuccessful) {
-                router.navigate(document.getElementById("search-query").value, false);
-                createRecipeCards();
-            }
-        }
-    });
+
 
     // Add click event listener for search button
     const searchButton = document.getElementById("search-button");
     searchButton.addEventListener("click", async () => {
+        if(filters.length>0){
+            let searchSuccessful = await searchByFilter();
+            if (searchSuccessful) {
+                
+                router.navigate(document.getElementById("search-query").value, false);
+                createRecipeCards();
+            }
+        }
+        else{
         let searchSuccessful = await search();
-        if (searchSuccessful) {
-            createRecipeCards();
+            if (searchSuccessful) {
+                 router.navigate(document.getElementById("search-query").value, false);
+                 createRecipeCards();
+             }
         }
     });
 }
 
+    //on enter for search, call search function
+    document.addEventListener('keydown', async function (event) {
+        if (event.key === 'Enter') {
+            if(filters.length>0){
+                let searchSuccessful = await searchByFilter();
+                if (searchSuccessful) {
+                    
+                    router.navigate(document.getElementById("search-query").value, false);
+                    createRecipeCards();
+                }
+            }
+            else{
+            let searchSuccessful = await search();
+                if (searchSuccessful) {
+                     router.navigate(document.getElementById("search-query").value, false);
+                     createRecipeCards();
+                 }
+            }
+        }
+    });
 // tag functionality
 /**
  * Adds an eventlistener to the cuisine filters to populate the array needed
@@ -122,7 +148,6 @@ document.getElementById("cuisine-filter").addEventListener("click", (e)=>{
     }
     // console.log(filters);
     if(filters.length>0){
-        // console.log("showing");
         showApplyBtn();
     }
     else{
@@ -401,12 +426,54 @@ function searchByFilter () {
     }
 
     //gets the search query from the search bar
-    const searchQuery = document.getElementById("search-query").value;
+    let searchQuery = document.getElementById("search-query").value;
+    let page = "";
+    if(searchQuery.length>0){
+        page = searchQuery;
+    }
+    else{
+        page = "Filters";
+    }
+    router.addPage(page, function () {
+        hideRecipePage();
+        hideCategoryCards();
+        showRecipeCards();
+        showSearchBar();
+        hideCookbooks();
+        hideSettings();
+        showFilterBtns();
+        showSelectedFilters();
+    });
+
+    router.navigate(page, false);
+    let searchQueryStr = `&query=${searchQuery}`
+    if(categories.indexOf(searchQuery) !== -1){
+        searchQueryStr = '';
+        if (searchQuery == "Vegetarian" || searchQuery == "Vegan" || searchQuery == "Gluten-Free") {
+            queryStrDiet = `&diet=${searchQuery}`;
+
+        }
+        else{
+            if(cuisine.length !== 0){
+                cuisine = cuisine + `,${searchQuery}`;
+            }
+            else{
+                cuisine = `&cuisine=${searchQuery}`;
+            }
+        }
+        
+        
+    }
     
     console.log(searchQuery);
-    return fetchRecipes(`&query=${searchQuery}${cuisine}${mealType}${time}${queryStrDiet}${queryStrIntolerances}`, (data) => {
+    return fetchRecipes(`${searchQueryStr}${cuisine}${mealType}${time}${queryStrDiet}${queryStrIntolerances}`, (data) => {
             console.log(data)
-            recipeData = data;
+            if(data.length == 0){
+                alert("No recipes match those filters.");
+            }
+            else{
+                recipeData = data;
+            }
     });
 }
 
@@ -597,10 +664,20 @@ function bindCategoryCards(categoryCard, categoryName) {
         let searchQuery = categoryName;
         document.getElementById("search-query").value = searchQuery;
         hideFilters();
-        let searchSuccessful = await searchByCategory();
-        if (searchSuccessful) {
-            console.log(recipeData);
-            createRecipeCards();
+        if(filters.length>0){
+            let searchSuccessful = await searchByFilter();
+            if (searchSuccessful) {
+                
+                router.navigate(document.getElementById("search-query").value, false);
+                createRecipeCards();
+            }
+        }
+        else{
+        let searchSuccessful = await search();
+            if (searchSuccessful) {
+                 router.navigate(document.getElementById("search-query").value, false);
+                 createRecipeCards();
+             }
         }
     });
 }

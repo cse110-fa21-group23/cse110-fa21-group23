@@ -149,6 +149,7 @@ function showSettings() {
     hideCookbooks();
     hideRecipeCards();
     hideRecipePage();
+    hideApplyBtn();
     const settings = document.getElementById("settings-container");
     settings.style.visibility = "visible";
     settings.style.display = null;
@@ -250,7 +251,6 @@ function showHome() {
     hideFilters();
     showSearchBar();
     hideFilterBtns();
-    hideApplyBtn();
     showSelectedFilters();
     clearFilterCheckBoxes();
     clearAllFilters();
@@ -266,7 +266,7 @@ function hideHome() {
     hideSearchBar();
     hideFilters();
     hideFilterBtns();
-    hideApplyBtn();
+    //hideApplyBtn();
     hideSelectedFilters();
 }
 
@@ -324,6 +324,8 @@ function hideCookbooks() {
  */
 function showRecipePage() {
     showTapMode();
+    hideApplyBtn();
+    hideClearFiltersBtn();
     const recipePage = document.getElementById("recipe-page-container");
     recipePage.style.visibility = "visible";
     recipePage.style.display = null;
@@ -451,6 +453,7 @@ function showApplyBtn() {
     const applyButton = document.getElementById("applyBtn");
     applyButton.style.visibility = "visible";
     applyButton.style.display = "";
+    showSelectedFilters();
     showClearFiltersBtn();
 
 }
