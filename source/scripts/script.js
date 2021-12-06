@@ -4,7 +4,6 @@ import { Router } from "./Router.js";
 
 let recipeData = {};
 let prevSearch = '';
-
 const router = new Router(function () {
     showHome();
 });
@@ -387,8 +386,12 @@ function bindHomePage() {
     }
 
     let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
-    console.log(cookbooks);
-    console.log(JSON.parse(localStorage.getItem("          a                    t                                  ")));
+    // Makes sure the cookbook array exist
+    if (cookbooks == null) {
+        cookbooks = [defaultCookbook];
+        localStorage.setItem(COOK_BOOKS, JSON.stringify(cookbooks));
+    }
+
     // First we check to see if we already have any cookbooks, if we don't we set up the default one
     // The img is the part where when clicked prompts you to confirm removing that cookbook
     if (cookbooks.length == 0) {
@@ -400,12 +403,13 @@ function bindHomePage() {
         img.src = "./img/icons/bookmark-empty.svg";
         img.height = 20;
         img.width = 20;
-        label.innerText = defaultName;
+        label.innerText = defaultCookbook;
         li.appendChild(img);
         li.appendChild(label);
         cookbooksList.appendChild(li);
         img.onclick = function() {confirmRemoveList(li)};
-        label.onclick = function() {showThisList(defaultName)};
+        label.onclick = function() {showThisList(defaultCookbook)};
+        localStorage.setItem(defaultCookbook, JSON.stringify([]));
     } else {
         for (let i = 0; i < cookbooks.length; i++) {
             let li = document.createElement("li");
@@ -506,28 +510,27 @@ function confirmRemoveList(li) {
         let res = JSON.parse(localStorage.getItem(COOK_BOOKS));
         li.remove();
     }
-    /* Code for version that requires some CSS
-    console.log("crL" + name);
-    document.getElementById('yes-no-prompt-text').innerText = 'Are you sure you want to delete the cookbook ' + name + '?';
-    document.getElementById('prompt-yes').onclick = function() {removeCookbook(name); hideYesNoPrompt();};
-    document.getElementById('prompt-box-yes-no').className = "shown";
-    // Not sure if the line above works below is a backup of sorts
-    //let prompt = document.getElementById('prompt-box-yes-no');
-    //prompt.style.visibility = 'visible';
-    */
 }
 
 /**
- * Prompts the user for a new cookbook name then checks if it is valid. If it adds that cookbook to the list of cookbooks.
+ * Prompts the user for a new cookbook name, gets rid of unnecessary spaces, then checks if it is valid.
+ * If it is valid it adds that cookbook to the list of cookbooks.
  *
  */
  function addNewCookbookPrompt() {
     let cookbookName = prompt("What would you like to name this cookbook?");
+    if (cookbookName != null) {
+        cookbookName = cookbookName.replace(/\s+/g, ' ').trim();
+    }
+
     while (processTextSubmitCookbook(cookbookName) == false && cookbookName != null) {
         if (cookbookName == "") {
             cookbookName = prompt("Error: No input detected. Please choose a valid name.");
         } else {
-            cookbookName = prompt("Error: Another cookbook already has that name. Please choose another.");
+            cookbookName = prompt("Error: Another cookbook already has that name. Please choose another.")
+        }
+        if (cookbookName != null) {
+            cookbookName = cookbookName.replace(/\s+/g, ' ').trim();
         }
     }
 
@@ -540,10 +543,6 @@ function confirmRemoveList(li) {
         localStorage.setItem(cookbookName, JSON.stringify(recipeArr));
         initializeCookbook();
     }
-    /* Code for version that requires some CSS
-    document.getElementById('text-prompt-text').innerText = 'What do you want to call your new cookbook?';
-    document.getElementById('prompt-submit').onclick = function() {processTextSubmitCookbook();};
-    */
 }
 
 /**
@@ -554,6 +553,7 @@ function confirmRemoveList(li) {
  */
 function processTextSubmitCookbook(userInput) {
     // Checks if the input is empty, if so it changes the request text and exits the function
+    console.log("UI: " + userInput);
     if (userInput == "" || userInput == null) {
         return false;
     }
@@ -604,39 +604,7 @@ function showCookbooksDisplay() {
     listDisplay.style.visibility = "visible";
     listDisplay.style.display = null;
 }
-/* more code for the prompts using CSS, should probably delete it since I probably won't use it
-function hideYesNoPrompt() {
-    const yesNoPrompt = document.getElementById('prompt-box-yes-no');
-    yesNoPrompt.style.visibility = "hidden";
-}
 
-// Hides the text prompt obviously, but also resets the value of the input to an empty string
-function hideTextPrompt() {
-    const textPrompt = document.getElementById('prompt-box-text');
-    textPrompt.style.visibility = "hidden";
-    document.getElementById("input-prompt-text").value = "";
-}
-*/
-/* Method to add cookbook to display should probably delete it since we aren't doing that
-function showNewCookbook(cookbookName) {
-    // Here we add the display elements, pretty much the same as what you see in initializeCookbook() 
-    let cookbooksList = document.querySelector("#cookbook-display-lists > ol");
-    let li = document.createElement("li");
-    let img = document.createElement("img");
-    let label = document.createElement("label");
-    // set img src
-    img.alt = "bookmark";
-    img.src = "./img/icons/bookmark-empty.svg";
-    img.height = 20;
-    img.width = 20;
-    label.innerText = cookbookName;
-    li.appendChild(img);
-    li.appendChild(label);
-    cookbooksList.appendChild(li);
-    img.onclick = function() {confirmRemoveList(li)};
-    label.onclick = function() {showThisList(cookbookName)};
-}
-*/
 /* End Cookbook Display =====================================================*/
 
 window.init = init;

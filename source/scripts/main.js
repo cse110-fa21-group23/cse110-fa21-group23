@@ -1,5 +1,5 @@
 var $SOMenuVisibility = "hidden";
-const defaultCookbook = "Favorites";
+var defaultCookbook = "Favorites";
 var $tapModeVisibility = "hidden";
 
 
