@@ -815,7 +815,7 @@ footer {
 /* End of Category cards style for different Screen sizes ==================================*/
 
 /* Tags style ======================================================================*/
-
+/* actual buttons to toggle filters ========================================*/
 .filtersBtn{
   display: flex;
   justify-content: center;
@@ -836,6 +836,8 @@ footer {
 .filtersBtn:hover .close-filter-menu-button{
   background-color: var(--orange4);
 }
+
+/* container holding the filter buttons ========================================*/
 .filters-container{
   display: flex;
   position: absolute;
@@ -849,6 +851,7 @@ footer {
   font-size: 1rem;
 }
 
+/* actual drop down content when buttons are pressed ========================================*/
 #filters-content{
   display: flex;
   position: absolute;
@@ -857,6 +860,7 @@ footer {
   z-index: 1;
 }
 
+/* styling only the diet, cuisine, time and meal-type buttons ========================================*/
 .diet, .cuisine, .time, .meal-type{
     background-color: var(--orange4);
     font-size: 12px;
@@ -873,11 +877,13 @@ footer {
     border-bottom: groove;
 }
 
+/* changing the style when filter buttons are clicked ========================================*/
 .clickedFiltersBtn{
   border-radius: 20px 20px 0px 0px;
   background-color: var(--orange4);
 }
 
+/* icon for closed and open filter menu ========================================*/
 .close-filter-menu-button{
   background-color: #FFECDB;
   border: #FFECDB;
@@ -891,11 +897,13 @@ footer {
   border-radius: 10px;
 }
 
+/* icon for closed and open filter menu ========================================*/
 .filterArrowIcon {
   transform: rotate(270deg);
   background-color: var(--orange4);
 }
 
+/* style for appky and clear button ========================================*/
 .applyBtn, .clear-filters-btn{
   margin-left: 20px;
   background-color: var(--orange1);
@@ -906,13 +914,18 @@ footer {
   cursor: pointer;
 }
 
+/* style for selected filters container ========================================*/
 .selected-filters-container{
   display: flex;
   margin: -15px;
 }
 
-.selected-filters-wrapper{
-  display: flex;
+
+@media (max-width: 750px) {
+  .filtersBtn{
+    max-width: 70px;
+  }
+
 }
 /* End of Tags style ======================================================================*/
 /* Used to hide the elements not to be printed */
