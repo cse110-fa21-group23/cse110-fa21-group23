@@ -358,7 +358,8 @@ label {
 /* end of SETTINGS ========================================================= */
 
 /* COOKBOOKS/LISTS ================================================================ */
-/*Make sure the book mark and list link are next to each other*/
+
+/* Make sure the book mark and list link are next to each other */
 .bookmark {
   float: left;
 }
@@ -368,14 +369,17 @@ label {
   cursor: pointer;
 }
 
-#cookbook-display-lists, #empty-list, #list-name-header {
+#cookbook-display-lists,
+#empty-list,
+#list-name-header {
   text-align: center;
 }
 
 #cookbook-display-lists > ol > li > img {
   cursor: pointer;
 }
-  /* end of COOKBOOKS/LISTS ========================================================= */
+
+/* end of COOKBOOKS/LISTS ========================================================= */
 
 #recipe-card-container {
 position: absolute;

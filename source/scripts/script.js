@@ -422,7 +422,7 @@ function bindHomePage() {
 
     // First we check to see if we already have any cookbooks, if we don't we set up the default one
     // The img is the part where when clicked prompts you to confirm removing that cookbook
-    if (cookbooks.length == 0) {
+    if (cookbooks.length === 0) {
         let li = document.createElement("li");
         let img = document.createElement("img");
         let label = document.createElement("label");
@@ -446,7 +446,7 @@ function bindHomePage() {
             // set img src
             img.alt = "bookmark";
             if (JSON.parse(localStorage.getItem(cookbooks[i])) == undefined || JSON.parse(localStorage.getItem(cookbooks[i])) == null || 
-            JSON.parse(localStorage.getItem(cookbooks[i])).length == 0) {
+            JSON.parse(localStorage.getItem(cookbooks[i])).length === 0) {
                 img.src = "./img/icons/bookmark-empty.svg";
             } else {
                 img.src = "./img/icons/bookmark-filled.svg";
@@ -506,7 +506,7 @@ function showThisList(cookbook) {
     }
 
     // Hides or shows the empty cookbook message based on the length of the cookbook
-    if (cookbookIDs.length == 0) {
+    if (cookbookIDs.length === 0) {
         document.getElementById("empty-list").classList.remove("hidden");
     } else {
         document.getElementById("empty-list").classList.add("hidden");
@@ -535,7 +535,6 @@ function confirmRemoveList(li) {
         let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
         cookbooks.splice(cookbooks.indexOf(cookbookName), 1);
         localStorage.setItem(COOK_BOOKS, JSON.stringify(cookbooks));
-        let res = JSON.parse(localStorage.getItem(COOK_BOOKS));
         li.remove();
     }
 }
@@ -551,19 +550,18 @@ function confirmRemoveList(li) {
         cookbookName = cookbookName.replace(/\s+/g, ' ').trim();
     }
 
-    while (processTextSubmitCookbook(cookbookName) == false && cookbookName != null) {
+    while (processTextSubmitCookbook(cookbookName) === false && cookbookName != null) {
         if (cookbookName == "") {
             cookbookName = prompt("Error: No input detected. Please choose a valid name.");
         } else {
-            cookbookName = prompt("Error: Another cookbook already has that name. Please choose another.")
+            cookbookName = prompt("Error: Another cookbook already has that name. Please choose another.");
         }
         if (cookbookName != null) {
             cookbookName = cookbookName.replace(/\s+/g, ' ').trim();
         }
     }
 
-    if (processTextSubmitCookbook(cookbookName) == true) {
-        console.log("cN:" + cookbookName);
+    if (processTextSubmitCookbook(cookbookName) === true) {
         let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
         cookbooks.push(cookbookName);
         localStorage.setItem(COOK_BOOKS, JSON.stringify(cookbooks));
