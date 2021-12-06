@@ -213,14 +213,12 @@ document.getElementById("diet-filter").addEventListener("click", (e)=>{
         if (dietList[i].checked) {
             count++;  
             if(filters.indexOf(dietList[i].value) == -1) {
-                // console.log("adding");
                 filters.push(dietList[i].value);      
             }
         
         }
         else{
             if(filters.indexOf(dietList[i].value) !== -1){
-                // console.log("splicing");
                 filters.splice(filters.indexOf(dietList[i].value), 1);
             }
         }
@@ -244,7 +242,6 @@ document.getElementById("diet-filter").addEventListener("click", (e)=>{
  *
  */
 document.getElementById("meal-filter").addEventListener("click", (e)=>{
-    // console.log("clicking");
     let mealList = document.getElementsByName("meal-radio");
     let count = 0;
 
@@ -281,7 +278,6 @@ document.getElementById("meal-filter").addEventListener("click", (e)=>{
  *
  */
 document.getElementById("time-filter").addEventListener("click", (e)=>{
-    // console.log("clicking");
     let timeList = document.getElementsByName("time-radio");
 
      /*
@@ -406,8 +402,7 @@ function searchByFilter () {
     let time = "";
     for (let i = 0; i < timeList.length; i++) {
         if (timeList[i].checked) {
-            time =  `&maxReadyTime=${parseInt(timeList[i].value)}`;
-            // console.log(timeList[i].value);     
+            time =  `&maxReadyTime=${parseInt(timeList[i].value)}`;  
         }
     }
 

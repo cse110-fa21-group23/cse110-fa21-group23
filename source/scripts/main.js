@@ -534,12 +534,20 @@ function showMealFilters() {
     meal.style.visibility = "visible";
 }
 
+/**
+ * This function hides the selected filters container
+ *
+ */
 function hideSelectedFilters() {
     const selectedFilters = document.getElementById("selected-filters-container");
     selectedFilters.style.visibility = "hidden";
     selectedFilters.style.display = "none";
 }
 
+/**
+ * This function shows the selected filters container
+ *
+ */
 function showSelectedFilters() {
     const selectedFilters = document.getElementById("selected-filters-container");
     selectedFilters.style.visibility = "visible";
