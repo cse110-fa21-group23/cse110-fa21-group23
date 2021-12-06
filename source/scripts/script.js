@@ -16,6 +16,21 @@ const router = new Router(function () {
 const tapModeButton = document.getElementById("tap-mode-button");
 tapModeButton.addEventListener("click", toggleTapMode); // toggleTapMode() is in main.js
 
+// same variables used in main.js
+var slideOverMenu = document.getElementById("slide-over-menu");
+var menuIcon = document.getElementById("menu-icon");
+
+document.addEventListener('click', function (event) {
+    var isClickInside = slideOverMenu.contains(event.target);
+
+    //the click was outside the slideOverMenu, close the menu without needing to click the x
+    if (!isClickInside && !menuIcon.contains(event.target) && $SOMenuVisibility == "visible") { //if clicking outside
+        menuIcon.classList.toggle("change");
+        slideOverMenu.style.transform = "translate(-100%)";
+        $SOMenuVisibility = "hidden";
+    }
+});
+
 //arrays holding category names and images for category cards
 const categories = ["Indian", "Vegan", "Mexican", "Gluten-Free", "Italian", "Japanese", "American", "Vegetarian", "Thai", "Chinese", "Korean",
     "Vietnamese", "African", "Middle Eastern"];
@@ -67,7 +82,6 @@ function bindAll() {
 async function init() {
     showHome();
     createCategoryCards();
-    bindPopState();
     bindAll();
 
     router.navigate("home", false); // clears url when user refreshes page
@@ -534,6 +548,7 @@ function search() {
         showRecipeCards();
         showSearchBar();
         hideCookbooks();
+        clearSavedRecipe();
         hideSettings();
         showFilterBtns();
         hideApplyBtn();
@@ -584,6 +599,7 @@ function createRecipeCards() {
             showRecipePage();
             hideSettings();
             hideCookbooks();
+            clearSavedRecipe();
             document.querySelector("recipe-page").data = recipeData[i];
             checkBookMark(recipeData[i]);
         });
@@ -634,6 +650,7 @@ function createCategoryCards() {
         router.addPage(page, function () {
             hideCategoryCards();
             hideCookbooks();
+            clearSavedRecipe();
             hideSettings();
             showRecipeCards();
             hideRecipePage();
@@ -752,9 +769,16 @@ function bindCookbookPage() {
     const page = "cookbooks";
     router.addPage(page, function () {
         showCookbooks();
+        showSavedRecipe();
+        if ($SOMenuVisibility == "hidden") {
+            $SOMenuVisibility = "visible";
+            var menuIcon = document.getElementById("menu-icon");
+            menuIcon.classList.toggle("change");
+        }
         toggleMenu();
     });
     cookbook.addEventListener("click", () => {
+        clearSavedRecipe();
         router.navigate(page, false);
     })
 }

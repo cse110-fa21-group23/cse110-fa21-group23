@@ -76,7 +76,7 @@ class CategoryCard extends HTMLElement {
               height: 80px;
               row-gap: 5px;
               padding: 0 8px 8px 8px;
-              width: 110px;
+              width: 100px;
               margin: 2px;
              }
 
@@ -88,6 +88,13 @@ class CategoryCard extends HTMLElement {
                 margin-left: -8px;
                 width: calc(100% + 16px);
                }
+
+            article > p {
+                font-size: 0.7rem;
+                transition: .2s ease-in-out;
+            }
+
+
        
 
           }
