@@ -1,9 +1,12 @@
 // Import API from file
 import { fetchRecipes } from "./api_script.js";
 import { Router } from "./Router.js";
+import { getInstructions, getIngredients } from "./RecipePage.js";
 
 let recipeData = {};
 let prevSearch = '';
+let currentRecipeData = {};
+
 const router = new Router(function () {
     showHome();
 });
@@ -11,6 +14,21 @@ const router = new Router(function () {
 
 const tapModeButton = document.getElementById("tap-mode-button");
 tapModeButton.addEventListener("click", toggleTapMode); // toggleTapMode() is in main.js
+
+// same variables used in main.js
+var slideOverMenu = document.getElementById("slide-over-menu");
+var menuIcon = document.getElementById("menu-icon");
+
+document.addEventListener('click', function (event) {
+    var isClickInside = slideOverMenu.contains(event.target);
+
+    //the click was outside the slideOverMenu, close the menu without needing to click the x
+    if (!isClickInside && !menuIcon.contains(event.target) && $SOMenuVisibility == "visible") { //if clicking outside
+        menuIcon.classList.toggle("change");
+        slideOverMenu.style.transform = "translate(-100%)";
+        $SOMenuVisibility = "hidden";
+    }
+});
 
 //arrays holding category names and images for category cards
 const categories = ["Indian", "Vegan", "Mexican", "Gluten-Free", "Italian", "Japanese", "American", "Vegetarian", "Thai", "Chinese", "Korean",
@@ -55,7 +73,6 @@ function bindAll() {
 async function init() {
     showHome();
     createCategoryCards();
-    bindPopState();
     bindAll();
 
     router.navigate("home", false); // clears url when user refreshes page
@@ -106,9 +123,9 @@ function search() {
         alert("Please input a search or click a filter below");
         return false;
     }
-    
+
     // If the prev search hasn't changed, simply keep the results
-    if(prevSearch === searchQuery) return false;
+    if (prevSearch === searchQuery) return false;
 
     prevSearch = searchQuery;
     const page = searchQuery;
@@ -118,6 +135,7 @@ function search() {
         showRecipeCards();
         showSearchBar();
         hideCookbooks();
+        clearSavedRecipe();
         hideSettings();
     });
 
@@ -158,25 +176,27 @@ function createRecipeCards() {
 
         const id = recipeData[i]["id"];
         router.addPage(id, function () {
-            window.scrollTo({top: 0, behavior: 'smooth'});
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             hideHome();
             hideRecipeCards();
             showRecipePage();
             hideSettings();
             hideCookbooks();
+            clearSavedRecipe();
             document.querySelector("recipe-page").data = recipeData[i];
             checkBookMark(recipeData[i]);
         });
 
         recipeCardContainer.appendChild(element);
-        bindRecipeCard(element, id);
+        bindRecipeCard(element, id, recipeData[i]);
     }
 }
 
-function bindRecipeCard(recipeCard, pageName) {
+function bindRecipeCard(recipeCard, pageName, data) {
     recipeCard.addEventListener('click', e => {
         if (e.composedPath()[0].nodeName == "A") return;
         router.navigate(pageName, false);
+        currentRecipeData = data;
     });
 }
 
@@ -213,6 +233,7 @@ function createCategoryCards() {
         router.addPage(page, function () {
             hideCategoryCards();
             hideCookbooks();
+            clearSavedRecipe();
             hideSettings();
             showRecipeCards();
             hideRecipePage();
@@ -313,9 +334,16 @@ function bindCookbookPage() {
     const page = "cookbooks";
     router.addPage(page, function () {
         showCookbooks();
+        showSavedRecipe();
+        if ($SOMenuVisibility == "hidden") {
+            $SOMenuVisibility = "visible";
+            var menuIcon = document.getElementById("menu-icon");
+            menuIcon.classList.toggle("change");
+        }
         toggleMenu();
     });
     cookbook.addEventListener("click", () => {
+        clearSavedRecipe();
         router.navigate(page, false);
     })
 }
@@ -606,6 +634,35 @@ function showCookbooksDisplay() {
 }
 
 /* End Cookbook Display =====================================================*/
+// get the email form button to handle submission
+const emailFormSubmit = document.getElementById("share-recipe-email");
+emailFormSubmit.addEventListener("click", (e) => {
+    e.preventDefault();
+    const label = document.getElementById("recipe-email-label");
+    const getInputValue = document.getElementById("recipe-email");
+
+    if (!getInputValue.value) {
+        label.style.visibility = "visible";
+        getInputValue.style.border = "1px solid red";
+        return;
+    }
+
+    // get the recipe title and format the subject
+    const recipeTitle = currentRecipeData.title;
+    const subject = `Recipe: ${recipeTitle}`;
+
+    // get the instructions
+    const instructions = getInstructions(currentRecipeData).join(", %0D%0A");
+    // get the ingredients
+    const ingredients = getIngredients(currentRecipeData).join(", %0D%0A");
+
+    // format the email to include ingredients and instructions
+    const body = `Ingredients: %0D%0A ${ingredients} 
+    %0D%0A
+    %0D%0A Instructions: %0D%0A ${instructions}`;
+
+    window.open(`mailto:${getInputValue.value}?subject=${subject}&body=${body}`);
+});
 
 window.init = init;
 window.toggleMenu = toggleMenu;

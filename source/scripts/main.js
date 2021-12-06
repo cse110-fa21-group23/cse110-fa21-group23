@@ -8,6 +8,7 @@ var $tapModeVisibility = "hidden";
  *
  */
 function toggleMenu() {
+
     var menuIcon = document.getElementById("menu-icon");
     menuIcon.classList.toggle("change");
 
@@ -23,6 +24,8 @@ function toggleMenu() {
     }
 }
 
+
+
 // this function is being called from scripts.js, ignore the Codacy error :D
 /**
  * Toggles Tap Mode
@@ -30,14 +33,18 @@ function toggleMenu() {
  */
 function toggleTapMode() {
     const tapModeButton = document.getElementById("tap-mode-button");
-
-    if (tapModeButton.innerHTML == "Tap Mode On") {
-        tapModeButton.innerHTML = "Tap Mode Off";
+    if (tapModeButton.innerHTML == "Leave Tap Mode") {
+        tapModeButton.innerHTML = "Enter Tap Mode";
         $tapModeVisibility = "hidden";
+        tapModeButton.style.backgroundColor = "var(--background-color)";
+        tapModeButton.style.color = "var(--primary)";
+
     }
     else {
-        tapModeButton.innerHTML = "Tap Mode On";
+        tapModeButton.innerHTML = "Leave Tap Mode";
         $tapModeVisibility = "visible";
+        tapModeButton.style.backgroundColor = "var(--primary)";
+        tapModeButton.style.color = "var(--background-color)";
     }
 
 }
@@ -49,6 +56,7 @@ function toggleTapMode() {
 function showSettings() {
     hideHome();
     hideCookbooks();
+    clearSavedRecipe();
     hideRecipeCards();
     hideRecipePage();
     const settings = document.getElementById("settings-container");
@@ -107,6 +115,7 @@ function hideSettings() {
 function showHome() {
     hideSettings();
     hideCookbooks();
+    clearSavedRecipe();
     hideRecipeCards();
     showCategoryCards();
     hideRecipePage();
@@ -175,7 +184,7 @@ function hideRecipePage() {
     recipePage.style.visibility = "hidden";
     recipePage.style.display = "none";
     const tapModeButton = document.getElementById("tap-mode-button");
-    tapModeButton.innerHTML = "Tap Mode Off";
+    tapModeButton.innerHTML = "Enter Tap Mode";
 }
 
 /**
@@ -216,6 +225,28 @@ function hideCategoryCards() {
     const categoryCards = document.getElementById("category-wrapper");
     categoryCards.style.visibility = "hidden";
     categoryCards.style.display = "none";
+}
+
+function toggleShareRecipeModal() {
+    const setDisplay = (modal, blackout, display) => {
+        modal.style.display = display;
+        blackout.style.display = display;
+    };
+
+    const modal = document.getElementById('send-recipe-email');
+    const blackout = document.getElementById('body-blackout');
+    const cancelModal = document.getElementById("send-recipe-cancel");
+
+    const display = modal.style.display !== "block" ? "block" : "none";
+    setDisplay(modal, blackout, display);
+
+    blackout.onclick = () => {
+        setDisplay(modal, blackout, "none");
+    };
+
+    cancelModal.onclick = () => {
+        setDisplay(modal, blackout, "none");
+    };
 }
 
 /**
@@ -266,7 +297,7 @@ function updateSettings() {
     localStorage.setItem("dietaryRestrictions", JSON.stringify(dietaryRestrictionList));
     localStorage.setItem("intolerancesRestrictions", JSON.stringify(intolerancesRestrictionsList));
 
-    // TODO: add confirmation message in HTML (alert is temporary)
+    //add confirmation message in HTML (alert is temporary)
     alert("your preferences have been updated");
 }
 
@@ -297,16 +328,19 @@ var $SOSaveCookBookMenuVisibility = "hidden";
  */
 function toggleSaveCookBook() {
     var menu = document.querySelector("#save-cookbook-menu");
-
+    const article = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("article");
     if ($SOSaveCookBookMenuVisibility == "hidden") {
         menu.style.transform = "translateY(0%)";
+        menu.style.visibility = "visible";
         $SOSaveCookBookMenuVisibility = "visible";
+        article.style.opacity = 0.35;
     }
     else {
         menu.style.transform = "translateY(100%)";
+        menu.style.visibility = "hidden";
         $SOSaveCookBookMenuVisibility = "hidden";
+        article.style.opacity = null;
     }
-
 }
 
 /**
@@ -325,15 +359,12 @@ function showCookBookMenu() {
 
     let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
     if (bookMark.getAttribute("name") == "bookmark-empty") {
-        let cookbooksList = document.querySelectorAll("#cookbook-lists > ol > li");
-        if (cookbooksList.length == 0) {
-            cookbooks.forEach((cookBook) => {
-                appendNewCookBook(cookBook);
-            });
-        }
+        let cookbooksListHTML = document.querySelectorAll("#cookbook-lists > ol > li");
+        // remove all cookbooks
+        if (cookbooksListHTML.length !== 0) cookbooksListHTML.forEach(cb => cb.remove());
+        cookbooks.forEach(cb => appendNewCookBook(cb));
         toggleSaveCookBook();
-        
-    } else if (confirm("Are you sure to remove this recipe?")) {
+    } else if (confirm("⚠ Removing recipes from your Saved Cookbooks will cause all local edits to be lost. 👀 ")) {
         try {
             // remove recipe data from local storage and cook book
             const Data = document.querySelector("recipe-page").data;
@@ -350,6 +381,7 @@ function showCookBookMenu() {
             localStorage.removeItem(`ID-${Data["id"]}`);
             bookMark.setAttribute("name", "bookmark-empty");
             bookMark.src = "./img/icons/bookmark-empty.svg";
+            bookMark.title = "Click to save this recipe";
             hideEditRecipe();
         } catch (err) {
             alert("An error has occured: " + err);
@@ -384,16 +416,9 @@ function bindNewCookBook(li) {
             Data["cookbook"] = CookBookName;
             localStorage.setItem(`ID-${Id}`, JSON.stringify(Data));
 
-            // update bookMark icon
-            bookMark.setAttribute("name", "bookmark-filled");
-            bookMark.src = "./img/icons/bookmark-filled.svg";
-
             // alert user
             alert("Added to " + CookBookName + " successful");
-
-            // display edit
-            showEditRecipe();
-
+            showBookMarkEditReipce();
             toggleSaveCookBook(); // close savecookbook menu
         } catch (err) {
             alert("An error has occured" + err);
@@ -501,15 +526,16 @@ var $editRecipeVisibility = "hidden";
  */
 function toggleEditRecipe() {
     const article = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("article");
-    article.style.opacity = 0.35;
     var menu = document.querySelector(".edit-recipe-form");
 
     if ($editRecipeVisibility == "hidden") {
         article.style.opacity = 0.35;
         menu.style.transform = "translateY(10%)";
+        menu.style.visibility = "visible";
         $editRecipeVisibility = "visible";
     } else {
         menu.style.transform = "translateY(-150%)";
+        menu.style.visibility = "hidden";
         article.style.opacity = null;
         $editRecipeVisibility = "hidden";
     }
@@ -526,7 +552,7 @@ function addMoreIngredients(ig = "") {
     let text = document.createElement("input");
     let ingreList = document.querySelector(".edit-recipe-form > .edit-ingredients > ol");
     text.type = "text";
-    text.placeholder = "ingredient / leave blank if not needed";
+    text.placeholder = "ingredient";
     text.value = ig;
     li.appendChild(text);
     ingreList.appendChild(li);
@@ -542,10 +568,26 @@ function addMoreInstructions(ins = "") {
     let text = document.createElement("input");
     let instrList = document.querySelector(".edit-recipe-form > .edit-instructions > ol");
     text.type = "text";
-    text.placeholder = "instruction / leave blank if not needed";
+    text.placeholder = "instruction";
     text.value = ins;
     li.appendChild(text);
     instrList.appendChild(li);
+}
+
+/**
+ * this function removes the last ingredient in the ingredients list
+ */
+function removeIngredient() {
+    let ingreList = document.querySelector(".edit-recipe-form > .edit-ingredients > ol");
+    ingreList.lastChild.remove();
+}
+
+/**
+ * This function removes the last intructions in the instructions list
+ */
+function removeInstruction() {
+    let instrList = document.querySelector(".edit-recipe-form > .edit-instructions > ol");
+    instrList.lastChild.remove();
 }
 
 /**
@@ -594,7 +636,108 @@ function submit() {
 function showBookMarkEditRecipe() {
     let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
     bookMark.src = "./img/icons/bookmark-filled.svg";
+    bookMark.title = "Click to remove this recipe";
     bookMark.setAttribute("name", "bookmark-filled");
     showEditRecipe();
 }
+
+/* end save new cookbook ====================================================*/
+
 /* end of Edit Recipe =======================================================*/
+
+/**
+ * Print a recipe from the recipe page
+ */
+function printRecipe() {
+    window.print();
+}
+
+/**
+ * Open the share recipe modal
+ */
+function emailRecipe() {
+    toggleShareRecipeModal();
+}
+
+window.printRecipe = printRecipe;
+window.emailRecipe = emailRecipe;
+
+// show saved recipes in cookbooks, used in script.js
+function showSavedRecipe() {
+    let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
+    const container = document.getElementById("cookbook-container");
+    let copy = cookbooks;
+    for (let i = 0; i < Object.keys(cookbooks).length; i++) {
+        let current = JSON.parse(localStorage.getItem(cookbooks[i]));
+        if (cookbooks[i] != "Favorites") {
+            if (current == null || current.length == 0) {
+                localStorage.removeItem(cookbooks[i]);
+                const index = cookbooks.indexOf(cookbooks[i]);
+                if (index > -1) {
+                    copy.splice(index, 1);
+                    localStorage.setItem("cookbooks", JSON.stringify(copy));
+                    continue;
+                }
+            }
+        }
+        let host = document.createElement("div");
+        let list = JSON.parse(localStorage.getItem(cookbooks[i]));
+
+        let holder = document.createElement("button");
+        holder.classList.add("cookbook-name");
+        holder.innerHTML = '<i class = "fas fa-angle-down""></i> ' + cookbooks[i];
+
+        let recipesInCookbook = document.createElement("div");
+        recipesInCookbook.classList.add("recipes-in-cookbook-container");
+
+        host.appendChild(holder);
+        host.appendChild(recipesInCookbook);
+        let IDs = [];
+        for (let j = 0; j < list.length; j++) {
+            IDs.push(list[j]);
+        }
+        for (let m = 0; m < IDs.length; m++) {
+            let appended = false;
+            let ID = IDs[m];
+            let uniquedish = JSON.parse(localStorage.getItem(`ID-${ID}`));
+            const element = document.createElement('recipe-card');
+            element.data = uniquedish;
+            const id = uniquedish["id"];
+            recipesInCookbook.appendChild(element);
+            element.classList.remove('shown');
+            element.classList.add('hidden');
+            holder.addEventListener('click', e => {
+
+                if (!appended) {
+                    element.classList.remove('hidden');
+                    element.classList.add('shown');
+                    appended = true;
+                }
+                else {
+                    element.classList.remove('shown');
+                    element.classList.add('hidden');
+                    appended = false;
+                }
+            });
+            element.addEventListener('click', e => {
+                if (e.composedPath()[0].nodeName == "A") return;
+                let hash;
+                hash = "#" + id;
+                window.history.pushState(id, "", window.location.pathname + hash);
+                hideCookbooks();
+                clearSavedRecipe();
+                showRecipePage();
+                document.querySelector("recipe-page").data = uniquedish;
+                showBookMarkEditReipce();
+            });
+
+        }
+        container.appendChild(host);
+    }
+
+}
+//remove appended recipes when leave cookbook
+function clearSavedRecipe() {
+    const container = document.getElementById("cookbook-container");
+    container.innerHTML = `<h1 class="heading">Saved Cookbooks</h1>`;
+}
