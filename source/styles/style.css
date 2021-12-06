@@ -860,7 +860,7 @@ footer {
   z-index: 1;
 }
 
-/* styling only the diet, cuisine, time and meal-type buttons ========================================*/
+/* styling only the diet, cuisine, time and meal-type drop down menus ========================================*/
 .diet, .cuisine, .time, .meal-type{
     background-color: var(--orange4);
     font-size: 12px;
@@ -924,6 +924,9 @@ footer {
 @media (max-width: 750px) {
   .filtersBtn{
     max-width: 70px;
+  }
+  .filterArrowIcon{
+
   }
 
 }
