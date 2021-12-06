@@ -39,7 +39,6 @@ class Filter extends HTMLElement {
             padding: 5px 10px 10px 10px;
             border-radius: 20px;
             border-color: var(--orange2);
-            cursor: pointer;
         }
 
         article > button{
@@ -52,6 +51,22 @@ class Filter extends HTMLElement {
             color: var(--background-color);
         }
 
+        @media (max-width: 750px) {
+            article {
+                margin-left: 3px;   
+                padding: 5px;  
+                border-radius: 20px;
+            }
+    
+            article > button{
+                font-size: 12px;
+            }
+    
+            p {
+                font-size: 12px;
+            }
+
+          }
     `;
 
         styleElem.innerHTML = styles;

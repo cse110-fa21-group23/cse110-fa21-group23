@@ -912,6 +912,7 @@ footer {
   border-radius: 20px;
   border-color: var(--orange1);
   cursor: pointer;
+
 }
 
 /* style for selected filters container ========================================*/
@@ -924,9 +925,50 @@ footer {
 @media (max-width: 750px) {
   .filtersBtn{
     max-width: 70px;
+    margin: 3px;
+    font-size: 12px;
   }
-  .filterArrowIcon{
+  #filters-content{
+    transform: translate(-49.5%, 45px);
+  }
 
+  .diet, .cuisine, .time, .meal-type{
+    margin: 3px;
+    max-width: 70px;
+  }
+
+  .filter-checkbox{
+    font-size: 12px;
+  }
+
+  .filterArrowIcon{
+    font-size: 15px;
+    left: 17px;
+    bottom: -5px;
+    width: 1px;
+    height: 1px;
+  }
+  .close-filter-menu-button{
+    font-size: 15px;
+    left: 17px;
+    bottom: -5px;
+    width: 1px;
+    height: 1px;
+  }
+  .filters-container{
+    margin: 2px 2px 2px 2px;
+  }
+  .selected-filters-container{
+    font-size: 12px;
+  }
+
+  .applyBtn, .clear-filters-btn{
+    margin: 3px;
+    font-size: 12px;
+
+  }
+  .search-query{
+    min-width: 100px;
   }
 
 }
