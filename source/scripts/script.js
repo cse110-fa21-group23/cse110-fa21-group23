@@ -509,6 +509,13 @@ document.getElementById("clear-filters-btn").addEventListener("click", () => {
     // console.log(filters)
     filters = [];
     clearAllFilters();
+    const callSearch = async function() {
+        let searchSuccessful = await search();
+        if (searchSuccessful) {
+            createRecipeCards();
+        }
+    }
+    callSearch();
     // console.log(filters)
 })
 
@@ -526,6 +533,8 @@ function search() {
     // get the search query
     const searchQuery = document.getElementById("search-query").value;
     const recipeCardContainer = document.getElementById('recipe-card-container');
+
+    console.log(searchQuery);
 
     // If it is empty, alert the user it is empty
     if (!searchQuery) {
