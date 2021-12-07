@@ -34,13 +34,13 @@ function toggleDietFilters () {
     let dietIcon= document.getElementById("dietIcon");
     dietIcon.classList.toggle("filterArrowIcon");
     let dietBtn = document.getElementById("dietBtn"); 
-    dietBtn.classList.toggle("clickedFiltersBtn")
+    dietBtn.classList.toggle("clickedFiltersBtn");
     let dropDownMenu = document.getElementById("diet-filter");
 
     if ($dietFilterVisibility == "hidden") {
         const getDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
         if (getDietaryRestrictions && getDietaryRestrictions.length !== 0) {
-            alert("Choosing a diet filter will override your diet restrictions in settings")
+            alert("Choosing a diet filter will override your diet restrictions in settings");
         }
         $dietFilterVisibility = "visible";
         dropDownMenu.style.visibility = "visible";
@@ -61,7 +61,7 @@ function toggleCuisineFilters () {
     let cuisineIcon = document.getElementById("cuisineIcon");
     cuisineIcon.classList.toggle("filterArrowIcon");
     let cuisineBtn = document.getElementById("cuisineBtn");
-    cuisineBtn.classList.toggle("clickedFiltersBtn") 
+    cuisineBtn.classList.toggle("clickedFiltersBtn");
     let dropDownMenu = document.getElementById("cuisine-filter");
 
     if ($cuisineFilterVisibility == "hidden") {
@@ -83,7 +83,7 @@ function toggleTimeFilters () {
     let timeFilter = document.getElementById("timeIcon");
     timeFilter.classList.toggle("filterArrowIcon");
     let timeBtn = document.getElementById("timeBtn"); 
-    timeBtn.classList.toggle("clickedFiltersBtn")
+    timeBtn.classList.toggle("clickedFiltersBtn");
     let dropDownMenu = document.getElementById("time-filter");
 
     if ($timeFilterVisibility == "hidden") {
@@ -105,7 +105,7 @@ function toggleMealTypeFilters () {
     let mealFilter = document.getElementById("mealIcon");
     mealFilter.classList.toggle("filterArrowIcon");
     let mealBtn = document.getElementById("mealBtn"); 
-    mealBtn.classList.toggle("clickedFiltersBtn")
+    mealBtn.classList.toggle("clickedFiltersBtn");
     let dropDownMenu = document.getElementById("meal-filter");
 
     if ($mealTypeFilterVisibility == "hidden") {
@@ -198,8 +198,8 @@ function clearCheckBoxes() {
 function clearFilterCheckBoxes() {
     let diets = document.getElementsByName("diet-radio");
     let cuisines= document.getElementsByName("cuisine-radio");
-    let mealtypes = document.getElementsByName("meal-radio")
-    let time = document.getElementsByName("time-radio")
+    let mealtypes = document.getElementsByName("meal-radio");
+    let time = document.getElementsByName("time-radio");
     diets.forEach((e) => e.checked = false);
     cuisines.forEach((e) => e.checked = false);
     mealtypes.forEach((e) => e.checked = false);
@@ -393,7 +393,6 @@ function hideCategoryCards() {
  *
  */
 function hideFilters() {
-    console.log("hiding")
     const filters = document.getElementById("filters-content");
     filters.style.visibility = "hidden";  
     const diet = document.getElementById("diet-filter");
