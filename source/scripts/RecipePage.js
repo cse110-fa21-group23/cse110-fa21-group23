@@ -305,8 +305,9 @@ class RecipePage extends HTMLElement {
     this.shadowRoot.querySelector("article").innerHTML = `
       <header class="header">
         <h1 id="recipe-title"></h1>
-        <img id="bookmark" class="noprint" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56" title="click to save this recipe">
-      </header>
+        <img id="bookmark" class="noprint" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
+        <h2 id="serving-size"></h2>
+        </header>
       <div class="edit-recipe hidden">
         <span onclick="load()">Edit <img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> </span>
       </div>
@@ -344,6 +345,7 @@ class RecipePage extends HTMLElement {
 
     this.shadowRoot.querySelector(".dish-image > img").src = data["image"];
     this.shadowRoot.querySelector(".header > h1").innerHTML = data["title"];
+    this.shadowRoot.querySelector(".header > h2").textContent = "Serving Size: " + data["servings"];
 
     //get ingredient list
     const ingredients = getIngredients(data);
@@ -398,7 +400,8 @@ class RecipePage extends HTMLElement {
       "title": data["title"],
       "image": data["image"],
       "ingredients": ingredients,
-      "instructions": instructions
+      "instructions": instructions,
+      "servings": data["servings"]
     }
     this.json = replicateData;
   }
