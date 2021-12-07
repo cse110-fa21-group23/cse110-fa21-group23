@@ -17,8 +17,10 @@ class RecipePage extends HTMLElement {
       .header{
         display: block;
         text-align: center; 
-        width: 70%;
         margin: auto;
+        width: 80vw;
+        max-width: 550px;
+        margin-top: 40px;
       }
 
       .share-icons {
@@ -27,7 +29,7 @@ class RecipePage extends HTMLElement {
         justify-content: center;
         width: 100%;
         margin-top: 20px;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
       }
 
       #print {
@@ -46,17 +48,6 @@ class RecipePage extends HTMLElement {
         line-height: max(1px, 1rem);
       }
 
-      @media (max-width: 750px) {
-        .header h1{
-          font-size: min(10vw, 2rem);
-          letter-spacing: -1px;
-          line-height: max(1px, 2rem);
-        }
-        .header #bookmark{
-          height: max(10vw, 10px);
-        }
-      }
-
       .header #bookmark{
         cursor: pointer;
         text-align: center;
@@ -71,15 +62,11 @@ class RecipePage extends HTMLElement {
         transition: all 0.3s ease-out;
       }
 
-      @media (min-width: 750px) {
-        #instructions {
-          width: auto;
-        }
-        
+      @media (min-width: 750px) {      
         .middle{
-          display: block;
-          text-align: center; 
-          width: 50%;
+          display: grid;
+          grid-template-columns: auto auto; 
+          width: 70%;
           margin: auto;
         }
       }
@@ -98,7 +85,7 @@ class RecipePage extends HTMLElement {
       .middle > div > h3{
           text-align: center;
           font-weight: bold;
-          margin-top: 10px;
+          margin-top: 30px;
       }
     
       #clear-checkboxes{
@@ -192,98 +179,119 @@ class RecipePage extends HTMLElement {
         background: #eee;
       }
 
-      #tap-mode-section {
-        display: flex;
-        flex-direction: column;
+      .right {
+        position: fixed;
+        top: 0%;
+        left: 55%;
+        width: 45%;
+        height: 100vh;
       }
-      #tap-mode-instr{
+
+      .left {
+        position: fixed;
+        top: 0%;
+        left: 0%;
+        width: 45%;
+        height: 100vh;
+      }
+      
+      .left:hover, .right:hover{
+        cursor: pointer;
+      }
+
+      #right-arrow {
+        position: absolute;
+        right: 5vw;
+        top: 50%;
         font-size: 2rem;
-        font-style: italic;
-        padding-right: 5rem;
-        padding-left: 5rem;
-        padding-bottom: 2rem;
       }
 
-      #change-instr-btn-section {
-        padding: 20px;
-        height: fit-content;
-        display: flex;
-        flex-direction: row;
-        width: 50%;
-        position: relative;
-        left: 50%;
-        transform: translateX(-50%);
+      #left-arrow {
+        position: absolute;
+        left: 5vw;
+        top: 50%;
+        font-size: 2rem;
       }
 
-      .change-instr-buttons {
-        height: max-content;
-        float:right;
-        width: 50%;
-        height: 10vh;
-        float: right;
-        background: var(--primary);
-        border: none;
-        border-radius: 5px;
-        color: white;
+      #content{
         font-size: 1rem;
+        margin: auto;
+        text-align: center;
+        overflow: hidden;
+        margin: 0px 50px;
+      }
+
+      #alert {
+        color: red;
+        font-size: 1rem;
+        margin: auto;
+        text-align: center;
+        overflow: hidden;
+      }
+
+      @media (min-width: 750px) {
+        #content, #alert{
+          font-size: 2rem;
+          padding: 0 20%;
+        }
       }
 
       .hidden {
         display: none;
       }
-
-      #prev-step-button {
-        margin-right: 2vw;
-        font-weight: bold;
-      }
-      #next-step-button {
-        margin-left: 2vw;
-        font-weight: bold;
-
-      }
-      
-      #prev-step-button:hover,
-      #next-step-button:hover {
-        cursor: pointer;
-        transform: scale(1.01,1.01);
-        transition: all 0.1s ease-in;
-      }
-
       @media print {
         .noprint {
            visibility: hidden;
         }
       }
 
-      `;
+      #tap-mode-section {
+        width: 100vw;
+        position: relative; 
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+
+    `;
 
     container.innerHTML = `
-      <header class="header">
-        <h1 id="recipe-title"></h1>
-        <img id="bookmark" onclick="showCookBookMenu()" src="img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
-      </header>
-      <div class="edit-recipe hidden">
-        <span onclick="load()">Edit <img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> </span>
-      </div>
-      <div class="share-icons noprint">
-        <img id="print" onclick="printRecipe()" src="./img/icons/print-icon.svg" name="print-icon" width="36" height="36">
-        <img id="email" onclick="emailRecipe()" src="./img/icons/email-icon.svg" name="email-icon" width="36" height="36">
-      </div>
-      <main class="middle">
-        <img style="display: block; margin-left: auto; margin-right: auto;">
-          <div id="ingredients-list">
-              <h3>INGREDIENTS</h3>
-              <ul style="list-style-type: none;" id="recipe-ingredients" >
-              </ul>
-              <button id="clear-checkboxes" onclick="clearCheckBoxes()">CLEAR CHECKBOXES</button>
-          </div>
-          <div id="instructions">
-              <h3>INSTRUCTIONS</h3>
-              <ol id="recipe-instructions">
-              </ol>
-          </div>
-      </main>
-      `;
+    <header class="header">
+      <h1 id="recipe-title"></h1>
+      <img id="bookmark" class="noprint" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56" title="click to save this recipe">
+    </header>
+    <div class="edit-recipe hidden">
+      <span onclick="load()">Edit <img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> </span>
+    </div>
+    <div class="share-icons noprint">
+      <img id="print" onclick="printRecipe()" src="./img/icons/print-icon.svg" name="print-icon" width="36" height="36">
+      <img id="email" onclick="emailRecipe()" src="./img/icons/email-icon.svg" name="email-icon" width="36" height="36">
+    </div>
+    
+    <div class="dish-image">
+      <img style="display: block; margin-left: auto; margin-right: auto;" >
+    </div>
+    
+    <main id="recipe-page-box" class="middle"> 
+        <div id="ingredients-list">
+            <h3>INGREDIENTS</h3>
+            <ul style="list-style-type: none;" id="recipe-ingredients">
+            </ul>
+            <button id="clear-checkboxes" onclick="clearCheckBoxes()" class="noprint">CLEAR CHECKBOXES</button>
+        </div>
+        <div id="instructions">
+            <h3>INSTRUCTIONS</h3>   
+            <ol id="recipe-instructions">
+            </ol>
+        </div>
+    </main>
+    <div id="tap-mode-section" class="hidden noprint">
+      <div id="content"></div>
+      <div id="alert"></div>
+      <div onclick="next()" class="right"></div>
+      <div onclick="previous()" class="left"></div>
+    </div>
+    `;
 
     this.shadowRoot.append(style, container);
   }
@@ -307,8 +315,12 @@ class RecipePage extends HTMLElement {
         <img id="print" onclick="printRecipe()" src="./img/icons/print-icon.svg" name="print-icon" width="36" height="36">
         <img id="email" onclick="emailRecipe()" src="./img/icons/email-icon.svg" name="email-icon" width="36" height="36">
       </div>
-      <main id="recipe-page-box" class="middle">
+      
+      <div class="dish-image">
         <img style="display: block; margin-left: auto; margin-right: auto;" >
+      </div>
+      
+      <main id="recipe-page-box" class="middle"> 
           <div id="ingredients-list">
               <h3>INGREDIENTS</h3>
               <ul style="list-style-type: none;" id="recipe-ingredients">
@@ -321,19 +333,17 @@ class RecipePage extends HTMLElement {
               </ol>
           </div>
       </main>
-      <section id="tap-mode-section" > 
-        <div id="tap-mode-instr"></div>
-        <section id="change-instr-btn-section">        
-          <button id="prev-step-button" class="change-instr-buttons">&larr; Previous Step</button> 
-          <button id="next-step-button" class="change-instr-buttons">Next Step &rarr;</button>    
-        </section>
-
-        
-      </section >
+      <div id="tap-mode-section" class="noprint" style="display:none">
+        <div id="alert"> </div>
+        <div id="content"></div>
+        <div id="left-arrow">&#60;</div>
+        <div id="right-arrow">&#62;</div>
+        <div class="left"></div>
+        <div class="right"></div>        
+      </div>
       `;
-    // TODO: move instructions on top of buttons instead
 
-    this.shadowRoot.querySelector(".middle > img").src = data["image"];
+    this.shadowRoot.querySelector(".dish-image > img").src = data["image"];
     this.shadowRoot.querySelector(".header > h1").innerHTML = data["title"];
     this.shadowRoot.querySelector(".header > h2").textContent = "Serving Size: " + data["servings"];
 
@@ -352,62 +362,36 @@ class RecipePage extends HTMLElement {
     });
 
     // <-- instruction -->
-    // For tap mode, display one instruction at a time
-
     const instructions = getInstructions(data);
-    const instructionSize = instructions.length;
-
-    var tapModeInd = 0;
-    const instr = getSingleInstr(instructions, tapModeInd);
-
-    const tapModeInstr = this.shadowRoot.getElementById("tap-mode-instr");
-    const recipePageBox = this.shadowRoot.getElementById("recipe-page-box");
-    const tapModeSection = this.shadowRoot.getElementById("tap-mode-section");
-    tapModeSection.style.display = "none"; //by default, tap mode is off/hidden
-    tapModeInstr.innerHTML = instr;
-
-    document.getElementById("tap-mode-button").addEventListener("click", () => {
-      tapModeSection.style.visibility = $tapModeVisibility;
-      tapModeSection.style.display = null;
-      if ($tapModeVisibility == "hidden") {
-        recipePageBox.style.display = "block";
-        tapModeSection.style.display = "none";
-      }
-      else {
-        recipePageBox.style.display = "none";
-
-      }
-    });
-
-    this.shadowRoot.getElementById("prev-step-button").addEventListener("click", () => {
-      if (tapModeInd == 0) {
-        console.log("you're on the first step already!");
-        return;
-      }
-      else {
-        tapModeInd--;
-        const instr = getSingleInstr(instructions, tapModeInd);
-        tapModeInstr.innerHTML = instr;
-      }
-    });
-
-    this.shadowRoot.getElementById("next-step-button").addEventListener("click", () => {
-      if (tapModeInd >= instructionSize - 1) {
-        console.log("You've reached the end of the recipe!");
-        return;
-      }
-      else {
-        tapModeInd++;
-        const instr = getSingleInstr(instructions, tapModeInd);
-        tapModeInstr.innerHTML = instr;
-      }
-    });
-
-    // This displays all the instructions in numbered order for non-tap mode 
     instructions.forEach(element => {
       const li = document.createElement("li");
       li.innerHTML = element;
       this.shadowRoot.querySelector("#instructions > ol").appendChild(li);
+    });
+
+    // <-- tap mode section -->
+    tapMode();
+    let index = 0;
+    let instr = this.shadowRoot.querySelector("#content");
+    let alert = this.shadowRoot.querySelector("#alert");
+    instr.innerHTML = `${index + 1}. ` + instructions[index];
+    this.shadowRoot.querySelector(".right").addEventListener("click", () => {
+      alert.innerHTML = "";
+      if (index !== instructions.length - 1)
+        index++;
+      else
+        alert.innerHTML = "You've reached the end of the instructions!";
+
+      instr.innerHTML = `${index + 1}. ` + instructions[index];
+    });
+
+    this.shadowRoot.querySelector(".left").addEventListener("click", () => {
+      alert.innerHTML = "";
+      if (index !== 0)
+        index--;
+      else
+        alert.innerHTML = "You've reached the first instruction!";
+      instr.innerHTML = `${index + 1}. ` + instructions[index];
     });
 
     // replicate data
@@ -424,19 +408,6 @@ class RecipePage extends HTMLElement {
   get data() {
     return this.json;
   }
-}
-
-/**
- * Used for the tap mode when the user clicks next step or previous step
- *
- * @param {Array} instructions An array of instructions to send to tap mode
- * @param {Number} tapModeInd The index of the tap mode
- * @return {String} The instruction to show to tap mode
- */
-function getSingleInstr(instructions, tapModeInd) {
-  const instr = instructions[tapModeInd];
-  const instructionNum = tapModeInd + 1;
-  return instructionNum + ".  " + instr;
 }
 
 // Helper functions
@@ -476,8 +447,29 @@ function getInstructions(data) {
     let instruction = step["step"];
     instrucList[index++] = instruction;
   });
-
   return instrucList;
+}
+
+/**
+ * This function enables tap-mode
+ */
+function tapMode() {
+  const TapModeSection = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#tap-mode-section");
+  const RecipePageBox = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#recipe-page-box");
+  const DishImage = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("article > div.dish-image");
+  document.getElementById("tap-mode-button").addEventListener("click", () => {
+    if (TapModeSection.style.display == "none") {
+      TapModeSection.style.display = null;
+      RecipePageBox.classList.add("hidden");
+      DishImage.classList.add("hidden");
+    }
+    else {
+      TapModeSection.style.display = "none";
+      RecipePageBox.classList.remove("hidden");
+      DishImage.classList.remove("hidden");
+    }
+
+  });
 }
 
 export { getInstructions, getIngredients };
