@@ -534,8 +534,6 @@ function search() {
     const searchQuery = document.getElementById("search-query").value;
     const recipeCardContainer = document.getElementById('recipe-card-container');
 
-    console.log(searchQuery);
-
     // If it is empty, alert the user it is empty
     if (!searchQuery) {
         alert("Please input a search or click a filter below");
