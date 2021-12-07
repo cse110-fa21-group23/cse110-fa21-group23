@@ -107,9 +107,8 @@ async function init() {
                 createRecipeCards();
             }
         }
-        else{
-            
-        let searchSuccessful = await search();
+        else{    
+            let searchSuccessful = await search();
             if (searchSuccessful) {
                  router.navigate(document.getElementById("search-query").value, false);
                  createRecipeCards();
@@ -189,16 +188,16 @@ document.getElementById("diet-filter").addEventListener("click", (e)=>{
     */ 
     let dietRadios = document.getElementsByName("diet-radio");
     for (let i = 0; i < dietRadios.length; i++) {  
-        if (dietRadios[i].checked == true) {
+        if (dietRadios[i].checked === true) {
             dietRadios[i].addEventListener("click", (e) => {
-                    if (e.target.checked == true) {
+                    if (e.target.checked === true) {
                         e.target.checked = false;
                     }
                 });
         } 
         else {
             dietRadios[i].addEventListener("click", (e) => {
-                if (e.target.checked == false) {
+                if (e.target.checked === false) {
                     e.target.checked = true;
                 }
             });
@@ -243,7 +242,7 @@ document.getElementById("diet-filter").addEventListener("click", (e)=>{
  * to display all selected filters
  *
  */
-document.getElementById("meal-filter").addEventListener("click", (e)=>{
+document.getElementById("meal-filter").addEventListener("click", ()=>{
     let mealList = document.getElementsByName("meal-radio");
     let count = 0;
 
@@ -279,7 +278,7 @@ document.getElementById("meal-filter").addEventListener("click", (e)=>{
  * to display all selected filters
  *
  */
-document.getElementById("time-filter").addEventListener("click", (e)=>{
+document.getElementById("time-filter").addEventListener("click", ()=>{
     let timeList = document.getElementsByName("time-radio");
 
      /*
@@ -288,7 +287,7 @@ document.getElementById("time-filter").addEventListener("click", (e)=>{
     selected at a time
     */
     for (let i = 0; i < timeList.length; i++) {  
-        if (timeList[i].checked == true) {
+        if (timeList[i].checked === true) {
             timeList[i].addEventListener("click", (e) => {
                     if (e.target.checked == true) {
                         e.target.checked = false;
@@ -368,7 +367,7 @@ function searchByFilter () {
     let cuisine = "";
     for (let i = 0; i < cuisineList.length; i++) {
         if (cuisineList[i].checked) {
-            if (cuisine.length == 0) {
+            if (cuisine.length === 0) {
                 cuisine =  `&cuisine=${cuisineList[i].value}`;
                 // console.log(cuisineList[i].value);
             }
@@ -386,7 +385,7 @@ function searchByFilter () {
     let mealType = "";
     for (let i = 0; i < mealTypeList.length; i++) {
         if (mealTypeList[i].checked) {
-            if (mealType.length == 0) {
+            if (mealType.length === 0) {
                 mealType =  `&type=${mealTypeList[i].value}`;
                 // console.log(mealTypeList[i].value);
             }
@@ -457,7 +456,7 @@ function searchByFilter () {
     });
 
     router.navigate(page, false);
-    let searchQueryStr = `&query=${searchQuery}`
+    let searchQueryStr = `&query=${searchQuery}`;
     if(categories.indexOf(searchQuery) !== -1){
         searchQueryStr = '';
         if (searchQuery == "Vegetarian" || searchQuery == "Vegan" || searchQuery == "Gluten-Free") {
@@ -478,8 +477,8 @@ function searchByFilter () {
     
     console.log(searchQuery);
     return fetchRecipes(`${searchQueryStr}${cuisine}${mealType}${time}${queryStrDiet}${queryStrIntolerances}`, (data) => {
-            console.log(data)
-            if(data.length == 0){
+            console.log(data);
+            if(data.length === 0){
                 alert("No recipes match those filters.");
             }
             else{
