@@ -99,6 +99,7 @@ async function init() {
     const searchButton = document.getElementById("search-button");
     searchButton.addEventListener("click", async () => {
         if(filters.length>0){
+            
             let searchSuccessful = await searchByFilter();
             if (searchSuccessful) {
                 
@@ -107,6 +108,7 @@ async function init() {
             }
         }
         else{
+            
         let searchSuccessful = await search();
             if (searchSuccessful) {
                  router.navigate(document.getElementById("search-query").value, false);
@@ -685,7 +687,7 @@ function bindCategoryCards(categoryCard, categoryName) {
             }
         }
         else{
-        let searchSuccessful = await search();
+        let searchSuccessful = await searchByCategory();
             if (searchSuccessful) {
                  router.navigate(document.getElementById("search-query").value, false);
                  createRecipeCards();

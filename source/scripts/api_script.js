@@ -33,6 +33,7 @@ async function fetchRecipes(queries, callbackFn) {
         fetch(url)
             .then((response) => response.json())
             .then(data => {
+                console.log(data.results);
                 const recipes = getRecipeCardInfo(data.results);
                 callbackFn(data.results);
                 resolve(true);
