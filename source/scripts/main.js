@@ -242,10 +242,20 @@ function hideCategoryCards() {
     categoryCards.style.display = "none";
 }
 
+/**
+ * Toggle the email share recipe modal
+ *
+ */
 function toggleShareRecipeModal() {
     const setDisplay = (modal, blackout, display) => {
         modal.style.display = display;
+        modal.style.position = "absolute";
+        modal.style.top = "30%";
+        modal.style.left = "45%";
+        modal.style.margin = "-100px 0 0 -150px";
         blackout.style.display = display;
+        blackout.style.height = "100vh";
+        blackout.style.position = "fixed";
     };
 
     const modal = document.getElementById('send-recipe-email');
