@@ -74,7 +74,6 @@ class Filter extends HTMLElement {
         const filter = document.createElement("article");
 
         const titleText = data;
-        console.log(titleText)
         //creating the title element for the card
         const title = document.createElement("p");
         title.innerHTML = titleText;

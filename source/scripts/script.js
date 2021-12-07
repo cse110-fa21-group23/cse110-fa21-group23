@@ -143,7 +143,7 @@ async function init() {
  * to display all selected filters
  *
  */
-document.getElementById("cuisine-filter").addEventListener("click", (e)=>{
+document.getElementById("cuisine-filter").addEventListener("click", ()=>{
     // console.log("clicking");
     let cuisineList = document.getElementsByName("cuisine-radio");
     let count = 0;
@@ -178,7 +178,7 @@ document.getElementById("cuisine-filter").addEventListener("click", (e)=>{
  * to display all selected filters
  *
  */
-document.getElementById("diet-filter").addEventListener("click", (e)=>{
+document.getElementById("diet-filter").addEventListener("click", ()=>{
     // console.log("clicking");
     let dietList = document.getElementsByName("diet-radio");
 
@@ -296,7 +296,7 @@ document.getElementById("time-filter").addEventListener("click", ()=>{
         } 
         else {
             timeList[i].addEventListener("click", (e) => {
-                if (e.target.checked == false) {
+                if (e.target.checked === false) {
                     e.target.checked = true;
                 }
             });

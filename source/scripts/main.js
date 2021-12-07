@@ -426,7 +426,7 @@ function hideFilters() {
  *
  */
 function hideFilterBtns() {
-    const filtersBtn = document.getElementById("filters-container")
+    const filtersBtn = document.getElementById("filters-container");
     filtersBtn.style.visibility = "hidden";
     filtersBtn.style.display = "none";
     const filterText = document.getElementById("filterText");
