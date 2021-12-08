@@ -439,7 +439,7 @@ function hideFilterBtns() {
  *
  */
 function showFilterBtns() {
-    const filtersBtn = document.getElementById("filters-container")
+    const filtersBtn = document.getElementById("filters-container");
     filtersBtn.style.visibility = "visible";
     filtersBtn.style.display = "";
     const filterText = document.getElementById("filterText");

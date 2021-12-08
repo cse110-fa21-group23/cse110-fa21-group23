@@ -289,7 +289,7 @@ document.getElementById("time-filter").addEventListener("click", ()=>{
     for (let i = 0; i < timeList.length; i++) {  
         if (timeList[i].checked === true) {
             timeList[i].addEventListener("click", (e) => {
-                    if (e.target.checked == true) {
+                    if (e.target.checked === true) {
                         e.target.checked = false;
                     }
                 });
