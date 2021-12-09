@@ -326,7 +326,6 @@ function updateSettings() {
     alert("your preferences have been updated");
 }
 
-// TODO: Add a warning before removing bookmark ("Are you sure to you want to remove this from your Cookbooks? All local edits to the recipe will be lost")
 /**
  * This function check if the recurrent recipe has been whether saved or not.
  * If the data has been saved, display bookmark and edit recipe,
@@ -390,7 +389,7 @@ function showCookBookMenu() {
         cookbooks.forEach(cb => appendNewCookBook(cb));
         toggleSaveCookBook();
     }
-    else if (confirm("⚠ Removing recipes from your Saved Cookbooks will cause all local edits to be lost. 👀 ")) {
+    else if (confirm("⚠ Removing this recipe from your Saved Cookbooks will cause all of its local edits to this to be lost. 👀 ")) {
         try {
             // remove recipe data from local storage and cook book
             const Data = document.querySelector("recipe-page").data;
@@ -803,7 +802,7 @@ function clearSavedRecipe() {
  */
 function addRemoveRecipe(button) {
     button.addEventListener("click", () => {
-        if (!confirm("⚠ Removing recipes from your Saved Cookbooks will cause all local edits to be lost. 👀 "))
+        if (!confirm("⚠ Removing this recipe from your Saved Cookbooks will cause all of its local edits to this to be lost. 👀 "))
             return;
         const Id = button.getAttribute("name");
         let cookbooksRecipe = document.getElementById(Id);
@@ -820,7 +819,7 @@ function addRemoveRecipe(button) {
  */
 function addRemoveCookBook(button) {
     button.addEventListener("click", () => {
-        if (!confirm("Removing this cookbook will cause all local edits to be lost!")) 
+        if (!confirm("Removing this cookbook will cause all of its recipes' local edits to be lost!"))
             return;
         const CookBookName = button.getAttribute("name");
         let CookBookSection = document.getElementById(CookBookName);
