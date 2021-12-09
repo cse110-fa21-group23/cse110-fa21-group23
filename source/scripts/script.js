@@ -144,13 +144,11 @@ async function init() {
  *
  */
 document.getElementById("cuisine-filter").addEventListener("click", ()=>{
-    // console.log("clicking");
     let cuisineList = document.getElementsByName("cuisine-radio");
     let count = 0;
     for (let i = 0; i < cuisineList.length; i++) {
         if (cuisineList[i].checked) {
             count++;   
-            // console.log(count)
             if(filters.indexOf(cuisineList[i].value) == -1) {
                 filters.push(cuisineList[i].value);      
             }
@@ -161,7 +159,6 @@ document.getElementById("cuisine-filter").addEventListener("click", ()=>{
             }
         }
     }
-    // console.log(filters);
     if(filters.length>0){
         showApplyBtn();
     }
@@ -179,7 +176,6 @@ document.getElementById("cuisine-filter").addEventListener("click", ()=>{
  *
  */
 document.getElementById("diet-filter").addEventListener("click", ()=>{
-    // console.log("clicking");
     let dietList = document.getElementsByName("diet-radio");
 
     /*
@@ -340,7 +336,7 @@ document.getElementById("time-filter").addEventListener("click", ()=>{
  */
 function createFilters() {
     resetFilters();
-    console.log(filters);
+
     for(let i = 0; i<filters.length; i++){
         const filter = document.createElement("filter-card"); 
         filter.data = filters[i]; 
@@ -369,7 +365,6 @@ function searchByFilter () {
         if (cuisineList[i].checked) {
             if (cuisine.length === 0) {
                 cuisine =  `&cuisine=${cuisineList[i].value}`;
-                // console.log(cuisineList[i].value);
             }
             else {
                 cuisine = cuisine + `,${cuisineList[i].value}`;
@@ -387,7 +382,6 @@ function searchByFilter () {
         if (mealTypeList[i].checked) {
             if (mealType.length === 0) {
                 mealType =  `&type=${mealTypeList[i].value}`;
-                // console.log(mealTypeList[i].value);
             }
             else {
                 mealType =  mealType + `,${mealTypeList[i].value}`;
@@ -475,9 +469,7 @@ function searchByFilter () {
         
     }
     
-    console.log(searchQuery);
     return fetchRecipes(`${searchQueryStr}${cuisine}${mealType}${time}${queryStrDiet}${queryStrIntolerances}`, (data) => {
-            console.log(data);
             if(data.length === 0){
                 alert("No recipes match those filters.");
             }
@@ -506,7 +498,6 @@ document.getElementById("applyBtn").addEventListener("click", async () => {
  *
  */
 document.getElementById("clear-filters-btn").addEventListener("click", () => {
-    // console.log(filters)
     filters = [];
     clearAllFilters();
     const callSearch = async function() {
@@ -516,7 +507,6 @@ document.getElementById("clear-filters-btn").addEventListener("click", () => {
         }
     }
     callSearch();
-    // console.log(filters)
 })
 
 
@@ -627,7 +617,6 @@ function bindRecipeCard(recipeCard, pageName, data) {
  *
  */
 function createCategoryCards() {
-    console.log('creating category cards')
     /* creating an array of length 6 to hold random non-repeating values that are in
         range of all categories in the categories array */
     const randNums = []; // array to hold the random non repeating values 
