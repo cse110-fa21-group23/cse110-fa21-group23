@@ -375,7 +375,7 @@ width: 70vw;
 left: 50%;
 transform: translate(-50%, 0);
 /* centers an absolute div */
-margin-top: 120px;
+margin-top: 150px;
 }
 
 #recipe-page-container{
@@ -844,13 +844,10 @@ footer {
 }
 /* container holding the filter buttons ========================================*/
 .filters-container{
+  margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  /* position: absolute; */
-  /* left: 50%; */
-  /* transform: translate(-50%, 0); */
-  /* padding-top: 20px; */
 }
 
 .filter-checkbox{
@@ -925,19 +922,31 @@ footer {
 /* style for selected filters container ========================================*/
 .selected-filters-container{
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: max(80vw, 800px);
+  width: 100%;;
+  /* flex-wrap: wrap; */
   align-items: flex-start;
   height: fit-content;
-  /* margin: -15px; */
-  overflow-y: auto;
+  /* border: 2px dashed blue; */
+  overflow-x: auto;
 
 }
 
 #test-filter-box {
-position: relative;
-z-index: 99;
+  position: relative;
+  z-index: 99;
+  align-content: center;
+  justify-content: center;
+}
+
+#test-filter-box2 {
+  position: relative;
+  /* border: 2px solid red; */
+  /* width: min(80vw, 800px);  display: flex; */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+
 }
 
 /* on smaller screens */
