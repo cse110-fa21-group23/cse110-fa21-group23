@@ -498,7 +498,7 @@ function hideClearFiltersBtn() {
  *
  */
  function showDietFilters() {
-    console.log('diet');
+    
     const diet = document.getElementById("diet-filter");
     diet.style.visibility = "visible";
 }
