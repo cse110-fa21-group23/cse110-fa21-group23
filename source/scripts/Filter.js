@@ -30,11 +30,11 @@ class Filter extends HTMLElement {
         article {
             display: flex;
             justify-content: center;
-            background-color: var(--orange2);
+            background-color: var(--primary);
             height: fit-content;
             padding: 1px 10px;
             border-radius: 20px;
-            border-color: var(--orange2);
+            border-color: var(--primary);
             margin: 5px 10px;
         }
 
