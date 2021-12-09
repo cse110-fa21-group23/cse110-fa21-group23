@@ -28,8 +28,8 @@ class RecipePage extends HTMLElement {
         text-align: center; 
         justify-content: center;
         width: 100%;
-        margin-top: 20px;
-        margin-bottom: 20px;
+        margin-top: 5px;
+        margin-bottom: 10px;
       }
 
       #print {
@@ -60,6 +60,11 @@ class RecipePage extends HTMLElement {
       #bookmark:hover{
         transform: scale(1.05,1.05);
         transition: all 0.3s ease-out;
+      }
+
+      .header h2, .header h3 {
+        margin: 0px;
+        font-weight: 300;
       }
 
       @media (min-width: 750px) {      

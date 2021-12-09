@@ -306,7 +306,7 @@ h2 {
 #settings-container {
   width: 100%;
   position:absolute; /* need this for z-index to work */
-  z-index: 99999; /* puts menu on top of everything */
+  z-index: 88; /* puts menu on top of everything */
   overflow: hidden;
   top: 0;
   text-align: center;
@@ -847,8 +847,6 @@ footer {
   margin-top: 20px;
   display: flex;
   justify-content: center;
-  margin-left: 50px;
-  margin-right: 50px;
 }
 
 .filter-checkbox{
@@ -1006,6 +1004,11 @@ footer {
 
   .filter-checkbox{
     font-size: 12px;
+    line-height: .8rem;
+  }
+
+  .checkbox__box {
+    margin-right: 3px;
   }
 
   .filterArrowIcon{
@@ -1016,11 +1019,12 @@ footer {
     height: 1px;
   }
   .close-filter-menu-button{
-    font-size: 15px;
-    left: 10px;
-    bottom: -15px;
+    /* font-size: 15px;
+    left: -5px;
+    bottom: -35px;
     width: 1px;
-    height: 1px;
+    height: 1px; */
+    display: none;
   }
   .filters-container{
     margin: 2px 2px 2px 2px;
