@@ -721,7 +721,7 @@ function showSavedRecipe() {
     let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
     const container = document.getElementById("cookbook-container");
     if (cookbooks == null || cookbooks == undefined) { cookbooks = ["Favorites"]; }
-    new removeArr(Object.keys(cookbooks).length);
+    let removeArr = new Array(Object.keys(cookbooks).length);
     for (let i = 0; i < Object.keys(cookbooks).length; i++) {
         removeArr[i] = false;
         let current = JSON.parse(localStorage.getItem(cookbooks[i]));
