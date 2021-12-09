@@ -802,7 +802,7 @@ function addRemoveRecipe(button) {
         const Id = button.getAttribute("name");
         let cookbooksRecipe = document.getElementById(Id);
         cookbooksRecipe.style.display = "none";
-        button.target.style.display = "none";
+        button.style.display = "none";
 
         removeRecipe(Id);
     });
