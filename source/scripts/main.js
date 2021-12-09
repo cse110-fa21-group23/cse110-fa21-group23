@@ -727,7 +727,7 @@ function showSavedRecipe() {
         if (cookbooks[i] != "Favorites") {
             if (current == null || current.length == 0) {
                 localStorage.removeItem(cookbooks[i]);
-                const index = cookbooks.indexOf(cookbooks[i]);
+                const index = copy.indexOf(cookbooks[i]);
                 if (index > -1) {
                     copy.splice(index, 1);
                     localStorage.setItem("cookbooks", JSON.stringify(copy));
