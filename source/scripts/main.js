@@ -495,15 +495,15 @@ function appendNewCookBook(newCookBook) {
  function addNewCookBook() {
     let newCookBook = prompt("Enter new cookbook:");
     if (newCookBook == null) { return; }
-    let cookbookName = cookbookName.replace(/\s+/g, ' ').trim();
-    while (processTextSubmitCookbook(cookbookName) === false) {
-        if (cookbookName == "") {
-            cookbookName = prompt("Error: No input detected. Please choose a valid name.");
+    let newCookBook = newCookBook.replace(/\s+/g, ' ').trim();
+    while (processTextSubmitCookbook(newCookBook) === false) {
+        if (newCookBook == "") {
+            newCookBook = prompt("Error: No input detected. Please choose a valid name.");
         } else {
-            cookbookName = prompt("Error: Another cookbook already has that name. Please choose another.");
+            newCookBook = prompt("Error: Another cookbook already has that name. Please choose another.");
         }
-        if (cookbookName != null) {
-            cookbookName = cookbookName.replace(/\s+/g, ' ').trim();
+        if (newCookBook != null) {
+            newCookBook = newCookBook.replace(/\s+/g, ' ').trim();
         } else {
             return;
         }
