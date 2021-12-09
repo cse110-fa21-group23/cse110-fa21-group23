@@ -875,14 +875,27 @@ footer {
 
 .remove-recipe-button {
   position: absolute;
-  left: 95%;
-  top: 0%;
+  right: 7%;
+  top: 83%;
   background: 0;
   border: 0;
   z-index: 100;
   cursor: pointer;
-  font-weight: bolder;
+  font-weight: bolder; 
 }
+
+.remove-recipe-button:hover img {
+  transform: scale(1.2, 1.2);
+}
+
+.remove-recipe-button img {
+  height: 1.25rem;
+}
+
+.remove-recipe-button:hover {
+  color: var(--orange3);
+}
+
 
 .coobook-wrapper {
   position: relative;
