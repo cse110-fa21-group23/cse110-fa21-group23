@@ -865,9 +865,6 @@ footer {
 #filters-content{
   display: flex;
   justify-content: center;
-  margin-left: 50px;
-  margin-right: 50px;
-
 }
 
 /* styling only the diet, cuisine, time and meal-type drop down menus ========================================*/
