@@ -721,15 +721,16 @@ function showSavedRecipe() {
     let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
     const container = document.getElementById("cookbook-container");
     if (cookbooks == null || cookbooks == undefined) { cookbooks = ["Favorites"]; }
-    let copy = cookbooks;
+    new removeArr(Object.keys(cookbooks).length);
     for (let i = 0; i < Object.keys(cookbooks).length; i++) {
+        removeArr[i] = false;
         let current = JSON.parse(localStorage.getItem(cookbooks[i]));
         if (cookbooks[i] != "Favorites") {
             if (current == null || current.length == 0) {
-                //localStorage.removeItem(cookbooks[i]);
-                const index = copy.indexOf(cookbooks[i]);
+                localStorage.removeItem(cookbooks[i]);
+                const index = cookbooks.indexOf(cookbooks[i]);
                 if (index > -1) {
-                    copy.splice(index, 1);
+                    removeArr[i] = true;
                     continue;
                 }
             }
@@ -826,7 +827,13 @@ function showSavedRecipe() {
         }
         container.appendChild(divCookBookWrapper);
     }
-    localStorage.setItem("cookbooks", JSON.stringify(copy));
+
+    for (let i = (removeArr.length - 1); i >= 0; i--) {
+        if (removeArr == true) {
+            cookbooks.splice(i, 1);
+        }
+    } 
+    localStorage.setItem(COOK_BOOKS, JSON.stringify(cookbooks));
 }
 //remove appended recipes when leave cookbook
 function clearSavedRecipe() {
