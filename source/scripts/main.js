@@ -703,9 +703,7 @@ function showSavedRecipe() {
         let host = document.createElement("div");
         let removeCookBookButton = document.createElement("button");
         
-        //TODO: add pair-button wrapper
-        // append host, remov c
-        // append 
+        //  coobook-wrapper
         let divCookBookWrapper = document.createElement("div");
         divCookBookWrapper.classList.add("coobook-wrapper");
         divCookBookWrapper.appendChild(host);
@@ -715,7 +713,7 @@ function showSavedRecipe() {
         let list = JSON.parse(localStorage.getItem(cookbooks[i]));
         host.setAttribute("id", cookbooks[i]);
         
-        // add remove-cookbook button
+        // remove-cookbook button
         removeCookBookButton.innerHTML = "x";
         removeCookBookButton.setAttribute("name", cookbooks[i]);
         removeCookBookButton.classList.add("remove-cookbook-button");
@@ -767,7 +765,6 @@ function showSavedRecipe() {
             //element.classList.remove('shown');
 
             holder.addEventListener('click', e => {
-
                 if (!appended) {
                     divWrapper.classList.remove("hidden")
                     divWrapper.classList.add("show");
