@@ -482,7 +482,7 @@ function addNewCookBook() {
     let newCookBook = prompt("Enter new cookbook:");
     if (newCookBook == null) { return; }
     cookbookName = cookbookName.replace(/\s+/g, ' ').trim();
-    while (processTextSubmitCookbook(cookbookName) === false && cookbookName != null) {
+    while (processTextSubmitCookbook(cookbookName) === false) {
         if (cookbookName == "") {
             cookbookName = prompt("Error: No input detected. Please choose a valid name.");
         } else {
@@ -505,12 +505,12 @@ function addNewCookBook() {
 /**
  * Checks to see if the cookbook name is valid
  *
- * @param {*} userInput the cookbook name to check
- * @return {*} true if the name isn't null, empty, or already in use. Otherwise it returns false
+ * @param {string} userInput the cookbook name to check
+ * @return {boolean} true if the name isn't null, empty, or already in use. Otherwise it returns false
  */
  function processTextSubmitCookbook(userInput) {
     // Checks if the input is empty, if so it changes the request text and exits the function
-    if (userInput == "" || userInput == null) {
+    if (userInput == "") {
         return false;
     }
     // Checks if the input is the same as another cookbook, if so it changes the request text and exits the function
