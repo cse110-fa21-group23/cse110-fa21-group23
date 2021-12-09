@@ -824,7 +824,7 @@ footer {
   /* margin-left: 20px;
   margin-right: 20px; */
   margin: 0px 10px;
-  width: 150px;
+  width: max(10rem, 15vw);
   padding: 5px 0px;
   border-radius: 20px;
   border-color: var(--orange1);
@@ -839,9 +839,13 @@ footer {
   background-color: var(--orange3);
 }
 
+#filterText {
+  padding: 0 15px;
+}
 /* container holding the filter buttons ========================================*/
 .filters-container{
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   /* position: absolute; */
   /* left: 50%; */
@@ -859,6 +863,7 @@ footer {
   display: flex;
   justify-content: center;
   margin: 0px 10px;
+
   /* position: absolute; */
   /* left: 50%;
   transform: translate(-50%, 55px); */
@@ -870,7 +875,7 @@ footer {
     background-color: var(--orange4);
     font-size: 12px;
     margin: 0px 10px;
-    width: 150px;
+    width: max(10rem, 15vw);
     z-index: 1;
     border-radius: 0px 0px 15px 15px;
     display: grid;

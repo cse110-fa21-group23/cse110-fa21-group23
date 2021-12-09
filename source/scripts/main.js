@@ -19,10 +19,12 @@ function toggleMenu() {
     if ($SOMenuVisibility == "hidden") {
         slideOverMenu.style.transform = "translate(100%)";
         $SOMenuVisibility = "visible";
+        showFiltersContent();
     }
     else {
         slideOverMenu.style.transform = "translate(-100%)";
         $SOMenuVisibility = "hidden";
+        hideFilters();
     }
 }
 
@@ -30,10 +32,10 @@ function toggleMenu() {
  * Function to toggle the diet filters each time the diet button is clicked
  *
  */
-function toggleDietFilters () {
-    let dietIcon= document.getElementById("dietIcon");
+function toggleDietFilters() {
+    let dietIcon = document.getElementById("dietIcon");
     dietIcon.classList.toggle("filterArrowIcon");
-    let dietBtn = document.getElementById("dietBtn"); 
+    let dietBtn = document.getElementById("dietBtn");
     dietBtn.classList.toggle("clickedFiltersBtn");
     let dropDownMenu = document.getElementById("diet-filter");
 
@@ -44,12 +46,12 @@ function toggleDietFilters () {
         }
         $dietFilterVisibility = "visible";
         dropDownMenu.style.visibility = "visible";
-
+        showFiltersContent();
     }
     else {
         $dietFilterVisibility = "hidden";
-        dropDownMenu.style.visibility = "hidden";  
-
+        dropDownMenu.style.visibility = "hidden";
+        hideFilters();
     }
 }
 
@@ -57,7 +59,7 @@ function toggleDietFilters () {
  * Function to toggle the cuisine filters each time the cuisine button is clicked
  *
  */
-function toggleCuisineFilters () {
+function toggleCuisineFilters() {
     let cuisineIcon = document.getElementById("cuisineIcon");
     cuisineIcon.classList.toggle("filterArrowIcon");
     let cuisineBtn = document.getElementById("cuisineBtn");
@@ -67,11 +69,12 @@ function toggleCuisineFilters () {
     if ($cuisineFilterVisibility == "hidden") {
         $cuisineFilterVisibility = "visible";
         dropDownMenu.style.visibility = "visible";
+        showFiltersContent();
     }
     else {
         $cuisineFilterVisibility = "hidden";
-        dropDownMenu.style.visibility = "hidden";  
-
+        dropDownMenu.style.visibility = "hidden";
+        hideFilters();
     }
 }
 
@@ -79,20 +82,23 @@ function toggleCuisineFilters () {
  * Function to toggle the time filters each time the time button is clicked
  *
  */
-function toggleTimeFilters () {
+function toggleTimeFilters() {
     let timeFilter = document.getElementById("timeIcon");
     timeFilter.classList.toggle("filterArrowIcon");
-    let timeBtn = document.getElementById("timeBtn"); 
+    let timeBtn = document.getElementById("timeBtn");
     timeBtn.classList.toggle("clickedFiltersBtn");
     let dropDownMenu = document.getElementById("time-filter");
 
     if ($timeFilterVisibility == "hidden") {
         $timeFilterVisibility = "visible";
         dropDownMenu.style.visibility = "visible";
+        showFiltersContent();
+
     }
     else {
         $timeFilterVisibility = "hidden";
-        dropDownMenu.style.visibility = "hidden";  
+        dropDownMenu.style.visibility = "hidden";
+        hideFilters();
 
     }
 }
@@ -101,20 +107,22 @@ function toggleTimeFilters () {
  * Function to toggle the meal filters each time the meal button is clicked
  *
  */
-function toggleMealTypeFilters () {
+function toggleMealTypeFilters() {
     let mealFilter = document.getElementById("mealIcon");
     mealFilter.classList.toggle("filterArrowIcon");
-    let mealBtn = document.getElementById("mealBtn"); 
+    let mealBtn = document.getElementById("mealBtn");
     mealBtn.classList.toggle("clickedFiltersBtn");
     let dropDownMenu = document.getElementById("meal-filter");
 
     if ($mealTypeFilterVisibility == "hidden") {
         $mealTypeFilterVisibility = "visible";
         dropDownMenu.style.visibility = "visible";
+        showFiltersContent();
     }
     else {
         $mealTypeFilterVisibility = "hidden";
-        dropDownMenu.style.visibility = "hidden";  
+        dropDownMenu.style.visibility = "hidden";
+        hideFilters();
     }
 }
 
@@ -197,7 +205,7 @@ function clearCheckBoxes() {
  */
 function clearFilterCheckBoxes() {
     let diets = document.getElementsByName("diet-radio");
-    let cuisines= document.getElementsByName("cuisine-radio");
+    let cuisines = document.getElementsByName("cuisine-radio");
     let mealtypes = document.getElementsByName("meal-radio");
     let time = document.getElementsByName("time-radio");
     diets.forEach((e) => e.checked = false);
@@ -388,13 +396,20 @@ function hideCategoryCards() {
     categoryCards.style.display = "none";
 }
 
+
+function showFiltersContent() {
+    const filters = document.getElementById("filters-content");
+    filters.style.display = "flex";
+}
+
 /**
  * This function hides the filter drop down menus
  *
  */
 function hideFilters() {
     const filters = document.getElementById("filters-content");
-    filters.style.visibility = "hidden";  
+    // filters.style.visibility = "hidden";
+    filters.style.display = "none";
     const diet = document.getElementById("diet-filter");
     diet.style.visibility = "hidden";
     const cuisine = document.getElementById("cuisine-filter");
@@ -404,19 +419,19 @@ function hideFilters() {
     const meal = document.getElementById("meal-filter");
     meal.style.visibility = "hidden";
 
-    if($dietFilterVisibility !== "hidden"){
+    if ($dietFilterVisibility !== "hidden") {
         toggleDietFilters();
     }
 
-    if($cuisineFilterVisibility !== "hidden"){
+    if ($cuisineFilterVisibility !== "hidden") {
         toggleCuisineFilters();
     }
 
-    if($timeFilterVisibility !== "hidden"){
+    if ($timeFilterVisibility !== "hidden") {
         toggleTimeFilters();
     }
 
-    if($mealTypeFilterVisibility !== "hidden"){
+    if ($mealTypeFilterVisibility !== "hidden") {
         toggleMealTypeFilters();
     }
 }
@@ -445,8 +460,8 @@ function showFilterBtns() {
     const filterText = document.getElementById("filterText");
     filterText.style.visibility = "visible";
     filterText.style.display = "";
-    
-} 
+
+}
 
 /**
  * This function shows the apply filters button
@@ -476,7 +491,7 @@ function hideApplyBtn() {
  * in any category
  */
 function showClearFiltersBtn() {
-   const clearButton = document.getElementById("clear-filters-btn");
+    const clearButton = document.getElementById("clear-filters-btn");
     clearButton.style.visibility = "visible";
     clearButton.style.display = "";
 }
@@ -497,7 +512,7 @@ function hideClearFiltersBtn() {
  * is clicked
  *
  */
- function showDietFilters() {
+function showDietFilters() {
     console.log('diet');
     const diet = document.getElementById("diet-filter");
     diet.style.visibility = "visible";
@@ -636,6 +651,7 @@ function updateSettings() {
     alert("your preferences have been updated");
 }
 
+// TODO: Add a warning before removing bookmark ("Are you sure to you want to remove this from your Cookbooks? All local edits to the recipe will be lost")
 /**
  * This function check if the recurrent recipe has been whether saved or not.
  * If the data has been saved, display bookmark and edit recipe,
@@ -699,7 +715,7 @@ function showCookBookMenu() {
         cookbooks.forEach(cb => appendNewCookBook(cb));
         toggleSaveCookBook();
     }
-    else if (confirm("⚠ Removing this recipe from your Saved Cookbooks will cause all of its local edits to this to be lost. 👀 ")) {
+    else if (confirm("⚠ Removing recipes from your Saved Cookbooks will cause all local edits to be lost. 👀 ")) {
         try {
             // remove recipe data from local storage and cook book
             const Data = document.querySelector("recipe-page").data;
@@ -995,7 +1011,6 @@ window.emailRecipe = emailRecipe;
 function showSavedRecipe() {
     let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
     const container = document.getElementById("cookbook-container");
-    if (cookbooks == null || cookbooks == undefined) { cookbooks = ["Favorites"]; }
     let copy = cookbooks;
     for (let i = 0; i < Object.keys(cookbooks).length; i++) {
         let current = JSON.parse(localStorage.getItem(cookbooks[i]));
@@ -1011,23 +1026,7 @@ function showSavedRecipe() {
             }
         }
         let host = document.createElement("div");
-        let removeCookBookButton = document.createElement("button");
-
-        //  coobook-wrapper
-        let divCookBookWrapper = document.createElement("div");
-        divCookBookWrapper.classList.add("coobook-wrapper");
-        divCookBookWrapper.appendChild(host);
-        if (cookbooks[i] !== "Favorites")
-            divCookBookWrapper.appendChild(removeCookBookButton);
-
         let list = JSON.parse(localStorage.getItem(cookbooks[i]));
-        host.setAttribute("id", cookbooks[i]);
-
-        // remove-cookbook button
-        removeCookBookButton.innerHTML = "<img src='./source/../img/icons/trashcaninverted.svg'>";
-        removeCookBookButton.setAttribute("name", cookbooks[i]);
-        removeCookBookButton.classList.add("remove-cookbook-button");
-        addRemoveCookBook(removeCookBookButton);
 
         let holder = document.createElement("button");
         holder.classList.add("cookbook-name");
@@ -1036,50 +1035,32 @@ function showSavedRecipe() {
         let recipesInCookbook = document.createElement("div");
         recipesInCookbook.classList.add("recipes-in-cookbook-container");
 
-
         host.appendChild(holder);
         host.appendChild(recipesInCookbook);
         let IDs = [];
         for (let j = 0; j < list.length; j++) {
             IDs.push(list[j]);
         }
-        console.log(cookbooks[i]);
         for (let m = 0; m < IDs.length; m++) {
-
             let appended = false;
             let ID = IDs[m];
             let uniquedish = JSON.parse(localStorage.getItem(`ID-${ID}`));
             const element = document.createElement('recipe-card');
-            console.log(uniquedish);
             element.data = uniquedish;
             const id = uniquedish["id"];
-
-            // remove button for each recipe
-            let delBt = document.createElement("button");
-            delBt.innerHTML = "<img src='./source/../img/icons/trashcan.svg'>";
-            delBt.setAttribute("name", ID);
-            delBt.classList.add("remove-recipe-button");
-            addRemoveRecipe(delBt);
-
-            // append element and delBT to divWrapper
-            // append div wrapper to RecipesInCookBook
-            let divWrapper = document.createElement("div");
-            divWrapper.classList.add("recipe-cookbook-wrapper");
-            divWrapper.classList.add("hidden");
-            divWrapper.appendChild(element);
-            divWrapper.appendChild(delBt);
-            recipesInCookbook.appendChild(divWrapper);
-
-            element.setAttribute("id", ID);
+            recipesInCookbook.appendChild(element);
+            element.classList.remove('shown');
+            element.classList.add('hidden');
             holder.addEventListener('click', e => {
+
                 if (!appended) {
-                    divWrapper.classList.remove("hidden");
-                    divWrapper.classList.add("show");
+                    element.classList.remove('hidden');
+                    element.classList.add('shown');
                     appended = true;
                 }
                 else {
-                    divWrapper.classList.remove("show");
-                    divWrapper.classList.add("hidden");
+                    element.classList.remove('shown');
+                    element.classList.add('hidden');
                     appended = false;
                 }
             });
@@ -1096,7 +1077,7 @@ function showSavedRecipe() {
             });
 
         }
-        container.appendChild(divCookBookWrapper);
+        container.appendChild(host);
     }
 
 }
@@ -1104,60 +1085,4 @@ function showSavedRecipe() {
 function clearSavedRecipe() {
     const container = document.getElementById("cookbook-container");
     container.innerHTML = `<h1 class="heading">Saved Cookbooks</h1>`;
-}
-
-/**
- * This function removes recipe from a cookbook
- * @param {HTML element} button 
- */
-function addRemoveRecipe(button) {
-    button.addEventListener("click", () => {
-        if (!confirm("⚠ Removing this recipe from your Saved Cookbooks will cause all of its local edits to this to be lost. 👀 "))
-            return;
-        const Id = button.getAttribute("name");
-        let cookbooksRecipe = document.getElementById(Id);
-        cookbooksRecipe.style.display = "none";
-        button.style.display = "none";
-
-        removeRecipe(Id);
-    });
-}
-
-/**
- * This function removes a cookbook from cookbook List
- * @param {HTML element} button 
- */
-function addRemoveCookBook(button) {
-    button.addEventListener("click", () => {
-        if (!confirm("Removing this cookbook will cause all of its recipes' local edits to be lost!"))
-            return;
-        const CookBookName = button.getAttribute("name");
-        let CookBookSection = document.getElementById(CookBookName);
-        button.style.display = "none";
-        CookBookSection.style.display = "none";
-
-        let cookBookList = JSON.parse(localStorage.getItem(COOK_BOOKS));
-        let cookBookRecipeList = JSON.parse(localStorage.getItem(CookBookName));
-
-        cookBookRecipeList.forEach(el => removeRecipe(el));
-        const index = cookBookList.indexOf(CookBookName);
-        cookBookList.splice(index, 1);
-        localStorage.removeItem(CookBookName);
-        localStorage.setItem(COOK_BOOKS, JSON.stringify(cookBookList));
-    });
-}
-
-
-/**
- * This function removes recipe from localstorage
- * @param {string} Id of recipe
- */
-function removeRecipe(Id) {
-    const RecipeInStorage = JSON.parse(localStorage.getItem(`ID-${Id}`));
-    const CookBook = RecipeInStorage["cookbook"];
-    let savedCookBook = JSON.parse(localStorage.getItem(CookBook));
-    const index = savedCookBook.indexOf(parseInt(Id));
-    savedCookBook.splice(index, 1);
-    localStorage.setItem(CookBook, JSON.stringify(savedCookBook));
-    localStorage.removeItem(`ID-${Id}`);
 }
