@@ -31,14 +31,11 @@ class Filter extends HTMLElement {
             display: flex;
             justify-content: center;
             background-color: var(--orange2);
-            margin-left: 20px;
-            margin-right: 20px;
-
-            height: 20px;
-            
-            padding: 5px 10px 10px 10px;
+            height: fit-content;
+            padding: 1px 10px;
             border-radius: 20px;
             border-color: var(--orange2);
+            margin: 5px 10px;
         }
 
         article > button{

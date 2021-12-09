@@ -816,34 +816,37 @@ footer {
 
 /* Tags style ======================================================================*/
 /* actual buttons to toggle filters ========================================*/
+
 .filtersBtn{
   display: flex;
   justify-content: center;
-  background-color: var(--orange1);
-  margin-left: 20px;
-  margin-right: 20px;
+  background-color: var(--orange4);
+  /* margin-left: 20px;
+  margin-right: 20px; */
+  margin: 0px 10px;
   width: 150px;
-  padding: 5px 10px 5px 10px;
+  padding: 5px 0px;
   border-radius: 20px;
   border-color: var(--orange1);
   cursor: pointer;
 }
 
 .filtersBtn:hover {
-  background-color: var(--orange4);
+  background-color: var(--orange1);
 }
 
 .filtersBtn:hover .close-filter-menu-button{
-  background-color: var(--orange4);
+  background-color: var(--orange3);
 }
 
 /* container holding the filter buttons ========================================*/
 .filters-container{
   display: flex;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0);
-  padding-top: 20px;
+  justify-content: center;
+  /* position: absolute; */
+  /* left: 50%; */
+  /* transform: translate(-50%, 0); */
+  /* padding-top: 20px; */
 }
 
 .filter-checkbox{
@@ -854,9 +857,11 @@ footer {
 /* actual drop down content when buttons are pressed ========================================*/
 #filters-content{
   display: flex;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 55px);
+  justify-content: center;
+  margin: 0px 10px;
+  /* position: absolute; */
+  /* left: 50%;
+  transform: translate(-50%, 55px); */
   z-index: 1;
 }
 
@@ -864,15 +869,12 @@ footer {
 .diet, .cuisine, .time, .meal-type{
     background-color: var(--orange4);
     font-size: 12px;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin: 0px 10px;
     width: 150px;
     z-index: 1;
     border-radius: 0px 0px 15px 15px;
     display: grid;
-    height: 200px;
+    height: 300px;
     overflow-y: auto;
     border-bottom: groove;
 }
@@ -918,11 +920,23 @@ footer {
 /* style for selected filters container ========================================*/
 .selected-filters-container{
   display: flex;
-  margin: -15px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: max(80vw, 800px);
+  align-items: flex-start;
+  height: fit-content;
+  /* margin: -15px; */
+  overflow-y: auto;
+
 }
 
+#test-filter-box {
+position: relative;
+z-index: 999;
+}
 
-@media (max-width: 750px) {
+/* on smaller screens */
+/* @media (max-width: 750px) {
   .filtersBtn{
     max-width: 70px;
     margin: 3px;
@@ -971,7 +985,7 @@ footer {
     min-width: 100px;
   }
 
-}
+} */
 /* End of Tags style ======================================================================*/
 /* Used to hide the elements not to be printed */
 @media print {
