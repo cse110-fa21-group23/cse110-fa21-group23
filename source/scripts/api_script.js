@@ -13,8 +13,8 @@ import SPOONACULAR_API_KEY from "./apikey.js";
 
 //Set API_URL
 const MAIN_API_URL = "https://api.spoonacular.com/recipes";
-const API_KEY = SPOONACULAR_API_KEY;
-
+// One To Use Normally const API_KEY = SPOONACULAR_API_KEY;
+const API_KEY = "0a08c434f4f0404eba2148157689ed12"; // New API Key I Am Using Now.
 
 /**
  * Fetch the recipes for the search page
