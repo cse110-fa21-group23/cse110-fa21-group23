@@ -848,12 +848,8 @@ function removeRecipe(Id) {
     const RecipeInStorage = JSON.parse(localStorage.getItem(`ID-${Id}`));
         const CookBook = RecipeInStorage["cookbook"];
         let savedCookBook = JSON.parse(localStorage.getItem(CookBook));
-        const index = savedCookBook.indexOf(Id);
-        if (index === -1)
-            savedCookBook.splice(0, 1);
-        else
-            savedCookBook.splice(index, 1);    
-
+        const index = savedCookBook.indexOf(parseInt(Id));
+        savedCookBook.splice(index, 1); 
         localStorage.setItem(CookBook, JSON.stringify(savedCookBook));
         localStorage.removeItem(`ID-${Id}`);
 }
