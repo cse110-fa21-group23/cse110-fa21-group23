@@ -864,7 +864,7 @@ footer {
   flex-direction: column;
 }
 
-/* Cookbook sections ================================*/
+/* Cookbook sections ================================ */
 .recipe-cookbook-wrapper {
   position: relative;
 }
@@ -876,6 +876,7 @@ footer {
   background: 0;
   border: 0;
   z-index: 100;
+  font-size: 1.5em;
   cursor: pointer;
   font-weight: bolder; 
 }
@@ -886,6 +887,10 @@ footer {
 
 .remove-recipe-button img {
   height: 1.25rem;
+}
+
+.remove-cookbook-button:hover img {
+  transform: scale(1.1, 1.1);
 }
 
 .remove-cookbook-button img {

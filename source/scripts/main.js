@@ -686,6 +686,7 @@ window.emailRecipe = emailRecipe;
 function showSavedRecipe() {
     let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
     const container = document.getElementById("cookbook-container");
+    if (cookbooks == null || cookbooks == undefined) { cookbooks = ["Favorites"]; }
     let copy = cookbooks;
     for (let i = 0; i < Object.keys(cookbooks).length; i++) {
         let current = JSON.parse(localStorage.getItem(cookbooks[i]));
@@ -751,7 +752,6 @@ function showSavedRecipe() {
             delBt.classList.add("remove-recipe-button");
             addRemoveRecipe(delBt);
 
-            // TODO: add div wrapper
             // append element and delBT to divWrapper
             // append div wrapper to RecipesInCookBook
             let divWrapper = document.createElement("div");
@@ -762,8 +762,6 @@ function showSavedRecipe() {
             recipesInCookbook.appendChild(divWrapper);
 
             element.setAttribute("id", ID);
-            //element.classList.remove('shown');
-
             holder.addEventListener('click', e => {
                 if (!appended) {
                     divWrapper.classList.remove("hidden");
@@ -822,7 +820,8 @@ function addRemoveRecipe(button) {
  */
 function addRemoveCookBook(button) {
     button.addEventListener("click", () => {
-        if (!confirm("Removing this cookbook will cause all local edits to be lost!")) return;
+        if (!confirm("Removing this cookbook will cause all local edits to be lost!")) 
+            return;
         const CookBookName = button.getAttribute("name");
         let CookBookSection = document.getElementById(CookBookName);
         button.style.display = "none";
