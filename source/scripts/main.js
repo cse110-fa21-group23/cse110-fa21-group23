@@ -329,13 +329,15 @@ function hideCookbooks() {
 }
 
 /**
- * Shoe recipe page
+ * Show recipe page
  *
  */
 function showRecipePage() {
     showTapMode();
     hideApplyBtn();
     hideClearFiltersBtn();
+    const filterSection = document.getElementById("test-filter-box");
+    filterSection.style.display = "none";
     const recipePage = document.getElementById("recipe-page-container");
     recipePage.style.visibility = "visible";
     recipePage.style.display = null;
@@ -362,6 +364,10 @@ function showRecipeCards() {
     const recipeCards = document.getElementById("recipe-card-container");
     recipeCards.style.visibility = "visible";
     recipeCards.style.display = null;
+
+    const filterSection = document.getElementById("test-filter-box");
+    filterSection.style.display = "";
+
 }
 
 /**
