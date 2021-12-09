@@ -653,7 +653,6 @@ function updateSettings() {
 
     //add confirmation message in HTML (alert is temporary)
     alert("your preferences have been updated");
-    window.location.reload();
 }
 
 // TODO: Add a warning before removing bookmark ("Are you sure to you want to remove this from your Cookbooks? All local edits to the recipe will be lost")

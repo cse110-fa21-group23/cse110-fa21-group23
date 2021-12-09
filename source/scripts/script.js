@@ -4,7 +4,6 @@ import { Router } from "./Router.js";
 import { getInstructions, getIngredients } from "./RecipePage.js";
 
 let recipeData = {};
-let prevSearch = '';
 let filters = [];
 let currentRecipeData = {};
 
@@ -531,9 +530,6 @@ function search() {
     }
 
     // If the prev search hasn't changed, simply keep the results
-    if (prevSearch === searchQuery) return false;
-
-    prevSearch = searchQuery;
     const page = searchQuery;
     router.addPage(page, function () {
         hideRecipePage();
@@ -569,6 +565,7 @@ function search() {
 
     // Fetch the Recipes with the specified queries
     const queries = `&query=${searchQuery}${queryStrDiet}${queryStrIntolerances}`;
+
     return fetchRecipes(queries, (data) => {
         recipeData = data;
     })
