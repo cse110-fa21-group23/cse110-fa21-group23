@@ -818,19 +818,18 @@ footer {
 /* actual buttons to toggle filters ========================================*/
 
 .filtersBtn{
+  background-color: var(--orange2);
+  cursor: pointer;
+  color: var(--background-color);
   display: flex;
   justify-content: center;
-  background-color: var(--orange2);
-  /* margin-left: 20px;
-  margin-right: 20px; */
   margin: 0px 10px;
   width: max(10rem, 15vw);
   padding: 5px 10px;
-  border-radius: 20px;
-  /* border-color: var(--orange1); */
-  cursor: pointer;
-  color: var(--background-color)
+  border-radius: 20px; 
 }
+
+
 
 .filtersBtn:hover {
   background-color: var(--orange3);
@@ -847,8 +846,9 @@ footer {
 .filters-container{
   margin-top: 20px;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 .filter-checkbox{
@@ -865,27 +865,24 @@ footer {
 #filters-content{
   display: flex;
   justify-content: center;
-  margin: 0px 10px;
+  margin-left: 50px;
+  margin-right: 50px;
 
-  /* position: absolute; */
-  /* left: 50%;
-  transform: translate(-50%, 55px); */
-  z-index: 1;
 }
 
 /* styling only the diet, cuisine, time and meal-type drop down menus ========================================*/
 .diet, .cuisine, .time, .meal-type{
-    background-color: var(--orange2);
-    font-size: 12px;
-    margin: 0px 10px;
-    width: max(10rem, 15vw);
-    z-index: 1;
-    border-radius: 0px 0px 15px 15px;
-    display: grid;
-    height: fit-content;
-    max-height: 350px;    
-    overflow-y: auto;
-    padding: 10px;
+  background-color: var(--orange2);
+  font-size: 12px;
+  height: fit-content;
+  max-height: 350px;    
+  overflow-y: auto;
+  display: grid;
+  margin: 0px 10px;
+  width: max(10rem, 15vw);
+  z-index: 1;
+  border-radius: 0px 0px 15px 15px;
+  padding: 10px;
 }
 
 /* changing the style when filter buttons are clicked ========================================*/
@@ -960,6 +957,8 @@ footer {
   z-index: 99;
   align-content: center;
   justify-content: center;
+  width: 100%;
+  margin: 10px 50px;
 }
 
 #test-filter-box .checkbox__box {
@@ -992,19 +991,20 @@ footer {
 }
 
 /* on smaller screens */
-/* @media (max-width: 750px) {
+@media (max-width: 750px) {
   .filtersBtn{
     max-width: 70px;
     margin: 3px;
     font-size: 12px;
   }
   #filters-content{
-    transform: translate(-49.5%, 45px);
+    /* transform: translate(-49.5%, 45px); */
   }
 
   .diet, .cuisine, .time, .meal-type{
     margin: 3px;
     max-width: 70px;
+    transform: translateY(-10px);
   }
 
   .filter-checkbox{
@@ -1020,8 +1020,8 @@ footer {
   }
   .close-filter-menu-button{
     font-size: 15px;
-    left: 17px;
-    bottom: -5px;
+    left: 10px;
+    bottom: -15px;
     width: 1px;
     height: 1px;
   }
@@ -1041,7 +1041,7 @@ footer {
     min-width: 100px;
   }
 
-} */
+}
 /* End of Tags style ======================================================================*/
 /* Used to hide the elements not to be printed */
 @media print {
