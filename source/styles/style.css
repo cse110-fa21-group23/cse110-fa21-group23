@@ -1026,11 +1026,7 @@ z-index: 999;
   border-radius: 0 0 13px 13px;
 }
 
-
-
 /* End of Saved Cookbook Page ============================ */
-
-
 #settings-row {
   display: flex;
   flex-direction: row;
@@ -1043,4 +1039,62 @@ z-index: 999;
 .settings-col {
   display: flex;
   flex-direction: column;
+}
+
+/* Cookbook sections ================================ */
+.recipe-cookbook-wrapper {
+  position: relative;
+}
+
+.remove-recipe-button {
+  position: absolute;
+  right: 7%;
+  top: 81%;
+  background: 0;
+  border: 0;
+  z-index: 100;
+  font-size: 1.5em;
+  cursor: pointer;
+  font-weight: bolder; 
+}
+
+.remove-recipe-button:hover img {
+  transform: scale(1.2, 1.2);
+}
+
+.remove-recipe-button img {
+  height: 1.25rem;
+}
+
+.remove-cookbook-button:hover img {
+  transform: scale(1.1, 1.1);
+}
+
+.remove-cookbook-button img {
+  height: 2rem;
+}
+
+.remove-recipe-button:hover {
+  color: var(--orange3);
+}
+
+
+.coobook-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+
+}
+
+.remove-cookbook-button {
+  position: absolute;
+  right: 3%;
+  top: 1rem;
+  background: none;
+  font-size: 2em;
+  color: black;
+  font-weight: bold;
+  border: 0;
+  z-index: 100;
+  cursor: pointer;
 }
