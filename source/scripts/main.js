@@ -701,7 +701,16 @@ function showSavedRecipe() {
             }
         }
         let host = document.createElement("div");
+        
+        
         let list = JSON.parse(localStorage.getItem(cookbooks[i]));
+        host.setAttribute("id", cookbooks[i]);
+        // remove cookbook button
+        let removeCookBookButton = document.createElement("button");
+        removeCookBookButton.innerHTML = "x";
+        removeCookBookButton.setAttribute("name", cookbooks[i]);
+        removeCookBookButton.classList.add("remove-cookbook-button");
+        addRemoveCookBook(removeCookBookButton);
 
         let holder = document.createElement("button");
         holder.classList.add("cookbook-name");
@@ -710,6 +719,7 @@ function showSavedRecipe() {
         let recipesInCookbook = document.createElement("div");
         recipesInCookbook.classList.add("recipes-in-cookbook-container");
 
+
         host.appendChild(holder);
         host.appendChild(recipesInCookbook);
         let IDs = [];
@@ -717,6 +727,7 @@ function showSavedRecipe() {
             IDs.push(list[j]);
         }
         for (let m = 0; m < IDs.length; m++) {
+
             let appended = false;
             let ID = IDs[m];
             let uniquedish = JSON.parse(localStorage.getItem(`ID-${ID}`));
@@ -724,6 +735,17 @@ function showSavedRecipe() {
             element.data = uniquedish;
             const id = uniquedish["id"];
             recipesInCookbook.appendChild(element);
+
+            // remove button for each recipe
+            let delBt = document.createElement("button");
+            delBt.innerHTML = "x";
+            delBt.setAttribute("name", ID);
+            delBt.classList.add("remove-recipe-button");
+            addRemoveRecipe(delBt);
+            recipesInCookbook.appendChild(delBt);
+
+            element.setAttribute("id", ID);
+            element.classList.add('hidden');
             element.classList.remove('shown');
             element.classList.add('hidden');
             holder.addEventListener('click', e => {
@@ -753,6 +775,8 @@ function showSavedRecipe() {
 
         }
         container.appendChild(host);
+        if (cookbooks[i] !== "Favorites") // user cannot remove favarites
+            container.appendChild(removeCookBookButton);
     }
 
 }
@@ -760,4 +784,59 @@ function showSavedRecipe() {
 function clearSavedRecipe() {
     const container = document.getElementById("cookbook-container");
     container.innerHTML = `<h1 class="heading">Saved Cookbooks</h1>`;
+}
+
+/**
+ * This function removes recipe from a cookbook
+ * @param {HTML element} button 
+ */
+function addRemoveRecipe(button) {
+    button.addEventListener("click", event => {
+        if (!confirm("⚠ Removing recipes from your Saved Cookbooks will cause all local edits to be lost. 👀 "))
+            return;
+        const Id = button.getAttribute("name");
+        let cookbooksRecipe = document.getElementById(Id);
+        cookbooksRecipe.style.display = "none";
+        event.target.style.display = "none";
+
+        removeRecipe(Id);
+    });
+}
+
+/**
+ * This function removes a cookbook from cookbook List
+ * @param {HTML element} button 
+ */
+function addRemoveCookBook(button) {
+    button.addEventListener("click", event => {
+        if (!confirm("Removing this cookbook will cause all local edits to be lost!")) return;
+        const CookBookName = button.getAttribute("name");
+        let CookBookSection = document.getElementById(CookBookName);
+        button.style.display = "none";
+        CookBookSection.style.display = "none";
+
+        let cookBookList = JSON.parse(localStorage.getItem(COOK_BOOKS));
+        let cookBookRecipeList = JSON.parse(localStorage.getItem(CookBookName));
+
+        cookBookRecipeList.forEach(el => removeRecipe(el));
+        const index = cookBookList.indexOf(CookBookName);
+        cookBookList.splice(index, 1);
+        localStorage.removeItem(CookBookName);
+        localStorage.setItem(COOK_BOOKS, JSON.stringify(cookBookList));
+    });
+}
+
+
+/**
+ * This function removes recipe from localstorage
+ * @param {string} Id of recipe
+ */
+function removeRecipe(Id) {
+    const RecipeInStorage = JSON.parse(localStorage.getItem(`ID-${Id}`));
+        const CookBook = RecipeInStorage["cookbook"];
+        let savedCookBook = JSON.parse(localStorage.getItem(CookBook));
+        const index = savedCookBook.indexOf(Id);
+        savedCookBook.splice(index, 1);
+        localStorage.setItem(CookBook, JSON.stringify(savedCookBook));
+        localStorage.removeItem(`ID-${Id}`);
 }
