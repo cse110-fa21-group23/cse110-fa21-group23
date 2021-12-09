@@ -796,13 +796,13 @@ function clearSavedRecipe() {
  * @param {HTML element} button 
  */
 function addRemoveRecipe(button) {
-    button.addEventListener("click", event => {
+    button.addEventListener("click", () => {
         if (!confirm("⚠ Removing recipes from your Saved Cookbooks will cause all local edits to be lost. 👀 "))
             return;
         const Id = button.getAttribute("name");
         let cookbooksRecipe = document.getElementById(Id);
         cookbooksRecipe.style.display = "none";
-        event.target.style.display = "none";
+        button.target.style.display = "none";
 
         removeRecipe(Id);
     });
@@ -813,7 +813,7 @@ function addRemoveRecipe(button) {
  * @param {HTML element} button 
  */
 function addRemoveCookBook(button) {
-    button.addEventListener("click", event => {
+    button.addEventListener("click", () => {
         if (!confirm("Removing this cookbook will cause all local edits to be lost!")) return;
         const CookBookName = button.getAttribute("name");
         let CookBookSection = document.getElementById(CookBookName);
