@@ -306,7 +306,7 @@ h2 {
 #settings-container {
   width: 100%;
   position:absolute; /* need this for z-index to work */
-  z-index: 99; /* puts menu on top of everything */
+  z-index: 99999; /* puts menu on top of everything */
   overflow: hidden;
   top: 0;
   text-align: center;
@@ -375,7 +375,7 @@ width: 70vw;
 left: 50%;
 transform: translate(-50%, 0);
 /* centers an absolute div */
-margin-top: 70px;
+margin-top: 120px;
 }
 
 #recipe-page-container{
@@ -937,7 +937,7 @@ footer {
 
 #test-filter-box {
 position: relative;
-z-index: 999;
+z-index: 99;
 }
 
 /* on smaller screens */
