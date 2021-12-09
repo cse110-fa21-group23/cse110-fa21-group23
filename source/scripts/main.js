@@ -742,9 +742,13 @@ function showSavedRecipe() {
         let divCookBookWrapper = document.createElement("div");
         divCookBookWrapper.classList.add("cookbook-wrapper");
         divCookBookWrapper.appendChild(host);
-        if (cookbooks[i] !== "Favorites")
+        if (cookbooks[i] !== "Favorites") {
             divCookBookWrapper.appendChild(removeCookBookButton);
-
+        } else if (null == JSON.parse(localStorage.getItem(cookbooks[i]))) {
+            let arr = [];
+            localStorage.setItem(cookbooks[i], JSON.stringify(arr));
+        }
+        
         let list = JSON.parse(localStorage.getItem(cookbooks[i]));
         host.setAttribute("id", cookbooks[i]);
 
