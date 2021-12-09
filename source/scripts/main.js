@@ -480,12 +480,47 @@ function appendNewCookBook(newCookBook) {
  */
 function addNewCookBook() {
     let newCookBook = prompt("Enter new cookbook:");
-    if (newCookBook == "" || newCookBook == null) { return; }
+    if (newCookBook == null) { return; }
+    cookbookName = cookbookName.replace(/\s+/g, ' ').trim();
+    while (processTextSubmitCookbook(cookbookName) === false && cookbookName != null) {
+        if (cookbookName == "") {
+            cookbookName = prompt("Error: No input detected. Please choose a valid name.");
+        } else {
+            cookbookName = prompt("Error: Another cookbook already has that name. Please choose another.");
+        }
+        if (cookbookName != null) {
+            cookbookName = cookbookName.replace(/\s+/g, ' ').trim();
+        } else {
+            return;
+        }
+    }
+
     appendNewCookBook(newCookBook);
     // update local storage
     let cookBooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
     cookBooks.push(newCookBook);
     localStorage.setItem(COOK_BOOKS, JSON.stringify(cookBooks));
+}
+
+/**
+ * Checks to see if the cookbook name is valid
+ *
+ * @param {*} userInput the cookbook name to check
+ * @return {*} true if the name isn't null, empty, or already in use. Otherwise it returns false
+ */
+ function processTextSubmitCookbook(userInput) {
+    // Checks if the input is empty, if so it changes the request text and exits the function
+    if (userInput == "" || userInput == null) {
+        return false;
+    }
+    // Checks if the input is the same as another cookbook, if so it changes the request text and exits the function
+    let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
+    for (let i= 0; i < cookbooks.length; i++) {
+        if (cookbooks[i] == userInput) {
+            return false;
+        }
+    }
+    return true;
 }
 
 /* end of save new cookbook ====================================================*/
