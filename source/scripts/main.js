@@ -761,8 +761,8 @@ function showSavedRecipe() {
                 else {
                     element.classList.remove('shown');
                     element.classList.add('hidden');
-                    delBt.classList.remove("hidden");
-                    delBt.classList.add("show");
+                    delBt.classList.remove("show");
+                    delBt.classList.add("hidden");
                     appended = false;
                 }
             });
