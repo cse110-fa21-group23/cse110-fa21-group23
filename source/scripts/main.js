@@ -495,7 +495,7 @@ function appendNewCookBook(newCookBook) {
  function addNewCookBook() {
     let newCookBook = prompt("Enter new cookbook:");
     if (newCookBook == null) { return; }
-    let newCookBook = newCookBook.replace(/\s+/g, ' ').trim();
+    newCookBook = newCookBook.replace(/\s+/g, ' ').trim();
     while (processTextSubmitCookbook(newCookBook) === false) {
         if (newCookBook == "") {
             newCookBook = prompt("Error: No input detected. Please choose a valid name.");
