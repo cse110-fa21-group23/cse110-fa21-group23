@@ -871,11 +871,12 @@ footer {
 
 .remove-recipe-button {
   position: absolute;
-  left: 95%;
+  left: 88%;
   top: 0%;
   background: 0;
   border: 0;
   z-index: 100;
+  font-size: 1.5em;
   cursor: pointer;
   font-weight: bolder;
 }
