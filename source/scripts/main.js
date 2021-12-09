@@ -19,12 +19,10 @@ function toggleMenu() {
     if ($SOMenuVisibility == "hidden") {
         slideOverMenu.style.transform = "translate(100%)";
         $SOMenuVisibility = "visible";
-        showFiltersContent();
     }
     else {
         slideOverMenu.style.transform = "translate(-100%)";
         $SOMenuVisibility = "hidden";
-        hideFilters();
     }
 }
 
