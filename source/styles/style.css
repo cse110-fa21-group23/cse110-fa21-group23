@@ -849,11 +849,7 @@ footer {
   border-radius: 0 0 13px 13px;
 }
 
-
-
 /* End of Saved Cookbook Page ============================ */
-
-
 #settings-row {
   display: flex;
   flex-direction: row;
@@ -868,7 +864,7 @@ footer {
   flex-direction: column;
 }
 
-/* Cookbook sections */
+/* Cookbook sections ================================*/
 .recipe-cookbook-wrapper {
   position: relative;
 }

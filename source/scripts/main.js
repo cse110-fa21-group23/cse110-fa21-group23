@@ -754,7 +754,7 @@ function showSavedRecipe() {
             // TODO: add div wrapper
             // append element and delBT to divWrapper
             // append div wrapper to RecipesInCookBook
-            let divWrapper = document.createElement("div")
+            let divWrapper = document.createElement("div");
             divWrapper.classList.add("recipe-cookbook-wrapper");
             divWrapper.classList.add("hidden");
             divWrapper.appendChild(element);
@@ -766,12 +766,12 @@ function showSavedRecipe() {
 
             holder.addEventListener('click', e => {
                 if (!appended) {
-                    divWrapper.classList.remove("hidden")
+                    divWrapper.classList.remove("hidden");
                     divWrapper.classList.add("show");
                     appended = true;
                 }
                 else {
-                    divWrapper.classList.remove("show")
+                    divWrapper.classList.remove("show");
                     divWrapper.classList.add("hidden");
                     appended = false;
                 }
