@@ -138,7 +138,7 @@ h2 {
 
 
 .search-query {
-  width: 100%;
+  width: 50vw;
   border: 2px solid var(--primary);
   padding: 10px;
   height: 20px;
@@ -820,19 +820,20 @@ footer {
 .filtersBtn{
   display: flex;
   justify-content: center;
-  background-color: var(--orange4);
+  background-color: var(--orange2);
   /* margin-left: 20px;
   margin-right: 20px; */
   margin: 0px 10px;
   width: max(10rem, 15vw);
-  padding: 5px 0px;
+  padding: 5px 10px;
   border-radius: 20px;
-  border-color: var(--orange1);
+  /* border-color: var(--orange1); */
   cursor: pointer;
+  color: var(--background-color)
 }
 
 .filtersBtn:hover {
-  background-color: var(--orange1);
+  background-color: var(--orange3);
 }
 
 .filtersBtn:hover .close-filter-menu-button{
@@ -853,6 +854,11 @@ footer {
 .filter-checkbox{
   display: flex;
   font-size: 1rem;
+  color: var(--background-color);
+}
+
+.filter-checkbox:hover {
+  color: var(--orange4);
 }
 
 /* actual drop down content when buttons are pressed ========================================*/
@@ -869,28 +875,30 @@ footer {
 
 /* styling only the diet, cuisine, time and meal-type drop down menus ========================================*/
 .diet, .cuisine, .time, .meal-type{
-    background-color: var(--orange4);
+    background-color: var(--orange2);
     font-size: 12px;
     margin: 0px 10px;
     width: max(10rem, 15vw);
     z-index: 1;
     border-radius: 0px 0px 15px 15px;
     display: grid;
-    height: 300px;
+    height: fit-content;
+    max-height: 350px;    
     overflow-y: auto;
-    border-bottom: groove;
+    padding: 10px;
 }
 
 /* changing the style when filter buttons are clicked ========================================*/
 .clickedFiltersBtn{
   border-radius: 20px 20px 0px 0px;
-  background-color: var(--orange4);
+  background-color: var(--orange2);
 }
 
 /* icon for closed and open filter menu ========================================*/
 .close-filter-menu-button{
-  background-color: #FFECDB;
-  border: #FFECDB;
+  background-color: var(--orange2);
+  color: var(--background-color);
+  border: none;
   font-size: 20px;
   transform: rotate(90deg);
   position: relative;
@@ -904,19 +912,35 @@ footer {
 /* icon for closed and open filter menu ========================================*/
 .filterArrowIcon {
   transform: rotate(270deg);
-  background-color: var(--orange4);
+  background-color: var(--orange2);
 }
 
-/* style for appky and clear button ========================================*/
+/* style for apply and clear button ========================================*/
 .applyBtn, .clear-filters-btn{
-  margin-left: 20px;
-  background-color: var(--orange1);
+  margin-left: 25px;
+  margin-right: -25px;
   right: 75%;
-  padding: 5px 10px 5px 10px;
+  padding: 2px 15px;
   border-radius: 20px;
-  border-color: var(--orange1);
+  border-color: transparent;
   cursor: pointer;
+}
 
+#applyBtn {
+  background-color: var(--orange2);
+  color: var(--background-color);
+}
+
+#applyBtn:hover {
+  background-color: var(--orange3);
+}
+
+#clear-filters-btn {
+  background-color: transparent;
+}
+
+#clear-filters-btn:hover {
+  color: var(--orange3)
 }
 
 /* style for selected filters container ========================================*/
@@ -937,6 +961,24 @@ footer {
   align-content: center;
   justify-content: center;
 }
+
+#test-filter-box .checkbox__box {
+  border: 2px solid var(--background-color);
+
+}
+
+#test-filter-box .checkbox__box::after {
+  content: '\2714' ;
+  color: #ffffff;
+  transform: scale(0);
+  transition: transform 0.15s;
+}
+
+
+#test-filter-box .checkbox__input:checked + .checkbox__box::after {
+  transform: scale(1);
+}
+
 
 #test-filter-box2 {
   position: relative;
@@ -1109,4 +1151,9 @@ footer {
   border: 0;
   z-index: 100;
   cursor: pointer;
+}
+
+
+#annoying-div {
+  /* max-width: 500px; */
 }
