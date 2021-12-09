@@ -338,7 +338,7 @@ function checkBookMark(data) {
     const Data = JSON.parse(localStorage.getItem(`ID-${Id}`));
     if (Data != null) {
         document.querySelector("recipe-page").data = Data;
-        showBookMarkEditReipce();
+        showBookMarkEditRecipe();
     }
 }
 
@@ -405,7 +405,7 @@ function showCookBookMenu() {
             bookMark.title = "Click to save this recipe";
             hideEditRecipe();
         } catch (err) {
-            alert("An error has occured: " + err);
+            alert("An error has occurred: " + err);
         }
     }
 }
@@ -437,10 +437,10 @@ function bindNewCookBook(li) {
 
             // alert user
             alert("Added to " + CookBookName + " successful");
-            showBookMarkEditReipce();
+            showBookMarkEditRecipe();
             toggleSaveCookBook(); // close savecookbook menu
         } catch (err) {
-            alert("An error has occured" + err);
+            alert("An error has occurred" + err);
         }
     });
 }
@@ -597,7 +597,7 @@ function toggleEditRecipe() {
 
 
 /**
- * This hepler function adds ingredients to the edit recipe.
+ * This helper function adds ingredients to the edit recipe.
  * 
  * @param {string} ig ingredient
  */
@@ -613,7 +613,7 @@ function addMoreIngredients(ig = "") {
 }
 
 /**
- * This hepler function adds instructions to the edit recipe
+ * This helper function adds instructions to the edit recipe
  * 
  * @param {string} ins instruction
  */
@@ -637,7 +637,7 @@ function removeIngredient() {
 }
 
 /**
- * This function removes the last intructions in the instructions list
+ * This function removes the last instructions in the instructions list
  */
 function removeInstruction() {
     let instrList = document.querySelector(".edit-recipe-form > .edit-instructions > ol");
@@ -678,7 +678,7 @@ function submit() {
 
     // reload
     document.querySelector("recipe-page").data = EDIT_RECIPE_DATA;
-    showBookMarkEditReipce();
+    showBookMarkEditRecipe();
 
     EDIT_RECIPE_DATA = {};
 }
@@ -687,7 +687,7 @@ function submit() {
  * This helper function display bookmark-filled and display editRecipe
  * 
  */
-function showBookMarkEditReipce() {
+function showBookMarkEditRecipe() {
     let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
     bookMark.src = "./img/icons/bookmark-filled.svg";
     bookMark.title = "Click to remove this recipe";
@@ -738,9 +738,9 @@ function showSavedRecipe() {
         let host = document.createElement("div");
         let removeCookBookButton = document.createElement("button");
 
-        //  coobook-wrapper
+        //  cookbook-wrapper
         let divCookBookWrapper = document.createElement("div");
-        divCookBookWrapper.classList.add("coobook-wrapper");
+        divCookBookWrapper.classList.add("cookbook-wrapper");
         divCookBookWrapper.appendChild(host);
         if (cookbooks[i] !== "Favorites")
             divCookBookWrapper.appendChild(removeCookBookButton);
@@ -817,7 +817,7 @@ function showSavedRecipe() {
                 clearSavedRecipe();
                 showRecipePage();
                 document.querySelector("recipe-page").data = uniquedish;
-                showBookMarkEditReipce();
+                showBookMarkEditRecipe();
             });
 
         }
