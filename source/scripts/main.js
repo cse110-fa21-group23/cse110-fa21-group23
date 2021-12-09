@@ -726,43 +726,47 @@ function showSavedRecipe() {
         for (let j = 0; j < list.length; j++) {
             IDs.push(list[j]);
         }
+        console.log(cookbooks[i]);
         for (let m = 0; m < IDs.length; m++) {
 
             let appended = false;
             let ID = IDs[m];
             let uniquedish = JSON.parse(localStorage.getItem(`ID-${ID}`));
             const element = document.createElement('recipe-card');
+            console.log(uniquedish);
             element.data = uniquedish;
             const id = uniquedish["id"];
-            recipesInCookbook.appendChild(element);
 
             // remove button for each recipe
             let delBt = document.createElement("button");
             delBt.innerHTML = "x";
             delBt.setAttribute("name", ID);
             delBt.classList.add("remove-recipe-button");
-            delBt.classList.add("hidden");
             addRemoveRecipe(delBt);
-            recipesInCookbook.appendChild(delBt);
+
+            // TODO: add div wrapper
+            // append element and delBT to divWrapper
+            // append div wrapper to RecipesInCookBook
+            let divWrapper = document.createElement("div")
+            divWrapper.classList.add("recipe-cookbook-wrapper");
+            divWrapper.classList.add("hidden");
+            divWrapper.appendChild(element);
+            divWrapper.appendChild(delBt);
+            recipesInCookbook.appendChild(divWrapper);
 
             element.setAttribute("id", ID);
-            element.classList.add('hidden');
-            element.classList.remove('shown');
-            element.classList.add('hidden');
+            //element.classList.remove('shown');
+
             holder.addEventListener('click', e => {
 
                 if (!appended) {
-                    element.classList.remove('hidden');
-                    element.classList.add('shown');
-                    delBt.classList.remove("hidden");
-                    delBt.classList.add("show");
+                    divWrapper.classList.remove("hidden")
+                    divWrapper.classList.add("show");
                     appended = true;
                 }
                 else {
-                    element.classList.remove('shown');
-                    element.classList.add('hidden');
-                    delBt.classList.remove("show");
-                    delBt.classList.add("hidden");
+                    divWrapper.classList.remove("show")
+                    divWrapper.classList.add("hidden");
                     appended = false;
                 }
             });
@@ -841,7 +845,11 @@ function removeRecipe(Id) {
         const CookBook = RecipeInStorage["cookbook"];
         let savedCookBook = JSON.parse(localStorage.getItem(CookBook));
         const index = savedCookBook.indexOf(Id);
-        savedCookBook.splice(index, 1);
+        if (index === -1)
+            savedCookBook.splice(0, 1);
+        else
+            savedCookBook.splice(index, 1);    
+
         localStorage.setItem(CookBook, JSON.stringify(savedCookBook));
         localStorage.removeItem(`ID-${Id}`);
 }

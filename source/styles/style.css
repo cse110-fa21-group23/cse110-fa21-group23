@@ -867,3 +867,19 @@ footer {
   display: flex;
   flex-direction: column;
 }
+
+/* Cookbook sections */
+.recipe-cookbook-wrapper {
+  position: relative;
+}
+
+.remove-recipe-button {
+  position: absolute;
+  left: 95%;
+  top: 0%;
+  background: 0;
+  border: 0;
+  z-index: 100;
+  cursor: pointer;
+  font-weight: bolder;
+}
