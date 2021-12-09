@@ -730,7 +730,6 @@ function showSavedRecipe() {
                 const index = copy.indexOf(cookbooks[i]);
                 if (index > -1) {
                     copy.splice(index, 1);
-                    localStorage.setItem("cookbooks", JSON.stringify(copy));
                     continue;
                 }
             }
@@ -827,7 +826,7 @@ function showSavedRecipe() {
         }
         container.appendChild(divCookBookWrapper);
     }
-
+    localStorage.setItem("cookbooks", JSON.stringify(copy));
 }
 //remove appended recipes when leave cookbook
 function clearSavedRecipe() {
