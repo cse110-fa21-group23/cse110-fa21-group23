@@ -883,3 +883,20 @@ footer {
   cursor: pointer;
   font-weight: bolder;
 }
+
+.coobook-wrapper {
+  position: relative;
+}
+
+.remove-cookbook-button {
+  position: absolute;
+  left: 97%;
+  top: 0%;
+  background: none;
+  font-size: 2em;
+  color: black;
+  font-weight: bold;
+  border: 0;
+  z-index: 100;
+  cursor: pointer;
+}

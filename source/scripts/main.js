@@ -701,12 +701,21 @@ function showSavedRecipe() {
             }
         }
         let host = document.createElement("div");
+        let removeCookBookButton = document.createElement("button");
         
+        //TODO: add pair-button wrapper
+        // append host, remov c
+        // append 
+        let divCookBookWrapper = document.createElement("div");
+        divCookBookWrapper.classList.add("coobook-wrapper");
+        divCookBookWrapper.appendChild(host);
+        if (cookbooks[i] !== "Favorites")
+            divCookBookWrapper.appendChild(removeCookBookButton);
         
         let list = JSON.parse(localStorage.getItem(cookbooks[i]));
         host.setAttribute("id", cookbooks[i]);
-        // remove cookbook button
-        let removeCookBookButton = document.createElement("button");
+        
+        // add remove-cookbook button
         removeCookBookButton.innerHTML = "x";
         removeCookBookButton.setAttribute("name", cookbooks[i]);
         removeCookBookButton.classList.add("remove-cookbook-button");
@@ -783,9 +792,7 @@ function showSavedRecipe() {
             });
 
         }
-        container.appendChild(host);
-        if (cookbooks[i] !== "Favorites") // user cannot remove favarites
-            container.appendChild(removeCookBookButton);
+        container.appendChild(divCookBookWrapper);
     }
 
 }
