@@ -495,7 +495,7 @@ function appendNewCookBook(newCookBook) {
  function addNewCookBook() {
     let newCookBook = prompt("Enter new cookbook:");
     if (newCookBook == null) { return; }
-    cookbookName = cookbookName.replace(/\s+/g, ' ').trim();
+    let cookbookName = cookbookName.replace(/\s+/g, ' ').trim();
     while (processTextSubmitCookbook(cookbookName) === false) {
         if (cookbookName == "") {
             cookbookName = prompt("Error: No input detected. Please choose a valid name.");
@@ -748,7 +748,7 @@ function showSavedRecipe() {
             let arr = [];
             localStorage.setItem(cookbooks[i], JSON.stringify(arr));
         }
-        
+
         let list = JSON.parse(localStorage.getItem(cookbooks[i]));
         host.setAttribute("id", cookbooks[i]);
 
