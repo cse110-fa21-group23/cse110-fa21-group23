@@ -470,7 +470,6 @@ function searchByFilter () {
     }
     
     return fetchRecipes(`${searchQueryStr}${cuisine}${mealType}${time}${queryStrDiet}${queryStrIntolerances}`, (data) => {
-            console.log(data);
             if(data.length === 0){
                 alert("No recipes match those filters.");
             }
