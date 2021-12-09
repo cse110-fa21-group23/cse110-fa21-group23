@@ -741,6 +741,7 @@ function showSavedRecipe() {
             delBt.innerHTML = "x";
             delBt.setAttribute("name", ID);
             delBt.classList.add("remove-recipe-button");
+            delBt.classList.add("hidden");
             addRemoveRecipe(delBt);
             recipesInCookbook.appendChild(delBt);
 
@@ -753,11 +754,15 @@ function showSavedRecipe() {
                 if (!appended) {
                     element.classList.remove('hidden');
                     element.classList.add('shown');
+                    delBt.classList.remove("hidden");
+                    delBt.classList.add("show");
                     appended = true;
                 }
                 else {
                     element.classList.remove('shown');
                     element.classList.add('hidden');
+                    delBt.classList.remove("hidden");
+                    delBt.classList.add("show");
                     appended = false;
                 }
             });
