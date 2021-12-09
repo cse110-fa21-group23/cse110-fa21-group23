@@ -849,11 +849,7 @@ footer {
   border-radius: 0 0 13px 13px;
 }
 
-
-
 /* End of Saved Cookbook Page ============================ */
-
-
 #settings-row {
   display: flex;
   flex-direction: row;
@@ -868,7 +864,7 @@ footer {
   flex-direction: column;
 }
 
-/* Cookbook sections */
+/* Cookbook sections ================================*/
 .recipe-cookbook-wrapper {
   position: relative;
 }
@@ -892,6 +888,10 @@ footer {
   height: 1.25rem;
 }
 
+.remove-cookbook-button img {
+  height: 2rem;
+}
+
 .remove-recipe-button:hover {
   color: var(--orange3);
 }
@@ -899,12 +899,15 @@ footer {
 
 .coobook-wrapper {
   position: relative;
+  display: flex;
+  flex-direction: row;
+
 }
 
 .remove-cookbook-button {
   position: absolute;
-  left: 97%;
-  top: 0%;
+  right: 3%;
+  top: 1rem;
   background: none;
   font-size: 2em;
   color: black;

@@ -714,7 +714,7 @@ function showSavedRecipe() {
         host.setAttribute("id", cookbooks[i]);
 
         // remove-cookbook button
-        removeCookBookButton.innerHTML = "x";
+        removeCookBookButton.innerHTML = "<img src='./source/../img/icons/trashcaninverted.svg'>";
         removeCookBookButton.setAttribute("name", cookbooks[i]);
         removeCookBookButton.classList.add("remove-cookbook-button");
         addRemoveCookBook(removeCookBookButton);
@@ -754,7 +754,7 @@ function showSavedRecipe() {
             // TODO: add div wrapper
             // append element and delBT to divWrapper
             // append div wrapper to RecipesInCookBook
-            let divWrapper = document.createElement("div")
+            let divWrapper = document.createElement("div");
             divWrapper.classList.add("recipe-cookbook-wrapper");
             divWrapper.classList.add("hidden");
             divWrapper.appendChild(element);
@@ -766,12 +766,12 @@ function showSavedRecipe() {
 
             holder.addEventListener('click', e => {
                 if (!appended) {
-                    divWrapper.classList.remove("hidden")
+                    divWrapper.classList.remove("hidden");
                     divWrapper.classList.add("show");
                     appended = true;
                 }
                 else {
-                    divWrapper.classList.remove("show")
+                    divWrapper.classList.remove("show");
                     divWrapper.classList.add("hidden");
                     appended = false;
                 }
@@ -848,12 +848,8 @@ function removeRecipe(Id) {
     const RecipeInStorage = JSON.parse(localStorage.getItem(`ID-${Id}`));
     const CookBook = RecipeInStorage["cookbook"];
     let savedCookBook = JSON.parse(localStorage.getItem(CookBook));
-    const index = savedCookBook.indexOf(Id);
-    if (index === -1)
-        savedCookBook.splice(0, 1);
-    else
-        savedCookBook.splice(index, 1);
-
+    const index = savedCookBook.indexOf(parseInt(Id));
+    savedCookBook.splice(index, 1);
     localStorage.setItem(CookBook, JSON.stringify(savedCookBook));
     localStorage.removeItem(`ID-${Id}`);
 }
