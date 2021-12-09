@@ -829,7 +829,7 @@ function showSavedRecipe() {
     }
 
     for (let i = (removeArr.length - 1); i >= 0; i--) {
-        if (removeArr == true) {
+        if (removeArr[i] == true) {
             cookbooks.splice(i, 1);
         }
     } 
