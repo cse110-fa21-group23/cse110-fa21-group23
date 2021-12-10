@@ -119,6 +119,7 @@ async function init() {
     //on enter for search, call search function
     document.addEventListener('keydown', async function (event) {
         if (event.key === 'Enter') {
+            if (document.getElementById("search").style.visibility !== "visible") return;
             if(filters.length>0){
                 let searchSuccessful = await searchByFilter();
                 if (searchSuccessful) {
