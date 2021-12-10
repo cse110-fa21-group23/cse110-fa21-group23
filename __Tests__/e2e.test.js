@@ -1,5 +1,6 @@
 const puppeteer = require("puppeteer");
-const URL = "https://compassionate-bardeen-fe4d03.netlify.app/";
+//const URL = "https://compassionate-bardeen-fe4d03.netlify.app/";
+const URL = "https://deploy-preview-86--compassionate-bardeen-fe4d03.netlify.app";
 
 describe("basic user flow of the website", () => {
     // Checking for 6 category cards on the website
