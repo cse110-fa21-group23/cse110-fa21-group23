@@ -1,5 +1,9 @@
 var $SOMenuVisibility = "hidden";
 var $tapModeVisibility = "hidden";
+var $dietFilterVisibility = "hidden";
+var $timeFilterVisibility = "hidden";
+var $mealTypeFilterVisibility = "hidden";
+var $cuisineFilterVisibility = "hidden";
 
 /**
  * Toggles the Menu list
@@ -22,6 +26,103 @@ function toggleMenu() {
     }
 }
 
+/**
+ * Function to toggle the diet filters each time the diet button is clicked
+ *
+ */
+function toggleDietFilters() {
+    let dietIcon = document.getElementById("dietIcon");
+    dietIcon.classList.toggle("filterArrowIcon");
+    let dietBtn = document.getElementById("dietBtn");
+    dietBtn.classList.toggle("clickedFiltersBtn");
+    let dropDownMenu = document.getElementById("diet-filter");
+
+    if ($dietFilterVisibility == "hidden") {
+        const getDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
+        if (getDietaryRestrictions && getDietaryRestrictions.length !== 0) {
+            alert("Choosing a diet filter will override your diet restrictions in settings");
+        }
+        $dietFilterVisibility = "visible";
+        dropDownMenu.style.visibility = "visible";
+        showFiltersContent();
+    }
+    else {
+        $dietFilterVisibility = "hidden";
+        dropDownMenu.style.visibility = "hidden";
+        hideFilters();
+    }
+}
+
+/**
+ * Function to toggle the cuisine filters each time the cuisine button is clicked
+ *
+ */
+function toggleCuisineFilters() {
+    let cuisineIcon = document.getElementById("cuisineIcon");
+    cuisineIcon.classList.toggle("filterArrowIcon");
+    let cuisineBtn = document.getElementById("cuisineBtn");
+    cuisineBtn.classList.toggle("clickedFiltersBtn");
+    let dropDownMenu = document.getElementById("cuisine-filter");
+
+    if ($cuisineFilterVisibility == "hidden") {
+        $cuisineFilterVisibility = "visible";
+        dropDownMenu.style.visibility = "visible";
+        showFiltersContent();
+    }
+    else {
+        $cuisineFilterVisibility = "hidden";
+        dropDownMenu.style.visibility = "hidden";
+        hideFilters();
+    }
+}
+
+/**
+ * Function to toggle the time filters each time the time button is clicked
+ *
+ */
+function toggleTimeFilters() {
+    let timeFilter = document.getElementById("timeIcon");
+    timeFilter.classList.toggle("filterArrowIcon");
+    let timeBtn = document.getElementById("timeBtn");
+    timeBtn.classList.toggle("clickedFiltersBtn");
+    let dropDownMenu = document.getElementById("time-filter");
+
+    if ($timeFilterVisibility == "hidden") {
+        $timeFilterVisibility = "visible";
+        dropDownMenu.style.visibility = "visible";
+        showFiltersContent();
+
+    }
+    else {
+        $timeFilterVisibility = "hidden";
+        dropDownMenu.style.visibility = "hidden";
+        hideFilters();
+
+    }
+}
+
+/**
+ * Function to toggle the meal filters each time the meal button is clicked
+ *
+ */
+function toggleMealTypeFilters() {
+    let mealFilter = document.getElementById("mealIcon");
+    mealFilter.classList.toggle("filterArrowIcon");
+    let mealBtn = document.getElementById("mealBtn");
+    mealBtn.classList.toggle("clickedFiltersBtn");
+    let dropDownMenu = document.getElementById("meal-filter");
+
+    if ($mealTypeFilterVisibility == "hidden") {
+        $mealTypeFilterVisibility = "visible";
+        dropDownMenu.style.visibility = "visible";
+        showFiltersContent();
+    }
+    else {
+        $mealTypeFilterVisibility = "hidden";
+        dropDownMenu.style.visibility = "hidden";
+        hideFilters();
+    }
+}
 
 
 // this function is being called from scripts.js, ignore the Codacy error :D
@@ -57,6 +158,7 @@ function showSettings() {
     clearSavedRecipe();
     hideRecipeCards();
     hideRecipePage();
+    hideApplyBtn();
     const settings = document.getElementById("settings-container");
     settings.style.visibility = "visible";
     settings.style.display = null;
@@ -96,6 +198,45 @@ function clearCheckBoxes() {
 }
 
 /**
+ * Clears check boxes in the filter drop down menus
+ *
+ */
+function clearFilterCheckBoxes() {
+    let diets = document.getElementsByName("diet-radio");
+    let cuisines = document.getElementsByName("cuisine-radio");
+    let mealtypes = document.getElementsByName("meal-radio");
+    let time = document.getElementsByName("time-radio");
+    diets.forEach((e) => e.checked = false);
+    cuisines.forEach((e) => e.checked = false);
+    mealtypes.forEach((e) => e.checked = false);
+    time.forEach((e) => e.checked = false);
+}
+
+/**
+ * This function removes all the filter cards in order to display new ones
+ * each time a user selects a new filter
+ *
+ */
+function resetFilters() {
+    document.querySelectorAll("filter-card").forEach(function (filters) {
+        filters.remove();
+    });
+}
+
+/**
+ * This function removes all the filter cards and clears all checkboxes
+ * 
+ *
+ */
+function clearAllFilters() {
+    document.querySelectorAll("filter-card").forEach(function (elem) {
+        elem.remove();
+    });
+    clearFilterCheckBoxes();
+    hideApplyBtn();
+    hideClearFiltersBtn();
+}
+/**
  * Hide the settings
  *
  */
@@ -117,7 +258,12 @@ function showHome() {
     hideRecipeCards();
     showCategoryCards();
     hideRecipePage();
+    hideFilters();
     showSearchBar();
+    hideFilterBtns();
+    showSelectedFilters();
+    clearFilterCheckBoxes();
+    clearAllFilters();
     document.getElementById('search-query').value = ''; //clears search result
 }
 
@@ -128,6 +274,10 @@ function showHome() {
 function hideHome() {
     hideCategoryCards();
     hideSearchBar();
+    hideFilters();
+    hideFilterBtns();
+    //hideApplyBtn();
+    hideSelectedFilters();
 }
 
 /**
@@ -179,11 +329,15 @@ function hideCookbooks() {
 }
 
 /**
- * Shoe recipe page
+ * Show recipe page
  *
  */
 function showRecipePage() {
     showTapMode();
+    hideApplyBtn();
+    hideClearFiltersBtn();
+    const filterSection = document.getElementById("test-filter-box");
+    filterSection.style.display = "none";
     const recipePage = document.getElementById("recipe-page-container");
     recipePage.style.visibility = "visible";
     recipePage.style.display = null;
@@ -210,6 +364,10 @@ function showRecipeCards() {
     const recipeCards = document.getElementById("recipe-card-container");
     recipeCards.style.visibility = "visible";
     recipeCards.style.display = null;
+
+    const filterSection = document.getElementById("test-filter-box");
+    filterSection.style.display = "";
+
 }
 
 /**
@@ -242,8 +400,179 @@ function hideCategoryCards() {
     categoryCards.style.display = "none";
 }
 
+
+function showFiltersContent() {
+    const filters = document.getElementById("filters-content");
+    filters.style.display = "flex";
+}
+
 /**
- * Toggle the email share recipe modal
+ * This function hides the filter drop down menus
+ *
+ */
+function hideFilters() {
+    const filters = document.getElementById("filters-content");
+    // filters.style.visibility = "hidden";
+    filters.style.display = "none";
+    const diet = document.getElementById("diet-filter");
+    diet.style.visibility = "hidden";
+    const cuisine = document.getElementById("cuisine-filter");
+    cuisine.style.visibility = "hidden";
+    const time = document.getElementById("time-filter");
+    time.style.visibility = "hidden";
+    const meal = document.getElementById("meal-filter");
+    meal.style.visibility = "hidden";
+
+    if ($dietFilterVisibility !== "hidden") {
+        toggleDietFilters();
+    }
+
+    if ($cuisineFilterVisibility !== "hidden") {
+        toggleCuisineFilters();
+    }
+
+    if ($timeFilterVisibility !== "hidden") {
+        toggleTimeFilters();
+    }
+
+    if ($mealTypeFilterVisibility !== "hidden") {
+        toggleMealTypeFilters();
+    }
+}
+
+/**
+ * This function hides the filter buttons
+ *
+ */
+function hideFilterBtns() {
+    const filtersBtn = document.getElementById("filters-container");
+    filtersBtn.style.visibility = "hidden";
+    filtersBtn.style.display = "none";
+    const filterText = document.getElementById("filterText");
+    filterText.style.visibility = "hidden";
+    filterText.style.display = "none";
+}
+
+/**
+ * This function shows the filter buttons
+ *
+ */
+function showFilterBtns() {
+    const filtersBtn = document.getElementById("filters-container");
+    filtersBtn.style.visibility = "visible";
+    filtersBtn.style.display = "";
+    const filterText = document.getElementById("filterText");
+    filterText.style.visibility = "visible";
+    filterText.style.display = "";
+
+}
+
+/**
+ * This function shows the apply filters button
+ *
+ */
+function showApplyBtn() {
+    const applyButton = document.getElementById("applyBtn");
+    applyButton.style.visibility = "visible";
+    applyButton.style.display = "";
+    showSelectedFilters();
+    showClearFiltersBtn();
+
+}
+/**
+ * This function hides the apply filters button
+ *
+ */
+function hideApplyBtn() {
+    const applyButton = document.getElementById("applyBtn");
+    applyButton.style.visibility = "hidden";
+    applyButton.style.display = "none";
+    hideClearFiltersBtn();
+}
+
+/**
+ * This function just reveals the clear filters button which should only appear after a filter is selected
+ * in any category
+ */
+function showClearFiltersBtn() {
+    const clearButton = document.getElementById("clear-filters-btn");
+    clearButton.style.visibility = "visible";
+    clearButton.style.display = "";
+}
+
+/**
+ * This function should only be called when no filters are selected, showing, or is on another page like the settings
+ * home, or cookbook page.  Thus the clear filters button should only show when a filter is selected but disappear
+ * all other times
+ */
+function hideClearFiltersBtn() {
+    const clearButton = document.getElementById("clear-filters-btn");
+    clearButton.style.visibility = "hidden";
+    clearButton.style.display = "none";
+}
+
+/**
+ * This function shows the diet filter drop down menu when diet button
+ * is clicked
+ *
+ */
+function showDietFilters() {
+
+    const diet = document.getElementById("diet-filter");
+    diet.style.visibility = "visible";
+}
+
+/**
+ * This function shows the cuisine filter drop down menu when cuisine button
+ * is clicked
+ *
+ */
+function showCuisineFilters() {
+    const cuisine = document.getElementById("cuisine-filter");
+    cuisine.style.visibility = "visible";
+}
+
+/**
+ * This function shows the time filter drop down menu when time button
+ * is clicked
+ *
+ */
+function showTimeFilters() {
+    const time = document.getElementById("time-filter");
+    time.style.visibility = "visible";
+}
+
+/**
+ * This function shows the meal filter drop down menu when meal button
+ * is clicked
+ *
+ */
+function showMealFilters() {
+    const meal = document.getElementById("meal-filter");
+    meal.style.visibility = "visible";
+}
+
+/**
+ * This function hides the selected filters container
+ *
+ */
+function hideSelectedFilters() {
+    const selectedFilters = document.getElementById("selected-filters-container");
+    selectedFilters.style.visibility = "hidden";
+    selectedFilters.style.display = "none";
+}
+
+/**
+ * This function shows the selected filters container
+ *
+ */
+function showSelectedFilters() {
+    const selectedFilters = document.getElementById("selected-filters-container");
+    selectedFilters.style.visibility = "visible";
+    selectedFilters.style.display = "";
+}
+
+/* Toggle the email share recipe modal
  *
  */
 function toggleShareRecipeModal() {
@@ -326,6 +655,7 @@ function updateSettings() {
     alert("your preferences have been updated");
 }
 
+// TODO: Add a warning before removing bookmark ("Are you sure to you want to remove this from your Cookbooks? All local edits to the recipe will be lost")
 /**
  * This function check if the recurrent recipe has been whether saved or not.
  * If the data has been saved, display bookmark and edit recipe,
@@ -389,7 +719,7 @@ function showCookBookMenu() {
         cookbooks.forEach(cb => appendNewCookBook(cb));
         toggleSaveCookBook();
     }
-    else if (confirm("⚠ Removing this recipe from your Saved Cookbooks will cause all of its local edits to this to be lost. 👀 ")) {
+    else if (confirm("⚠ Removing recipes from your Saved Cookbooks will cause all local edits to be lost. 👀 ")) {
         try {
             // remove recipe data from local storage and cook book
             const Data = document.querySelector("recipe-page").data;
@@ -685,7 +1015,6 @@ window.emailRecipe = emailRecipe;
 function showSavedRecipe() {
     let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
     const container = document.getElementById("cookbook-container");
-    if (cookbooks == null || cookbooks == undefined) { cookbooks = ["Favorites"]; }
     let copy = cookbooks;
     for (let i = 0; i < Object.keys(cookbooks).length; i++) {
         let current = JSON.parse(localStorage.getItem(cookbooks[i]));
@@ -718,6 +1047,8 @@ function showSavedRecipe() {
         removeCookBookButton.setAttribute("name", cookbooks[i]);
         removeCookBookButton.classList.add("remove-cookbook-button");
         addRemoveCookBook(removeCookBookButton);
+
+
 
         let holder = document.createElement("button");
         holder.classList.add("cookbook-name");
