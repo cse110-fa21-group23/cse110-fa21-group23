@@ -28,8 +28,8 @@ class RecipePage extends HTMLElement {
         text-align: center; 
         justify-content: center;
         width: 100%;
-        margin-top: 20px;
-        margin-bottom: 20px;
+        margin-top: 5px;
+        margin-bottom: 10px;
       }
 
       #print {
@@ -60,6 +60,11 @@ class RecipePage extends HTMLElement {
       #bookmark:hover{
         transform: scale(1.05,1.05);
         transition: all 0.3s ease-out;
+      }
+
+      .header h2, .header h3 {
+        margin: 0px;
+        font-weight: 300;
       }
 
       @media (min-width: 750px) {      
@@ -307,6 +312,7 @@ class RecipePage extends HTMLElement {
         <h1 id="recipe-title"></h1>
         <img id="bookmark" class="noprint" onclick="showCookBookMenu()" src="./img/icons/bookmark-empty.svg" name="bookmark-empty" width="56" height="56">
         <h2 id="serving-size"></h2>
+        <h3 id="ready-time"><h3>
         </header>
       <div class="edit-recipe hidden">
         <span onclick="load()">Edit <img src="./img/icons/pencil.svg" alt="pencil" width="20" height="20"> </span>
@@ -346,6 +352,7 @@ class RecipePage extends HTMLElement {
     this.shadowRoot.querySelector(".dish-image > img").src = data["image"];
     this.shadowRoot.querySelector(".header > h1").innerHTML = data["title"];
     this.shadowRoot.querySelector(".header > h2").textContent = "Serving Size: " + data["servings"];
+    this.shadowRoot.querySelector(".header > #ready-time").textContent = "Estimated Ready Time: " + data["readyInMinutes"] + " minutes";
 
     //get ingredient list
     const ingredients = getIngredients(data);
@@ -401,7 +408,8 @@ class RecipePage extends HTMLElement {
       "image": data["image"],
       "ingredients": ingredients,
       "instructions": instructions,
-      "servings": data["servings"]
+      "servings": data["servings"],
+      "readyInMinutes": data["readyInMinutes"]
     }
     this.json = replicateData;
   }
