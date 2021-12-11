@@ -25,3 +25,4 @@ For grading purposes, if the site encounters a 402 error, please contact Nhi on 
 ### [Documentation](https://github.com/cse110-fa21-group23/cse110-fa21-group23/tree/main/specs)
 - **[ADRs](https://github.com/cse110-fa21-group23/cse110-fa21-group23/tree/main/specs/adrs)**
 - **[Local Storage](https://github.com/cse110-fa21-group23/cse110-fa21-group23/tree/main/specs/storage)**
+- **[JSDocs](https://cse110-fa21-group23.github.io/cse110-fa21-group23/source/scripts/jsdocs/index.html)**
