@@ -1129,7 +1129,7 @@ function clearSavedRecipe() {
 
 /**
  * This function removes recipe from a cookbook
- * @param {HTML element} button 
+ * @param {HTMLElement} button the button that removes the recipe
  */
 function addRemoveRecipe(button) {
     button.addEventListener("click", () => {
@@ -1146,7 +1146,7 @@ function addRemoveRecipe(button) {
 
 /**
  * This function removes a cookbook from cookbook List
- * @param {HTML element} button 
+ * @param {HTMLElement} button the button that adds the cookbook
  */
 function addRemoveCookBook(button) {
     button.addEventListener("click", () => {

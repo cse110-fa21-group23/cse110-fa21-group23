@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: Router.js</title>
+    <title>JSDoc: Source: Filter.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: Router.js</h1>
+    <h1 class="page-title">Source: Filter.js</h1>
 
     
 
@@ -26,61 +26,95 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>// Router.js
-export class Router {
-    /**
-     * Creates an instance of Router.
-     * @param {*} homeFunction
-     * @memberof Router
-     */
-    constructor(homeFunction) {
-      this["home"] = homeFunction;
-    }
-  
-    /**
-     * Adds a page to the router
-     *
-     * @param {String} page the page to add
-     * @param {Function} pageFunction the page function to call
-     * @memberof Router
-     */
-    addPage(page, pageFunction) {
-      this[page] = pageFunction;
-    }
-    
-    /**
-     * Navigtes to the page
-     *
-     * @param {String} page the page to navigate to
-     * @param {Boolean} statePopped whether this page has been popped
-     * @return {*} no return call
-     * @memberof Router
-     */
-    navigate(page, statePopped) {
+            <pre class="prettyprint source linenums"><code>class Filter extends HTMLElement {
 
-  
-      if(!this[page]){
-        console.log('Error: function does not exist');
-        return;
-      }
-  
-      let hash;
-  
-      if(page === "home"){
-        hash = "";
-      }
-      else{
-        hash = "#" + page;
-      }
-  
-      if(statePopped === false &amp;&amp; window.location.hash !== hash){
-        window.history.pushState(page, "", window.location.pathname + hash); 
-      }
-  
-      this[page].call();
-  
+    /**
+     * Creates an instance of Filter.
+     * @memberof Filter
+     */
+    constructor() {
+        super();
+        this.attachShadow({ mode: "open" });
+
     }
-  }</code></pre>
+
+    //getting the data to set the image and the name of the category card.
+    /**
+     * Sets data for a filter
+     *
+     * @memberof Filter
+     */
+    set data(data) {
+
+        const styleElem = document.createElement("style");
+        const styles = `
+        * {
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary);
+            margin: 0;
+            padding: 0;
+        }
+
+        article {
+            display: flex;
+            justify-content: center;
+            background-color: var(--primary);
+            height: fit-content;
+            padding: 1px 10px;
+            border-radius: 20px;
+            border-color: var(--primary);
+            margin: 5px 10px;
+        }
+
+        article > button{
+            color: white;
+            font-size: 1rem;
+        }
+
+        p {
+            font-size: 1rem;
+            color: var(--background-color);
+        }
+
+        @media (max-width: 750px) {
+            article {
+                margin-left: 3px;   
+                padding: 5px;  
+                border-radius: 20px;
+            }
+    
+            article > button{
+                font-size: 12px;
+            }
+    
+            p {
+                font-size: 12px;
+            }
+
+          }
+    `;
+
+        styleElem.innerHTML = styles;
+
+        const filter = document.createElement("article");
+
+        const titleText = data;
+        //creating the title element for the card
+        const title = document.createElement("p");
+        title.innerHTML = titleText;
+        // const exit = document.createElement("button");
+        // exit.innerHTML = "X";
+        //appending the image and the title to the card element
+        filter.appendChild(title);
+        //filter.append(exit);
+        this.shadowRoot.append(styleElem, filter);
+    }
+
+
+}
+
+//defining the custom element category-card using the Category Card class 
+customElements.define("filter-card", Filter);</code></pre>
         </article>
     </section>
 

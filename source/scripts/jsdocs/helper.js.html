@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: Router.js</title>
+    <title>JSDoc: Source: helper.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: Router.js</h1>
+    <h1 class="page-title">Source: helper.js</h1>
 
     
 
@@ -26,61 +26,28 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>// Router.js
-export class Router {
-    /**
-     * Creates an instance of Router.
-     * @param {*} homeFunction
-     * @memberof Router
-     */
-    constructor(homeFunction) {
-      this["home"] = homeFunction;
-    }
-  
-    /**
-     * Adds a page to the router
-     *
-     * @param {String} page the page to add
-     * @param {Function} pageFunction the page function to call
-     * @memberof Router
-     */
-    addPage(page, pageFunction) {
-      this[page] = pageFunction;
-    }
-    
-    /**
-     * Navigtes to the page
-     *
-     * @param {String} page the page to navigate to
-     * @param {Boolean} statePopped whether this page has been popped
-     * @return {*} no return call
-     * @memberof Router
-     */
-    navigate(page, statePopped) {
+            <pre class="prettyprint source linenums"><code>//HELPER FUNCTIONS
+/**
+ * Extract needed info of all recipes fetched as an array 
+ * 
+ * @param {Object} data the data of the recipe card
+ * @returns {Object} {{diets1,id1,image1,title1},{diets2,id2,image2,title2},...}
+ */
+ function getRecipeCardInfo(data) {
+  if(data === null || data === undefined) return [];
+  const recipes = [];
+  for (let i = 0; i &lt; data.length; i++) {
+      const result = {};
+      result["id"] = data[i]["id"];
+      result["title"] = data[i]["title"];
+      result["image"] = data[i]["image"];
+      result["diets"] = data[i]["diets"];
+      recipes[i] = result;
+  }
+  return recipes;
+}
 
-  
-      if(!this[page]){
-        console.log('Error: function does not exist');
-        return;
-      }
-  
-      let hash;
-  
-      if(page === "home"){
-        hash = "";
-      }
-      else{
-        hash = "#" + page;
-      }
-  
-      if(statePopped === false &amp;&amp; window.location.hash !== hash){
-        window.history.pushState(page, "", window.location.pathname + hash); 
-      }
-  
-      this[page].call();
-  
-    }
-  }</code></pre>
+module.exports = getRecipeCardInfo;</code></pre>
         </article>
     </section>
 

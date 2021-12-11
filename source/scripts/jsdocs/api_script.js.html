@@ -26,7 +26,9 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
+            <pre class="prettyprint source linenums"><code>import SPOONACULAR_API_KEY from "./apikey.js";
+
+/**
  * How to use:
     After DATA is initialized automatically:
     inside init() function, under "await fetchRecipes();":
@@ -37,16 +39,10 @@
     NOTE 3:main link https://spoonacular.com/food-api/docs#Search-Recipes-Complex
  */
 
-
 //Set API_URL
 const MAIN_API_URL = "https://api.spoonacular.com/recipes";
-const API_KEY = "&amp;apiKey=4d936c811cda46879d4749def6bb36a1&amp;";
-// API_KEY5: dd38d96d1f5d410f9bf7bfcef6cede83
-// API_KEY4 (Nhi): 8aaa6b0816db4a99b92e7852d125a9aa
-// API_KEY3 (Nhi): c8f83bb3a9af4355b12de10250b24c88
-// API_KEY2 (Nhi): fafd5e810c304ed3b4f9984672cb21ee
-// API_KEY1: 4d936c811cda46879d4749def6bb36a1
-// API_KEY0: 43d05cc71ec2491aa7e76580fce53779
+const API_KEY = SPOONACULAR_API_KEY;
+
 
 /**
  * Fetch the recipes for the search page
@@ -65,6 +61,7 @@ async function fetchRecipes(queries, callbackFn) {
         fetch(url)
             .then((response) => response.json())
             .then(data => {
+
                 const recipes = getRecipeCardInfo(data.results);
                 callbackFn(data.results);
                 resolve(true);
@@ -83,7 +80,7 @@ async function fetchRecipes(queries, callbackFn) {
  * @param {Array} data an array of data for a recipe card
  * @return {Array} an array of extracted data for a recipe card
  */
-function getRecipeCardInfo(data) {
+ function getRecipeCardInfo(data) {
     const recipes = [];
     for (let i = 0; i &lt; data.length; i++) {
         const result = {};
@@ -94,7 +91,7 @@ function getRecipeCardInfo(data) {
         recipes[i] = result;
     }
     return recipes;
-}
+  }
 
 export { fetchRecipes };
 
@@ -109,13 +106,13 @@ export { fetchRecipes };
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CategoryCard.CategoryCard.html">CategoryCard</a></li><li><a href="RecipeCard.RecipeCard.html">RecipeCard</a></li><li><a href="RecipePage.RecipePage.html">RecipePage</a></li><li><a href="Router.exports.Router.html">exports.Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMoreIngredients">addMoreIngredients</a></li><li><a href="global.html#addMoreInstructions">addMoreInstructions</a></li><li><a href="global.html#addNewCookBook">addNewCookBook</a></li><li><a href="global.html#appendNewCookBook">appendNewCookBook</a></li><li><a href="global.html#bindAll">bindAll</a></li><li><a href="global.html#bindAppNameClick">bindAppNameClick</a></li><li><a href="global.html#bindCategoryCards">bindCategoryCards</a></li><li><a href="global.html#bindCookbookPage">bindCookbookPage</a></li><li><a href="global.html#bindHomePage">bindHomePage</a></li><li><a href="global.html#bindNewCookBook">bindNewCookBook</a></li><li><a href="global.html#bindPopState">bindPopState</a></li><li><a href="global.html#bindSettingsPage">bindSettingsPage</a></li><li><a href="global.html#checkBookMark">checkBookMark</a></li><li><a href="global.html#clearCheckBoxes">clearCheckBoxes</a></li><li><a href="global.html#createCategoryCards">createCategoryCards</a></li><li><a href="global.html#fetchRecipes">fetchRecipes</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getInstructions">getInstructions</a></li><li><a href="global.html#getRecipeCardInfo">getRecipeCardInfo</a></li><li><a href="global.html#getSingleInstr">getSingleInstr</a></li><li><a href="global.html#hideCategoryCards">hideCategoryCards</a></li><li><a href="global.html#hideCookbooks">hideCookbooks</a></li><li><a href="global.html#hideEditRecipe">hideEditRecipe</a></li><li><a href="global.html#hideHome">hideHome</a></li><li><a href="global.html#hideRecipeCards">hideRecipeCards</a></li><li><a href="global.html#hideRecipePage">hideRecipePage</a></li><li><a href="global.html#hideSearchBar">hideSearchBar</a></li><li><a href="global.html#hideSettings">hideSettings</a></li><li><a href="global.html#hideTapMode">hideTapMode</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#load">load</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchByCategory">searchByCategory</a></li><li><a href="global.html#showBookMarkEditReipce">showBookMarkEditReipce</a></li><li><a href="global.html#showCategoryCards">showCategoryCards</a></li><li><a href="global.html#showCookBookMenu">showCookBookMenu</a></li><li><a href="global.html#showCookbooks">showCookbooks</a></li><li><a href="global.html#showEditRecipe">showEditRecipe</a></li><li><a href="global.html#showHome">showHome</a></li><li><a href="global.html#showRecipeCards">showRecipeCards</a></li><li><a href="global.html#showRecipePage">showRecipePage</a></li><li><a href="global.html#showSearchBar">showSearchBar</a></li><li><a href="global.html#showSettings">showSettings</a></li><li><a href="global.html#showTapMode">showTapMode</a></li><li><a href="global.html#submit">submit</a></li><li><a href="global.html#sum">sum</a></li><li><a href="global.html#toggleEditRecipe">toggleEditRecipe</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#toggleSaveCookBook">toggleSaveCookBook</a></li><li><a href="global.html#toggleTapMode">toggleTapMode</a></li><li><a href="global.html#updateSettings">updateSettings</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CategoryCard.CategoryCard.html">CategoryCard</a></li><li><a href="Filter.Filter.html">Filter</a></li><li><a href="RecipeCard.RecipeCard.html">RecipeCard</a></li><li><a href="RecipePage.RecipePage.html">RecipePage</a></li><li><a href="Router.exports.Router.html">exports.Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMoreIngredients">addMoreIngredients</a></li><li><a href="global.html#addMoreInstructions">addMoreInstructions</a></li><li><a href="global.html#addNewCookBook">addNewCookBook</a></li><li><a href="global.html#addRemoveCookBook">addRemoveCookBook</a></li><li><a href="global.html#addRemoveRecipe">addRemoveRecipe</a></li><li><a href="global.html#appendNewCookBook">appendNewCookBook</a></li><li><a href="global.html#bindAll">bindAll</a></li><li><a href="global.html#bindAppNameClick">bindAppNameClick</a></li><li><a href="global.html#bindCategoryCards">bindCategoryCards</a></li><li><a href="global.html#bindCookbookPage">bindCookbookPage</a></li><li><a href="global.html#bindCuisineFilters">bindCuisineFilters</a></li><li><a href="global.html#bindDietFilters">bindDietFilters</a></li><li><a href="global.html#bindHomePage">bindHomePage</a></li><li><a href="global.html#bindMealFilters">bindMealFilters</a></li><li><a href="global.html#bindNewCookBook">bindNewCookBook</a></li><li><a href="global.html#bindPopState">bindPopState</a></li><li><a href="global.html#bindSettingsPage">bindSettingsPage</a></li><li><a href="global.html#bindTimeFilters">bindTimeFilters</a></li><li><a href="global.html#checkBookMark">checkBookMark</a></li><li><a href="global.html#clearAllFilters">clearAllFilters</a></li><li><a href="global.html#clearCheckBoxes">clearCheckBoxes</a></li><li><a href="global.html#clearFilterCheckBoxes">clearFilterCheckBoxes</a></li><li><a href="global.html#createCategoryCards">createCategoryCards</a></li><li><a href="global.html#createFilters">createFilters</a></li><li><a href="global.html#emailRecipe">emailRecipe</a></li><li><a href="global.html#fetchRecipes">fetchRecipes</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getInstructions">getInstructions</a></li><li><a href="global.html#getRecipeCardInfo">getRecipeCardInfo</a></li><li><a href="global.html#hideApplyBtn">hideApplyBtn</a></li><li><a href="global.html#hideCategoryCards">hideCategoryCards</a></li><li><a href="global.html#hideClearFiltersBtn">hideClearFiltersBtn</a></li><li><a href="global.html#hideCookbooks">hideCookbooks</a></li><li><a href="global.html#hideEditRecipe">hideEditRecipe</a></li><li><a href="global.html#hideFilterBtns">hideFilterBtns</a></li><li><a href="global.html#hideFilters">hideFilters</a></li><li><a href="global.html#hideHome">hideHome</a></li><li><a href="global.html#hideRecipeCards">hideRecipeCards</a></li><li><a href="global.html#hideRecipePage">hideRecipePage</a></li><li><a href="global.html#hideSearchBar">hideSearchBar</a></li><li><a href="global.html#hideSelectedFilters">hideSelectedFilters</a></li><li><a href="global.html#hideSettings">hideSettings</a></li><li><a href="global.html#hideTapMode">hideTapMode</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#load">load</a></li><li><a href="global.html#MAIN_API_URL">MAIN_API_URL</a></li><li><a href="global.html#printRecipe">printRecipe</a></li><li><a href="global.html#removeIngredient">removeIngredient</a></li><li><a href="global.html#removeInstruction">removeInstruction</a></li><li><a href="global.html#removeRecipe">removeRecipe</a></li><li><a href="global.html#resetFilters">resetFilters</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchByCategory">searchByCategory</a></li><li><a href="global.html#searchByFilter">searchByFilter</a></li><li><a href="global.html#showApplyBtn">showApplyBtn</a></li><li><a href="global.html#showBookMarkEditReipce">showBookMarkEditReipce</a></li><li><a href="global.html#showCategoryCards">showCategoryCards</a></li><li><a href="global.html#showClearFiltersBtn">showClearFiltersBtn</a></li><li><a href="global.html#showCookBookMenu">showCookBookMenu</a></li><li><a href="global.html#showCookbooks">showCookbooks</a></li><li><a href="global.html#showCuisineFilters">showCuisineFilters</a></li><li><a href="global.html#showDietFilters">showDietFilters</a></li><li><a href="global.html#showEditRecipe">showEditRecipe</a></li><li><a href="global.html#showFilterBtns">showFilterBtns</a></li><li><a href="global.html#showHome">showHome</a></li><li><a href="global.html#showMealFilters">showMealFilters</a></li><li><a href="global.html#showRecipeCards">showRecipeCards</a></li><li><a href="global.html#showRecipePage">showRecipePage</a></li><li><a href="global.html#showSearchBar">showSearchBar</a></li><li><a href="global.html#showSelectedFilters">showSelectedFilters</a></li><li><a href="global.html#showSettings">showSettings</a></li><li><a href="global.html#showTapMode">showTapMode</a></li><li><a href="global.html#showTimeFilters">showTimeFilters</a></li><li><a href="global.html#submit">submit</a></li><li><a href="global.html#tapMode">tapMode</a></li><li><a href="global.html#toggleCuisineFilters">toggleCuisineFilters</a></li><li><a href="global.html#toggleDietFilters">toggleDietFilters</a></li><li><a href="global.html#toggleEditRecipe">toggleEditRecipe</a></li><li><a href="global.html#toggleMealTypeFilters">toggleMealTypeFilters</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#toggleSaveCookBook">toggleSaveCookBook</a></li><li><a href="global.html#toggleTapMode">toggleTapMode</a></li><li><a href="global.html#toggleTimeFilters">toggleTimeFilters</a></li><li><a href="global.html#updateSettings">updateSettings</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Nov 29 2021 17:51:46 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Fri Dec 10 2021 20:12:18 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

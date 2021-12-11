@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <title>JSDoc: Source: main.js</title>
@@ -16,25 +15,30 @@
 
 <body>
 
-    <div id="main">
+<div id="main">
 
-        <h1 class="page-title">Source: main.js</h1>
+    <h1 class="page-title">Source: main.js</h1>
 
-
-
-
+    
 
 
-        <section>
-            <article>
-                <pre class="prettyprint source linenums"><code>var $SOMenuVisibility = "hidden";
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>var $SOMenuVisibility = "hidden";
 var $tapModeVisibility = "hidden";
+var $dietFilterVisibility = "hidden";
+var $timeFilterVisibility = "hidden";
+var $mealTypeFilterVisibility = "hidden";
+var $cuisineFilterVisibility = "hidden";
 
 /**
  * Toggles the Menu list
  *
  */
 function toggleMenu() {
+
     var menuIcon = document.getElementById("menu-icon");
     menuIcon.classList.toggle("change");
 
@@ -50,6 +54,105 @@ function toggleMenu() {
     }
 }
 
+/**
+ * Function to toggle the diet filters each time the diet button is clicked
+ *
+ */
+function toggleDietFilters() {
+    let dietIcon = document.getElementById("dietIcon");
+    dietIcon.classList.toggle("filterArrowIcon");
+    let dietBtn = document.getElementById("dietBtn");
+    dietBtn.classList.toggle("clickedFiltersBtn");
+    let dropDownMenu = document.getElementById("diet-filter");
+
+    if ($dietFilterVisibility == "hidden") {
+        const getDietaryRestrictions = JSON.parse(localStorage.getItem('dietaryRestrictions'));
+        if (getDietaryRestrictions &amp;&amp; getDietaryRestrictions.length !== 0) {
+            alert("Choosing a diet filter will override your diet restrictions in settings");
+        }
+        $dietFilterVisibility = "visible";
+        dropDownMenu.style.visibility = "visible";
+        showFiltersContent();
+    }
+    else {
+        $dietFilterVisibility = "hidden";
+        dropDownMenu.style.visibility = "hidden";
+        hideFilters();
+    }
+}
+
+/**
+ * Function to toggle the cuisine filters each time the cuisine button is clicked
+ *
+ */
+function toggleCuisineFilters() {
+    let cuisineIcon = document.getElementById("cuisineIcon");
+    cuisineIcon.classList.toggle("filterArrowIcon");
+    let cuisineBtn = document.getElementById("cuisineBtn");
+    cuisineBtn.classList.toggle("clickedFiltersBtn");
+    let dropDownMenu = document.getElementById("cuisine-filter");
+
+    if ($cuisineFilterVisibility == "hidden") {
+        $cuisineFilterVisibility = "visible";
+        dropDownMenu.style.visibility = "visible";
+        showFiltersContent();
+    }
+    else {
+        $cuisineFilterVisibility = "hidden";
+        dropDownMenu.style.visibility = "hidden";
+        hideFilters();
+    }
+}
+
+/**
+ * Function to toggle the time filters each time the time button is clicked
+ *
+ */
+function toggleTimeFilters() {
+    let timeFilter = document.getElementById("timeIcon");
+    timeFilter.classList.toggle("filterArrowIcon");
+    let timeBtn = document.getElementById("timeBtn");
+    timeBtn.classList.toggle("clickedFiltersBtn");
+    let dropDownMenu = document.getElementById("time-filter");
+
+    if ($timeFilterVisibility == "hidden") {
+        $timeFilterVisibility = "visible";
+        dropDownMenu.style.visibility = "visible";
+        showFiltersContent();
+
+    }
+    else {
+        $timeFilterVisibility = "hidden";
+        dropDownMenu.style.visibility = "hidden";
+        hideFilters();
+
+    }
+}
+
+/**
+ * Function to toggle the meal filters each time the meal button is clicked
+ *
+ */
+function toggleMealTypeFilters() {
+    let mealFilter = document.getElementById("mealIcon");
+    mealFilter.classList.toggle("filterArrowIcon");
+    let mealBtn = document.getElementById("mealBtn");
+    mealBtn.classList.toggle("clickedFiltersBtn");
+    let dropDownMenu = document.getElementById("meal-filter");
+
+    if ($mealTypeFilterVisibility == "hidden") {
+        $mealTypeFilterVisibility = "visible";
+        dropDownMenu.style.visibility = "visible";
+        showFiltersContent();
+    }
+    else {
+        $mealTypeFilterVisibility = "hidden";
+        dropDownMenu.style.visibility = "hidden";
+        hideFilters();
+    }
+}
+
+
 // this function is being called from scripts.js, ignore the Codacy error :D
 /**
  * Toggles Tap Mode
@@ -57,14 +160,18 @@ function toggleMenu() {
  */
 function toggleTapMode() {
     const tapModeButton = document.getElementById("tap-mode-button");
-
     if (tapModeButton.innerHTML == "Leave Tap Mode") {
         tapModeButton.innerHTML = "Enter Tap Mode";
         $tapModeVisibility = "hidden";
+        tapModeButton.style.backgroundColor = "var(--background-color)";
+        tapModeButton.style.color = "var(--primary)";
+
     }
     else {
         tapModeButton.innerHTML = "Leave Tap Mode";
         $tapModeVisibility = "visible";
+        tapModeButton.style.backgroundColor = "var(--primary)";
+        tapModeButton.style.color = "var(--background-color)";
     }
 
 }
@@ -76,8 +183,10 @@ function toggleTapMode() {
 function showSettings() {
     hideHome();
     hideCookbooks();
+    clearSavedRecipe();
     hideRecipeCards();
     hideRecipePage();
+    hideApplyBtn();
     const settings = document.getElementById("settings-container");
     settings.style.visibility = "visible";
     settings.style.display = null;
@@ -117,6 +226,45 @@ function clearCheckBoxes() {
 }
 
 /**
+ * Clears check boxes in the filter drop down menus
+ *
+ */
+function clearFilterCheckBoxes() {
+    let diets = document.getElementsByName("diet-radio");
+    let cuisines = document.getElementsByName("cuisine-radio");
+    let mealtypes = document.getElementsByName("meal-radio");
+    let time = document.getElementsByName("time-radio");
+    diets.forEach((e) => e.checked = false);
+    cuisines.forEach((e) => e.checked = false);
+    mealtypes.forEach((e) => e.checked = false);
+    time.forEach((e) => e.checked = false);
+}
+
+/**
+ * This function removes all the filter cards in order to display new ones
+ * each time a user selects a new filter
+ *
+ */
+function resetFilters() {
+    document.querySelectorAll("filter-card").forEach(function (filters) {
+        filters.remove();
+    });
+}
+
+/**
+ * This function removes all the filter cards and clears all checkboxes
+ * 
+ *
+ */
+function clearAllFilters() {
+    document.querySelectorAll("filter-card").forEach(function (elem) {
+        elem.remove();
+    });
+    clearFilterCheckBoxes();
+    hideApplyBtn();
+    hideClearFiltersBtn();
+}
+/**
  * Hide the settings
  *
  */
@@ -134,10 +282,16 @@ function hideSettings() {
 function showHome() {
     hideSettings();
     hideCookbooks();
+    clearSavedRecipe();
     hideRecipeCards();
     showCategoryCards();
     hideRecipePage();
+    hideFilters();
     showSearchBar();
+    hideFilterBtns();
+    showSelectedFilters();
+    clearFilterCheckBoxes();
+    clearAllFilters();
     document.getElementById('search-query').value = ''; //clears search result
 }
 
@@ -148,6 +302,10 @@ function showHome() {
 function hideHome() {
     hideCategoryCards();
     hideSearchBar();
+    hideFilters();
+    hideFilterBtns();
+    //hideApplyBtn();
+    hideSelectedFilters();
 }
 
 /**
@@ -182,8 +340,10 @@ function showCookbooks() {
     const cookbook = document.getElementById("cookbook-container");
     cookbook.style.visibility = "visible";
     cookbook.style.display = null;
+
     document.querySelector("body > main > div.box").style.display = "none";
 }
+
 
 /**
  * Hide cookbooks page
@@ -197,11 +357,15 @@ function hideCookbooks() {
 }
 
 /**
- * Shoe recipe page
+ * Show recipe page
  *
  */
 function showRecipePage() {
     showTapMode();
+    hideApplyBtn();
+    hideClearFiltersBtn();
+    const filterSection = document.getElementById("test-filter-box");
+    filterSection.style.display = "none";
     const recipePage = document.getElementById("recipe-page-container");
     recipePage.style.visibility = "visible";
     recipePage.style.display = null;
@@ -228,6 +392,10 @@ function showRecipeCards() {
     const recipeCards = document.getElementById("recipe-card-container");
     recipeCards.style.visibility = "visible";
     recipeCards.style.display = null;
+
+    const filterSection = document.getElementById("test-filter-box");
+    filterSection.style.display = "";
+
 }
 
 /**
@@ -258,6 +426,209 @@ function hideCategoryCards() {
     const categoryCards = document.getElementById("category-wrapper");
     categoryCards.style.visibility = "hidden";
     categoryCards.style.display = "none";
+}
+
+
+function showFiltersContent() {
+    const filters = document.getElementById("filters-content");
+    filters.style.display = "flex";
+}
+
+/**
+ * This function hides the filter drop down menus
+ *
+ */
+function hideFilters() {
+    const filters = document.getElementById("filters-content");
+    // filters.style.visibility = "hidden";
+    filters.style.display = "none";
+    const diet = document.getElementById("diet-filter");
+    diet.style.visibility = "hidden";
+    const cuisine = document.getElementById("cuisine-filter");
+    cuisine.style.visibility = "hidden";
+    const time = document.getElementById("time-filter");
+    time.style.visibility = "hidden";
+    const meal = document.getElementById("meal-filter");
+    meal.style.visibility = "hidden";
+
+    if ($dietFilterVisibility !== "hidden") {
+        toggleDietFilters();
+    }
+
+    if ($cuisineFilterVisibility !== "hidden") {
+        toggleCuisineFilters();
+    }
+
+    if ($timeFilterVisibility !== "hidden") {
+        toggleTimeFilters();
+    }
+
+    if ($mealTypeFilterVisibility !== "hidden") {
+        toggleMealTypeFilters();
+    }
+}
+
+/**
+ * This function hides the filter buttons
+ *
+ */
+function hideFilterBtns() {
+    const filtersBtn = document.getElementById("filters-container");
+    filtersBtn.style.visibility = "hidden";
+    filtersBtn.style.display = "none";
+    const filterText = document.getElementById("filterText");
+    filterText.style.visibility = "hidden";
+    filterText.style.display = "none";
+}
+
+/**
+ * This function shows the filter buttons
+ *
+ */
+function showFilterBtns() {
+    const filtersBtn = document.getElementById("filters-container");
+    filtersBtn.style.visibility = "visible";
+    filtersBtn.style.display = "";
+    const filterText = document.getElementById("filterText");
+    filterText.style.visibility = "visible";
+    filterText.style.display = "";
+
+}
+
+/**
+ * This function shows the apply filters button
+ *
+ */
+function showApplyBtn() {
+    const applyButton = document.getElementById("applyBtn");
+    applyButton.style.visibility = "visible";
+    applyButton.style.display = "";
+    showSelectedFilters();
+    showClearFiltersBtn();
+
+}
+/**
+ * This function hides the apply filters button
+ *
+ */
+function hideApplyBtn() {
+    const applyButton = document.getElementById("applyBtn");
+    applyButton.style.visibility = "hidden";
+    applyButton.style.display = "none";
+    hideClearFiltersBtn();
+}
+
+/**
+ * This function just reveals the clear filters button which should only appear after a filter is selected
+ * in any category
+ */
+function showClearFiltersBtn() {
+    const clearButton = document.getElementById("clear-filters-btn");
+    clearButton.style.visibility = "visible";
+    clearButton.style.display = "";
+}
+
+/**
+ * This function should only be called when no filters are selected, showing, or is on another page like the settings
+ * home, or cookbook page.  Thus the clear filters button should only show when a filter is selected but disappear
+ * all other times
+ */
+function hideClearFiltersBtn() {
+    const clearButton = document.getElementById("clear-filters-btn");
+    clearButton.style.visibility = "hidden";
+    clearButton.style.display = "none";
+}
+
+/**
+ * This function shows the diet filter drop down menu when diet button
+ * is clicked
+ *
+ */
+function showDietFilters() {
+
+    const diet = document.getElementById("diet-filter");
+    diet.style.visibility = "visible";
+}
+
+/**
+ * This function shows the cuisine filter drop down menu when cuisine button
+ * is clicked
+ *
+ */
+function showCuisineFilters() {
+    const cuisine = document.getElementById("cuisine-filter");
+    cuisine.style.visibility = "visible";
+}
+
+/**
+ * This function shows the time filter drop down menu when time button
+ * is clicked
+ *
+ */
+function showTimeFilters() {
+    const time = document.getElementById("time-filter");
+    time.style.visibility = "visible";
+}
+
+/**
+ * This function shows the meal filter drop down menu when meal button
+ * is clicked
+ *
+ */
+function showMealFilters() {
+    const meal = document.getElementById("meal-filter");
+    meal.style.visibility = "visible";
+}
+
+/**
+ * This function hides the selected filters container
+ *
+ */
+function hideSelectedFilters() {
+    const selectedFilters = document.getElementById("selected-filters-container");
+    selectedFilters.style.visibility = "hidden";
+    selectedFilters.style.display = "none";
+}
+
+/**
+ * This function shows the selected filters container
+ *
+ */
+function showSelectedFilters() {
+    const selectedFilters = document.getElementById("selected-filters-container");
+    selectedFilters.style.visibility = "visible";
+    selectedFilters.style.display = "";
+}
+
+/* Toggle the email share recipe modal
+ *
+ */
+function toggleShareRecipeModal() {
+    const setDisplay = (modal, blackout, display) => {
+        modal.style.display = display;
+        modal.style.position = "absolute";
+        modal.style.top = "30%";
+        modal.style.left = "45%";
+        modal.style.margin = "-100px 0 0 -150px";
+        blackout.style.display = display;
+        blackout.style.height = "100vh";
+        blackout.style.position = "fixed";
+    };
+
+    const modal = document.getElementById('send-recipe-email');
+    const blackout = document.getElementById('body-blackout');
+    const cancelModal = document.getElementById("send-recipe-cancel");
+
+    const display = modal.style.display !== "block" ? "block" : "none";
+    setDisplay(modal, blackout, display);
+
+    blackout.onclick = () => {
+        setDisplay(modal, blackout, "none");
+    };
+
+    cancelModal.onclick = () => {
+        setDisplay(modal, blackout, "none");
+    };
 }
 
 /**
@@ -308,7 +679,7 @@ function updateSettings() {
     localStorage.setItem("dietaryRestrictions", JSON.stringify(dietaryRestrictionList));
     localStorage.setItem("intolerancesRestrictions", JSON.stringify(intolerancesRestrictionsList));
 
-    // TODO: add confirmation message in HTML (alert is temporary)
+    //add confirmation message in HTML (alert is temporary)
     alert("your preferences have been updated");
 }
 
@@ -339,16 +710,19 @@ var $SOSaveCookBookMenuVisibility = "hidden";
  */
 function toggleSaveCookBook() {
     var menu = document.querySelector("#save-cookbook-menu");
-
+    const article = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("article");
     if ($SOSaveCookBookMenuVisibility == "hidden") {
         menu.style.transform = "translateY(0%)";
+        menu.style.visibility = "visible";
         $SOSaveCookBookMenuVisibility = "visible";
+        article.style.opacity = 0.35;
     }
     else {
         menu.style.transform = "translateY(100%)";
+        menu.style.visibility = "hidden";
         $SOSaveCookBookMenuVisibility = "hidden";
+        article.style.opacity = null;
     }
-
 }
 
 /**
@@ -367,15 +741,13 @@ function showCookBookMenu() {
 
     let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
     if (bookMark.getAttribute("name") == "bookmark-empty") {
-        let cookbooksList = document.querySelectorAll("#cookbook-lists > ol > li");
-        if (cookbooksList.length == 0) {
-            cookbooks.forEach((cookBook) => {
-                appendNewCookBook(cookBook);
-            });
-        }
+        let cookbooksListHTML = document.querySelectorAll("#cookbook-lists > ol > li");
+        // remove all cookbooks
+        if (cookbooksListHTML.length !== 0) cookbooksListHTML.forEach(cb => cb.remove());
+        cookbooks.forEach(cb => appendNewCookBook(cb));
         toggleSaveCookBook();
     }
-    else if (confirm("Are you sure to remove this recipe?")) {
+    else if (confirm("⚠ Removing recipes from your Saved Cookbooks will cause all local edits to be lost. 👀 ")) {
         try {
             // remove recipe data from local storage and cook book
             const Data = document.querySelector("recipe-page").data;
@@ -388,6 +760,7 @@ function showCookBookMenu() {
             localStorage.removeItem(`ID-${Data["id"]}`);
             bookMark.setAttribute("name", "bookmark-empty");
             bookMark.src = "./img/icons/bookmark-empty.svg";
+            bookMark.title = "Click to save this recipe";
             hideEditRecipe();
         } catch (err) {
             alert("An error has occured: " + err);
@@ -420,16 +793,9 @@ function bindNewCookBook(li) {
             Data["cookbook"] = CookBookName;
             localStorage.setItem(`ID-${Id}`, JSON.stringify(Data));
 
-            // update bookMark icon
-            bookMark.setAttribute("name", "bookmark-filled");
-            bookMark.src = "./img/icons/bookmark-filled.svg";
-
             // alert user
             alert("Added to " + CookBookName + " successful");
-
-            // display edit
-            showEditRecipe();
-
+            showBookMarkEditReipce();
             toggleSaveCookBook(); // close savecookbook menu
         } catch (err) {
             alert("An error has occured" + err);
@@ -537,15 +903,16 @@ var $editRecipeVisibility = "hidden";
  */
 function toggleEditRecipe() {
     const article = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("article");
-    article.style.opacity = 0.35;
     var menu = document.querySelector(".edit-recipe-form");
 
     if ($editRecipeVisibility == "hidden") {
         article.style.opacity = 0.35;
         menu.style.transform = "translateY(10%)";
+        menu.style.visibility = "visible";
         $editRecipeVisibility = "visible";
     } else {
         menu.style.transform = "translateY(-150%)";
+        menu.style.visibility = "hidden";
         article.style.opacity = null;
         $editRecipeVisibility = "hidden";
     }
@@ -562,7 +929,7 @@ function addMoreIngredients(ig = "") {
     let text = document.createElement("input");
     let ingreList = document.querySelector(".edit-recipe-form > .edit-ingredients > ol");
     text.type = "text";
-    text.placeholder = "ingredient / leave blank if not needed";
+    text.placeholder = "ingredient";
     text.value = ig;
     li.appendChild(text);
     ingreList.appendChild(li);
@@ -578,10 +945,26 @@ function addMoreInstructions(ins = "") {
     let text = document.createElement("input");
     let instrList = document.querySelector(".edit-recipe-form > .edit-instructions > ol");
     text.type = "text";
-    text.placeholder = "instruction / leave blank if not needed";
+    text.placeholder = "instruction";
     text.value = ins;
     li.appendChild(text);
     instrList.appendChild(li);
+}
+
+/**
+ * this function removes the last ingredient in the ingredients list
+ */
+function removeIngredient() {
+    let ingreList = document.querySelector(".edit-recipe-form > .edit-ingredients > ol");
+    ingreList.lastChild.remove();
+}
+
+/**
+ * This function removes the last intructions in the instructions list
+ */
+function removeInstruction() {
+    let instrList = document.querySelector(".edit-recipe-form > .edit-instructions > ol");
+    instrList.lastChild.remove();
 }
 
 /**
@@ -630,92 +1013,222 @@ function submit() {
 function showBookMarkEditReipce() {
     let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
     bookMark.src = "./img/icons/bookmark-filled.svg";
+    bookMark.title = "Click to remove this recipe";
     bookMark.setAttribute("name", "bookmark-filled");
     showEditRecipe();
 }
-/* end of Edit Recipe =======================================================*/</code></pre>
-            </article>
-        </section>
+
+/* end save new cookbook ====================================================*/
+
+/* end of Edit Recipe =======================================================*/
+
+/**
+ * Print a recipe from the recipe page
+ */
+function printRecipe() {
+    window.print();
+}
+
+/**
+ * Open the share recipe modal
+ */
+function emailRecipe() {
+    toggleShareRecipeModal();
+}
+
+window.printRecipe = printRecipe;
+window.emailRecipe = emailRecipe;
+
+// show saved recipes in cookbooks, used in script.js
+function showSavedRecipe() {
+    let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
+    const container = document.getElementById("cookbook-container");
+    let copy = cookbooks;
+    for (let i = 0; i &lt; Object.keys(cookbooks).length; i++) {
+        let current = JSON.parse(localStorage.getItem(cookbooks[i]));
+        if (cookbooks[i] != "Favorites") {
+            if (current == null || current.length == 0) {
+                localStorage.removeItem(cookbooks[i]);
+                const index = cookbooks.indexOf(cookbooks[i]);
+                if (index > -1) {
+                    copy.splice(index, 1);
+                    localStorage.setItem("cookbooks", JSON.stringify(copy));
+                    continue;
+                }
+            }
+        }
+        let host = document.createElement("div");
+        let removeCookBookButton = document.createElement("button");
+
+        //  coobook-wrapper
+        let divCookBookWrapper = document.createElement("div");
+        divCookBookWrapper.classList.add("coobook-wrapper");
+        divCookBookWrapper.appendChild(host);
+        if (cookbooks[i] !== "Favorites")
+            divCookBookWrapper.appendChild(removeCookBookButton);
+
+        let list = JSON.parse(localStorage.getItem(cookbooks[i]));
+        host.setAttribute("id", cookbooks[i]);
+
+        // remove-cookbook button
+        removeCookBookButton.innerHTML = "&lt;img src='./source/../img/icons/trashcaninverted.svg'>";
+        removeCookBookButton.setAttribute("name", cookbooks[i]);
+        removeCookBookButton.classList.add("remove-cookbook-button");
+        addRemoveCookBook(removeCookBookButton);
+
+
+
+        let holder = document.createElement("button");
+        holder.classList.add("cookbook-name");
+        holder.innerHTML = '&lt;i class = "fas fa-angle-down"">&lt;/i> ' + cookbooks[i];
+
+        let recipesInCookbook = document.createElement("div");
+        recipesInCookbook.classList.add("recipes-in-cookbook-container");
+
+
+        host.appendChild(holder);
+        host.appendChild(recipesInCookbook);
+        let IDs = [];
+        for (let j = 0; j &lt; list.length; j++) {
+            IDs.push(list[j]);
+        }
+        console.log(cookbooks[i]);
+        for (let m = 0; m &lt; IDs.length; m++) {
+
+            let appended = false;
+            let ID = IDs[m];
+            let uniquedish = JSON.parse(localStorage.getItem(`ID-${ID}`));
+            const element = document.createElement('recipe-card');
+            console.log(uniquedish);
+            element.data = uniquedish;
+            const id = uniquedish["id"];
+
+            // remove button for each recipe
+            let delBt = document.createElement("button");
+            delBt.innerHTML = "&lt;img src='./source/../img/icons/trashcan.svg'>";
+            delBt.setAttribute("name", ID);
+            delBt.classList.add("remove-recipe-button");
+            addRemoveRecipe(delBt);
+
+            // append element and delBT to divWrapper
+            // append div wrapper to RecipesInCookBook
+            let divWrapper = document.createElement("div");
+            divWrapper.classList.add("recipe-cookbook-wrapper");
+            divWrapper.classList.add("hidden");
+            divWrapper.appendChild(element);
+            divWrapper.appendChild(delBt);
+            recipesInCookbook.appendChild(divWrapper);
+
+            element.setAttribute("id", ID);
+            holder.addEventListener('click', e => {
+                if (!appended) {
+                    divWrapper.classList.remove("hidden");
+                    divWrapper.classList.add("show");
+                    appended = true;
+                }
+                else {
+                    divWrapper.classList.remove("show");
+                    divWrapper.classList.add("hidden");
+                    appended = false;
+                }
+            });
+            element.addEventListener('click', e => {
+                if (e.composedPath()[0].nodeName == "A") return;
+                let hash;
+                hash = "#" + id;
+                window.history.pushState(id, "", window.location.pathname + hash);
+                hideCookbooks();
+                clearSavedRecipe();
+                showRecipePage();
+                document.querySelector("recipe-page").data = uniquedish;
+                showBookMarkEditReipce();
+            });
+
+        }
+        container.appendChild(divCookBookWrapper);
+    }
+
+}
+//remove appended recipes when leave cookbook
+function clearSavedRecipe() {
+    const container = document.getElementById("cookbook-container");
+    container.innerHTML = `&lt;h1 class="heading">Saved Cookbooks&lt;/h1>`;
+}
+
+/**
+ * This function removes recipe from a cookbook
+ * @param {HTMLElement} button the button that removes the recipe
+ */
+function addRemoveRecipe(button) {
+    button.addEventListener("click", () => {
+        if (!confirm("⚠ Removing this recipe from your Saved Cookbooks will cause all of its local edits to this to be lost. 👀 "))
+            return;
+        const Id = button.getAttribute("name");
+        let cookbooksRecipe = document.getElementById(Id);
+        cookbooksRecipe.style.display = "none";
+        button.style.display = "none";
+
+        removeRecipe(Id);
+    });
+}
+
+/**
+ * This function removes a cookbook from cookbook List
+ * @param {HTMLElement} button the button that adds the cookbook
+ */
+function addRemoveCookBook(button) {
+    button.addEventListener("click", () => {
+        if (!confirm("Removing this cookbook will cause all of its recipes' local edits to be lost!"))
+            return;
+        const CookBookName = button.getAttribute("name");
+        let CookBookSection = document.getElementById(CookBookName);
+        button.style.display = "none";
+        CookBookSection.style.display = "none";
+
+        let cookBookList = JSON.parse(localStorage.getItem(COOK_BOOKS));
+        let cookBookRecipeList = JSON.parse(localStorage.getItem(CookBookName));
+
+        cookBookRecipeList.forEach(el => removeRecipe(el));
+        const index = cookBookList.indexOf(CookBookName);
+        cookBookList.splice(index, 1);
+        localStorage.removeItem(CookBookName);
+        localStorage.setItem(COOK_BOOKS, JSON.stringify(cookBookList));
+    });
+}
+
+
+/**
+ * This function removes recipe from localstorage
+ * @param {string} Id of recipe
+ */
+function removeRecipe(Id) {
+    const RecipeInStorage = JSON.parse(localStorage.getItem(`ID-${Id}`));
+    const CookBook = RecipeInStorage["cookbook"];
+    let savedCookBook = JSON.parse(localStorage.getItem(CookBook));
+    const index = savedCookBook.indexOf(parseInt(Id));
+    savedCookBook.splice(index, 1);
+    localStorage.setItem(CookBook, JSON.stringify(savedCookBook));
+    localStorage.removeItem(`ID-${Id}`);
+}</code></pre>
+        </article>
+    </section>
 
 
 
 
-    </div>
+</div>
 
-    <nav>
-        <h2><a href="index.html">Home</a></h2>
-        <h3>Classes</h3>
-        <ul>
-            <li><a href="CategoryCard.CategoryCard.html">CategoryCard</a></li>
-            <li><a href="RecipeCard.RecipeCard.html">RecipeCard</a></li>
-            <li><a href="RecipePage.RecipePage.html">RecipePage</a></li>
-            <li><a href="Router.exports.Router.html">exports.Router</a></li>
-        </ul>
-        <h3>Global</h3>
-        <ul>
-            <li><a href="global.html#addMoreIngredients">addMoreIngredients</a></li>
-            <li><a href="global.html#addMoreInstructions">addMoreInstructions</a></li>
-            <li><a href="global.html#addNewCookBook">addNewCookBook</a></li>
-            <li><a href="global.html#appendNewCookBook">appendNewCookBook</a></li>
-            <li><a href="global.html#bindAll">bindAll</a></li>
-            <li><a href="global.html#bindAppNameClick">bindAppNameClick</a></li>
-            <li><a href="global.html#bindCategoryCards">bindCategoryCards</a></li>
-            <li><a href="global.html#bindCookbookPage">bindCookbookPage</a></li>
-            <li><a href="global.html#bindHomePage">bindHomePage</a></li>
-            <li><a href="global.html#bindNewCookBook">bindNewCookBook</a></li>
-            <li><a href="global.html#bindPopState">bindPopState</a></li>
-            <li><a href="global.html#bindSettingsPage">bindSettingsPage</a></li>
-            <li><a href="global.html#checkBookMark">checkBookMark</a></li>
-            <li><a href="global.html#clearCheckBoxes">clearCheckBoxes</a></li>
-            <li><a href="global.html#createCategoryCards">createCategoryCards</a></li>
-            <li><a href="global.html#fetchRecipes">fetchRecipes</a></li>
-            <li><a href="global.html#getIngredients">getIngredients</a></li>
-            <li><a href="global.html#getInstructions">getInstructions</a></li>
-            <li><a href="global.html#getRecipeCardInfo">getRecipeCardInfo</a></li>
-            <li><a href="global.html#getSingleInstr">getSingleInstr</a></li>
-            <li><a href="global.html#hideCategoryCards">hideCategoryCards</a></li>
-            <li><a href="global.html#hideCookbooks">hideCookbooks</a></li>
-            <li><a href="global.html#hideEditRecipe">hideEditRecipe</a></li>
-            <li><a href="global.html#hideHome">hideHome</a></li>
-            <li><a href="global.html#hideRecipeCards">hideRecipeCards</a></li>
-            <li><a href="global.html#hideRecipePage">hideRecipePage</a></li>
-            <li><a href="global.html#hideSearchBar">hideSearchBar</a></li>
-            <li><a href="global.html#hideSettings">hideSettings</a></li>
-            <li><a href="global.html#hideTapMode">hideTapMode</a></li>
-            <li><a href="global.html#init">init</a></li>
-            <li><a href="global.html#load">load</a></li>
-            <li><a href="global.html#search">search</a></li>
-            <li><a href="global.html#searchByCategory">searchByCategory</a></li>
-            <li><a href="global.html#showBookMarkEditReipce">showBookMarkEditReipce</a></li>
-            <li><a href="global.html#showCategoryCards">showCategoryCards</a></li>
-            <li><a href="global.html#showCookBookMenu">showCookBookMenu</a></li>
-            <li><a href="global.html#showCookbooks">showCookbooks</a></li>
-            <li><a href="global.html#showEditRecipe">showEditRecipe</a></li>
-            <li><a href="global.html#showHome">showHome</a></li>
-            <li><a href="global.html#showRecipeCards">showRecipeCards</a></li>
-            <li><a href="global.html#showRecipePage">showRecipePage</a></li>
-            <li><a href="global.html#showSearchBar">showSearchBar</a></li>
-            <li><a href="global.html#showSettings">showSettings</a></li>
-            <li><a href="global.html#showTapMode">showTapMode</a></li>
-            <li><a href="global.html#submit">submit</a></li>
-            <li><a href="global.html#sum">sum</a></li>
-            <li><a href="global.html#toggleEditRecipe">toggleEditRecipe</a></li>
-            <li><a href="global.html#toggleMenu">toggleMenu</a></li>
-            <li><a href="global.html#toggleSaveCookBook">toggleSaveCookBook</a></li>
-            <li><a href="global.html#toggleTapMode">toggleTapMode</a></li>
-            <li><a href="global.html#updateSettings">updateSettings</a></li>
-        </ul>
-    </nav>
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CategoryCard.CategoryCard.html">CategoryCard</a></li><li><a href="Filter.Filter.html">Filter</a></li><li><a href="RecipeCard.RecipeCard.html">RecipeCard</a></li><li><a href="RecipePage.RecipePage.html">RecipePage</a></li><li><a href="Router.exports.Router.html">exports.Router</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMoreIngredients">addMoreIngredients</a></li><li><a href="global.html#addMoreInstructions">addMoreInstructions</a></li><li><a href="global.html#addNewCookBook">addNewCookBook</a></li><li><a href="global.html#addRemoveCookBook">addRemoveCookBook</a></li><li><a href="global.html#addRemoveRecipe">addRemoveRecipe</a></li><li><a href="global.html#appendNewCookBook">appendNewCookBook</a></li><li><a href="global.html#bindAll">bindAll</a></li><li><a href="global.html#bindAppNameClick">bindAppNameClick</a></li><li><a href="global.html#bindCategoryCards">bindCategoryCards</a></li><li><a href="global.html#bindCookbookPage">bindCookbookPage</a></li><li><a href="global.html#bindCuisineFilters">bindCuisineFilters</a></li><li><a href="global.html#bindDietFilters">bindDietFilters</a></li><li><a href="global.html#bindHomePage">bindHomePage</a></li><li><a href="global.html#bindMealFilters">bindMealFilters</a></li><li><a href="global.html#bindNewCookBook">bindNewCookBook</a></li><li><a href="global.html#bindPopState">bindPopState</a></li><li><a href="global.html#bindSettingsPage">bindSettingsPage</a></li><li><a href="global.html#bindTimeFilters">bindTimeFilters</a></li><li><a href="global.html#checkBookMark">checkBookMark</a></li><li><a href="global.html#clearAllFilters">clearAllFilters</a></li><li><a href="global.html#clearCheckBoxes">clearCheckBoxes</a></li><li><a href="global.html#clearFilterCheckBoxes">clearFilterCheckBoxes</a></li><li><a href="global.html#createCategoryCards">createCategoryCards</a></li><li><a href="global.html#createFilters">createFilters</a></li><li><a href="global.html#emailRecipe">emailRecipe</a></li><li><a href="global.html#fetchRecipes">fetchRecipes</a></li><li><a href="global.html#getIngredients">getIngredients</a></li><li><a href="global.html#getInstructions">getInstructions</a></li><li><a href="global.html#getRecipeCardInfo">getRecipeCardInfo</a></li><li><a href="global.html#hideApplyBtn">hideApplyBtn</a></li><li><a href="global.html#hideCategoryCards">hideCategoryCards</a></li><li><a href="global.html#hideClearFiltersBtn">hideClearFiltersBtn</a></li><li><a href="global.html#hideCookbooks">hideCookbooks</a></li><li><a href="global.html#hideEditRecipe">hideEditRecipe</a></li><li><a href="global.html#hideFilterBtns">hideFilterBtns</a></li><li><a href="global.html#hideFilters">hideFilters</a></li><li><a href="global.html#hideHome">hideHome</a></li><li><a href="global.html#hideRecipeCards">hideRecipeCards</a></li><li><a href="global.html#hideRecipePage">hideRecipePage</a></li><li><a href="global.html#hideSearchBar">hideSearchBar</a></li><li><a href="global.html#hideSelectedFilters">hideSelectedFilters</a></li><li><a href="global.html#hideSettings">hideSettings</a></li><li><a href="global.html#hideTapMode">hideTapMode</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#load">load</a></li><li><a href="global.html#MAIN_API_URL">MAIN_API_URL</a></li><li><a href="global.html#printRecipe">printRecipe</a></li><li><a href="global.html#removeIngredient">removeIngredient</a></li><li><a href="global.html#removeInstruction">removeInstruction</a></li><li><a href="global.html#removeRecipe">removeRecipe</a></li><li><a href="global.html#resetFilters">resetFilters</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#searchByCategory">searchByCategory</a></li><li><a href="global.html#searchByFilter">searchByFilter</a></li><li><a href="global.html#showApplyBtn">showApplyBtn</a></li><li><a href="global.html#showBookMarkEditReipce">showBookMarkEditReipce</a></li><li><a href="global.html#showCategoryCards">showCategoryCards</a></li><li><a href="global.html#showClearFiltersBtn">showClearFiltersBtn</a></li><li><a href="global.html#showCookBookMenu">showCookBookMenu</a></li><li><a href="global.html#showCookbooks">showCookbooks</a></li><li><a href="global.html#showCuisineFilters">showCuisineFilters</a></li><li><a href="global.html#showDietFilters">showDietFilters</a></li><li><a href="global.html#showEditRecipe">showEditRecipe</a></li><li><a href="global.html#showFilterBtns">showFilterBtns</a></li><li><a href="global.html#showHome">showHome</a></li><li><a href="global.html#showMealFilters">showMealFilters</a></li><li><a href="global.html#showRecipeCards">showRecipeCards</a></li><li><a href="global.html#showRecipePage">showRecipePage</a></li><li><a href="global.html#showSearchBar">showSearchBar</a></li><li><a href="global.html#showSelectedFilters">showSelectedFilters</a></li><li><a href="global.html#showSettings">showSettings</a></li><li><a href="global.html#showTapMode">showTapMode</a></li><li><a href="global.html#showTimeFilters">showTimeFilters</a></li><li><a href="global.html#submit">submit</a></li><li><a href="global.html#tapMode">tapMode</a></li><li><a href="global.html#toggleCuisineFilters">toggleCuisineFilters</a></li><li><a href="global.html#toggleDietFilters">toggleDietFilters</a></li><li><a href="global.html#toggleEditRecipe">toggleEditRecipe</a></li><li><a href="global.html#toggleMealTypeFilters">toggleMealTypeFilters</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#toggleSaveCookBook">toggleSaveCookBook</a></li><li><a href="global.html#toggleTapMode">toggleTapMode</a></li><li><a href="global.html#toggleTimeFilters">toggleTimeFilters</a></li><li><a href="global.html#updateSettings">updateSettings</a></li></ul>
+</nav>
 
-    <br class="clear">
+<br class="clear">
 
-    <footer>
-        Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Nov 29 2021 17:51:46
-        GMT-0800 (Pacific Standard Time)
-    </footer>
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Fri Dec 10 2021 20:12:18 GMT-0800 (Pacific Standard Time)
+</footer>
 
-    <script> prettyPrint();</script>
-    <script src="scripts/linenumber.js"> </script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
 </body>
-
 </html>

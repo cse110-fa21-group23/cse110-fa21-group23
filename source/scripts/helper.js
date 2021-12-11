@@ -1,7 +1,9 @@
 //HELPER FUNCTIONS
 /**
  * Extract needed info of all recipes fetched as an array 
- * @returns {{diets1,id1,image1,title1},{diets2,id2,image2,title2},...}
+ * 
+ * @param {Object} data the data of the recipe card
+ * @returns {Object} {{diets1,id1,image1,title1},{diets2,id2,image2,title2},...}
  */
  function getRecipeCardInfo(data) {
   if(data === null || data === undefined) return [];
