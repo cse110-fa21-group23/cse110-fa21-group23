@@ -9,8 +9,8 @@ For those who don't have a desktop PC in the middle of their kitchens, Quick n' 
 
 - **Create** new cookbooks to save your favorite recipes
 - **Read** in pre-written recipes from [Spoonacular](https://spoonacular.com/food-api)
-- **Update** recipes to personalize them to your liking as well as your dietary preferences
-- **Delete** any recipes that contains your dietary intolerances or delete any unused cookbooks
+- **Update** recipes to personalize them to your liking and update your dietary preferences 
+- **Delete** any recipes that contains your dietary intolerances and delete any unused cookbooks
 ![website demo](https://github.com/cse110-fa21-group23/cse110-fa21-group23/blob/main/admin/branding/website/homepage.gif)
 
 
