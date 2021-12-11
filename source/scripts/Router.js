@@ -21,7 +21,7 @@ export class Router {
     }
     
     /**
-     * Navigtes to the page
+     * Navigates to the page
      *
      * @param {String} page the page to navigate to
      * @param {Boolean} statePopped whether this page has been popped

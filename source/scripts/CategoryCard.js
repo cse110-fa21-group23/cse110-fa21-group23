@@ -40,7 +40,7 @@ class CategoryCard extends HTMLElement {
             display: grid;
             margin-top: 30px;
             margin-left: 15px;
-            margin-rigth: 15px;
+            margin-right: 15px;
         }
 
         article > img {

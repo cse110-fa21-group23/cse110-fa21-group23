@@ -15,7 +15,6 @@ import SPOONACULAR_API_KEY from "./apikey.js";
 const MAIN_API_URL = "https://api.spoonacular.com/recipes";
 const API_KEY = SPOONACULAR_API_KEY;
 
-
 /**
  * Fetch the recipes for the search page
  *
@@ -26,8 +25,8 @@ const API_KEY = SPOONACULAR_API_KEY;
 async function fetchRecipes(queries, callbackFn) {
     const complexSearch = "/complexSearch";
     const count = "&addRecipeInformation=true&number=30";
-    const addIngridients = "&fillIngredients=true&instructionsRequired=true";
-    const url = `${MAIN_API_URL}${complexSearch}?${queries}${API_KEY}${addIngridients}${count}`;
+    const addIngredients = "&fillIngredients=true&instructionsRequired=true";
+    const url = `${MAIN_API_URL}${complexSearch}?${queries}${API_KEY}${addIngredients}${count}`;
     console.log(url);
     return new Promise((resolve, reject) => {
         fetch(url)

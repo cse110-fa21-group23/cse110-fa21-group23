@@ -430,8 +430,8 @@ function getIngredients(data) {
   if (extendedIngredients == null || extendedIngredients == undefined) { return data["ingredients"]; }
   let list = [];
   let index = 0;
-  extendedIngredients.forEach((ingredien) => {
-    list[index++] = ingredien["originalString"];
+  extendedIngredients.forEach((ingredient) => {
+    list[index++] = ingredient["originalString"];
   })
   return list;
 }

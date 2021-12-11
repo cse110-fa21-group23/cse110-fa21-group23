@@ -668,7 +668,7 @@ function checkBookMark(data) {
     const Data = JSON.parse(localStorage.getItem(`ID-${Id}`));
     if (Data != null) {
         document.querySelector("recipe-page").data = Data;
-        showBookMarkEditReipce();
+        showBookMarkEditRecipe();
     }
 }
 
@@ -735,7 +735,7 @@ function showCookBookMenu() {
             bookMark.title = "Click to save this recipe";
             hideEditRecipe();
         } catch (err) {
-            alert("An error has occured: " + err);
+            alert("An error has occurred: " + err);
         }
     }
 }
@@ -767,10 +767,10 @@ function bindNewCookBook(li) {
 
             // alert user
             alert("Added to " + CookBookName + " successful");
-            showBookMarkEditReipce();
+            showBookMarkEditRecipe();
             toggleSaveCookBook(); // close savecookbook menu
         } catch (err) {
-            alert("An error has occured" + err);
+            alert("An error has occurred" + err);
         }
     });
 }
@@ -822,15 +822,50 @@ function appendNewCookBook(newCookBook) {
  * store it to local storage and call appendNewCookBook()
  * 
  */
-function addNewCookBook() {
+ function addNewCookBook() {
     let newCookBook = prompt("Enter new cookbook:");
-    if (newCookBook == "" || newCookBook == null) { return; }
+    if (newCookBook == null) { return; }
+    newCookBook = newCookBook.replace(/\s+/g, ' ').trim();
+    while (processTextSubmitCookbook(newCookBook) === false) {
+        if (newCookBook == "") {
+            newCookBook = prompt("Error: No input detected. Please choose a valid name.");
+        } else {
+            newCookBook = prompt("Error: Another cookbook already has that name. Please choose another.");
+        }
+        if (newCookBook != null) {
+            newCookBook = newCookBook.replace(/\s+/g, ' ').trim();
+        } else {
+            return;
+        }
+    }
+
     appendNewCookBook(newCookBook);
     // update local storage
     let cookBooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
     cookBooks.push(newCookBook);
     localStorage.setItem(COOK_BOOKS, JSON.stringify(cookBooks));
 }
+
+/**
+ * Checks to see if the cookbook name is valid
+ *
+ * @param {string} userInput the cookbook name to check
+ * @return {boolean} true if the name isn't null, empty, or already in use. Otherwise it returns false
+ */
+ function processTextSubmitCookbook(userInput) {
+    // Checks if the input is empty, if so it changes the request text and exits the function
+    if (userInput == "") {
+        return false;
+    }
+    // Checks if the input is the same as another cookbook, if so it changes the request text and exits the function
+    let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
+    for (let i= 0; i < cookbooks.length; i++) {
+        if (cookbooks[i] == userInput) {
+            return false;
+        }
+    }
+    return true;
+ }
 
 /* end of save new cookbook ====================================================*/
 
@@ -892,7 +927,7 @@ function toggleEditRecipe() {
 
 
 /**
- * This hepler function adds ingredients to the edit recipe.
+ * This helper function adds ingredients to the edit recipe.
  * 
  * @param {string} ig ingredient
  */
@@ -908,7 +943,7 @@ function addMoreIngredients(ig = "") {
 }
 
 /**
- * This hepler function adds instructions to the edit recipe
+ * This helper function adds instructions to the edit recipe
  * 
  * @param {string} ins instruction
  */
@@ -932,7 +967,7 @@ function removeIngredient() {
 }
 
 /**
- * This function removes the last intructions in the instructions list
+ * This function removes the last instructions in the instructions list
  */
 function removeInstruction() {
     let instrList = document.querySelector(".edit-recipe-form > .edit-instructions > ol");
@@ -973,7 +1008,7 @@ function submit() {
 
     // reload
     document.querySelector("recipe-page").data = EDIT_RECIPE_DATA;
-    showBookMarkEditReipce();
+    showBookMarkEditRecipe();
 
     EDIT_RECIPE_DATA = {};
 }
@@ -982,7 +1017,7 @@ function submit() {
  * This helper function display bookmark-filled and display editRecipe
  * 
  */
-function showBookMarkEditReipce() {
+function showBookMarkEditRecipe() {
     let bookMark = document.querySelector("#recipe-page-container > recipe-page").shadowRoot.querySelector("#bookmark");
     bookMark.src = "./img/icons/bookmark-filled.svg";
     bookMark.title = "Click to remove this recipe";
@@ -1015,16 +1050,17 @@ window.emailRecipe = emailRecipe;
 function showSavedRecipe() {
     let cookbooks = JSON.parse(localStorage.getItem(COOK_BOOKS));
     const container = document.getElementById("cookbook-container");
-    let copy = cookbooks;
+    if (cookbooks == null || cookbooks == undefined) { cookbooks = ["Favorites"]; }
+    let removeArr = new Array(Object.keys(cookbooks).length);
     for (let i = 0; i < Object.keys(cookbooks).length; i++) {
+        removeArr[i] = false;
         let current = JSON.parse(localStorage.getItem(cookbooks[i]));
         if (cookbooks[i] != "Favorites") {
             if (current == null || current.length == 0) {
                 localStorage.removeItem(cookbooks[i]);
                 const index = cookbooks.indexOf(cookbooks[i]);
                 if (index > -1) {
-                    copy.splice(index, 1);
-                    localStorage.setItem("cookbooks", JSON.stringify(copy));
+                    removeArr[i] = true;
                     continue;
                 }
             }
@@ -1032,12 +1068,16 @@ function showSavedRecipe() {
         let host = document.createElement("div");
         let removeCookBookButton = document.createElement("button");
 
-        //  coobook-wrapper
+        //  cookbook-wrapper
         let divCookBookWrapper = document.createElement("div");
-        divCookBookWrapper.classList.add("coobook-wrapper");
+        divCookBookWrapper.classList.add("cookbook-wrapper");
         divCookBookWrapper.appendChild(host);
-        if (cookbooks[i] !== "Favorites")
+        if (cookbooks[i] !== "Favorites") {
             divCookBookWrapper.appendChild(removeCookBookButton);
+        } else if (null == JSON.parse(localStorage.getItem(cookbooks[i]))) {
+            let arr = [];
+            localStorage.setItem(cookbooks[i], JSON.stringify(arr));
+        }
 
         let list = JSON.parse(localStorage.getItem(cookbooks[i]));
         host.setAttribute("id", cookbooks[i]);
@@ -1113,13 +1153,19 @@ function showSavedRecipe() {
                 clearSavedRecipe();
                 showRecipePage();
                 document.querySelector("recipe-page").data = uniquedish;
-                showBookMarkEditReipce();
+                showBookMarkEditRecipe();
             });
 
         }
         container.appendChild(divCookBookWrapper);
     }
 
+    for (let i = (removeArr.length - 1); i >= 0; i--) {
+        if (removeArr[i] == true) {
+            cookbooks.splice(i, 1);
+        }
+    } 
+    localStorage.setItem(COOK_BOOKS, JSON.stringify(cookbooks));
 }
 //remove appended recipes when leave cookbook
 function clearSavedRecipe() {
