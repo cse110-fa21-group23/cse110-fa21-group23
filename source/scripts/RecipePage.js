@@ -431,7 +431,7 @@ function getIngredients(data) {
   let list = [];
   let index = 0;
   extendedIngredients.forEach((ingredien) => {
-    list[index++] = ingredien["originalString"];
+    list[index++] = ingredien["originalName"];
   })
   return list;
 }
